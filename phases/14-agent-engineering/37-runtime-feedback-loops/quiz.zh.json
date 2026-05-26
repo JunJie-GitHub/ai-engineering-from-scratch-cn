@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the feedback runner force the agent to do?",
+      "questionZh": "反馈运行器（Feedback Runner）会强制智能体（Agent）执行什么操作？",
+      "options": [
+        "React to imagined output",
+        "React to facts: structured stdout/stderr/exit/duration records captured into the loop on every command",
+        "Skip verification",
+        "Use a different model"
+      ],
+      "optionsZh": [
+        "对模拟输出做出响应",
+        "响应事实：每次执行命令时，将结构化的标准输出(stdout)、标准错误(stderr)、退出状态码(exit)及耗时(duration)记录捕获至执行循环中。",
+        "跳过验证",
+        "使用不同的模型"
+      ],
+      "explanation": "The runner closes the gap between 'tests passed' (imagined) and 'tests actually ran and exited zero' (recorded).",
+      "explanationZh": "运行器（runner）弥合了“测试通过”（预期）与“测试实际运行且退出码为 0”（实际记录）之间的差距。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "How does feedback differ from telemetry?",
+      "questionZh": "反馈 (feedback) 与遥测 (telemetry) 有何区别？",
+      "options": [
+        "Telemetry is paid",
+        "Feedback is for the next turn of this run; telemetry is for operators reviewing runs across time (different files, different retention)",
+        "Telemetry uses OTel; feedback uses GraphQL",
+        "They are the same thing"
+      ],
+      "optionsZh": [
+        "遥测（Telemetry）为付费功能。",
+        "反馈 (Feedback) 用于指导当前运行 (Run) 的下一轮次 (Turn)；遥测 (Telemetry) 则供运维人员 (Operators) 跨时间维度审查历史运行记录（涉及不同的文件与数据保留策略 (Retention)）。",
+        "遥测 (Telemetry) 采用 OpenTelemetry (OTel)；反馈 (Feedback) 采用 GraphQL。",
+        "它们是同一个东西。"
+      ],
+      "explanation": "Both share fields but live in different files with different retention; feedback is intra-run, telemetry is cross-run.",
+      "explanationZh": "两者共享相同的字段，但存储在不同的文件中，且数据保留策略（retention）不同；反馈（feedback）针对单次运行内（intra-run），而遥测数据（telemetry）则用于跨运行（cross-run）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Which field MUST appear in every feedback record?",
+      "questionZh": "每个反馈记录中必须包含哪个字段？",
+      "options": [
+        "model_id",
+        "exit_code (and a null exit must refuse to advance the loop)",
+        "embedding_vector",
+        "prompt_cache_token"
+      ],
+      "optionsZh": [
+        "model_id",
+        "`exit_code`（且空退出（null exit）必须拒绝推进循环）",
+        "embedding_vector",
+        "prompt_cache_token"
+      ],
+      "explanation": "exit_code is the unambiguous success signal; null exit means no progress.",
+      "explanationZh": "`exit_code` 是明确的执行成功信号；`null exit` 表示未取得任何进展。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "How does the runner truncate large outputs?",
+      "questionZh": "运行器（Runner）如何截断大型输出？",
+      "options": [
+        "Random sampling",
+        "Deterministic head + tail with a 'truncated N lines' marker so the same output always produces the same record",
+        "First 10 lines only",
+        "Compresses with gzip"
+      ],
+      "optionsZh": [
+        "随机抽样 (Random Sampling)",
+        "采用确定性（Deterministic）的首尾截取（Head + Tail）方式，并附带“截断 N 行”标记，以确保相同的输出始终生成相同的记录。",
+        "仅前10行",
+        "使用 gzip 压缩"
+      ],
+      "explanation": "Deterministic truncation keeps records replayable while bounding token cost; tails carry the failure summary.",
+      "explanationZh": "确定性截断（Deterministic truncation）在控制 Token 成本的同时确保记录可重放；尾部包含失败摘要。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Why redact at write time rather than read time?",
+      "questionZh": "为什么选择在写入时（write time）进行脱敏（redact），而不是在读取时（read time）？",
+      "options": [
+        "Compression",
+        "The file on disk is what an attacker reaches; redacting only on read leaves secrets in JSONL files",
+        "Read-time redaction breaks JSON",
+        "It is faster"
+      ],
+      "optionsZh": [
+        "压缩 (Compression)",
+        "攻击者实际访问的是磁盘上的文件；若仅在读取时进行脱敏（redaction），敏感信息（secrets）仍会残留在 JSONL 文件中。",
+        "读取时脱敏（Read-time Redaction）会破坏 JSON 格式",
+        "速度更快"
+      ],
+      "explanation": "Redact lines matching Bearer, password=, api_key=, AKIA..., xox[baprs]- before append; auditing the patterns quarterly.",
+      "explanationZh": "在追加前，对匹配 Bearer、password=、api_key=、AKIA...、xox[baprs]- 的行进行脱敏（Redaction）处理；并每季度对这些匹配模式（Patterns）进行审计（Auditing）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does parent_command_id give the workbench?",
+      "questionZh": "`parent_command_id` 为工作台提供了什么？",
+      "options": [
+        "Cheaper inference",
+        "Retries link to their parent attempt so the reviewer and audit see the failure chain; without it retries look like independent successes",
+        "Faster file I/O",
+        "Lower memory"
+      ],
+      "optionsZh": [
+        "更低成本的推理 (Inference)",
+        "重试（Retries）会关联至其父级尝试（parent attempt），以便审查者（reviewer）与审计（audit）能够查看完整的失败链（failure chain）；若无此关联，重试操作将看似彼此独立的成功执行。",
+        "更快的文件 I/O (File I/O)",
+        "降低内存占用"
+      ],
+      "explanation": "Parent linkage makes retry chains visible to the reviewer (Lesson 39) and the verification gate.",
+      "explanationZh": "父级关联 (Parent linkage) 使重试链 (Retry chains) 对审核员 (Reviewer)（第 39 课）和验证门禁 (Verification gate) 可见。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why cap feedback_record.jsonl at 1 MB with rotation?",
+      "questionZh": "为什么将 feedback_record.jsonl 的大小上限设置为 1 MB 并启用轮转 (rotation)？",
+      "options": [
+        "JSON does not handle larger files",
+        "The agent only reads the current file; rotation keeps runtime cost bounded while CI artifacts capture the full set",
+        "Disks are too slow",
+        "The provider charges per byte"
+      ],
+      "optionsZh": [
+        "JSON 不适合处理较大文件",
+        "代理（Agent）仅读取当前文件；轮转（Rotation）机制可将运行时开销（Runtime Cost）控制在有限范围内，而 CI 制品（CI Artifacts）则负责捕获完整文件集。",
+        "磁盘 (Disk) 速度太慢",
+        "服务提供商按字节计费"
+      ],
+      "explanation": "Bounded current file + rotated history is the same pattern logrotate uses; predictable cost in the hot loop.",
+      "explanationZh": "限制大小的当前文件 + 轮转历史记录，这与 logrotate 采用的模式一致；在热循环 (hot loop) 中的性能开销可预测。"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the core insight behind LoRA (Low-Rank Adaptation)?",
+      "questionZh": "低秩自适应（LoRA）背后的核心思想是什么？",
+      "options": [
+        "Most weights don't matter",
+        "Weight updates during fine-tuning have low intrinsic rank, so they can be approximated by two small matrices instead of updating the full weight matrix",
+        "Fine-tuning only needs the last layer",
+        "Smaller models are always better"
+      ],
+      "optionsZh": [
+        "大多数权重 (weights) 并不重要",
+        "微调（Fine-tuning）过程中的权重更新具有较低的内在秩（Intrinsic Rank），因此可以通过两个较小的矩阵进行近似，而无需更新完整的权重矩阵（Weight Matrix）。",
+        "微调 (Fine-tuning) 仅需训练最后一层 (Last Layer)",
+        "模型越小越好"
+      ],
+      "explanation": "Aghajanyan et al. showed that fine-tuning updates occupy a low-dimensional subspace. LoRA exploits this by representing the update as W + BA where B (d x r) and A (r x d) have small rank r, typically 8-64.",
+      "explanationZh": "Aghajanyan 等人指出，微调 (fine-tuning) 更新占据一个低维子空间 (low-dimensional subspace)。LoRA 利用这一特性，将更新表示为 W + BA 的形式，其中 B (d x r) 和 A (r x d) 的秩 (rank) r 较小，通常为 8-64。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "How much memory does LoRA save compared to full fine-tuning of an 8B model?",
+      "questionZh": "与全量微调（full fine-tuning）8B 模型相比，LoRA（低秩自适应）能节省多少显存（GPU memory）？",
+      "options": [
+        "No savings",
+        "From ~56GB down to ~6GB by training <1% of parameters while keeping base weights frozen",
+        "50% reduction",
+        "Only saves disk space"
+      ],
+      "optionsZh": [
+        "无节省",
+        "通过仅训练不到 1% 的参数（Parameters）并保持基础权重（Base Weights）冻结，将占用从约 56GB 降至约 6GB。",
+        "降低50%",
+        "仅节省磁盘空间"
+      ],
+      "explanation": "Full fine-tuning needs gradients and optimizer states for all 8B parameters (~56GB). LoRA freezes base weights and only trains adapter matrices (~80M parameters at rank 16), needing ~6GB total.",
+      "explanationZh": "全量微调（Full Fine-tuning）需要为全部 80 亿参数（8B parameters）计算梯度（Gradients）并维护优化器状态（Optimizer States），约需 56GB。LoRA（Low-Rank Adaptation）会冻结基础权重（Base Weights），仅训练适配器矩阵（Adapter Matrices）（在秩为 16（Rank 16）时约含 8000 万参数），总共仅需约 6GB。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "What is QLoRA?",
+      "questionZh": "什么是量化低秩自适应（QLoRA）？",
+      "options": [
+        "Quantized LoRA: the base model is loaded in 4-bit precision while LoRA adapters train in 16-bit, combining memory savings from both techniques",
+        "A faster version of LoRA",
+        "LoRA applied to quantized activations",
+        "A different fine-tuning algorithm"
+      ],
+      "optionsZh": [
+        "量化 LoRA（Quantized LoRA）：基础模型以 4 位精度加载，而 LoRA 适配器以 16 位精度进行训练，从而结合这两种技术的显存节省优势。",
+        "低秩适应 (LoRA) 的更快版本",
+        "应用于量化激活值 (quantized activations) 的低秩自适应 (LoRA)",
+        "另一种微调算法 (fine-tuning algorithm)"
+      ],
+      "explanation": "QLoRA (Dettmers et al.) loads the frozen base model in 4-bit (NF4 quantization) while training LoRA adapters in FP16/BF16. This allows fine-tuning a 7B model on a single consumer GPU with 6GB VRAM.",
+      "explanationZh": "QLoRA（Dettmers 等人）以 4 位（4-bit）精度加载冻结的基础模型（frozen base model，采用 NF4 量化（NF4 quantization）），同时在 FP16/BF16 精度下训练 LoRA 适配器（LoRA adapters）。这使得在单张配备 6GB 显存（VRAM）的消费级 GPU（consumer GPU）上微调（fine-tuning）7B 模型（7B model）成为可能。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the 'rank' parameter (r) in LoRA control?",
+      "questionZh": "低秩自适应 (LoRA) 中的秩 (rank) 参数 (r) 控制什么？",
+      "options": [
+        "The number of training epochs",
+        "The capacity of the adapter: higher rank captures more complex adaptations but uses more parameters and memory",
+        "The learning rate",
+        "The number of layers to fine-tune"
+      ],
+      "optionsZh": [
+        "训练轮数 (training epochs)",
+        "适配器 (Adapter) 的容量：更高的秩 (Rank) 能够捕捉更复杂的适配调整，但会消耗更多的参数 (Parameters) 和内存 (Memory)。",
+        "学习率 (Learning Rate)",
+        "需微调的层数"
+      ],
+      "explanation": "Rank r determines the size of adapter matrices A (r x d) and B (d x r). Rank 4 trains very few parameters (fast, cheap). Rank 64 trains more parameters (more expressive). Most tasks work well with rank 8-32.",
+      "explanationZh": "秩 (Rank) r 决定了适配器矩阵 (Adapter matrices) A (r x d) 和 B (d x r) 的维度。秩为 4 时训练的参数 (Parameters) 极少（速度快、成本低）。秩为 64 时训练的参数更多（表达能力更强）。大多数任务在秩为 8-32 时表现良好。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What happens when you merge LoRA weights back into the base model?",
+      "questionZh": "将 LoRA 权重（LoRA weights）合并回基础模型（base model）时会发生什么？",
+      "options": [
+        "The model becomes larger",
+        "The adapter matrices are added to the base weights (W_merged = W_base + B*A), producing a standard model with no inference overhead",
+        "The model needs to be retrained",
+        "Merging is not possible"
+      ],
+      "optionsZh": [
+        "模型 (Model) 规模增大",
+        "将适配器矩阵（Adapter Matrices）与基础权重（Base Weights）相加（W_merged = W_base + B*A），从而得到一个无推理开销（Inference Overhead）的标准模型。",
+        "该模型 (Model) 需要重新训练。",
+        "无法合并"
+      ],
+      "explanation": "Since LoRA adds W_base + B*A, you can compute B*A once and add it to W_base permanently. The merged model has the same architecture and inference speed as the original, with no adapter overhead.",
+      "explanationZh": "由于低秩自适应（LoRA）的权重叠加方式为 W_base + B*A，你可以预先计算一次 B*A 并将其永久合并至 W_base 中。合并后的模型在架构和推理速度上与原模型完全一致，且不会引入任何适配器（adapter）带来的额外开销。"
+    }
+  ]
+}

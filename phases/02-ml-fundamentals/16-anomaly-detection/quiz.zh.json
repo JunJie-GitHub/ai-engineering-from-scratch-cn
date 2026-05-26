@@ -1,0 +1,109 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "anomaly-pre-1",
+      "question": "Why is anomaly detection typically framed as an unsupervised problem rather than classification?",
+      "questionZh": "为什么异常检测（Anomaly Detection）通常被定义为无监督学习（Unsupervised Learning）问题，而不是分类（Classification）问题？",
+      "options": [
+        "Anomaly detection does not require any data",
+        "Labeled anomalies are extremely rare, and novel anomaly types differ from previously seen ones",
+        "Supervised classification is always less accurate",
+        "Anomaly detection only works on time series data"
+      ],
+      "optionsZh": [
+        "异常检测（Anomaly Detection）无需任何数据。",
+        "标注异常（Labeled Anomalies）极为罕见，且新型异常类型（Novel Anomaly Types）与以往观测到的异常存在差异。",
+        "监督分类（Supervised Classification）的准确率始终较低。",
+        "异常检测（Anomaly detection）仅适用于时间序列数据（time series data）。"
+      ],
+      "explanation": "Anomalies are rare (often <0.1% of data), so there are too few labeled examples to train a classifier. Also, future anomalies may be of types never seen before. Modeling 'normal' and flagging deviations handles both problems.",
+      "explanationZh": "异常（Anomalies）极为罕见（通常占比不足数据的 0.1%），因此缺乏足够的标注样本（labeled examples）来训练分类器（classifier）。此外，未来出现的异常可能属于前所未见的新类型。通过对“正常”模式进行建模并标记偏离（deviations）行为，即可同时解决这两个问题。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "anomaly-pre-2",
+      "question": "A temperature of 90F is normal in summer but anomalous in winter. What type of anomaly is this?",
+      "questionZh": "夏季90华氏度的气温属于正常现象，但在冬季则属于异常（anomaly）。这属于哪种类型的异常？",
+      "options": [
+        "Point anomaly",
+        "Contextual anomaly",
+        "Collective anomaly",
+        "Statistical anomaly"
+      ],
+      "optionsZh": [
+        "点异常 (Point anomaly)",
+        "上下文异常 (Contextual anomaly)",
+        "集体异常 (Collective anomaly)",
+        "统计异常 (Statistical Anomaly)"
+      ],
+      "explanation": "A contextual anomaly is a value that is unusual given its context (time, location). The value itself might be normal in a different context. Same data point, different interpretation based on surrounding conditions.",
+      "explanationZh": "上下文异常（Contextual Anomaly）是指在特定上下文（如时间、位置）下显得异常的值。该值本身在其他上下文中可能属于正常范围。相同的数据点，会因其周围条件的不同而得到不同的判定。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "anomaly-post-1",
+      "question": "The Z-score method flags points more than 3 standard deviations from the mean. When does this approach fail?",
+      "questionZh": "Z分数（Z-score）方法会标记出偏离均值（mean）超过3个标准差（standard deviation）的数据点。该方法在什么情况下会失效？",
+      "options": [
+        "When the data is perfectly normally distributed",
+        "When the data is multimodal, skewed, or when outliers in the training data inflate the mean and std",
+        "When there are exactly 3 anomalies in the dataset",
+        "When the features are standardized"
+      ],
+      "optionsZh": [
+        "当数据完全服从正态分布（Normal Distribution）时",
+        "当数据呈多模态（multimodal）或偏态（skewed），或训练数据（training data）中的异常值（outliers）拉高均值（mean）与标准差（std）时",
+        "当数据集 (dataset) 中恰好包含 3 个异常值 (anomalies) 时",
+        "当特征 (features) 被标准化 (standardized) 时"
+      ],
+      "explanation": "Z-score assumes a single Gaussian distribution. It fails on multimodal data (multiple clusters), skewed distributions, and when outliers in training data shift the mean/std, making real anomalies harder to detect.",
+      "explanationZh": "Z分数 (Z-score) 假设数据服从单一的高斯分布 (Gaussian distribution)。它在处理多峰数据 (multimodal data)（即多个簇）和偏态分布 (skewed distributions) 时会失效；此外，当训练数据中的异常值 (outliers) 导致均值/标准差 (mean/std) 发生偏移时，也会使真实的异常 (anomalies) 更难被检测出来。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "anomaly-post-2",
+      "question": "How does Isolation Forest detect anomalies differently from distance-based methods?",
+      "questionZh": "孤立森林（Isolation Forest）与基于距离的方法（distance-based methods）在检测异常（anomalies）方面有何不同？",
+      "options": [
+        "It uses neural networks instead of trees",
+        "It isolates points using random splits; anomalies require fewer splits to isolate because they are few and different",
+        "It computes distances to every other point in the dataset",
+        "It only works on text data"
+      ],
+      "optionsZh": [
+        "它采用神经网络 (Neural Networks) 而非树模型 (Tree Models)。",
+        "它通过随机划分（random splits）来隔离数据点；由于异常点（anomalies）数量较少且与正常数据差异显著，因此只需较少的划分次数即可将其隔离。",
+        "它计算数据集 (dataset) 中每个点与其他所有点之间的距离。",
+        "它仅适用于文本数据 (text data)。"
+      ],
+      "explanation": "Isolation Forest randomly partitions data with tree splits. Anomalies, being rare and different, end up isolated (in their own leaf) with fewer splits. Short average path length = more anomalous.",
+      "explanationZh": "孤立森林（Isolation Forest）通过树的分裂操作随机划分数据。异常点（Anomalies）由于数量稀少且特征迥异，通常只需较少的分裂次数就会被隔离至独立的叶子节点中。平均路径长度越短，表示数据的异常程度越高。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "anomaly-post-3",
+      "question": "You build both an unsupervised anomaly detector and a supervised fraud classifier. When should you prefer the unsupervised approach?",
+      "questionZh": "你同时构建了一个无监督异常检测器（Unsupervised Anomaly Detector）和一个监督欺诈分类器（Supervised Fraud Classifier）。在什么情况下应优先选择无监督方法（Unsupervised Approach）？",
+      "options": [
+        "Always -- unsupervised is always better for anomaly detection",
+        "When you need to detect novel fraud patterns that differ from historical labeled examples",
+        "When you have millions of labeled fraud examples",
+        "When you only care about precision, not recall"
+      ],
+      "optionsZh": [
+        "始终如此——无监督学习（Unsupervised Learning）在异常检测（Anomaly Detection）中始终更具优势。",
+        "当您需要检测与历史标注样本（historical labeled examples）不同的新型欺诈模式（novel fraud patterns）时",
+        "当你拥有数百万标注的欺诈样本（labeled fraud examples）时",
+        "当您只关注精确率（Precision），而不关心召回率（Recall）时"
+      ],
+      "explanation": "Supervised classifiers only catch fraud types present in training data. Unsupervised detectors flag any deviation from normal, catching novel fraud schemes. The tradeoff is higher false positive rate.",
+      "explanationZh": "监督分类器 (Supervised Classifiers) 仅能识别训练数据 (Training Data) 中已有的欺诈类型。无监督检测器 (Unsupervised Detectors) 则会标记任何偏离正常模式的行为，从而捕获新型欺诈手段。其代价是误报率 (False Positive Rate) 会更高。"
+    }
+  ]
+}

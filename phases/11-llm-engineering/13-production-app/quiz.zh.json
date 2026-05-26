@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the biggest gap between an LLM demo and a production LLM application?",
+      "questionZh": "大语言模型（LLM）演示与生产级大语言模型应用之间最大的差距是什么？",
+      "options": [
+        "The model quality",
+        "Infrastructure: error handling, streaming, cost tracking, rate limiting, fallbacks, observability, and graceful degradation under load",
+        "The prompt quality",
+        "The choice of API provider"
+      ],
+      "optionsZh": [
+        "模型质量 (Model Quality)",
+        "基础设施 (Infrastructure)：错误处理 (Error Handling)、流式处理 (Streaming)、成本追踪 (Cost Tracking)、速率限制 (Rate Limiting)、回退机制 (Fallbacks)、可观测性 (Observability) 以及负载下的优雅降级 (Graceful Degradation under Load)。",
+        "提示词（Prompt）质量",
+        "API 提供商（API Provider）的选择"
+      ],
+      "explanation": "A demo calls an API and prints the response. Production must handle timeouts, provider outages, concurrent users, cost budgets, streaming delivery, logging, and graceful degradation. The model is the easy part.",
+      "explanationZh": "演示环境只需调用 API 并打印响应结果。而生产环境则必须妥善处理超时 (timeout)、服务提供商故障 (provider outage)、并发用户 (concurrent users)、成本预算 (cost budgets)、流式输出 (streaming delivery)、日志记录 (logging) 以及优雅降级 (graceful degradation)。相比之下，模型 (model) 反而是最简单的部分。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why is streaming token delivery important in production LLM applications?",
+      "questionZh": "为什么在生产环境的大语言模型（LLM）应用中，流式 Token 传输（streaming token delivery）至关重要？",
+      "options": [
+        "It reduces cost",
+        "Users perceive the first token arriving quickly as faster, even if total generation time is the same -- reducing perceived latency from seconds to milliseconds",
+        "It uses less memory",
+        "It improves model accuracy"
+      ],
+      "optionsZh": [
+        "它降低了成本。",
+        "即使总生成时间相同，首个词元 (token) 的快速返回也会让用户感觉响应更快——这能将感知延迟 (perceived latency) 从秒级降至毫秒级。",
+        "它占用的内存 (Memory) 更少。",
+        "它能够提升模型准确率 (Model Accuracy)。"
+      ],
+      "explanation": "Without streaming, users wait 3-10 seconds seeing nothing before the full response appears. With streaming, the first token arrives in ~200ms and text flows continuously, making the experience feel responsive.",
+      "explanationZh": "在未启用流式传输（Streaming）的情况下，用户在完整响应出现前需等待 3 至 10 秒，期间界面无任何反馈。启用流式传输后，首个词元（Token）约 200 毫秒即可返回，文本随之持续输出，从而带来响应迅速的用户体验。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What should happen when your LLM API provider has an outage?",
+      "questionZh": "当您的大语言模型（LLM）API 提供商发生服务中断（outage）时，应如何应对？",
+      "options": [
+        "Show users an error page",
+        "The application should automatically fall back to an alternative provider or return a graceful degraded response",
+        "Retry indefinitely until the provider recovers",
+        "Switch to a local model"
+      ],
+      "optionsZh": [
+        "向用户显示错误页面",
+        "应用程序应自动回退（Fallback）至备用提供商，或返回优雅降级响应（Graceful Degraded Response）。",
+        "无限重试，直至服务提供商 (provider) 恢复。",
+        "切换到本地模型 (Local Model)"
+      ],
+      "explanation": "Production systems need fallback strategies: try Provider B if Provider A fails, serve cached responses for common queries, or return a helpful 'temporarily unavailable' message. Never let a provider outage crash your application.",
+      "explanationZh": "生产系统（Production Systems）需要制定回退策略（Fallback Strategies）：若提供商 A 发生故障，则尝试切换至提供商 B；针对常见查询提供缓存响应（Cached Responses）；或返回友好的“暂时不可用”提示。切勿让服务提供商中断（Provider Outage）导致你的应用程序崩溃。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What observability metrics should a production LLM application track?",
+      "questionZh": "生产环境的大语言模型（LLM）应用应当监控哪些可观测性指标（Observability Metrics）？",
+      "options": [
+        "Only error counts",
+        "Request latency (P50/P95/P99), cost per request, error rates, token usage, cache hit rates, and quality scores from automated evals",
+        "Only model accuracy",
+        "Only monthly cost"
+      ],
+      "optionsZh": [
+        "仅错误计数",
+        "请求延迟（Request Latency）(P50/P95/P99)、单次请求成本（Cost per Request）、错误率（Error Rate）、Token 使用量（Token Usage）、缓存命中率（Cache Hit Rate），以及自动化评估（Automated Evaluation）得出的质量评分（Quality Score）。",
+        "仅模型准确率 (Model Accuracy)",
+        "仅月费"
+      ],
+      "explanation": "Comprehensive observability covers: latency percentiles (for SLA compliance), cost tracking (for budget management), error rates (for reliability), token usage (for optimization), and quality metrics (for regression detection).",
+      "explanationZh": "全面可观测性（Comprehensive Observability）涵盖：延迟百分位数（Latency Percentiles，用于 SLA 合规性）、成本追踪（Cost Tracking，用于预算管理）、错误率（Error Rates，用于保障可靠性）、Token 使用量（Token Usage，用于优化）以及质量指标（Quality Metrics，用于回归检测）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why should you implement rate limiting in your LLM application?",
+      "questionZh": "为什么要在你的大语言模型（LLM）应用中实施速率限制（Rate Limiting）？",
+      "options": [
+        "To make the application seem exclusive",
+        "To prevent individual users from exhausting your API budget, protect against abuse, and ensure fair access during high traffic",
+        "To reduce model accuracy",
+        "Rate limiting is only needed for free tiers"
+      ],
+      "optionsZh": [
+        "为了让应用程序显得更具专属感",
+        "为防止单个用户耗尽您的 API 预算、防范滥用行为，并确保在高流量期间实现公平访问",
+        "降低模型准确率 (Model Accuracy)",
+        "仅免费层级 (Free Tiers) 需要配置速率限制 (Rate Limiting)。"
+      ],
+      "explanation": "Without rate limiting, a single user (or bot) can exhaust your daily API budget in minutes. Rate limiting protects your costs, prevents abuse, and ensures all users get reasonable response times during peak load.",
+      "explanationZh": "若未启用速率限制（Rate Limiting），单个用户（或机器人/Bot）可能在几分钟内耗尽您的每日 API 预算（API Budget）。速率限制能够有效控制成本、防止接口滥用，并确保在峰值负载（Peak Load）期间，所有用户均可获得合理的响应时间（Response Time）。"
+    }
+  ]
+}

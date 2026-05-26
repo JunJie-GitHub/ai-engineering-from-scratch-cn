@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What are the five primitives of the OpenAI Agents SDK?",
+      "questionZh": "OpenAI Agents SDK 的五个基本原语（primitives）是什么？",
+      "options": [
+        "Agent, Handoff, Guardrail, Session, Tracing",
+        "Node, Edge, Reducer, Checkpointer, Subgraph",
+        "Plan, Worker, Solver, Evaluator, Reflector",
+        "Tool, Prompt, Model, Memory, Trace"
+      ],
+      "optionsZh": [
+        "智能体 (Agent), 交接 (Handoff), 护栏 (Guardrail), 会话 (Session), 追踪 (Tracing)",
+        "节点 (Node)、边 (Edge)、归约器 (Reducer)、检查点器 (Checkpointer)、子图 (Subgraph)",
+        "规划 (Plan), 工作者 (Worker), 求解器 (Solver), 评估器 (Evaluator), 反思器 (Reflector)",
+        "工具 (Tool), 提示词 (Prompt), 模型 (Model), 记忆 (Memory), 追踪 (Trace)"
+      ],
+      "explanation": "The SDK ships these five primitives.",
+      "explanationZh": "该软件开发工具包 (SDK) 提供了这五个原语 (primitives)。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "How does the model see a handoff?",
+      "questionZh": "模型 (Model) 如何理解交接 (Handoff)？",
+      "options": [
+        "As a custom HTTP endpoint",
+        "As a tool named transfer_to_<agent_name>",
+        "As a system message",
+        "As a special token"
+      ],
+      "optionsZh": [
+        "作为自定义 HTTP 端点 (HTTP Endpoint)",
+        "作为名为 transfer_to_<agent_name> 的工具",
+        "作为系统消息 (System Message)",
+        "作为特殊标记 (special token)"
+      ],
+      "explanation": "Handoffs are exposed as tools with the transfer_to_<agent> name shape.",
+      "explanationZh": "交接（Handoff）以工具（Tool）的形式暴露，其名称遵循 `transfer_to_<agent>` 的命名格式。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "Which three guardrail types does the SDK ship?",
+      "questionZh": "该 SDK 内置了哪三种护栏（guardrails）类型？",
+      "options": [
+        "Input, output, and tool guardrails",
+        "Pre, post, and inline guardrails",
+        "Hard, soft, and best-effort guardrails",
+        "Static, dynamic, and federated guardrails"
+      ],
+      "optionsZh": [
+        "输入、输出与工具护栏 (Guardrails)",
+        "前置（Pre）、后置（Post）与内联（Inline）护栏（Guardrails）",
+        "硬性、软性与尽力型护栏（Hard, Soft, and Best-Effort Guardrails）",
+        "静态、动态与联邦护栏 (Guardrails)"
+      ],
+      "explanation": "Input (first agent), output (last agent), and tool (per function tool) guardrails.",
+      "explanationZh": "输入（首个智能体）、输出（末尾智能体）以及工具（每个函数工具）的护栏（Guardrails）。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "What is the difference between parallel and blocking guardrails?",
+      "questionZh": "并行护栏（Parallel Guardrails）与阻塞护栏（Blocking Guardrails）有什么区别？",
+      "options": [
+        "Parallel runs alongside the main LLM (lower latency, wastes tokens on trip); blocking runs first (no wasted tokens on trip)",
+        "Blocking is asynchronous; parallel is synchronous",
+        "Parallel costs more money always",
+        "Blocking only works on output"
+      ],
+      "optionsZh": [
+        "与主大语言模型（LLM）并行（parallel）运行（延迟（latency）较低，但会在请求往返中浪费词元（token））；阻塞式（blocking）优先运行（请求往返中不会浪费词元（token））。",
+        "阻塞（Blocking）是异步的；并行（Parallel）是同步的。",
+        "并行计算 (Parallel Computing) 始终会产生更高的成本。",
+        "阻塞 (Blocking) 仅对输出 (Output) 生效。"
+      ],
+      "explanation": "Parallel optimizes latency at the cost of wasted tokens when tripped; blocking saves tokens but adds latency.",
+      "explanationZh": "并行（Parallel）在触发时会以浪费词元（token）为代价优化延迟；阻塞（Blocking）虽能节省词元，但会增加延迟。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "How is tracing enabled in the SDK?",
+      "questionZh": "如何在 SDK 中启用追踪 (Tracing)？",
+      "options": [
+        "Off by default; enable per agent",
+        "On by default; OPENAI_AGENTS_DISABLE_TRACING=1 opts out",
+        "Only via OpenTelemetry collector",
+        "Only on the hosted dashboard"
+      ],
+      "optionsZh": [
+        "默认关闭；可按智能体 (Agent) 单独启用。",
+        "默认启用；设置 `OPENAI_AGENTS_DISABLE_TRACING=1` 可禁用追踪 (Tracing) 功能。",
+        "仅通过 OpenTelemetry 收集器 (OpenTelemetry Collector)",
+        "仅限托管控制台 (hosted dashboard) 可用。"
+      ],
+      "explanation": "Spans for LLM, tool, handoff, and guardrail emit by default; an env var disables them.",
+      "explanationZh": "默认情况下，系统会生成大语言模型 (LLM)、工具 (Tool)、交接 (Handoff) 和护栏 (Guardrail) 的跨度 (Span)；可通过环境变量 (Environment Variable) 将其禁用。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is handoff drift and how does the lesson recommend mitigating it?",
+      "questionZh": "什么是交接漂移（handoff drift）？本节课程建议如何缓解这一问题？",
+      "options": [
+        "Tracing falls behind; reduce span volume",
+        "Agent A hands off to B which hands back to A in a loop; add a hop counter",
+        "Sessions overflow; archive old ones",
+        "Guardrails desync; retrain"
+      ],
+      "optionsZh": [
+        "链路追踪 (Tracing) 处理滞后；降低 Span 数量",
+        "智能体 (Agent) A 将任务移交给 B，B 再交回给 A，形成循环；请添加跳数计数器 (hop counter)。",
+        "会话 (Session) 数量超限；归档 (Archive) 历史会话",
+        "护栏 (Guardrails) 不同步；重新训练 (retrain)"
+      ],
+      "explanation": "A hop counter caps transfer chains before they loop indefinitely.",
+      "explanationZh": "跳数计数器（hop counter）会在传输链（transfer chain）陷入无限循环之前对其进行限制。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why are built-in tools a guardrail gap?",
+      "questionZh": "为什么内置工具会成为护栏 (guardrail) 缺口？",
+      "options": [
+        "They are slower than function tools",
+        "Tool guardrails only fire on function tools; built-in tools (file reader, web fetch) need separate policy",
+        "They cannot be traced",
+        "They do not support handoffs"
+      ],
+      "optionsZh": [
+        "它们的运行速度比函数工具（function tools）慢。",
+        "工具护栏（Tool Guardrails）仅对函数工具（Function Tools）生效；内置工具（Built-in Tools）（如文件读取器（File Reader）和网页获取（Web Fetch））需配置独立策略（Separate Policy）。",
+        "它们无法被追踪。",
+        "它们不支持交接 (handoff)。"
+      ],
+      "explanation": "Per-tool guardrails cover function tools; built-in tools require a separate policy layer.",
+      "explanationZh": "逐工具护栏（Per-tool guardrails）适用于函数工具（function tools）；内置工具（built-in tools）则需要独立策略层（policy layer）进行管控。"
+    }
+  ]
+}

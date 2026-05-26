@@ -1,0 +1,109 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "ml-intro-pre-1",
+      "question": "In supervised learning, what does the model receive during training?",
+      "questionZh": "在监督学习（Supervised Learning）中，模型在训练期间会接收什么？",
+      "options": [
+        "Only input data with no labels",
+        "Input-output pairs where the correct answer is provided",
+        "A reward signal for each action taken",
+        "A set of rules written by a human expert"
+      ],
+      "optionsZh": [
+        "仅包含无标签的输入数据",
+        "提供正确答案的输入-输出对（Input-Output Pairs）",
+        "针对每个已执行动作的奖励信号 (Reward Signal)",
+        "由人类专家编写的一组规则"
+      ],
+      "explanation": "Supervised learning trains on input-output pairs (labeled data). The model learns to map inputs to known correct outputs.",
+      "explanationZh": "监督学习（Supervised Learning）基于输入-输出对（即标注数据（Labeled Data））进行训练。模型学习将输入映射到已知的正确输出。"
+    },
+    {
+      "stage": "pre",
+      "correct": 2,
+      "id": "ml-intro-pre-2",
+      "question": "What is the purpose of splitting data into training and test sets?",
+      "questionZh": "将数据划分为训练集（training set）和测试集（test set）的目的是什么？",
+      "options": [
+        "To make training faster by using less data",
+        "To have backup data in case the training data is lost",
+        "To evaluate whether the model generalizes to data it has never seen during training",
+        "To balance the classes in the dataset"
+      ],
+      "optionsZh": [
+        "通过减少数据量来加速训练",
+        "保留备份数据 (backup data)，以防训练数据 (training data) 丢失。",
+        "为了评估模型 (model) 是否能够泛化 (generalize) 到训练期间从未见过的数据",
+        "为平衡数据集 (dataset) 中的类别 (classes)"
+      ],
+      "explanation": "The test set measures generalization. If you evaluate on training data, you measure memorization, not learning.",
+      "explanationZh": "测试集（test set）用于衡量泛化能力（generalization）。若在训练数据（training data）上进行评估，所衡量的仅是记忆（memorization），而非学习（learning）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "ml-intro-post-1",
+      "question": "A model gets 98% accuracy on training data but 55% on test data. What is this an example of?",
+      "questionZh": "某模型在训练数据（Training Data）上达到了 98% 的准确率（Accuracy），但在测试数据（Test Data）上仅为 55%。这属于什么现象？",
+      "options": [
+        "Underfitting: the model is too simple",
+        "Overfitting: the model memorized training noise instead of learning general patterns",
+        "Data drift: the test distribution changed",
+        "Good generalization: the model learned the true patterns"
+      ],
+      "optionsZh": [
+        "欠拟合（Underfitting）：模型过于简单",
+        "过拟合（Overfitting）：模型记住了训练噪声，而非学习通用模式。",
+        "数据漂移（Data drift）：测试集分布（test distribution）发生变化",
+        "良好的泛化 (Generalization) 能力：模型学习到了真实的规律。"
+      ],
+      "explanation": "A large gap between training accuracy (high) and test accuracy (low) is the hallmark of overfitting. The model memorized the training data.",
+      "explanationZh": "训练准确率（Training Accuracy）很高而测试准确率（Test Accuracy）很低，两者之间存在显著差距，这是过拟合（Overfitting）的典型标志。该模型只是死记硬背了训练数据。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "id": "ml-intro-post-2",
+      "question": "An e-commerce site wants to group customers into segments based on purchase behavior without any predefined labels. Which type of ML is this?",
+      "questionZh": "某电商平台希望根据购买行为对客户进行细分，且不使用任何预定义标签。这属于哪种机器学习（Machine Learning）类型？",
+      "options": [
+        "Supervised learning (classification)",
+        "Supervised learning (regression)",
+        "Unsupervised learning (clustering)",
+        "Reinforcement learning"
+      ],
+      "optionsZh": [
+        "监督学习 (Supervised Learning)（分类 (Classification)）",
+        "监督学习 (Supervised Learning)（回归 (Regression)）",
+        "无监督学习（聚类）",
+        "强化学习 (Reinforcement Learning)"
+      ],
+      "explanation": "Finding natural groupings in data without predefined labels is clustering, which is a form of unsupervised learning.",
+      "explanationZh": "在没有预定义标签的数据中寻找自然分组的过程称为聚类（Clustering），它是无监督学习（Unsupervised Learning）的一种形式。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "id": "ml-intro-post-3",
+      "question": "Which scenario is NOT a good use case for machine learning?",
+      "questionZh": "哪种场景不适合作为机器学习（Machine Learning）的用例？",
+      "options": [
+        "Predicting customer churn from historical behavior data",
+        "Detecting fraudulent transactions in a stream of millions of payments",
+        "Converting temperatures from Celsius to Fahrenheit",
+        "Classifying images of skin lesions as benign or malignant"
+      ],
+      "optionsZh": [
+        "基于历史行为数据（Historical Behavior Data）预测客户流失（Customer Churn）",
+        "在数百万笔支付的数据流中检测欺诈交易 (Fraudulent Transactions)",
+        "将温度从摄氏度 (Celsius) 转换为华氏度 (Fahrenheit)",
+        "将皮肤病变 (skin lesions) 图像分类为良性 (benign) 或恶性 (malignant)"
+      ],
+      "explanation": "Celsius to Fahrenheit is a fixed formula (F = 9/5 * C + 32). Simple, well-defined rules do not need ML. ML adds complexity with no benefit.",
+      "explanationZh": "摄氏度与华氏度的换算遵循固定公式（F = 9/5 * C + 32）。对于简单且定义明确的规则，无需使用机器学习（Machine Learning）。引入机器学习只会徒增复杂度，却毫无实际收益。"
+    }
+  ]
+}

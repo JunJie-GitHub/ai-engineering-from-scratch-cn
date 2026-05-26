@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the Hungarian algorithm do in tracking-by-detection?",
+      "questionZh": "在基于检测的跟踪（tracking-by-detection）中，匈牙利算法（Hungarian algorithm）的作用是什么？",
+      "options": [
+        "It filters out low-confidence detections",
+        "It solves the minimum-cost one-to-one assignment between tracks and detections — typically using 1 - IoU as cost — to match each track to at most one detection and vice versa",
+        "It trains the detector",
+        "It predicts future trajectories"
+      ],
+      "optionsZh": [
+        "它会过滤掉低置信度检测结果 (low-confidence detections)",
+        "它用于求解轨迹（tracks）与检测结果（detections）之间的最小代价一对一分配（minimum-cost one-to-one assignment）问题——通常以 1 - IoU 作为代价（cost）——从而将每条轨迹最多匹配到一个检测结果，反之亦然。",
+        "它用于训练检测器 (detector)。",
+        "它用于预测未来轨迹 (future trajectories)。"
+      ],
+      "explanation": "Every tracking-by-detection frame does an assignment problem: M tracks, N detections, find the best one-to-one match. Hungarian is the optimal polynomial algorithm for this. Cost is usually 1 - IoU (higher overlap = lower cost). scipy.optimize.linear_sum_assignment is the standard implementation. SORT, DeepSORT, ByteTrack, BoT-SORT all use it.",
+      "explanationZh": "在基于检测的跟踪（Tracking-by-Detection）的每一帧中，都需要求解一个分配问题（Assignment Problem）：给定 M 条轨迹（Tracks）与 N 个检测结果（Detections），寻找最佳的一对一匹配（One-to-One Match）。匈牙利算法（Hungarian Algorithm）是解决该问题的最优多项式时间算法。代价（Cost）通常定义为 1 - IoU（交并比越高，代价越低）。scipy.optimize.linear_sum_assignment 是标准的实现方式。SORT、DeepSORT、ByteTrack 和 BoT-SORT 均采用了该方法。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "ByteTrack's distinguishing contribution is what?",
+      "questionZh": "ByteTrack 的核心贡献是什么？",
+      "options": [
+        "A new backbone",
+        "A second-stage association that tries to match leftover tracks to low-confidence detections, recovering short occlusions and IDs that standard trackers would lose by dropping those detections",
+        "A new Kalman filter",
+        "An appearance embedding"
+      ],
+      "optionsZh": [
+        "新的主干网络 (backbone)",
+        "一种第二阶段关联（second-stage association）机制，尝试将剩余轨迹（leftover tracks）与低置信度检测（low-confidence detections）进行匹配，从而恢复短暂遮挡（short occlusions）与跟踪ID（IDs）。标准跟踪器（standard trackers）通常会因直接丢弃这些检测而丢失上述信息。",
+        "一种新型卡尔曼滤波器 (Kalman filter)",
+        "外观嵌入 (Appearance Embedding)"
+      ],
+      "explanation": "Most trackers discard detections below a confidence threshold (~0.5). ByteTrack keeps them and runs a second Hungarian pass to try to match them to tracks that did not match any high-confidence detection. This recovers brief occlusions and crossings, lifting IDF1 significantly on MOT17 without any learned appearance features. Its simplicity makes it the default in Ultralytics and Roboflow Supervision.",
+      "explanationZh": "大多数跟踪器 (tracker) 会丢弃低于置信度阈值 (confidence threshold)（约 0.5）的检测结果 (detection)。ByteTrack 则保留这些结果，并执行第二次匈牙利算法匹配 (Hungarian matching)，尝试将它们与未匹配到高置信度检测的轨迹 (track) 进行关联。该方法能够有效恢复短暂的遮挡 (occlusion) 与交叉 (crossing) 情况，在无需任何学习到的外观特征 (learned appearance feature) 的情况下，显著提升了在 MOT17 上的 IDF1 指标。凭借其简洁性，它已成为 Ultralytics 和 Roboflow Supervision 中的默认选项。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How does SAM 2's memory-based tracker avoid explicit Hungarian-style association?",
+      "questionZh": "SAM 2 的基于记忆的跟踪器（memory-based tracker）如何避免显式的匈牙利式关联（Hungarian-style association）？",
+      "options": [
+        "It runs SORT internally",
+        "It stores per-instance spatio-temporal features in a memory bank; on each new frame, cross-attention between memory and current features directly produces the mask of the same instance, with association implicit in the attention operation",
+        "It uses a Kalman filter",
+        "It requires hand-labelled IDs per frame"
+      ],
+      "optionsZh": [
+        "它在内部运行简单在线实时跟踪算法（SORT）。",
+        "它将逐实例时空特征（per-instance spatio-temporal features）存储在记忆库（memory bank）中；在处理每一新帧时，记忆特征与当前特征之间的交叉注意力（cross-attention）会直接生成同一实例的掩码（mask），而实例关联（association）则隐式地由该注意力操作完成。",
+        "它采用了卡尔曼滤波（Kalman filter）。",
+        "它要求为每一帧提供人工标注的标识符（hand-labelled IDs）。"
+      ],
+      "explanation": "SAM 2 replaces the detect-then-associate loop with a memory-conditional segmenter. The memory bank holds the instance's features from previous frames. At each new frame, the decoder cross-attends the new frame's features against the memory, and the resulting mask is the same instance — no external assignment step. This handles long occlusions gracefully because the memory stays even when the instance disappears for many frames.",
+      "explanationZh": "SAM 2 使用记忆条件分割器（memory-conditional segmenter）取代了传统的“先检测后关联”循环（detect-then-associate loop）。记忆库（memory bank）保存了来自先前帧的实例特征（instance features）。在处理每一新帧时，解码器（decoder）会通过交叉注意力机制（cross-attention）将新帧特征与记忆库进行交互，直接生成对应同一实例的掩码（mask）——无需额外的外部关联步骤（external assignment step）。该机制能够妥善处理长时间遮挡（long occlusions）问题，因为即使实例在多帧中消失，记忆库中的信息依然得以保留。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "For surveillance video where keeping each person's ID consistent is the primary requirement, which metric should you report?",
+      "questionZh": "在监控视频（surveillance video）场景中，若首要需求是保持每个人的身份标识（ID）一致，你应该报告哪个评估指标（metric）？",
+      "options": [
+        "MOTA",
+        "IDF1 — the harmonic mean of ID precision and recall; measures identity preservation over time rather than per-frame detection accuracy",
+        "Top-1 accuracy",
+        "FID"
+      ],
+      "optionsZh": [
+        "MOTA",
+        "IDF1 — ID精确率（ID precision）与召回率（recall）的调和平均数（harmonic mean）；用于衡量随时间推移的身份保持（identity preservation）能力，而非逐帧检测准确率（per-frame detection accuracy）。",
+        "Top-1 准确率 (Top-1 accuracy)",
+        "FID"
+      ],
+      "explanation": "MOTA conflates detection and association errors, so a tracker with many false positives can hide its ID failures. IDF1 is designed for the 'who is who over time' question: it matches predicted tracks to ground-truth tracks globally across the whole video and computes F1 on the identity labels. For surveillance and crowd analytics, IDF1 is the metric to report; HOTA is the broader academic standard.",
+      "explanationZh": "多目标跟踪准确率 (MOTA) 混淆了检测错误与关联错误，因此一个产生大量假阳性 (false positives) 的跟踪器可能会掩盖其身份识别失败 (ID failures) 的问题。ID F1 分数 (IDF1) 旨在解决“随时间推移的身份对应”问题：它在整个视频范围内将预测轨迹与真实轨迹进行全局匹配，并基于身份标签计算 F1 分数。在视频监控和人群分析领域，应报告 IDF1 指标；而高阶跟踪准确率 (HOTA) 则是更广泛的学术标准。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "SAM 3.1 Object Multiplex (March 2026) introduces shared memory across many tracked instances. What does that enable?",
+      "questionZh": "SAM 3.1 对象多路复用（Object Multiplex）（2026年3月）引入了跨多个跟踪实例（tracked instances）的共享内存（shared memory）。这将带来哪些能力？",
+      "options": [
+        "Lower accuracy",
+        "Efficient multi-object tracking — one shared memory bank with per-instance query tokens replaces N separate memory banks, so cost scales sub-linearly in number of instances and concert-crowd-sized scenes become tractable",
+        "Cloud-only inference",
+        "A new training objective"
+      ],
+      "optionsZh": [
+        "准确率 (Accuracy) 降低",
+        "高效的多目标跟踪（Multi-Object Tracking）—— 采用一个共享记忆库（Memory Bank）配合每个实例的查询令牌（Query Tokens）取代 N 个独立的记忆库，从而使计算成本随实例数量呈亚线性（Sub-linear）增长，使得演唱会人群规模的场景也变得可处理（Tractable）。",
+        "仅云端推理 (Cloud-only Inference)",
+        "新的训练目标 (Training Objective)"
+      ],
+      "explanation": "Pre-Multiplex SAM 2 / SAM 3 tracked each object with its own memory bank; cost scaled linearly with the number of instances. Multiplex (March 2026) introduces one shared memory with per-instance query tokens that fetch instance-specific features. Many-object tracking — crowds, traffic, warehouse workers — becomes efficient for the first time with a memory-based tracker.",
+      "explanationZh": "在引入 Multiplex 之前，SAM 2 / SAM 3 为每个目标维护独立的记忆库 (memory bank)，其开销随实例 (instances) 数量呈线性增长。Multiplex（2026年3月）引入了单一共享记忆 (shared memory)，并通过各实例专属的查询标记 (query tokens) 来获取实例特定特征 (instance-specific features)。借助此类基于记忆的跟踪器 (memory-based tracker)，多目标跟踪 (Many-object tracking)——例如人群、交通流或仓库作业人员等场景——首次实现了高效处理。"
+    }
+  ]
+}

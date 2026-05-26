@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the only legal way actors interact in AutoGen v0.4?",
+      "questionZh": "在 AutoGen v0.4 中，参与者 (Actors) 交互的唯一合法方式是什么？",
+      "options": [
+        "Direct access to a shared dict",
+        "Asynchronous messages exchanged through inboxes; no shared memory",
+        "Shared SQL transactions",
+        "Mutating each other's prompts"
+      ],
+      "optionsZh": [
+        "直接访问共享字典 (shared dict)",
+        "通过邮箱（Inboxes）交换的异步消息（Asynchronous Messages）；无共享内存（Shared Memory）",
+        "共享 SQL 事务 (Shared SQL Transactions)",
+        "提示词相互变异"
+      ],
+      "explanation": "Actors have private state and an inbox; messages are the only interaction.",
+      "explanationZh": "参与者（Actor）拥有私有状态和邮箱（inbox）；消息是唯一的交互方式。"
+    },
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What are the three API layers of AutoGen v0.4?",
+      "questionZh": "AutoGen v0.4 的三个 API 层分别是什么？",
+      "options": [
+        "Core, AgentChat, Extensions",
+        "Frontend, Backend, Database",
+        "Tools, Models, Memory",
+        "Plan, Act, Reflect"
+      ],
+      "optionsZh": [
+        "核心 (Core)、AgentChat、扩展 (Extensions)",
+        "前端 (Frontend)、后端 (Backend)、数据库 (Database)",
+        "工具 (Tools)、模型 (Models)、记忆 (Memory)",
+        "规划、执行、反思"
+      ],
+      "explanation": "Core is the low-level actor framework, AgentChat is the task-driven high-level API, Extensions are integrations.",
+      "explanationZh": "核心（Core）是底层 Actor 框架（Actor Framework），AgentChat 是任务驱动的高级 API（API），扩展（Extensions）则是各类集成（Integrations）。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "Why does decoupling delivery from handling give fault isolation?",
+      "questionZh": "为什么将交付（Delivery）与处理（Handling）解耦（Decoupling）能够实现故障隔离（Fault Isolation）？",
+      "options": [
+        "The runtime catches handler failures in B without crashing A; A's send() returned immediately and never blocked",
+        "Each actor runs on a separate machine",
+        "The runtime restarts the OS on failure",
+        "Handlers are pure functions"
+      ],
+      "optionsZh": [
+        "运行时（runtime）会捕获 B 中的处理程序（handler）故障，而不会导致 A 崩溃；A 的 send() 会立即返回，且永远不会阻塞。",
+        "每个参与者（Actor）运行在独立的机器上。",
+        "发生故障时，运行时 (Runtime) 将重启操作系统 (OS)。",
+        "处理器（Handlers）是纯函数（pure functions）。"
+      ],
+      "explanation": "send() puts the message in the recipient's inbox and returns; a handler crash is local to that actor.",
+      "explanationZh": "`send()` 会将消息放入接收方的收件箱（inbox）并立即返回；处理器（handler）的崩溃仅局限于该 Actor（actor）内部。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Which AgentChat topology rotates agents in a fixed order?",
+      "questionZh": "哪种 AgentChat 拓扑结构 (topology) 会按固定顺序轮换智能体 (agent)？",
+      "options": [
+        "SelectorGroupChat",
+        "RoundRobinGroupChat",
+        "Magentic-One",
+        "Supervisor"
+      ],
+      "optionsZh": [
+        "SelectorGroupChat",
+        "RoundRobinGroupChat",
+        "Magentic-One",
+        "监督器 (Supervisor)"
+      ],
+      "explanation": "RoundRobinGroupChat is fixed rotation; SelectorGroupChat uses a selector to pick next.",
+      "explanationZh": "RoundRobinGroupChat 采用固定轮转机制；SelectorGroupChat 则使用选择器（selector）来指定下一个智能体。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is Magentic-One in this lesson?",
+      "questionZh": "在本课中，Magentic-One 是什么？",
+      "options": [
+        "A new LLM model",
+        "A reference multi-agent team for web browsing, code execution, and file handling built on AgentChat",
+        "A serialization format",
+        "An OTel exporter"
+      ],
+      "optionsZh": [
+        "一个全新的大语言模型 (Large Language Model)",
+        "基于 AgentChat 构建的参考多智能体团队 (Multi-Agent Team)，用于网页浏览 (Web Browsing)、代码执行 (Code Execution) 和文件处理 (File Handling)。",
+        "序列化格式 (Serialization format)",
+        "OTel 导出器"
+      ],
+      "explanation": "Magentic-One is Microsoft's reference team that demonstrates the AgentChat API.",
+      "explanationZh": "Magentic-One 是微软的参考团队 (reference team)，用于演示 AgentChat 接口 (AgentChat API)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the lesson's stated status of AutoGen v0.4 in early 2026?",
+      "questionZh": "该课程中明确指出的 AutoGen v0.4 在 2026 年初的状态是什么？",
+      "options": [
+        "Deprecated and removed",
+        "Stable but in maintenance mode; Microsoft Agent Framework is the forward path",
+        "Just announced",
+        "Replaced by LangGraph"
+      ],
+      "optionsZh": [
+        "已弃用并移除",
+        "状态稳定，但已进入维护模式（maintenance mode）；微软智能体框架（Microsoft Agent Framework）是后续的推荐演进路径（forward path）。",
+        "刚刚发布",
+        "已被 LangGraph 取代"
+      ],
+      "explanation": "AutoGen v0.7.x is stable for research; active development has shifted to Microsoft Agent Framework.",
+      "explanationZh": "AutoGen v0.7.x 版本在研究场景中已保持稳定；当前的活跃开发工作已转移至微软智能体框架 (Microsoft Agent Framework)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Which observability standard does AutoGen v0.4 emit by default?",
+      "questionZh": "AutoGen v0.4 默认采用哪种可观测性标准 (Observability Standard)？",
+      "options": [
+        "Prometheus metrics only",
+        "OpenTelemetry spans with gen_ai.* attributes per the OTel GenAI semantic conventions",
+        "StatsD",
+        "Datadog APM"
+      ],
+      "optionsZh": [
+        "仅限 Prometheus 指标",
+        "遵循 OTel GenAI 语义约定 (semantic conventions) 且带有 gen_ai.* 属性 (attribute) 的 OpenTelemetry 跨度 (span)",
+        "StatsD",
+        "Datadog 应用性能监控 (APM)"
+      ],
+      "explanation": "Every message emits a span; tool calls carry gen_ai.* attributes per OTel GenAI conventions.",
+      "explanationZh": "每条消息都会生成一个跨度 (span)；工具调用 (tool calls) 会遵循 OpenTelemetry 生成式 AI (OTel GenAI) 规范携带 `gen_ai.*` 属性。"
+    }
+  ]
+}

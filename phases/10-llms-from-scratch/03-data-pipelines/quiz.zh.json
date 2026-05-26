@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why can't you simply load all pre-training data into memory?",
+      "questionZh": "为什么不能直接将所有预训练数据（pre-training data）加载到内存中？",
+      "options": [
+        "Python doesn't support large arrays",
+        "Pre-training corpora are terabytes in size, far exceeding available RAM, requiring streaming pipelines",
+        "Loading data into memory is slower",
+        "Memory is only needed for model weights"
+      ],
+      "optionsZh": [
+        "Python 不支持大型数组 (large arrays)",
+        "预训练语料库（Pre-training corpora）规模达 TB 级别，远超可用内存（RAM），因此需要采用流式数据管道（streaming pipelines）。",
+        "将数据加载到内存中的速度较慢",
+        "内存（Memory）仅用于存储模型权重（Model Weights）。"
+      ],
+      "explanation": "LLM pre-training data is typically 1-15 TB of text. Even with 256GB of RAM, you can't hold the full dataset. Streaming pipelines process data on-the-fly, loading only what's needed for the current batch.",
+      "explanationZh": "大语言模型 (LLM) 的预训练数据 (pre-training data) 通常为 1-15 TB 的文本。即使配备 256GB 的内存 (RAM)，也无法将整个数据集 (dataset) 全部载入。流式处理管道 (streaming pipelines) 能够即时处理数据 (on-the-fly)，仅加载当前批次 (batch) 所需的内容。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why is data deduplication important for pre-training?",
+      "questionZh": "为什么数据去重（Data Deduplication）对预训练（Pre-training）很重要？",
+      "options": [
+        "It saves disk space",
+        "Duplicate documents cause the model to memorize specific text verbatim and waste training compute on repeated content",
+        "It speeds up tokenization",
+        "It reduces the vocabulary size"
+      ],
+      "optionsZh": [
+        "它可以节省磁盘空间 (disk space)",
+        "重复文档 (Duplicate documents) 会导致模型逐字记忆 (verbatim memorization) 特定文本，并在重复内容上浪费训练算力 (training compute)。",
+        "它加快了分词（Tokenization）的速度。",
+        "它能够减小词汇表大小（vocabulary size）。"
+      ],
+      "explanation": "Near-duplicate content (boilerplate, scraped duplicates) causes the model to memorize rather than generalize. Deduplication reduces training compute waste and improves model quality by ensuring diverse training signal.",
+      "explanationZh": "近似重复内容（Near-duplicate content）（如样板文本（boilerplate）或爬取的重复数据（scraped duplicates））会导致模型倾向于记忆（memorize）而非泛化（generalize）。去重（Deduplication）通过确保多样化的训练信号（training signal），能够减少训练算力（training compute）的浪费并提升模型质量。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the purpose of creating fixed-length training sequences from variable-length documents?",
+      "questionZh": "从变长文档（variable-length documents）中创建固定长度训练序列（fixed-length training sequences）的目的是什么？",
+      "options": [
+        "It makes the text easier to read",
+        "GPU training requires uniform tensor shapes, so documents must be packed or padded into fixed-length sequences",
+        "Fixed-length sequences are more accurate",
+        "It reduces the total number of tokens"
+      ],
+      "optionsZh": [
+        "这使得文本更易于阅读。",
+        "GPU 训练要求张量（Tensor）形状统一，因此必须将文档打包（Pack）或填充（Pad）为固定长度的序列（Sequence）。",
+        "固定长度序列（Fixed-length sequences）更为准确。",
+        "它减少了词元（token）的总数。"
+      ],
+      "explanation": "GPUs process batches of tensors with identical shapes. Variable-length documents must be chunked into fixed-length sequences (e.g., 2048 or 4096 tokens) with proper attention masks at document boundaries.",
+      "explanationZh": "GPU（图形处理器）处理形状相同的张量（tensor）批次（batch）。变长文档必须被切分为固定长度的序列（例如 2048 或 4096 个词元（token）），并在文档边界处应用正确的注意力掩码（attention mask）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What happens if the data pipeline is slower than GPU training speed?",
+      "questionZh": "如果数据流水线（Data Pipeline）的速度慢于 GPU 训练速度（GPU Training Speed），会发生什么？",
+      "options": [
+        "Training automatically slows down to match",
+        "The GPU sits idle waiting for batches, wasting expensive compute time",
+        "The model trains on the same batch repeatedly",
+        "Nothing -- the pipeline runs asynchronously"
+      ],
+      "optionsZh": [
+        "训练 (Training) 会自动降速以匹配",
+        "图形处理器 (GPU) 因等待数据批次 (batches) 而处于闲置状态，浪费了昂贵的计算时间 (compute time)。",
+        "模型在同一个批次 (batch) 上反复训练。",
+        "无 —— 流水线（Pipeline）将异步运行。"
+      ],
+      "explanation": "If the dataloader can't serve batches fast enough, the GPU stalls between steps. On A100 clusters costing $30+/hour, pipeline bottlenecks directly waste money. Profiling pipeline throughput is essential.",
+      "explanationZh": "如果数据加载器（DataLoader）无法足够快地提供批次（batches），GPU 就会在训练步（steps）之间陷入停滞。在每小时成本超过 30 美元的 A100 集群（A100 clusters）上，流水线瓶颈（pipeline bottlenecks）会直接造成资金浪费。因此，对流水线吞吐量（pipeline throughput）进行性能剖析（Profiling）至关重要。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why is data quality filtering (language detection, content filtering) applied before tokenization?",
+      "questionZh": "为什么要在词元化 (Tokenization) 之前应用数据质量过滤 (Data Quality Filtering)（包括语言检测 (Language Detection) 和内容过滤 (Content Filtering)）？",
+      "options": [
+        "Tokenizers can't handle low-quality text",
+        "Low-quality data (spam, boilerplate, toxic content) degrades model capabilities proportional to its share of training data",
+        "Filtering after tokenization is impossible",
+        "It reduces tokenization time"
+      ],
+      "optionsZh": [
+        "分词器（Tokenizer）无法处理低质量文本",
+        "低质量数据（Low-quality data）（如垃圾内容（spam）、样板文本（boilerplate）和有害内容（toxic content））会削弱模型能力（model capabilities），其造成的性能下降程度与这些数据在训练数据（training data）中所占的比例成正比。",
+        "词元化 (Tokenization) 完成后无法进行过滤。",
+        "它缩短了分词（Tokenization）的时间。"
+      ],
+      "explanation": "The model learns from whatever data it sees. If 10% of training data is spam or low-quality content, the model allocates 10% of its capacity to reproducing those patterns. Filtering early ensures only high-quality signal reaches the model.",
+      "explanationZh": "模型（Model）会基于其接触到的所有数据进行学习。若训练数据（Training Data）中包含10%的垃圾信息（Spam）或低质量内容（Low-Quality Content），模型便会分配10%的容量（Capacity）来复现这些模式（Patterns）。在流程早期进行过滤（Early Filtering），可确保仅有高质量信号（High-Quality Signal）输入模型。"
+    }
+  ]
+}

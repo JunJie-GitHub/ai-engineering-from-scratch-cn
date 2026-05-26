@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "You feed a 224x224 RGB image to a conv with kernel_size=3, stride=1, padding=0. What is the output spatial size?",
+      "questionZh": "将一张 224x224 的 RGB 图像输入到 kernel_size=3、stride=1、padding=0 的卷积层（conv）中。输出的空间尺寸（spatial size）是多少？",
+      "options": [
+        "224x224",
+        "222x222",
+        "112x112",
+        "74x74"
+      ],
+      "optionsZh": [
+        "224x224",
+        "222x222",
+        "112x112",
+        "74x74"
+      ],
+      "explanation": "Output size = (H - K + 2P) / S + 1 = (224 - 3 + 0) / 1 + 1 = 222. Without padding, every 3x3 convolution shrinks the feature map by 2 pixels on each axis — one pixel off each border.",
+      "explanationZh": "输出尺寸 (Output size) = (H - K + 2P) / S + 1 = (224 - 3 + 0) / 1 + 1 = 222。在不使用填充 (Padding) 的情况下，每次 3x3 卷积 (Convolution) 都会使特征图 (Feature map) 在每个轴上缩小 2 个像素——即每条边界各减少 1 个像素。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "A conv layer has in_channels=3, out_channels=64, kernel_size=3, with bias. How many learnable parameters?",
+      "questionZh": "一个卷积层 (convolutional layer) 的 in_channels=3、out_channels=64、kernel_size=3，且包含偏置 (bias)。请问共有多少个可学习参数 (learnable parameters)？",
+      "options": [
+        "1,728",
+        "1,792",
+        "576",
+        "192"
+      ],
+      "optionsZh": [
+        "1,728",
+        "1,792",
+        "576",
+        "192"
+      ],
+      "explanation": "C_out * C_in * K * K + C_out = 64 * 3 * 3 * 3 + 64 = 1,728 + 64 = 1,792. The +C_out is one bias per output channel. Compare that to a dense layer on the same input (224*224*3 -> 64 = about 9.6M params) and you see why convolution is the right prior for images.",
+      "explanationZh": "C_out * C_in * K * K + C_out = 64 * 3 * 3 * 3 + 64 = 1,728 + 64 = 1,792。其中的 +C_out 表示每个输出通道对应一个偏置（bias）。将其与相同输入下的全连接层（dense layer）进行对比（224*224*3 -> 64，约 9.6M 参数），你就能明白为何卷积（convolution）是处理图像的正确先验（prior）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why do modern CNNs prefer stacks of 3x3 convolutions over a single 5x5 or 7x7 conv?",
+      "questionZh": "为什么现代卷积神经网络（Convolutional Neural Networks, CNN）更倾向于使用堆叠的 3x3 卷积，而不是单个 5x5 或 7x7 卷积？",
+      "options": [
+        "3x3 convolutions are hardware-accelerated; larger ones are not",
+        "Two 3x3 convs cover the same 5x5 receptive field with fewer parameters (2 * 9 vs 25) and add an extra non-linearity between them",
+        "Large kernels overflow GPU registers",
+        "3x3 is the only kernel size that supports padding"
+      ],
+      "optionsZh": [
+        "3x3 卷积（3x3 convolutions）支持硬件加速（hardware-accelerated）；更大尺寸的卷积则不支持。",
+        "两个 3x3 卷积层 (convolutions) 能够覆盖相同的 5x5 感受野 (receptive field)，但参数量更少（2 * 9 vs 25），并且在两者之间引入了额外的非线性 (non-linearity)。",
+        "大型内核 (Large Kernels) 导致 GPU 寄存器 (GPU Registers) 溢出",
+        "3x3 是唯一支持填充（padding）的卷积核大小（kernel size）。"
+      ],
+      "explanation": "Stacking 3x3 convs gives the same receptive field as one large conv but with fewer parameters and more non-linearities, which increases expressive power. VGG proved this empirically and every modern family (ResNet, ConvNeXt) inherited the design.",
+      "explanationZh": "堆叠 3x3 卷积 (3x3 convs) 能够获得与单个大尺寸卷积相同的感受野 (receptive field)，但参数量更少，且引入了更多的非线性 (non-linearities)，从而提升了模型的表达能力 (expressive power)。VGG 通过实验验证了这一结论，而所有现代网络架构系列（如 ResNet、ConvNeXt）均继承了这一设计。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the im2col transformation actually do?",
+      "questionZh": "图像转列（im2col）变换实际上起到了什么作用？",
+      "options": [
+        "It compresses the image to fit in GPU cache",
+        "It extracts every kernel-sized receptive window from the input and stacks them as columns so that convolution becomes a single matrix multiply",
+        "It converts float32 pixels to int8 for faster arithmetic",
+        "It concatenates all images in a batch into a single 2D matrix"
+      ],
+      "optionsZh": [
+        "它会对图像进行压缩，以便将其装入 GPU 缓存 (GPU Cache)。",
+        "它从输入中提取每个卷积核大小的感受野窗口（receptive window），并将其按列堆叠，从而使卷积（convolution）运算转化为单次矩阵乘法（matrix multiplication）。",
+        "它将 32 位浮点数（float32）像素转换为 8 位整数（int8），以加快算术运算速度。",
+        "它将批次（batch）中的所有图像拼接（concatenate）为单个二维矩阵（2D matrix）。"
+      ],
+      "explanation": "im2col reshapes the input so that each column is one flattened receptive field. Flattening the kernel into a row reduces convolution to cols @ w_flat.T, a single GEMM call that GPUs execute thousands of times faster than a quadruple Python loop. Every production conv library is some variant of this.",
+      "explanationZh": "im2col 对输入进行重塑，使每一列对应一个展平的感受野（receptive field）。将卷积核（kernel）展平为一行后，卷积（convolution）操作可简化为 cols @ w_flat.T，即单次通用矩阵乘法（GEMM）调用。GPU 执行该操作的速度比四重 Python 循环快数千倍。所有生产级卷积库（convolution library）本质上都是该算法的某种变体。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "You stack four 3x3 convolutions (all stride 1, no pooling). What is the receptive field of a neuron in the final layer?",
+      "questionZh": "堆叠四个 3x3 卷积 (convolution) 层（步长 (stride) 均为 1，无池化 (pooling)）。最终层中一个神经元 (neuron) 的感受野 (receptive field) 是多少？",
+      "options": [
+        "3x3 — each conv is 3x3",
+        "5x5 — two convs give 5x5 and depth does not help",
+        "9x9 — every conv adds 2 on each side: 1 + 4*(3-1) = 9",
+        "15x15 — every conv triples the receptive field"
+      ],
+      "optionsZh": [
+        "3x3 — 每个卷积层（convolutional layer）均为 3x3",
+        "5x5 — 两个卷积（convs）等效于 5x5 感受野，且增加深度（depth）并无帮助",
+        "9x9 — 每个卷积层 (conv) 在每侧增加 2：1 + 4*(3-1) = 9",
+        "15x15 —— 每个卷积层（convolutional layer）都会使感受野（receptive field）扩大为原来的三倍。"
+      ],
+      "explanation": "For L stacked K x K convs with stride 1, receptive field = 1 + L * (K - 1). With L=4 and K=3 that is 1 + 4*2 = 9. The same formula generalises with stride: receptive field grows multiplicatively through strided layers, which is why a deep network with downsampling can cover the whole image in ten or fifteen blocks.",
+      "explanationZh": "对于步幅 (stride) 为 1 的 L 个堆叠的 K x K 卷积层 (convolutional layers)，感受野 (receptive field) = 1 + L * (K - 1)。当 L=4 且 K=3 时，结果为 1 + 4*2 = 9。该公式同样可推广至带步幅的情况：感受野在经过跨步层 (strided layers) 时会呈倍数增长，这也是为何带有下采样 (downsampling) 的深度网络仅需十到十五个模块 (blocks) 即可覆盖整幅图像。"
+    }
+  ]
+}

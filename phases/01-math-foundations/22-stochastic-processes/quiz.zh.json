@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the Markov property?",
+      "questionZh": "什么是马尔可夫性质 (Markov property)？",
+      "options": [
+        "The process always returns to its starting state",
+        "The next state depends only on the current state, not on the history of previous states",
+        "All states are equally likely at every step",
+        "The process must have a finite number of states"
+      ],
+      "optionsZh": [
+        "该过程始终会返回到其初始状态。",
+        "下一状态仅取决于当前状态，而与先前的状态历史无关。",
+        "在每一步中，所有状态 (states) 出现的概率均相等。",
+        "该过程必须具有有限数量的状态。"
+      ],
+      "explanation": "The Markov property (memorylessness) means P(X_{t+1} = j | X_t = i, X_{t-1}, ...) = P(X_{t+1} = j | X_t = i). The future depends only on where you are, not how you got there. This enables compact representation via a transition matrix.",
+      "explanationZh": "马尔可夫性质 (Markov property)（无记忆性 (memorylessness)）是指 P(X_{t+1} = j | X_t = i, X_{t-1}, ...) = P(X_{t+1} = j | X_t = i)。未来状态仅取决于当前所处状态，而与如何到达该状态的历史路径无关。这一特性使得我们能够借助转移矩阵 (transition matrix) 实现紧凑的表示。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "In a 1D random walk, how does the expected distance from the origin scale with the number of steps n?",
+      "questionZh": "在一维随机游走（1D random walk）中，距原点的期望距离随步数 n 如何变化？",
+      "options": [
+        "Linearly: proportional to n",
+        "As the square root: proportional to sqrt(n)",
+        "Logarithmically: proportional to log(n)",
+        "It stays constant regardless of n"
+      ],
+      "optionsZh": [
+        "线性（Linear）：与 n 成正比",
+        "按平方根 (square root) 关系：与 sqrt(n) 成正比",
+        "对数级（Logarithmically）：与 log(n) 成正比",
+        "无论 n 如何变化，它都保持恒定。"
+      ],
+      "explanation": "Each step is +/-1 with equal probability. The variance after n steps is n, so the standard deviation (typical distance from origin) is sqrt(n). After 10,000 steps, the expected distance is about 100, not 10,000.",
+      "explanationZh": "每一步以相等的概率取 +1 或 -1。经过 n 步后的方差 (variance) 为 n，因此标准差 (standard deviation)（距原点的典型距离）为 sqrt(n)。经过 10,000 步后，期望距离 (expected distance) 约为 100，而非 10,000。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the stationary distribution of a Markov chain?",
+      "questionZh": "什么是马尔可夫链（Markov chain）的平稳分布（stationary distribution）？",
+      "options": [
+        "The initial distribution of states",
+        "The distribution that does not change under the transition matrix: pi * P = pi",
+        "The distribution of states after exactly one transition",
+        "The uniform distribution over all states"
+      ],
+      "optionsZh": [
+        "状态的初始分布 (Initial Distribution of States)",
+        "在转移矩阵 (Transition Matrix) 作用下保持不变的分布 (Distribution)：pi * P = pi",
+        "恰好一次状态转移 (State Transition) 后的状态分布 (State Distribution)",
+        "所有状态上的均匀分布（Uniform Distribution）"
+      ],
+      "explanation": "The stationary distribution pi satisfies pi * P = pi — applying the transition matrix leaves it unchanged. It represents the long-run fraction of time spent in each state. For an irreducible, aperiodic chain, any initial distribution converges to pi.",
+      "explanationZh": "平稳分布 (Stationary Distribution) pi 满足 pi * P = pi —— 应用转移矩阵 (Transition Matrix) 后其保持不变。它表示长期运行中处于各个状态的时间占比。对于不可约 (Irreducible) 且非周期 (Aperiodic) 的链 (Chain)，任意初始分布 (Initial Distribution) 均会收敛于 pi。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "In Langevin dynamics x_{t+1} = x_t - dt * grad(U) + sqrt(2*T*dt) * z, what happens as temperature T approaches 0?",
+      "questionZh": "在朗之万动力学 (Langevin dynamics) 公式 x_{t+1} = x_t - dt * grad(U) + sqrt(2*T*dt) * z 中，当温度 T 趋近于 0 时会发生什么？",
+      "options": [
+        "The process becomes a pure random walk",
+        "The process becomes pure gradient descent (deterministic optimization)",
+        "The process diverges to infinity",
+        "The process freezes at the initial position"
+      ],
+      "optionsZh": [
+        "该过程变为纯粹的随机游走 (Random Walk)。",
+        "该过程将转化为纯粹的梯度下降（Gradient Descent），即确定性优化（Deterministic Optimization）。",
+        "该过程发散至无穷大。",
+        "进程在初始位置冻结。"
+      ],
+      "explanation": "At T = 0, the noise term sqrt(2*T*dt)*z vanishes, leaving x_{t+1} = x_t - dt * grad(U), which is standard gradient descent. At high T, the noise dominates and the process is nearly a random walk. Intermediate T balances exploration and exploitation.",
+      "explanationZh": "当 T = 0 时，噪声项 sqrt(2*T*dt)*z 消失，公式简化为 x_{t+1} = x_t - dt * grad(U)，即标准的梯度下降（Gradient Descent）。当 T 值较高时，噪声占据主导地位，该过程近似于随机游走（Random Walk）。适中的 T 值则能在探索（Exploration）与利用（Exploitation）之间取得平衡。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "In a diffusion model, what does the forward process do to a data sample over T steps?",
+      "questionZh": "在扩散模型（Diffusion Model）中，前向过程（Forward Process）在 T 步内会对数据样本（Data Sample）执行什么操作？",
+      "options": [
+        "It sharpens the image by removing noise at each step",
+        "It gradually adds Gaussian noise until the sample becomes pure noise, following a Markov chain",
+        "It compresses the image to a lower resolution",
+        "It applies learned transformations to generate new data"
+      ],
+      "optionsZh": [
+        "它通过在每一步去除噪声来锐化图像。",
+        "它遵循马尔可夫链（Markov chain），逐步向样本中添加高斯噪声（Gaussian noise），直至样本变为纯噪声。",
+        "它将图像压缩至较低的分辨率。",
+        "它应用学习到的变换（learned transformations）来生成新数据。"
+      ],
+      "explanation": "The forward process is a Markov chain: x_t = sqrt(alpha_t) * x_{t-1} + sqrt(1 - alpha_t) * noise. After T steps, x_T is approximately N(0, I) — pure Gaussian noise. The reverse process (learned by a neural network) then denoises step-by-step to generate new data.",
+      "explanationZh": "前向过程 (Forward Process) 是一个马尔可夫链 (Markov Chain)：x_t = sqrt(alpha_t) * x_{t-1} + sqrt(1 - alpha_t) * noise。经过 T 步后，x_T 近似为 N(0, I)——即纯高斯噪声 (Gaussian Noise)。随后，由神经网络 (Neural Network) 学习得到的反向过程 (Reverse Process) 将逐步去噪，从而生成新数据。"
+    }
+  ]
+}

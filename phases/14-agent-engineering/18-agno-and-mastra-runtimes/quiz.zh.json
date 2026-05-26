@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Which language pairing does the lesson recommend for each runtime?",
+      "questionZh": "针对每种运行时（Runtime），本节课程推荐了哪种语言组合？",
+      "options": [
+        "Agno for TypeScript, Mastra for Python",
+        "Agno for Python, Mastra for TypeScript",
+        "Both are Rust-first",
+        "Both are Go-first"
+      ],
+      "optionsZh": [
+        "适用于 TypeScript 的 Agno，适用于 Python 的 Mastra",
+        "适用于 Python 的 Agno，适用于 TypeScript 的 Mastra",
+        "两者均以 Rust 为先。",
+        "两者均采用 Go 优先设计。"
+      ],
+      "explanation": "Agno is Python (FastAPI-shaped); Mastra is TypeScript (Vercel AI SDK-shaped).",
+      "explanationZh": "Agno 基于 Python 构建（设计风格类似 FastAPI）；Mastra 基于 TypeScript 构建（设计风格类似 Vercel AI SDK）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is Agno's recommended production deployment shape?",
+      "questionZh": "Agno 推荐的生产环境部署架构（Production Deployment Shape）是什么？",
+      "options": [
+        "A long-lived stateful daemon",
+        "A stateless session-scoped FastAPI backend; each request starts a fresh agent and session state lives in a DB",
+        "A serverless cron worker only",
+        "A WebSocket-only server"
+      ],
+      "optionsZh": [
+        "长期运行的有状态守护进程 (Long-lived stateful daemon)",
+        "无状态（stateless）且基于会话作用域（session-scoped）的 FastAPI 后端；每次请求都会初始化一个全新的智能体（agent），会话状态（session state）则存储在数据库（DB）中。",
+        "仅限无服务器 (Serverless) 定时任务工作器 (Cron Worker)",
+        "仅支持 WebSocket 的服务器"
+      ],
+      "explanation": "Stateless FastAPI per request; session state externalized to a DB.",
+      "explanationZh": "每次请求均由无状态 (Stateless) 的 FastAPI 处理；会话状态 (Session State) 已外部化至数据库 (Database)。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "What are Mastra's three primitives?",
+      "questionZh": "Mastra 的三个原语 (primitives) 是什么？",
+      "options": [
+        "Agents, Tools, Workflows",
+        "Actor, Message, Inbox",
+        "Plan, Worker, Solver",
+        "Node, Edge, State"
+      ],
+      "optionsZh": [
+        "智能体 (Agent)、工具 (Tool)、工作流 (Workflow)",
+        "参与者 (Actor)、消息 (Message)、收件箱 (Inbox)",
+        "计划 (Plan), 工作节点 (Worker), 求解器 (Solver)",
+        "节点 (Node)、边 (Edge)、状态 (State)"
+      ],
+      "explanation": "Agents (LLM + role), Tools (Zod-typed), and Workflows are Mastra's three primitives.",
+      "explanationZh": "智能体 (Agents)（大语言模型 (LLM) + 角色 (Role)）、工具 (Tools)（Zod 类型化 (Zod-typed)）以及工作流 (Workflows) 是 Mastra 的三大基础原语 (Primitives)。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "Roughly what agent-instantiation cost does Agno target per its docs?",
+      "questionZh": "根据 Agno 的文档，其智能体实例化成本（Agent Instantiation Cost）的大致目标是多少？",
+      "options": [
+        "About 2 microseconds with about 3.75 KiB per agent",
+        "About 200 milliseconds and 100 MiB per agent",
+        "About 1 second and 1 GiB per agent",
+        "About 10 minutes and 4 GiB per agent"
+      ],
+      "optionsZh": [
+        "每个智能体（agent）约耗时 2 微秒（microseconds），占用约 3.75 KiB。",
+        "每个智能体 (Agent) 约需 200 毫秒和 100 MiB",
+        "每个智能体 (Agent) 约需 1 秒和 1 GiB",
+        "每个智能体 (Agent) 约需 10 分钟和 4 GiB。"
+      ],
+      "explanation": "Agno's docs cite about 2 microseconds and about 3.75 KiB per agent.",
+      "explanationZh": "Agno 的文档指出，每个智能体 (agent) 的开销约为 2 微秒和 3.75 KiB。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "What does Mastra's Unified Model Router give?",
+      "questionZh": "Mastra 的统一模型路由（Unified Model Router）能提供什么？",
+      "options": [
+        "A single client surface for thousands of models across many providers",
+        "A queue for tool calls",
+        "A vector DB layer",
+        "A graph checkpointer"
+      ],
+      "optionsZh": [
+        "为跨多个提供商 (providers) 的数千个模型提供统一的客户端接口 (client surface)。",
+        "工具调用 (Tool Calls) 队列",
+        "向量数据库（Vector Database）层",
+        "图检查点 (Graph Checkpointer)"
+      ],
+      "explanation": "Mastra's Unified Model Router cites 3,300+ models across 94 providers.",
+      "explanationZh": "Mastra 的统一模型路由（Unified Model Router）支持来自 94 家提供商的 3,300 多个模型。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "When is perf-for-perf's-sake the wrong reason to pick Agno?",
+      "questionZh": "在什么情况下，“单纯追求性能”会成为选择 Agno 的错误理由？",
+      "options": [
+        "When the workload is one slow agent call per request and overhead is not the bottleneck",
+        "When using Python 3.13",
+        "When deploying to AWS",
+        "When using Langfuse"
+      ],
+      "optionsZh": [
+        "当工作负载 (workload) 为每个请求仅包含一次慢速智能体调用 (agent call)，且开销 (overhead) 并非瓶颈 (bottleneck) 时",
+        "使用 Python 3.13 时",
+        "部署至 AWS 时",
+        "在使用 Langfuse 时"
+      ],
+      "explanation": "2 microseconds matters at chat fan-in scale, not for a single slow call per request.",
+      "explanationZh": "在聊天扇入（fan-in）规模下，2 微秒的延迟至关重要，而非针对每个请求中的单次慢调用。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What licensing surface should you read carefully before forking Mastra?",
+      "questionZh": "在派生（Fork）Mastra 之前，你应该仔细阅读哪些许可协议条款（licensing surface）？",
+      "options": [
+        "There is no license file",
+        "ee/ directories are source-available rather than Apache 2.0 and restrict commercial use",
+        "All of Mastra is GPL",
+        "Mastra requires CLA but no license review"
+      ],
+      "optionsZh": [
+        "不存在许可证文件 (license file)",
+        "`ee/` 目录采用源代码可用（source-available）许可证，而非 Apache 2.0 许可证，并限制商业用途。",
+        "Mastra 的全部内容均采用 GNU通用公共许可证（GPL）协议。",
+        "Mastra 要求签署贡献者许可协议 (CLA)，但无需进行许可证审查。"
+      ],
+      "explanation": "Mastra is Apache 2.0 except for ee/ which is source-available; check the restrictions before forking.",
+      "explanationZh": "Mastra 采用 Apache 2.0 许可证，但 ee/ 目录除外，该部分采用源代码可用（source-available）协议；在进行分叉（forking）前，请务必查阅相关限制条款。"
+    }
+  ]
+}

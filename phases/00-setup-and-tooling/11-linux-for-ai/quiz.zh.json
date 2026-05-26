@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the '~' symbol represent in a Linux file path?",
+      "questionZh": "在 Linux 文件路径中，`~` 符号代表什么？",
+      "options": [
+        "The root directory of the file system",
+        "The current user's home directory",
+        "The temporary files directory",
+        "The directory where system programs are installed"
+      ],
+      "optionsZh": [
+        "文件系统 (file system) 的根目录 (root directory)",
+        "当前用户的主目录（home directory）",
+        "临时文件目录 (Temporary Files Directory)",
+        "系统程序的安装目录"
+      ],
+      "explanation": "The tilde (~) is a shortcut for the current user's home directory, typically /home/username on Linux. 'cd ~' takes you home from anywhere.",
+      "explanationZh": "波浪号 (~) 是当前用户主目录（home directory）的快捷方式，在 Linux 系统中通常为 /home/username。无论当前位于何处，执行 'cd ~' 即可直接返回主目录。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the purpose of 'sudo' before a command?",
+      "questionZh": "在命令前使用 `sudo` 的目的是什么？",
+      "options": [
+        "It speeds up the command execution",
+        "It runs the command with root (administrator) privileges",
+        "It runs the command in a sandboxed environment",
+        "It logs the command output to a system file"
+      ],
+      "optionsZh": [
+        "它加快了命令执行的速度。",
+        "它将以 root（管理员）权限执行该命令。",
+        "它在沙盒环境（sandboxed environment）中运行该命令。",
+        "它将命令输出记录到系统文件中。"
+      ],
+      "explanation": "sudo (superuser do) temporarily elevates your privileges to root level for a single command. Required for system-level operations like installing packages with apt.",
+      "explanationZh": "sudo（superuser do）会临时将您的权限提升至 root 级别（root level），仅对单条命令生效。执行系统级操作（system-level operations）（例如使用 apt 安装软件包（packages））时需要此权限。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "You get 'Permission denied' when trying to run a shell script. What command fixes this?",
+      "questionZh": "尝试运行 Shell 脚本 (shell script) 时提示“权限拒绝 (Permission denied)”。应使用什么命令来解决此问题？",
+      "options": [
+        "sudo rm script.sh",
+        "chmod +x script.sh",
+        "chown root script.sh",
+        "mv script.sh /usr/bin/"
+      ],
+      "optionsZh": [
+        "sudo rm script.sh",
+        "chmod +x script.sh",
+        "chown root script.sh",
+        "mv script.sh /usr/bin/"
+      ],
+      "explanation": "chmod +x adds execute permission to the file. Without the execute bit set, the shell refuses to run the script even if you own it.",
+      "explanationZh": "`chmod +x` 为文件添加执行权限（execute permission）。若未设置执行位（execute bit），即使你是文件所有者，Shell（shell）也会拒绝运行该脚本（script）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "On a remote GPU box, your training data fills the disk. Which command shows the largest directories consuming space?",
+      "questionZh": "在远程 GPU 服务器 (GPU server) 上，你的训练数据 (training data) 已占满磁盘 (disk)。哪个命令 (command) 可以显示占用空间最大的目录 (directories)？",
+      "options": [
+        "ls -la /",
+        "du -h --max-depth=1 / | sort -hr | head -20",
+        "cat /proc/meminfo",
+        "free -h"
+      ],
+      "optionsZh": [
+        "ls -la /",
+        "du -h --max-depth=1 / | sort -hr | head -20",
+        "cat /proc/meminfo",
+        "free -h"
+      ],
+      "explanation": "du -h shows disk usage per directory, --max-depth=1 limits to top-level directories, and sort -hr sorts by size in descending order. This reveals which directories are consuming the most space.",
+      "explanationZh": "du -h 显示各目录的磁盘使用量（disk usage），--max-depth=1 将范围限制在顶级目录（top-level directories），而 sort -hr 则按大小降序（descending order）排列。这有助于快速定位占用存储空间最多的目录。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is a key difference between the macOS and Linux versions of 'sed -i'?",
+      "questionZh": "macOS 与 Linux 版本中的 `'sed -i'` 命令有什么关键区别？",
+      "options": [
+        "Linux sed is faster than macOS sed",
+        "macOS sed requires an empty string argument after -i ('sed -i \"\"'), while Linux does not",
+        "Linux sed does not support regular expressions",
+        "macOS sed cannot modify files in place"
+      ],
+      "optionsZh": [
+        "Linux 下的 sed 比 macOS 下的 sed 运行速度更快。",
+        "macOS 中的 sed 命令在 -i 参数后必须提供一个空字符串（即 'sed -i \"\"'），而 Linux 则不需要。",
+        "Linux 的 sed 不支持正则表达式 (regular expressions)。",
+        "macOS 上的 sed 无法就地（in-place）修改文件"
+      ],
+      "explanation": "macOS uses BSD sed which requires 'sed -i \"\" pattern file', while Linux uses GNU sed which accepts 'sed -i pattern file'. This is a common gotcha when moving scripts between systems.",
+      "explanationZh": "macOS 使用 BSD sed，要求使用 'sed -i \"\" pattern file' 格式，而 Linux 使用 GNU sed，支持 'sed -i pattern file' 格式。在跨系统迁移脚本时，这是一个常见的陷阱。"
+    }
+  ]
+}

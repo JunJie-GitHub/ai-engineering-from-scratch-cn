@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What does an HTN add over a free-form LLM plan?",
+      "questionZh": "与自由形式的大语言模型（LLM）规划相比，分层任务网络（HTN）能带来哪些额外优势？",
+      "options": [
+        "Provable correctness when operator preconditions and effects are enforced",
+        "Cheaper inference",
+        "Shorter prompts",
+        "Better embeddings"
+      ],
+      "optionsZh": [
+        "当操作符 (operator) 的前置条件 (preconditions) 与效果 (effects) 被强制执行时，可实现可证明的正确性 (provable correctness)。",
+        "更低成本的推理 (Inference)",
+        "更短的提示词 (Prompts)",
+        "更优的嵌入 (Embeddings)"
+      ],
+      "explanation": "HTN's symbolic operators with preconditions and effects guarantee soundness by construction.",
+      "explanationZh": "分层任务网络（Hierarchical Task Network）的符号操作符（symbolic operators）通过其前提条件（preconditions）与效果（effects），在构造上即可保证健全性（soundness）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Which problem class is AlphaEvolve built for?",
+      "questionZh": "AlphaEvolve 是为哪类问题 (problem class) 设计的？",
+      "options": [
+        "Free-form prose generation",
+        "Optimizations with a machine-checkable, deterministic fitness function",
+        "Multi-turn chat memory",
+        "Vector search ranking"
+      ],
+      "optionsZh": [
+        "自由形式文本生成 (Free-form prose generation)",
+        "基于机器可验证 (machine-checkable) 且确定性 (deterministic) 适应度函数 (fitness function) 的优化",
+        "多轮对话记忆 (Multi-turn Chat Memory)",
+        "向量搜索排序 (Vector Search Ranking)"
+      ],
+      "explanation": "Evolutionary search needs a deterministic evaluator; AlphaEvolve targets domains where one exists.",
+      "explanationZh": "进化搜索（Evolutionary Search）需要确定性评估器（Deterministic Evaluator）；AlphaEvolve 专注于存在此类评估器的领域。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "How does ChatHTN preserve plan soundness while using an LLM?",
+      "questionZh": "ChatHTN 如何在使用大语言模型（LLM）的同时保持计划正确性（plan soundness）？",
+      "options": [
+        "It does not; soundness is best-effort",
+        "LLM suggestions only enter as candidate decompositions, validated against the operator schema; the symbolic layer owns correctness",
+        "It fine-tunes the LLM on HTN traces",
+        "It uses a vector database"
+      ],
+      "optionsZh": [
+        "并非如此；健全性（Soundness）仅采用尽力而为（best-effort）的策略。",
+        "大语言模型（LLM）的建议仅作为候选分解（candidate decompositions）引入，并需对照算子规范（operator schema）进行验证；符号层（symbolic layer）负责保障正确性。",
+        "它在分层任务网络（Hierarchical Task Network）轨迹上对大语言模型（Large Language Model）进行微调。",
+        "它使用向量数据库 (vector database)。"
+      ],
+      "explanation": "The LLM expands the method library but cannot bypass operator preconditions and effects.",
+      "explanationZh": "大语言模型 (Large Language Model) 扩展了方法库，但无法绕过操作符 (Operator) 的前提条件 (Preconditions) 与效果 (Effects)。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "Which AlphaEvolve result does the lesson cite?",
+      "questionZh": "本课程引用了 AlphaEvolve 的哪项结果？",
+      "options": [
+        "First improvement over Strassen for 4x4 complex matrix multiplication in 56 years",
+        "10x speedup of inference on Gemini",
+        "Beating GPT-4 on HumanEval",
+        "First proof of P=NP"
+      ],
+      "optionsZh": [
+        "56年来首次针对4x4复数矩阵乘法（complex matrix multiplication）对斯特拉森算法（Strassen algorithm）的改进",
+        "在 Gemini 上实现 10 倍推理 (inference) 加速",
+        "在 HumanEval 基准测试中超越 GPT-4",
+        "P=NP 的首次证明"
+      ],
+      "explanation": "AlphaEvolve found 48 scalar multiplications for 4x4 complex matmul, the first improvement on Strassen in 56 years.",
+      "explanationZh": "AlphaEvolve 为 4x4 复数矩阵乘法（complex matrix multiplication）找到了仅需 48 次标量乘法（scalar multiplication）的方案，这是 56 年来对 Strassen 算法（Strassen's algorithm）的首次改进。"
+    },
+    {
+      "stage": "check",
+      "correct": 2,
+      "question": "Which element of an HTN is a primitive directly-executable action with preconditions and effects?",
+      "questionZh": "在分层任务网络（Hierarchical Task Network, HTN）中，哪种元素是指具有前提条件（preconditions）与效果（effects）的原始可直接执行动作（primitive directly-executable action）？",
+      "options": [
+        "Task",
+        "Method",
+        "Operator",
+        "State"
+      ],
+      "optionsZh": [
+        "Task",
+        "Method",
+        "Operator",
+        "State"
+      ],
+      "explanation": "Operators are the primitives; methods decompose compound tasks; state is a set of facts.",
+      "explanationZh": "算子（Operators）是基础原语（Primitives）；方法（Methods）用于分解复合任务（Compound Tasks）；状态（State）是一组事实（Facts）的集合。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the lesson's warning about AlphaEvolve without a real evaluator?",
+      "questionZh": "关于在没有真实评估器 (real evaluator) 的情况下使用 AlphaEvolve，本课提出了什么警告？",
+      "options": [
+        "It is slow",
+        "Asking an LLM whether the code is better is not a fitness function; the evaluator must be deterministic and fast",
+        "It violates Apache 2.0",
+        "It cannot run on GPUs"
+      ],
+      "optionsZh": [
+        "速度较慢",
+        "让大语言模型（Large Language Model, LLM）判断代码是否更优并不能作为适应度函数（Fitness Function）；评估器（Evaluator）必须是确定性的（Deterministic）且运行迅速。",
+        "这违反了 Apache 2.0 许可证 (Apache License 2.0)。",
+        "它无法在图形处理器 (GPU) 上运行。"
+      ],
+      "explanation": "Without a deterministic evaluator the search has no signal to converge on.",
+      "explanationZh": "若缺乏确定性评估器（deterministic evaluator），搜索过程将失去收敛所依赖的信号。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "When should you reach for ReAct or ReWOO instead of HTN or AlphaEvolve?",
+      "questionZh": "在什么情况下应选择 ReAct 或 ReWOO，而不是 HTN 或 AlphaEvolve？",
+      "options": [
+        "Never; HTN is strictly better",
+        "When you do not need formal soundness or a machine-checkable fitness; most agent tasks land here",
+        "When you have a GPU cluster available",
+        "When latency is below 100 ms"
+      ],
+      "optionsZh": [
+        "绝不；分层任务网络（Hierarchical Task Network, HTN）严格更优。",
+        "若无需形式健全性（formal soundness）或机器可验证的适应度（machine-checkable fitness），大多数智能体（agent）任务均属于此类。",
+        "当您拥有可用的 GPU 集群 (GPU Cluster) 时",
+        "当延迟 (Latency) 低于 100 毫秒时"
+      ],
+      "explanation": "The lesson explicitly warns against over-engineering: most tasks do not need formal planning or evolutionary search.",
+      "explanationZh": "本节内容明确指出应避免过度设计（over-engineering）：大多数任务并不需要形式化规划（formal planning）或进化搜索（evolutionary search）。"
+    }
+  ]
+}

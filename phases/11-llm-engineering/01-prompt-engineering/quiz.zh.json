@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the most common mistake people make when writing prompts for LLMs?",
+      "questionZh": "人们为大语言模型（LLM）编写提示词（Prompt）时，最常犯的错误是什么？",
+      "options": [
+        "Using too many tokens",
+        "Writing vague, underspecified instructions that leave the model guessing about format, scope, and constraints",
+        "Using the wrong API",
+        "Not using enough examples"
+      ],
+      "optionsZh": [
+        "使用过多词元 (Token)",
+        "编写模糊且缺乏明确规范的指令，导致模型在格式、范围与约束条件上自行猜测。",
+        "使用了错误的 API",
+        "未使用足够的示例"
+      ],
+      "explanation": "LLMs follow instructions literally. 'Write me a marketing email' gives the model no constraints. Specifying tone, audience, length, format, and constraints produces dramatically better results.",
+      "explanationZh": "大语言模型（Large Language Models）会严格按照字面意思执行指令。“给我写一封营销邮件”这样的提示词并未给模型（model）提供任何约束条件（constraints）。明确指定语气、目标受众、篇幅、格式以及具体限制，能够显著提升生成效果。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What are the four core components of an effective prompt?",
+      "questionZh": "有效提示词（Prompt）的四个核心组成部分是什么？",
+      "options": [
+        "Input, output, model, temperature",
+        "Role, context, constraints, and output format",
+        "System, user, assistant, function",
+        "Query, document, answer, score"
+      ],
+      "optionsZh": [
+        "输入 (Input), 输出 (Output), 模型 (Model), 温度 (Temperature)",
+        "角色 (Role)、上下文 (Context)、约束条件 (Constraints) 与输出格式 (Output Format)",
+        "系统 (System)、用户 (User)、助手 (Assistant)、函数 (Function)",
+        "查询 (Query), 文档 (Document), 答案 (Answer), 得分 (Score)"
+      ],
+      "explanation": "Effective prompts specify: who the model should be (role), what it should know (context), what it should and shouldn't do (constraints), and how to structure the response (output format).",
+      "explanationZh": "有效的提示词（Prompt）应明确指定：模型需扮演的角色（Role）、需掌握的上下文信息（Context）、应遵循的约束条件（Constraints），以及回复的输出格式（Output Format）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why should you include output format instructions in your prompts?",
+      "questionZh": "为什么要在提示词（Prompt）中包含输出格式指令？",
+      "options": [
+        "It makes the prompt shorter",
+        "Without format instructions, the model chooses its own structure, which varies between calls and is hard to parse programmatically",
+        "It reduces API costs",
+        "It prevents hallucination"
+      ],
+      "optionsZh": [
+        "这可以缩短提示词（Prompt）的长度。",
+        "若未提供格式指令（format instructions），模型（model）将自行决定输出结构，导致每次调用（call）的结果不一致，且难以通过编程方式进行解析（parse）。",
+        "它降低了 API 成本。",
+        "它可以防止幻觉 (hallucination)。"
+      ],
+      "explanation": "LLMs are non-deterministic. Without explicit format instructions, one call might return bullet points, the next prose, the next markdown. Specifying format ensures consistent, parseable outputs.",
+      "explanationZh": "大语言模型（LLMs）具有非确定性（non-deterministic）。若未提供明确的格式指令，一次调用可能返回项目符号列表，下一次返回段落文本，再下一次返回 Markdown 格式。明确指定格式可确保输出结果的一致性与可解析性（parseable）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the purpose of a system prompt?",
+      "questionZh": "系统提示词（System Prompt）的作用是什么？",
+      "options": [
+        "To authenticate the API call",
+        "To set persistent behavioral rules, role, and constraints that apply to the entire conversation",
+        "To define the model's architecture",
+        "To compress the conversation history"
+      ],
+      "optionsZh": [
+        "对 API 调用进行认证",
+        "用于设置贯穿整个对话的持久化行为规则（Persistent Behavioral Rules）、角色（Role）与约束条件（Constraints）",
+        "用于定义模型架构 (Model Architecture)",
+        "压缩对话历史 (conversation history)"
+      ],
+      "explanation": "The system prompt establishes the model's persona, rules, and constraints for the entire session. It runs before every user turn and is the primary mechanism for controlling model behavior in production.",
+      "explanationZh": "系统提示词（System Prompt）为整个会话（Session）确立了模型的角色设定、规则与约束条件。它会在每次用户轮次前运行，是生产环境中控制模型行为的主要机制。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How should you test whether a prompt change actually improved output quality?",
+      "questionZh": "如何测试提示词（Prompt）的修改是否真正提升了输出质量？",
+      "options": [
+        "Read a few outputs and make a judgment call",
+        "Run the prompt on a diverse test set and measure changes in defined metrics (accuracy, format compliance, relevance)",
+        "Ask the model if it's doing better",
+        "Check the API response time"
+      ],
+      "optionsZh": [
+        "查看部分输出结果，并做出判断。",
+        "在多样化测试集（Diverse Test Set）上运行提示词（Prompt），并评估预定义指标（Defined Metrics）的变化情况（包括准确率（Accuracy）、格式合规性（Format Compliance）和相关性（Relevance））。",
+        "询问模型 (Model) 其表现是否有所提升。",
+        "检查 API 响应时间"
+      ],
+      "explanation": "Evaluating prompt changes on a handful of examples is unreliable. A systematic evaluation harness with diverse test cases and defined metrics shows whether changes help across the distribution, not just cherry-picked examples.",
+      "explanationZh": "仅在少量示例上评估提示词（Prompt）的变更是不可靠的。一个包含多样化测试用例和明确定义指标的系统化评估框架（Systematic evaluation harness），能够验证这些变更是否在整个数据分布（Data distribution）上均有效，而不仅仅是在精心挑选的示例上表现良好。"
+    }
+  ]
+}

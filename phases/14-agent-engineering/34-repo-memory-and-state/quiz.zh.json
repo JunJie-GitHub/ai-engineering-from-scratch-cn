@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the durability test that decides whether a piece of information belongs in repo memory?",
+      "questionZh": "决定某条信息是否应纳入仓库记忆（repo memory）的持久性测试（durability test）是什么？",
+      "options": [
+        "Whether it is JSON",
+        "Whether it would be useful three months from now in a CI rerun; if yes, repo; if no, telemetry",
+        "Whether the user marked it as important",
+        "Whether it fits in 4 kB"
+      ],
+      "optionsZh": [
+        "无论是 JSON",
+        "评估其在三个月后的持续集成 (CI) 重新运行中是否仍有价值；若是，则存入代码仓库 (repo)；若否，则记录至遥测 (telemetry)。",
+        "用户是否将其标记为重要",
+        "能否容纳在 4 kB 以内"
+      ],
+      "explanation": "Repo memory is for durable, three-months-from-now-useful state; transient data is telemetry.",
+      "explanationZh": "仓库内存（Repo memory）用于存储持久化且在三个月后仍具实用价值的状态；瞬态数据（transient data）则属于遥测数据（telemetry）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What schema field carries the agent's contract version?",
+      "questionZh": "哪个模式（Schema）字段记录了智能体（Agent）的合约版本？",
+      "options": [
+        "schema_version",
+        "build_hash",
+        "model_id",
+        "session_uuid"
+      ],
+      "optionsZh": [
+        "schema_version",
+        "build_hash",
+        "model_id",
+        "session_uuid"
+      ],
+      "explanation": "schema_version is the integer contract; the manager refuses to load from an unknown version.",
+      "explanationZh": "`schema_version` 是整数契约（integer contract）；管理器（manager）将拒绝从未知版本加载。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "How does atomic write work?",
+      "questionZh": "原子写入（Atomic Write）是如何工作的？",
+      "options": [
+        "tempfile.mkstemp in the same directory, write, fsync, os.replace (atomic rename) over the target",
+        "Truncate-then-write to the target",
+        "Append-only with a CRC",
+        "Encrypt and overwrite"
+      ],
+      "optionsZh": [
+        "在同一目录下调用 tempfile.mkstemp，写入数据并执行 fsync 后，使用 os.replace（原子重命名）覆盖目标文件。",
+        "先截断目标再写入 (Truncate-then-write to the target)",
+        "带循环冗余校验（CRC）的仅追加模式",
+        "加密并覆盖"
+      ],
+      "explanation": "Atomic rename on POSIX and Windows is what prevents partial-write corruption.",
+      "explanationZh": "在 POSIX 和 Windows 系统上，原子重命名（Atomic rename）正是防止部分写入损坏（partial-write corruption）的关键机制。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Why are idempotency keys required for non-idempotent tool calls?",
+      "questionZh": "为什么非幂等（Non-idempotent）工具调用（Tool Calls）需要幂等键（Idempotency Keys）？",
+      "options": [
+        "For billing",
+        "If the agent crashes after a tool call but before checkpointing the result, retry safely; log call ID before execution and skip the call on retry",
+        "To deduplicate logs",
+        "To shorten output"
+      ],
+      "optionsZh": [
+        "用于计费",
+        "若智能体（Agent）在工具调用（Tool Call）之后、保存结果检查点（Checkpointing）之前发生崩溃，应进行安全重试；需在调用执行前记录调用 ID（Call ID），以便在重试时跳过该调用。",
+        "日志去重 (Log Deduplication)",
+        "为缩短输出"
+      ],
+      "explanation": "pending_calls.jsonl carries the call IDs; recovery checks and skips already-executed work.",
+      "explanationZh": "pending_calls.jsonl 记录了调用ID (call IDs)；恢复机制 (recovery) 会进行检查，并跳过已执行的任务。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Where should large artifacts (CSVs, long transcripts, generated files) live relative to state?",
+      "questionZh": "大型工件 (artifacts)（如 CSV 文件、长转录文本、生成文件等）相对于状态 (state) 应存放在何处？",
+      "options": [
+        "Inline in agent_state.json",
+        "As separate files (or object storage) with only the path kept in state, so checkpoints stay small and fast",
+        "In environment variables",
+        "Concatenated into one giant log"
+      ],
+      "optionsZh": [
+        "内联 (Inline) 于 agent_state.json 中",
+        "以独立文件（或对象存储 (object storage)）的形式保存，仅在状态 (state) 中保留路径，从而使检查点 (checkpoints) 保持轻量且高效。",
+        "在环境变量 (environment variables) 中",
+        "拼接为单个大型日志 (log)"
+      ],
+      "explanation": "Separate artifacts grow independently of state; checkpoints stay cheap to read and write.",
+      "explanationZh": "独立的工件（artifacts）独立于状态（state）增长；检查点（checkpoints）的读写开销始终保持较低。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does event sourcing for audit + snapshots for resume buy you?",
+      "questionZh": "采用事件溯源（Event Sourcing）进行审计，并结合快照（Snapshot）实现状态恢复，能为你带来哪些优势？",
+      "options": [
+        "Lower disk usage",
+        "Replay agent decisions verbatim by reading the snapshot then replaying events after it; same shape as Postgres WAL",
+        "Faster inference",
+        "Native voice support"
+      ],
+      "optionsZh": [
+        "降低磁盘使用量",
+        "通过读取快照（Snapshot）并重放其后的事件，精确重放智能体（Agent）的决策；其结构与 PostgreSQL 预写式日志（Write-Ahead Log, WAL）一致。",
+        "更快的推理 (Inference)",
+        "原生语音支持 (Native voice support)"
+      ],
+      "explanation": "Append to state.events.jsonl on every mutation; periodically snapshot to state.json; replay events after the snapshot timestamp.",
+      "explanationZh": "每次发生状态变更 (mutation) 时，追加写入 state.events.jsonl；定期生成快照 (snapshot) 至 state.json；从快照时间戳 (snapshot timestamp) 之后重放事件 (replay events)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the lesson say happens when schema_version mismatches?",
+      "questionZh": "根据课程内容，当 `schema_version` 不匹配时会发生什么情况？",
+      "options": [
+        "The manager silently upgrades",
+        "The manager refuses to load until a migration script in tools/migrate_state.py runs",
+        "The state is deleted",
+        "The agent retries"
+      ],
+      "optionsZh": [
+        "管理器 (Manager) 静默升级 (Silent Upgrade)",
+        "在 tools/migrate_state.py 中的迁移脚本 (Migration Script) 运行之前，管理器 (Manager) 将拒绝加载。",
+        "状态 (state) 已删除",
+        "智能体 (Agent) 将重试。"
+      ],
+      "explanation": "Schema migrations or refuse-to-load; never silent upgrade.",
+      "explanationZh": "采用 Schema 迁移（Schema migrations）或拒绝加载（refuse-to-load）策略；切勿静默升级（silent upgrade）。"
+    }
+  ]
+}

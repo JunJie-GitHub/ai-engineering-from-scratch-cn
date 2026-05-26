@@ -1,0 +1,109 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "knn-pre-1",
+      "question": "KNN is called a 'lazy learner.' What does that mean?",
+      "questionZh": "K近邻算法（KNN）被称为“惰性学习器（lazy learner）”。这是什么意思？",
+      "options": [
+        "It converges slowly during training",
+        "It does no computation at training time and computes everything at prediction time",
+        "It uses a simplified version of the loss function",
+        "It only works on small datasets"
+      ],
+      "optionsZh": [
+        "它在训练 (training) 过程中收敛 (convergence) 缓慢。",
+        "它在训练阶段 (training time) 不执行任何计算，而是在预测阶段 (prediction time) 完成所有计算。",
+        "它使用了损失函数（loss function）的简化版本。",
+        "它仅适用于小型数据集 (small datasets)。"
+      ],
+      "explanation": "Lazy learning means KNN stores the training data and does no work during 'training.' All computation (distance calculations, voting) happens when a prediction is requested.",
+      "explanationZh": "惰性学习（Lazy Learning）是指 K近邻（K-Nearest Neighbors, KNN）算法仅存储训练数据，在“训练”阶段不执行任何工作。所有计算（如距离计算、投票）均在请求预测时进行。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "knn-pre-2",
+      "question": "Why is feature scaling critical for KNN?",
+      "questionZh": "为什么特征缩放（Feature Scaling）对K近邻算法（KNN）至关重要？",
+      "options": [
+        "KNN cannot handle negative numbers without scaling",
+        "Distance calculations are dominated by features with larger ranges, making scaling necessary for fair comparisons",
+        "Feature scaling reduces the number of neighbors needed",
+        "KNN uses gradient descent which requires normalized inputs"
+      ],
+      "optionsZh": [
+        "在不进行特征缩放（Feature Scaling）的情况下，K近邻算法（KNN）无法处理负数。",
+        "距离计算（Distance Calculation）往往受取值范围较大的特征（Feature）主导，因此必须进行特征缩放（Feature Scaling），以确保比较的公平性。",
+        "特征缩放（Feature Scaling）可减少所需的近邻数量。",
+        "K近邻算法（K-Nearest Neighbors）使用梯度下降（Gradient Descent），该方法要求输入数据经过归一化（Normalization）处理。"
+      ],
+      "explanation": "KNN relies on distances. A feature ranging 0-1000 will dominate a feature ranging 0-1 in distance calculations. Scaling puts all features on comparable ranges.",
+      "explanationZh": "K近邻算法（K-Nearest Neighbors）依赖于距离度量。在距离计算中，取值范围为 0-1000 的特征会主导取值范围为 0-1 的特征。特征缩放（Feature Scaling）能将所有特征调整至可比较的量级范围。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "knn-post-1",
+      "question": "In 100 dimensions with uniform random points, what happens to the ratio of max distance to min distance?",
+      "questionZh": "在 100 维 (100 dimensions) 空间中，若使用均匀随机点 (uniform random points)，最大距离与最小距离的比值 (ratio of max distance to min distance) 会发生怎样的变化？",
+      "options": [
+        "It increases dramatically, making neighbors more distinct",
+        "It approaches 1, making all points nearly equidistant from each other",
+        "It stays the same as in 2 dimensions",
+        "It becomes negative due to numerical overflow"
+      ],
+      "optionsZh": [
+        "其值急剧增大，使得近邻 (neighbors) 之间的区分度更加显著。",
+        "它趋近于 1，使得所有点彼此之间几乎等距 (equidistant)。",
+        "它与二维（2 dimensions）情况保持一致。",
+        "由于数值溢出（numerical overflow），该值变为负数。"
+      ],
+      "explanation": "This is the curse of dimensionality. In high dimensions, distances converge: max_dist / min_dist approaches 1. When all points are equidistant, 'nearest' becomes meaningless.",
+      "explanationZh": "这就是维度灾难（Curse of Dimensionality）。在高维空间中，距离会趋于收敛：max_dist / min_dist 趋近于 1。当所有点都等距时，“最近”这一概念便失去了意义。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "id": "knn-post-2",
+      "question": "Which distance metric is most appropriate for comparing text documents represented as TF-IDF vectors?",
+      "questionZh": "在比较以 TF-IDF 向量（TF-IDF vectors）表示的文本文档时，哪种距离度量（distance metric）最为合适？",
+      "options": [
+        "L2 (Euclidean) distance",
+        "L1 (Manhattan) distance",
+        "Cosine distance",
+        "Chebyshev distance"
+      ],
+      "optionsZh": [
+        "L2距离（L2 distance）",
+        "L1距离（Manhattan distance）",
+        "余弦距离 (Cosine distance)",
+        "切比雪夫距离 (Chebyshev distance)"
+      ],
+      "explanation": "Cosine distance measures the angle between vectors, ignoring magnitude. For text, document length (magnitude) is noise -- direction captures meaning. Cosine consistently outperforms L1/L2 for text.",
+      "explanationZh": "余弦距离（Cosine distance）用于衡量向量（vectors）之间的夹角，并忽略其模长（magnitude）。在文本处理中，文档长度（即模长）通常被视为噪声，而方向才真正捕捉了语义信息。因此，在处理文本任务时，余弦距离的表现始终优于 L1/L2 距离。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "id": "knn-post-3",
+      "question": "What happens to the KNN decision boundary as K increases from 1 to N (the full dataset size)?",
+      "questionZh": "当 K 从 1 增加到 N（完整数据集的大小）时，K近邻（K-Nearest Neighbors）的决策边界（decision boundary）会发生什么变化？",
+      "options": [
+        "The boundary becomes more complex and detailed",
+        "The boundary stays the same regardless of K",
+        "The boundary smooths out, eventually predicting the majority class for every point",
+        "The boundary becomes circular"
+      ],
+      "optionsZh": [
+        "边界 (boundary) 变得更加复杂和精细。",
+        "无论 K 值如何，决策边界 (decision boundary) 都保持不变。",
+        "决策边界 (decision boundary) 逐渐变得平滑，最终会将每个数据点都预测为多数类 (majority class)。",
+        "边界变为圆形。"
+      ],
+      "explanation": "K=1 produces jagged boundaries that follow every point (overfitting). As K increases, boundaries smooth out. K=N means every query considers all points, always predicting the majority class (maximum bias).",
+      "explanationZh": "当 K=1 时，会产生紧贴每一个数据点的锯齿状决策边界（decision boundary），从而导致过拟合（overfitting）。随着 K 值的增大，边界会逐渐变得平滑。当 K=N 时，每次查询（query）都会考虑所有数据点，模型将始终预测多数类（majority class），此时会产生最大偏差（maximum bias）。"
+    }
+  ]
+}

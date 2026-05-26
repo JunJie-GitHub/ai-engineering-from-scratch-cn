@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What single architectural idea did AlexNet (2012) introduce that made training deep CNNs practical on GPUs?",
+      "questionZh": "AlexNet（2012）引入了哪一项单一的架构理念，使得在图形处理器（GPU）上训练深度卷积神经网络（CNN）变得切实可行？",
+      "options": [
+        "Residual connections",
+        "Replacing tanh with ReLU, which does not saturate and speeds convergence by roughly 6x",
+        "Batch normalization",
+        "Depthwise separable convolutions"
+      ],
+      "optionsZh": [
+        "残差连接 (Residual connections)",
+        "将双曲正切函数 (tanh) 替换为线性整流函数 (ReLU)，后者不会发生饱和 (saturation)，且能将收敛 (convergence) 速度提升约 6 倍。",
+        "批归一化 (Batch Normalization)",
+        "深度可分离卷积 (Depthwise Separable Convolutions)"
+      ],
+      "explanation": "AlexNet's biggest training speedup came from ReLU. Tanh saturates for large positive or negative inputs, which kills gradients and caps the depth you can train. ReLU is piecewise linear, does not saturate for positive inputs, and was the single change that took training from weeks to days. Dropout and GPU parallelism mattered, but ReLU is the one that unlocked depth.",
+      "explanationZh": "AlexNet 训练速度最大的提升来自于修正线性单元 (ReLU)。双曲正切函数 (Tanh) 在输入值过大（正或负）时会发生饱和，这会导致梯度 (gradients) 消失，从而限制了可训练的网络深度。ReLU 具有分段线性 (piecewise linear) 特性，在正输入区间不会饱和，正是这一项改动将训练时间从数周缩短至数天。尽管随机失活 (Dropout) 和 GPU 并行计算 (GPU parallelism) 也发挥了重要作用，但真正解锁网络深度的关键正是 ReLU。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why did VGG prefer stacks of 3x3 convolutions over a single larger kernel?",
+      "questionZh": "为什么VGG更倾向于使用堆叠的3x3卷积（3x3 convolution），而不是单个更大的卷积核（kernel）？",
+      "options": [
+        "Smaller kernels run faster on CPU",
+        "Two 3x3 convs cover the same 5x5 receptive field with fewer parameters (18C^2 vs 25C^2) and one extra ReLU between them",
+        "3x3 convs are rotation-invariant; 5x5 is not",
+        "Larger kernels cannot be trained with SGD"
+      ],
+      "optionsZh": [
+        "较小的内核 (kernels) 在 CPU 上运行速度更快。",
+        "两个 3x3 卷积层（3x3 convolutions）能够覆盖相同的 5x5 感受野（receptive field），但参数量更少（18C^2 对比 25C^2），并且在两者之间额外增加了一个 ReLU 激活函数。",
+        "3x3 卷积 (3x3 convolutions) 具有旋转不变性 (rotation-invariant)；而 5x5 卷积则不具备。",
+        "较大的核 (kernels) 无法使用随机梯度下降 (SGD) 进行训练。"
+      ],
+      "explanation": "Two stacked 3x3 convs see the same 5x5 patch as one 5x5 conv, but use fewer parameters (2 * 3 * 3 * C^2 = 18C^2 compared to 25C^2) and include an additional non-linearity. That extra ReLU increases expressive power. VGG turned this observation into an entire architecture with exactly one block type repeated.",
+      "explanationZh": "两个堆叠的 3x3 卷积层 (convolutions) 与单个 5x5 卷积层具有相同的 5x5 感受野 (patch)，但使用的参数更少（2 * 3 * 3 * C^2 = 18C^2，对比 25C^2），并引入了额外的非线性 (non-linearity)。该额外的 ReLU 提升了模型的表达能力 (expressive power)。VGG 将这一观察转化为一种完整的网络架构 (architecture)，该架构仅通过重复同一种模块类型 (block type) 构建而成。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "ResNet introduced residual connections as y = F(x) + x. What problem does this solve?",
+      "questionZh": "残差网络（ResNet）引入了残差连接（residual connections），其形式为 y = F(x) + x。这解决了什么问题？",
+      "options": [
+        "Overfitting in the classifier head",
+        "Vanishing activations in layers with ReLU",
+        "The degradation problem — past ~20 plain conv layers, training loss starts getting worse because the optimizer struggles to learn an identity mapping through many non-linear layers",
+        "Memory consumption during backprop"
+      ],
+      "optionsZh": [
+        "分类头（Classifier Head）中的过拟合（Overfitting）",
+        "含 ReLU 层中的激活消失 (Vanishing activations) 现象",
+        "退化问题（Degradation Problem）——当网络深度超过约20个普通卷积层（Plain Convolutional Layers）后，训练损失（Training Loss）反而开始恶化，这是因为优化器（Optimizer）难以在大量非线性层（Non-linear Layers）中学习到恒等映射（Identity Mapping）。",
+        "反向传播 (backpropagation) 过程中的内存消耗"
+      ],
+      "explanation": "Before ResNet, training loss started increasing past about 20 layers even though the network had more capacity — the degradation problem. A residual block can trivially represent identity by driving F to zero, giving the optimizer a safe default. With that escape hatch, every extra block can make the network slightly better, which is how 100+ layer networks became trainable.",
+      "explanationZh": "在残差网络（ResNet）出现之前，即使模型具备更大的容量（capacity），当层数超过约20层时，训练损失（training loss）反而开始上升——这就是退化问题（degradation problem）。残差块（residual block）可以通过使 F 趋近于零来轻松实现恒等映射（identity mapping），从而为优化器（optimizer）提供一个安全的默认选项。有了这一安全退路，每增加一个残差块都能使网络性能略有提升，这也正是超过100层的网络得以成功训练的原因。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "In a ResNet BasicBlock with in_channels=64, out_channels=128, stride=2, what is the role of the shortcut branch?",
+      "questionZh": "在输入通道数（in_channels）为 64、输出通道数（out_channels）为 128、步长（stride）为 2 的 ResNet 基础块（BasicBlock）中，捷径分支（shortcut branch）的作用是什么？",
+      "options": [
+        "It is always identity; the main branch handles the shape change",
+        "It is a 1x1 conv with stride 2 that matches the output channels and spatial size of the main branch so the two can be added",
+        "It is a max-pool that halves the spatial dimension",
+        "It is a placeholder that is removed at inference time"
+      ],
+      "optionsZh": [
+        "它始终为恒等映射（identity mapping）；主分支（main branch）负责处理形状变换（shape change）。",
+        "它是一个步长（stride）为 2 的 1x1 卷积（1x1 convolution），用于匹配主分支（main branch）的输出通道数（output channels）与空间尺寸（spatial size），以便将两者相加。",
+        "这是一个最大池化（Max Pooling）层，可将空间维度（Spatial Dimension）减半。",
+        "这是一个在推理时 (inference time) 会被移除的占位符 (placeholder)。"
+      ],
+      "explanation": "When a block changes channel count or spatial stride, the identity path cannot be added directly to the main branch because shapes differ. The shortcut becomes a 1x1 conv with stride=2 and C_out output channels, optionally followed by batch norm. Pass-through identity is used only when in_c == out_c and stride == 1.",
+      "explanationZh": "当模块（block）改变通道数或空间步长（spatial stride）时，由于形状不同，恒等路径（identity path）无法直接添加到主分支（main branch）中。此时，捷径连接（shortcut）将变为步长为 2、输出通道数为 C_out 的 1x1 卷积（1x1 convolution），并可选择性地后接批归一化（batch normalization）。直通恒等映射（pass-through identity）仅在 in_c == out_c 且 stride == 1 时使用。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "ResNet-18 has ~11.7M parameters and matches or beats VGG-16 (138M params) on ImageNet. What does this imply about VGG?",
+      "questionZh": "残差网络-18 (ResNet-18) 拥有 ~11.7M 个参数 (parameters)，在 ImageNet 数据集 (ImageNet) 上的性能与视觉几何组网络-16 (VGG-16)（138M 参数）持平甚至更优。这对 VGG 架构 (VGG) 意味着什么？",
+      "options": [
+        "VGG's kernels were too small to learn good features",
+        "Most of VGG's parameters are wasted in the fully connected head and the redundant depth past the point where residual connections would let each layer contribute",
+        "VGG was trained with a worse optimizer",
+        "VGG's accuracy on ImageNet has been measured incorrectly"
+      ],
+      "optionsZh": [
+        "VGG 的卷积核（convolutional kernel）过小，难以学习到良好的特征（feature）。",
+        "VGG的大部分参数都被浪费在了全连接头部（fully connected head），以及超过了残差连接（residual connections）本可让每一层都发挥作用的冗余深度上。",
+        "VGG 采用了性能较差的优化器 (optimizer) 进行训练。",
+        "VGG在ImageNet上的准确率（Accuracy）评估有误"
+      ],
+      "explanation": "VGG-16's parameter count is dominated by its giant fully connected classifier (three dense layers on 25088 activations), and its plain deep stack cannot add layers as efficiently as a residual stack. ResNet-18 replaces the FC head with global average pool plus one linear layer and uses residual blocks, which together give roughly 12x parameter efficiency at similar accuracy.",
+      "explanationZh": "VGG-16 的参数量主要由其庞大的全连接分类器（Fully Connected Classifier）所主导，该分类器在 25088 个激活值（Activations）上堆叠了三个密集层（Dense Layers）。此外，其朴素的深层堆叠（Plain Deep Stack）结构在增加层数时的效率不如残差堆叠（Residual Stack）。ResNet-18 使用全局平均池化（Global Average Pooling）加一个线性层（Linear Layer）替换了全连接头（FC Head），并采用残差块（Residual Blocks），这些设计共同使其在保持相近准确率（Accuracy）的同时，实现了约 12 倍的参数效率（Parameter Efficiency）提升。"
+    }
+  ]
+}

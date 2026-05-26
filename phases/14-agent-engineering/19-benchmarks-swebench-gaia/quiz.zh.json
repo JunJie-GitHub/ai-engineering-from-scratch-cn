@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does SWE-bench's evaluator check on a candidate patch?",
+      "questionZh": "SWE-bench 的评估器 (evaluator) 会针对候选补丁 (candidate patch) 检查哪些内容？",
+      "options": [
+        "BLEU score against the reference fix",
+        "Previously failing tests now pass (FAIL_TO_PASS) and previously passing tests still pass (PASS_TO_PASS)",
+        "Patch length under 200 lines",
+        "Patch passes a separate LLM judge"
+      ],
+      "optionsZh": [
+        "相对于参考修复的 BLEU 分数 (BLEU Score)",
+        "此前失败的测试现已通过（FAIL_TO_PASS），而此前通过的测试仍保持通过（PASS_TO_PASS）。",
+        "补丁（Patch）长度不超过200行",
+        "补丁通过独立的 LLM 评估器 (LLM Judge) 验证"
+      ],
+      "explanation": "The harness gates on test transitions: bug-revealing tests must flip while regression tests must stay green.",
+      "explanationZh": "测试框架 (Test Harness) 负责管控测试状态的转换：揭示缺陷的测试必须发生状态翻转，而回归测试 (Regression Tests) 则必须保持绿色（通过）状态。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why does SWE-bench Verified exist?",
+      "questionZh": "SWE-bench Verified 存在的意义是什么？",
+      "options": [
+        "It runs faster",
+        "OpenAI's 500-task human-curated subset removes ambiguous issues and unreliable tests",
+        "It includes more languages",
+        "It uses a different patch format"
+      ],
+      "optionsZh": [
+        "其运行速度更快。",
+        "OpenAI 的 500 项任务人工筛选子集 (human-curated subset) 剔除了歧义性问题与不可靠测试。",
+        "它包含更多语言。",
+        "它采用了不同的补丁格式 (patch format)。"
+      ],
+      "explanation": "Verified is the cleaner subset for credible reporting.",
+      "explanationZh": "已验证（Verified）是用于生成可信报告的更纯净子集。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "What did SWE-bench+ find about successful patches?",
+      "questionZh": "SWE-bench+ 对成功补丁 (successful patches) 有哪些发现？",
+      "options": [
+        "32.67% leaked solution text in the issue and 31.08% had suspiciously weak test coverage",
+        "All patches were memorized",
+        "There is no contamination",
+        "Patches always exceeded 1000 lines"
+      ],
+      "optionsZh": [
+        "32.67% 的问题中泄露了解决方案文本，31.08% 的测试覆盖率（Test Coverage）异常偏低。",
+        "所有图像块（patches）均被记忆。",
+        "不存在数据污染 (data contamination)",
+        "补丁 (patches) 始终超过 1000 行"
+      ],
+      "explanation": "SWE-bench+ flagged solution leakage and weak coverage on a large fraction of successful patches.",
+      "explanationZh": "SWE-bench+ 指出，在大量成功补丁中存在解决方案泄露 (solution leakage) 与覆盖率不足 (weak coverage) 的问题。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is GAIA's design philosophy?",
+      "questionZh": "GAIA 的设计理念是什么？",
+      "options": [
+        "Hard for humans, easy for AI",
+        "Conceptually simple for humans (about 92%) but hard for AI (early GPT-4 with plugins: about 15%)",
+        "Pure benchmark of vector retrieval",
+        "Only single-turn questions"
+      ],
+      "optionsZh": [
+        "对人类而言困难，对人工智能 (AI) 而言简单",
+        "对人类而言在概念上较为简单（约 92%），但对人工智能 (AI) 而言却十分困难（早期搭载插件的 GPT-4：约 15%）。",
+        "向量检索 (Vector Retrieval) 纯基准测试",
+        "仅限单轮问题 (single-turn questions)"
+      ],
+      "explanation": "GAIA is intentionally easy-for-humans, hard-for-AI, testing reasoning + tools + modality.",
+      "explanationZh": "GAIA 被特意设计为对人类简单、对 AI 困难，旨在测试推理（Reasoning）、工具（Tools）与模态（Modality）能力。"
+    },
+    {
+      "stage": "check",
+      "correct": 3,
+      "question": "Which is NOT one of AgentBench's environment categories?",
+      "questionZh": "以下哪一项不属于 AgentBench 的环境类别？",
+      "options": [
+        "Code (Bash, DB, KG)",
+        "Games (Alfworld, LTP)",
+        "Web (WebShop, Mind2Web)",
+        "Gradient (RL, IRL)"
+      ],
+      "optionsZh": [
+        "代码（Bash、数据库 (DB)、知识图谱 (KG)）",
+        "游戏（Alfworld、LTP）",
+        "网页 (WebShop, Mind2Web)",
+        "梯度（强化学习 (RL)，逆强化学习 (IRL)）"
+      ],
+      "explanation": "AgentBench covers code, games, web, and open-ended generation. There is no gradient category.",
+      "explanationZh": "AgentBench 涵盖代码 (Code)、游戏 (Games)、网页 (Web) 以及开放式生成 (Open-ended Generation) 领域。该基准不包含梯度类别 (Gradient Category)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the lesson identify as the wrong way to report SWE-bench numbers?",
+      "questionZh": "本节课程指出，报告软件工程基准测试（SWE-bench）分数的错误方式是什么？",
+      "options": [
+        "Reporting per-repo breakdowns",
+        "Reporting one aggregate number without mentioning Verified or SWE-bench+ context",
+        "Reporting step counts",
+        "Reporting wall-clock"
+      ],
+      "optionsZh": [
+        "按仓库生成明细报告",
+        "在未提及 Verified 或 SWE-bench+ 具体背景的情况下，仅报告单一汇总指标",
+        "报告步骤计数",
+        "报告实际耗时（wall-clock time）"
+      ],
+      "explanation": "Single-number fixation hides contamination and cost; always report Verified and per-distribution context.",
+      "explanationZh": "单一指标依赖 (single-number fixation) 会掩盖数据污染 (data contamination) 与成本问题；务必报告已验证结果 (Verified) 及各数据分布 (per-distribution) 的上下文信息。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "Which dimension do these benchmarks NOT measure?",
+      "questionZh": "这些基准测试（benchmark）未衡量哪个维度（dimension）？",
+      "options": [
+        "Real-world operational cost (tokens, wall-clock), adversarial safety, and your own domain",
+        "Test transitions",
+        "Per-task success",
+        "Step counts"
+      ],
+      "optionsZh": [
+        "实际运营成本（Token、wall-clock 时间）、对抗安全性（adversarial safety），以及您的专属领域（domain）",
+        "测试转换 (Test transitions)",
+        "各任务成功率 (Per-task success)",
+        "步数 (Step counts)"
+      ],
+      "explanation": "Benchmarks aggregate; they do not capture cost, adversarial robustness, or your domain.",
+      "explanationZh": "基准测试（Benchmarks）提供的是综合指标；它们无法体现成本、对抗鲁棒性（Adversarial Robustness）或你的具体业务领域。"
+    }
+  ]
+}

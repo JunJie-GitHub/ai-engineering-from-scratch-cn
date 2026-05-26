@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "In the ViT-MLP-LLM VLM pattern, which component is most commonly trained while the others are kept frozen during alignment?",
+      "questionZh": "在 ViT-MLP-LLM 视觉语言模型（VLM）模式中，对齐（Alignment）阶段最常训练哪个组件，而将其他组件保持冻结？",
+      "options": [
+        "The vision encoder",
+        "The projector (the 2-4 layer MLP between ViT and LLM) — it maps vision tokens into the LLM's embedding space and carries most of the cross-modal alignment signal",
+        "The LLM",
+        "All components are always trained together"
+      ],
+      "optionsZh": [
+        "视觉编码器 (vision encoder)",
+        "投影器 (Projector)（即位于视觉Transformer (ViT) 与大语言模型 (LLM) 之间的2-4层多层感知机 (MLP)）——它将视觉词元 (Vision Tokens) 映射至大语言模型的嵌入空间 (Embedding Space)，并承载了大部分的跨模态对齐信号 (Cross-modal Alignment Signal)。",
+        "The LLM",
+        "所有组件始终进行联合训练。"
+      ],
+      "explanation": "The standard VLM recipe trains the projector first with ViT and LLM frozen (alignment stage), then optionally unfreezes everything for pre-training and instruction tuning. The projector is small (tens to hundreds of millions of params) and takes the brunt of the modality bridge. Fine-tuning in production often trains only the projector + LoRA on attention — cheap and effective.",
+      "explanationZh": "标准的视觉语言模型（Vision-Language Model, VLM）训练流程首先会冻结视觉Transformer（Vision Transformer, ViT）和大语言模型（Large Language Model, LLM），仅训练投影层（projector）（对齐阶段（alignment stage）），随后可选择解冻全部参数进行预训练（pre-training）与指令微调（instruction tuning）。投影层规模较小（参数量（parameters）在数千万至数亿之间），承担了模态桥接（modality bridge）的主要工作。生产环境中的微调（fine-tuning）通常仅训练投影层与注意力机制（attention）上的低秩自适应（Low-Rank Adaptation, LoRA）模块——该方法既经济又高效。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "DeepStack (used in Qwen3-VL) does what?",
+      "questionZh": "DeepStack（应用于 Qwen3-VL）的主要作用是什么？",
+      "options": [
+        "Uses only the deepest ViT layer's features",
+        "Stacks features from multiple ViT depths before projection, so the LLM sees both high-level semantics (deep layers) and fine-grained spatial detail (shallow layers)",
+        "Doubles the depth of the LLM",
+        "Is a specific quantisation scheme"
+      ],
+      "optionsZh": [
+        "仅使用视觉 Transformer (Vision Transformer) 最深层的特征。",
+        "在投影前堆叠来自视觉Transformer (ViT) 多个深度的特征，使大语言模型 (LLM) 能够同时感知高层语义（深层）与细粒度空间细节（浅层）。",
+        "将大语言模型（LLM）的深度翻倍。",
+        "是一种特定的量化方案（Quantisation Scheme）"
+      ],
+      "explanation": "Vanilla VLMs project only last-layer ViT features. DeepStack samples multiple depths, concatenates, and projects. Deep layers give semantics ('this is a chart'); shallow layers give position and texture ('the bar at x=120 is red'). The combination closes the grounding gap on tasks requiring fine localisation, like GUI agent actions or dense captioning.",
+      "explanationZh": "基础视觉语言模型（Vision-Language Models, VLMs）仅对视觉变换器（Vision Transformer, ViT）最后一层的特征进行投影。DeepStack 采样多个网络深度，将特征拼接后进行投影。深层网络提供语义信息（“这是一张图表”），浅层网络提供位置与纹理信息（“x=120 处的柱状图是红色的”）。这种结合有效弥合了需要精细定位任务中的视觉定位（grounding）差距，例如图形用户界面（GUI）智能体操作或密集描述（dense captioning）任务。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "A production VLM shows high text confidence but the generated text describes objects not present in the image. Which metric captures this failure?",
+      "questionZh": "生产环境中的视觉语言模型（Vision-Language Model）表现出较高的文本置信度，但生成的文本却描述了图像中并不存在的物体。哪种指标能够捕捉到此类故障？",
+      "options": [
+        "Perplexity",
+        "Cross-Modal Error Rate (CMER) — fraction of outputs where text confidence is high but image-text cosine similarity (via a CLIP-family checker) is low; ~12% typical on uncurated web data",
+        "Accuracy on MMMU",
+        "Token generation latency"
+      ],
+      "optionsZh": [
+        "困惑度 (Perplexity)",
+        "跨模态错误率 (Cross-Modal Error Rate, CMER) —— 指在输出结果中，文本置信度较高但图文余弦相似度（通过 CLIP 系列检查器计算）较低的比例；在未筛选的网络数据中，该比例通常约为 12%。",
+        "MMMU 上的准确率 (Accuracy)",
+        "Token 生成延迟 (Token Generation Latency)"
+      ],
+      "explanation": "CMER is a production alignment KPI. It catches the classic VLM hallucination pattern: the model is sure about its text, but the text is not grounded in the image. Monitor CMER per endpoint and prompt type; treat rising CMER as a signal that the model is drifting out of distribution or encountering a prompt category it cannot handle. Skywork.ai cut hallucinations ~35% by making CMER a first-class KPI.",
+      "explanationZh": "CMER 是一项生产环境对齐关键绩效指标（KPI）。它能捕捉视觉语言模型（VLM）典型的幻觉模式：模型对其生成的文本高度确信，但文本内容缺乏图像依据。建议按接口（endpoint）和提示词类型（prompt type）分别监控 CMER；将 CMER 的上升视为模型发生分布外漂移（out-of-distribution drift）或遇到无法处理的提示词类别的信号。通过将 CMER 确立为核心关键绩效指标，Skywork.ai 成功将幻觉率降低了约 35%。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why do modern VLMs use SigLIP or custom vision encoders rather than a supervised ImageNet ResNet as the backbone?",
+      "questionZh": "为什么现代视觉语言模型（VLMs）会采用 SigLIP 或自定义视觉编码器（vision encoders），而不是将在 ImageNet 上监督训练的 ResNet 作为骨干网络（backbone）？",
+      "options": [
+        "SigLIP is faster",
+        "CLIP/SigLIP-style encoders are trained jointly with text, so their output space is already approximately aligned with language; the projector then has to do much less work and the model reasons better about visual-textual concepts",
+        "ResNets cannot produce tokens",
+        "SigLIP has more parameters"
+      ],
+      "optionsZh": [
+        "SigLIP 速度更快",
+        "CLIP/SigLIP 风格编码器 (CLIP/SigLIP-style encoders) 与文本联合训练，因此其输出空间 (output space) 已与语言大致对齐；这使得投影层 (projector) 所需完成的工作大幅减少，模型对视觉-文本概念 (visual-textual concepts) 的推理能力也更强。",
+        "残差网络 (ResNet) 无法生成词元 (token)。",
+        "SigLIP 拥有更多的参数 (parameters)。"
+      ],
+      "explanation": "Vision-language pretraining shapes the encoder to live in a text-compatible space. A supervised ImageNet ResNet was trained without any text signal, so bridging to an LLM requires much larger projectors and more data. CLIP/SigLIP/DINOv3 encoders produce features that an LLM can consume with a few linear layers. Almost every SOTA VLM uses a CLIP-family or SigLIP encoder for this reason.",
+      "explanationZh": "视觉-语言预训练（Vision-Language Pretraining）使编码器（Encoder）的特征表示能够存在于文本兼容空间（Text-Compatible Space）中。监督训练的 ImageNet ResNet 在训练过程中未使用任何文本信号（Text Signal），因此要将其桥接至大语言模型（Large Language Model, LLM），需要规模更大的投影层（Projectors）以及更多的数据。CLIP/SigLIP/DINOv3 编码器生成的特征（Features）仅需经过少量线性层（Linear Layers）即可被大语言模型直接处理。正因如此，目前几乎所有最先进（State-of-the-Art, SOTA）的视觉语言模型（Vision-Language Model, VLM）都采用 CLIP 系列（CLIP-Family）或 SigLIP 编码器。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Qwen3-VL-235B-A22B achieves top scores on OSWorld. What is OSWorld, and what does this imply?",
+      "questionZh": "Qwen3-VL-235B-A22B 在 OSWorld（操作系统交互基准测试）上取得了顶尖成绩。OSWorld 究竟是什么？这一成绩又意味着什么？",
+      "options": [
+        "A synthetic benchmark",
+        "An agent benchmark where the model operates desktop GUIs — identifies buttons, reads UI state, emits actions; Qwen3-VL's top scores imply VLMs are now viable visual agents for GUI automation",
+        "A pose-estimation benchmark",
+        "A video QA benchmark"
+      ],
+      "optionsZh": [
+        "合成基准测试 (Synthetic Benchmark)",
+        "一项智能体基准测试（Agent Benchmark），模型在其中操作桌面图形用户界面（Graphical User Interface, GUI）——识别按钮、读取界面状态、输出动作；Qwen3-VL 的顶尖得分表明，视觉语言模型（Vision-Language Model, VLM）现已成为可用于 GUI 自动化的可行视觉智能体。",
+        "姿态估计基准测试（Pose Estimation Benchmark）",
+        "视频问答（Video QA）基准（Benchmark）"
+      ],
+      "explanation": "OSWorld tests whether a model can autonomously operate a desktop environment via screenshots. Qwen3-VL's top global scores indicate the 'visual agent' paradigm — VLM reads screen, decides action, tool-calls the mouse/keyboard — has crossed into practical territory. This is what 2026 AI PC demos run; it is also a direct route into automated QA, RPA, and accessibility products.",
+      "explanationZh": "OSWorld 用于测试模型能否通过屏幕截图自主操作桌面环境 (Desktop Environment)。Qwen3-VL 在全球榜单上的顶尖得分表明，“视觉智能体 (Visual Agent)”范式——即视觉语言模型 (VLM) 读取屏幕、决策动作，并通过工具调用 (Tool Calls) 操作鼠标/键盘——已迈入实际应用阶段。这正是 2026 年 AI PC 演示所运行的核心场景；同时，它也为自动化测试 (Automated QA)、机器人流程自动化 (RPA) 以及无障碍产品 (Accessibility Products) 提供了一条直接的发展路径。"
+    }
+  ]
+}

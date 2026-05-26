@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why have benchmarks like MMLU become less useful for comparing frontier models?",
+      "questionZh": "为什么像 MMLU 这样的基准测试（benchmark）在比较前沿模型（frontier model）时变得不再那么有用了？",
+      "options": [
+        "They test the wrong subjects",
+        "Frontier models have saturated MMLU (scoring 86-89%), compressing the leaderboard to a range where differences are statistical noise",
+        "MMLU was designed for smaller models",
+        "The questions are too easy"
+      ],
+      "optionsZh": [
+        "测试了错误的对象",
+        "前沿模型 (Frontier models) 在 MMLU 基准 (MMLU) 上的表现已趋于饱和（得分达 86%–89%），导致排行榜 (leaderboard) 的分数区间被大幅压缩，模型间的差异已沦为统计噪声 (statistical noise)。",
+        "大规模多任务语言理解（MMLU）基准最初是为小型模型（smaller models）设计的。",
+        "这些问题太简单了。"
+      ],
+      "explanation": "When GPT-4, Claude 3, and Llama 3 all score 86-89% on MMLU, a 1-point difference is not meaningful. The benchmark no longer discriminates between models, yet it still dominates leaderboard culture.",
+      "explanationZh": "当 GPT-4、Claude 3 和 Llama 3 在大规模多任务语言理解 (MMLU) 基准测试中的得分均处于 86% 至 89% 之间时，1 分的差距已不具备实际意义。该基准测试已无法有效区分不同模型，却依然主导着当前的排行榜文化。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is Goodhart's Law in the context of LLM evaluation?",
+      "questionZh": "在大语言模型（LLM）评估的背景下，什么是古德哈特定律（Goodhart's Law）？",
+      "options": [
+        "A law about model scaling",
+        "When a measure becomes a target, it ceases to be a good measure -- models and teams optimize for benchmarks instead of real capabilities",
+        "A rule about learning rate schedules",
+        "A theorem about attention mechanisms"
+      ],
+      "optionsZh": [
+        "关于模型缩放 (Model Scaling) 的定律",
+        "当一项指标（measure）成为目标时，它便不再是一项好的指标——模型与团队会为了优化基准测试（benchmarks）表现，而非致力于提升真实能力。",
+        "关于学习率调度（Learning Rate Schedules）的规则",
+        "关于注意力机制 (Attention Mechanisms) 的定理"
+      ],
+      "explanation": "Labs optimize for benchmark scores (data contamination, benchmark-specific prompting). The score goes up, but real-world capability doesn't necessarily improve. Your own task-specific eval is the only reliable measure.",
+      "explanationZh": "实验室通常针对基准测试分数（benchmark scores）进行优化（数据污染（data contamination）、针对特定基准的提示词设计（benchmark-specific prompting））。分数虽然提高了，但实际应用能力（real-world capability）未必会随之提升。只有你自己针对特定任务的评估（eval）才是唯一可靠的衡量标准。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the LLM-as-judge evaluation approach?",
+      "questionZh": "什么是大语言模型即裁判（LLM-as-judge）评估方法？",
+      "options": [
+        "Having a human judge evaluate every response",
+        "Using a strong LLM (e.g., GPT-4) to score responses against rubrics, replacing expensive human evaluation at scale",
+        "Training a separate classifier for evaluation",
+        "Using the model to evaluate itself"
+      ],
+      "optionsZh": [
+        "由人工评审员 (Human Judge) 评估每个回复",
+        "使用强大的大语言模型（Large Language Model）（例如 GPT-4）依据评分标准（rubrics）对回答进行打分，从而在大规模场景下替代昂贵的人工评估（human evaluation）。",
+        "训练独立的分类器用于评估",
+        "使用模型进行自我评估"
+      ],
+      "explanation": "LLM-as-judge uses a capable model to score responses against defined criteria. It's cheaper and faster than human evaluation, though it has biases (e.g., preferring verbose responses) that must be calibrated.",
+      "explanationZh": "大语言模型即裁判（LLM-as-judge）利用高性能模型，根据预定义的标准对生成回复进行评分。相较于人工评估（human evaluation），该方法成本更低且速度更快，但其固有的偏差（bias）（例如倾向于偏好冗长的回复）必须经过校准。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why is building a custom evaluation suite important rather than relying on public benchmarks?",
+      "questionZh": "为什么构建自定义评估套件 (custom evaluation suite) 比依赖公开基准测试 (public benchmarks) 更为重要？",
+      "options": [
+        "Public benchmarks are always wrong",
+        "Public benchmarks test general capabilities; your application has specific requirements that only a custom eval can measure",
+        "Custom evals are easier to build",
+        "Public benchmarks are too expensive"
+      ],
+      "optionsZh": [
+        "公开基准测试（public benchmarks）总是有误的",
+        "公开基准测试（Public Benchmarks）用于评估通用能力；而您的应用具有特定需求，只有通过自定义评估（Custom Eval）才能准确衡量。",
+        "自定义评估 (custom evaluations) 更易于构建。",
+        "公开基准测试（Public benchmarks）成本过高"
+      ],
+      "explanation": "A model scoring 90% on MMLU might fail on your specific task (e.g., extracting dates from legal documents in your format). Only a custom eval with your data, your edge cases, and your success criteria measures what matters.",
+      "explanationZh": "在大规模多任务语言理解（MMLU）上得分 90% 的模型，可能在你的特定任务中表现不佳（例如，按你的格式从法律文档中提取日期）。只有基于你的数据、边界情况（edge cases）和成功标准（success criteria）进行的自定义评估（custom evaluation），才能准确衡量出真正关键的指标。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is data contamination in the context of LLM benchmarks?",
+      "questionZh": "在大语言模型（LLM）基准测试（Benchmarks）的语境下，什么是数据污染（Data Contamination）？",
+      "options": [
+        "When training data is corrupted",
+        "When benchmark questions appear in the model's pre-training data, inflating scores without reflecting true capability",
+        "When the model generates incorrect data",
+        "When evaluation data is mislabeled"
+      ],
+      "optionsZh": [
+        "当训练数据 (Training Data) 损坏时",
+        "当基准测试问题（benchmark questions）出现在模型的预训练数据（pre-training data）中时，会导致分数虚高，无法反映模型的真实能力。",
+        "当模型 (model) 生成错误数据时",
+        "当评估数据标注错误时"
+      ],
+      "explanation": "If MMLU questions appeared in the training corpus, the model memorized the answers rather than reasoning about them. This inflates scores and makes benchmark comparisons unreliable. It's a growing problem as training corpora expand.",
+      "explanationZh": "若训练语料库（training corpus）中包含了大规模多任务语言理解（MMLU）的题目，模型往往会直接记忆答案，而非进行逻辑推理。这会导致评测分数虚高，进而使基准测试（benchmark）的对比结果失去可靠性。随着训练语料规模的持续扩大，该问题正变得愈发严峻。"
+    }
+  ]
+}

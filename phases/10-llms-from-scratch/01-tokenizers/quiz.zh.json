@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the primary purpose of a tokenizer in an LLM pipeline?",
+      "questionZh": "在大语言模型（LLM）流水线（Pipeline）中，分词器（Tokenizer）的主要作用是什么？",
+      "options": [
+        "To remove stop words from text",
+        "To convert text into a sequence of integers that the model can process",
+        "To translate text between languages",
+        "To compress text for storage"
+      ],
+      "optionsZh": [
+        "从文本中移除停用词 (stop words)",
+        "将文本转换为模型可处理的整数序列",
+        "在不同语言之间翻译文本",
+        "压缩文本以便存储"
+      ],
+      "explanation": "LLMs process numbers, not text. The tokenizer converts every character, word, and symbol into integer IDs from a fixed vocabulary. This conversion is not neutral -- it determines how the model 'sees' language.",
+      "explanationZh": "大语言模型（Large Language Models）处理的是数字，而非文本。分词器（Tokenizer）会将每个字符、单词和符号转换为来自固定词表（Fixed Vocabulary）的整数 ID。这种转换并非中立——它决定了模型如何“看待”语言。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does BPE (Byte Pair Encoding) do to build its vocabulary?",
+      "questionZh": "字节对编码 (Byte Pair Encoding) 是如何构建其词表的？",
+      "options": [
+        "Splits text into individual characters only",
+        "Iteratively merges the most frequent adjacent pair of tokens until reaching the target vocabulary size",
+        "Uses a dictionary lookup for whole words",
+        "Randomly assigns IDs to substrings"
+      ],
+      "optionsZh": [
+        "仅将文本拆分为单个字符",
+        "迭代合并频率最高的相邻词元（token）对，直至达到目标词表大小（vocabulary size）。",
+        "使用字典查找（dictionary lookup）处理完整单词（whole words）",
+        "随机为子字符串 (substring) 分配标识符 (ID)"
+      ],
+      "explanation": "BPE starts with individual bytes/characters and repeatedly merges the most common adjacent pair. 'th' + 'e' becomes 'the'. After thousands of merges, common words become single tokens while rare words are split into subword pieces.",
+      "explanationZh": "字节对编码 (Byte Pair Encoding) 从单个字节/字符开始，反复合并最常见的相邻对。例如，'th' + 'e' 会合并为 'the'。经过数千次合并后，常见词会变为单个词元 (token)，而罕见词则会被拆分为子词 (subword) 片段。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does vocabulary size create a tradeoff in LLM design?",
+      "questionZh": "为什么词汇表大小（Vocabulary Size）会在大语言模型（LLM）设计中产生权衡（Trade-off）？",
+      "options": [
+        "Larger vocabularies always perform better",
+        "Too small creates long sequences (more computation); too large wastes embedding parameters on rare tokens",
+        "Vocabulary size doesn't affect model performance",
+        "Smaller vocabularies are always more efficient"
+      ],
+      "optionsZh": [
+        "更大的词表（vocabulary）总是表现更好。",
+        "过小会导致序列 (sequences) 过长（增加计算开销）；过大则会将嵌入参数 (embedding parameters) 浪费在罕见词元 (rare tokens) 上。",
+        "词表大小（Vocabulary size）不影响模型性能（Model performance）",
+        "较小的词表 (vocabulary) 总是更高效。"
+      ],
+      "explanation": "Small vocabulary (e.g., character-level) means every word is many tokens, increasing sequence length and computation. Large vocabulary wastes parameters on tokens that rarely appear in training data. Most LLMs use 32K-100K tokens.",
+      "explanationZh": "较小的词表（vocabulary）（例如字符级（character-level））意味着每个单词会被拆分为多个词元（token），从而增加序列长度（sequence length）与计算量。较大的词表则会将参数浪费在训练数据中极少出现的词元上。目前，大多数大语言模型（Large Language Model, LLM）的词表规模通常设定在 32K 至 100K 个词元之间。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What problem does byte-level fallback solve in tokenization?",
+      "questionZh": "在词元化（tokenization）中，字节级回退（byte-level fallback）主要解决什么问题？",
+      "options": [
+        "It speeds up tokenization",
+        "It ensures any input (emoji, rare scripts, binary data) can be encoded without 'unknown' tokens",
+        "It reduces vocabulary size",
+        "It improves model accuracy"
+      ],
+      "optionsZh": [
+        "它加快了分词（tokenization）的速度。",
+        "它确保任何输入（表情符号、生僻字符、二进制数据）均可被编码，且不会产生“未知”词元（tokens）。",
+        "它可降低词表大小 (vocabulary size)。",
+        "它提升了模型准确率（Model Accuracy）。"
+      ],
+      "explanation": "With byte-level fallback, the tokenizer can fall back to raw byte values (256 possible) for any character not in the vocabulary. This guarantees complete coverage -- no input is ever 'unknown.'",
+      "explanationZh": "借助字节级回退（byte-level fallback）机制，分词器（tokenizer）可将词表（vocabulary）之外的任意字符回退至原始字节值（raw byte values）（共 256 种可能）。这确保了完全覆盖（complete coverage）——任何输入都不会被标记为“未知”（unknown）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How does the tokenizer affect non-English language performance in LLMs?",
+      "questionZh": "分词器（Tokenizer）如何影响大语言模型（LLM）在非英语语言上的性能表现？",
+      "options": [
+        "Tokenizers work equally well for all languages",
+        "Languages underrepresented in training data get worse token merges, requiring more tokens per word and wasting context window",
+        "Non-English text is always character-tokenized",
+        "Tokenization doesn't affect language performance"
+      ],
+      "optionsZh": [
+        "分词器 (Tokenizer) 对所有语言的处理效果同样出色。",
+        "训练数据中代表性不足的语言会导致词元合并（token merges）效果较差，使得每个词需要更多的词元（tokens），从而浪费上下文窗口（context window）。",
+        "非英文文本始终采用字符级分词（character tokenization）。",
+        "词元化（Tokenization）不会影响语言性能"
+      ],
+      "explanation": "BPE merges are learned from training data. If Japanese text is 5% of the corpus, Japanese characters get fewer merges, requiring 2-5x more tokens per word than English. This effectively shrinks the context window for non-English text.",
+      "explanationZh": "BPE合并（BPE merges）是从训练数据中学习得到的。如果日语文本在语料库（corpus）中仅占5%，日文字符获得的合并次数就会较少，导致每个单词所需的词元（token）数量是英语的2到5倍。这实际上缩小了非英语文本的上下文窗口（context window）。"
+    }
+  ]
+}

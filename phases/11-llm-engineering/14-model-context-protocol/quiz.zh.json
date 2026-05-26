@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What three primitives does an MCP server expose?",
+      "questionZh": "MCP 服务器公开哪三个原语（primitives）？",
+      "options": [
+        "Functions, types, classes",
+        "Tools, resources, prompts",
+        "Endpoints, webhooks, queues",
+        "Agents, skills, workflows"
+      ],
+      "optionsZh": [
+        "函数 (Functions)、类型 (Types) 与类 (Classes)",
+        "工具、资源、提示词 (Prompts)",
+        "端点 (Endpoints)、Webhook (Webhooks)、队列 (Queues)",
+        "智能体 (Agent)、技能 (Skill) 与工作流 (Workflow)"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "What wire format does MCP use?",
+      "questionZh": "MCP 使用什么线路格式 (wire format)？",
+      "options": [
+        "GraphQL over HTTP",
+        "gRPC with protobuf",
+        "JSON-RPC 2.0",
+        "REST with OpenAPI"
+      ],
+      "optionsZh": [
+        "基于 HTTP 的 GraphQL",
+        "gRPC 与 Protocol Buffers (Protobuf)",
+        "JSON-RPC 2.0",
+        "基于 OpenAPI 的 REST"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "Which metadata field signals a tool mutates state and should require human approval?",
+      "questionZh": "哪个元数据字段（metadata field）用于标识工具（tool）会修改状态（mutates state），且需要人工审批（human approval）？",
+      "options": [
+        "readonly: false",
+        "mutating: true",
+        "destructiveHint: true",
+        "requiresAuth: true"
+      ],
+      "optionsZh": [
+        "readonly: 否",
+        "mutating: 是",
+        "destructiveHint: true",
+        "requiresAuth: 是"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the 2025-06-18 transport that replaced the earlier SSE-only remote transport?",
+      "questionZh": "取代早期仅支持 SSE（Server-Sent Events）的远程传输 (remote transport) 机制的 2025-06-18 传输机制 (transport) 是什么？",
+      "options": [
+        "WebTransport",
+        "Streamable HTTP",
+        "WebSocket-only",
+        "gRPC bidi"
+      ],
+      "optionsZh": [
+        "Web传输 (WebTransport)",
+        "可流式传输的 HTTP (Streamable HTTP)",
+        "仅支持 WebSocket (WebSocket-only)",
+        "gRPC bidi"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "When should a tool be split into its own MCP server instead of staying inline?",
+      "questionZh": "何时应将工具拆分为独立的 MCP 服务器（MCP server），而不是保持内联（inline）？",
+      "options": [
+        "When it is called fewer than 10 times per day",
+        "When it is called from two or more hosts and is read-only/cacheable",
+        "When it returns more than 1KB of data",
+        "Never; MCP is only for local dev"
+      ],
+      "optionsZh": [
+        "当每日调用次数少于 10 次时",
+        "当从两个或多个主机（hosts）调用，且其为只读（read-only）/可缓存（cacheable）时",
+        "当其返回的数据超过 1KB 时",
+        "绝不；模型上下文协议（MCP）仅用于本地开发。"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    }
+  ]
+}

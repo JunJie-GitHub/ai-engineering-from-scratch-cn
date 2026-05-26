@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the dot product of two vectors measure?",
+      "questionZh": "两个向量（Vector）的点积（Dot Product）衡量的是什么？",
+      "options": [
+        "The distance between the two vectors",
+        "How similar or aligned the two vectors are",
+        "The angle between the vectors in degrees",
+        "The number of dimensions the vectors share"
+      ],
+      "optionsZh": [
+        "两个向量 (vector) 之间的距离",
+        "两个向量 (vectors) 的相似或对齐程度",
+        "向量 (vectors) 之间的夹角（以度 (degrees) 为单位）",
+        "向量 (vector) 共享的维度 (dimension) 数量"
+      ],
+      "explanation": "The dot product measures alignment: positive means same direction (similar), zero means perpendicular (unrelated), negative means opposite direction (dissimilar). This is the basis of similarity search in AI.",
+      "explanationZh": "点积（Dot Product）用于衡量对齐程度：正值表示方向相同（相似），零表示相互垂直（不相关），负值表示方向相反（不相似）。这是人工智能（AI）中相似度搜索（Similarity Search）的基础。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "In AI, what does 'embedding' refer to?",
+      "questionZh": "在人工智能（AI）中，“嵌入（Embedding）”指的是什么？",
+      "options": [
+        "Inserting one model inside another",
+        "A vector representation that captures the meaning of something (word, image, user)",
+        "A technique for compressing model weights",
+        "The process of converting code to machine instructions"
+      ],
+      "optionsZh": [
+        "将一个模型 (Model) 嵌入另一个模型中",
+        "一种能够捕捉对象（如单词、图像或用户）语义的向量表示（Vector Representation）",
+        "一种压缩模型权重（Model Weights）的技术",
+        "将代码转换为机器指令（Machine Instructions）的过程"
+      ],
+      "explanation": "An embedding maps discrete objects (words, images, users) to continuous vectors in a high-dimensional space where similar items are close together. It is the bridge between real-world concepts and mathematical operations.",
+      "explanationZh": "嵌入（Embedding）将离散对象（如词语、图像、用户）映射到高维空间中的连续向量，使得相似的项在该空间中彼此靠近。它是连接现实世界概念与数学运算的桥梁。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Three vectors v1=[1,0,0], v2=[0,1,0], v3=[2,1,0] are given. Are they linearly independent?",
+      "questionZh": "给定三个向量 v1=[1,0,0]、v2=[0,1,0] 和 v3=[2,1,0]。它们是否线性无关（linearly independent）？",
+      "options": [
+        "Yes, because there are three vectors in 3D space",
+        "No, because v3 = 2*v1 + v2, so v3 is a linear combination of the others",
+        "Yes, because none of the vectors are identical",
+        "No, because they all have a zero component"
+      ],
+      "optionsZh": [
+        "是的，因为在三维空间 (3D space) 中有三个向量 (vectors)。",
+        "不是，因为 v3 = 2*v1 + v2，所以 v3 是其他向量的线性组合 (linear combination)。",
+        "是的，因为没有任何向量 (vectors) 是完全相同的。",
+        "不，因为它们都包含一个零分量 (zero component)。"
+      ],
+      "explanation": "v3 = 2*v1 + v2, making the set linearly dependent. All three vectors lie in the xy-plane and cannot reach [0,0,1]. Despite having 3 vectors in 3D, they only span a 2D subspace.",
+      "explanationZh": "`v3 = 2*v1 + v2`，这使得该向量组线性相关 (linearly dependent)。这三个向量 (vectors) 均位于 xy平面 (xy-plane) 内，无法到达 `[0,0,1]`。尽管在三维 (3D) 空间中有 3 个向量，但它们仅能张成 (span) 一个二维子空间 (subspace)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the rank of a matrix tell you in the context of machine learning?",
+      "questionZh": "在机器学习（Machine Learning）的背景下，矩阵的秩（Rank）意味着什么？",
+      "options": [
+        "How fast the matrix can be multiplied",
+        "The number of linearly independent columns, indicating how many dimensions of useful information it contains",
+        "The maximum value in the matrix",
+        "The number of non-zero entries in the matrix"
+      ],
+      "optionsZh": [
+        "矩阵乘法的运算速度",
+        "线性无关列（linearly independent columns）的数量，表示其包含的有效信息维度数。",
+        "矩阵 (Matrix) 中的最大值",
+        "矩阵 (matrix) 中非零元素 (non-zero entries) 的数量"
+      ],
+      "explanation": "Rank equals the number of linearly independent columns. In ML, a rank-deficient feature matrix means redundant features, infinitely many weight solutions, and the need for regularization.",
+      "explanationZh": "秩（Rank）等于线性无关列的数量。在机器学习（Machine Learning, ML）中，秩亏特征矩阵（Rank-deficient Feature Matrix）意味着存在冗余特征、有无穷多组权重解，并且需要进行正则化（Regularization）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How does LoRA (Low-Rank Adaptation) use linear algebra to efficiently fine-tune large language models?",
+      "questionZh": "LoRA（低秩适应，Low-Rank Adaptation）如何利用线性代数（Linear Algebra）高效微调（Fine-tune）大语言模型（Large Language Models）？",
+      "options": [
+        "It removes unused rows from weight matrices to shrink the model",
+        "It decomposes weight updates into two small low-rank matrices instead of updating the full weight matrix",
+        "It converts all weights from float32 to int8",
+        "It freezes the embedding layer and only trains the output head"
+      ],
+      "optionsZh": [
+        "它通过移除权重矩阵 (weight matrices) 中未使用的行来压缩模型体积。",
+        "它将权重更新（weight updates）分解为两个小型低秩矩阵（low-rank matrices），而不是更新全量权重矩阵（full weight matrix）。",
+        "它将所有权重 (weights) 从 float32 转换为 int8。",
+        "它会冻结嵌入层（embedding layer），仅训练输出头（output head）。"
+      ],
+      "explanation": "LoRA decomposes a 4096x4096 weight update into two matrices of size 4096x16 and 16x4096 (rank-16), reducing trainable parameters from 16M to 131K by assuming updates live in a low-dimensional subspace.",
+      "explanationZh": "低秩自适应 (LoRA) 将一个 4096x4096 的权重更新 (weight update) 分解为两个维度分别为 4096x16 和 16x4096 的矩阵（秩为 16）。通过假设更新存在于低维子空间 (low-dimensional subspace) 中，该方法将可训练参数 (trainable parameters) 从 16M 减少至 131K。"
+    }
+  ]
+}

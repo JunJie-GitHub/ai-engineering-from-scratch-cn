@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does a p-value of 0.03 mean in a hypothesis test?",
+      "questionZh": "在假设检验（hypothesis test）中，p值（p-value）为0.03意味着什么？",
+      "options": [
+        "There is a 3% probability the null hypothesis is true",
+        "There is a 3% probability of seeing data this extreme if the null hypothesis were true",
+        "The model improved by 3%",
+        "97% of the data supports the alternative hypothesis"
+      ],
+      "optionsZh": [
+        "零假设（Null Hypothesis）成立的概率为 3%。",
+        "若零假设（Null Hypothesis）成立，观察到如此极端数据的概率为 3%。",
+        "模型 (model) 性能提升了 3%。",
+        "97% 的数据支持备择假设 (alternative hypothesis)。"
+      ],
+      "explanation": "The p-value is the probability of observing data as extreme as what you got, assuming the null hypothesis is true. It is NOT the probability that H0 is true — this is the single most common misunderstanding in statistics.",
+      "explanationZh": "p值（p-value）是指在原假设（null hypothesis）为真的前提下，观察到与当前数据一样极端或更极端的数据的概率。它**并非**原假设（H0）为真的概率——这是统计学（statistics）中最常见的一个误解。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why do you divide by (n-1) instead of n when computing sample variance?",
+      "questionZh": "在计算样本方差（Sample Variance）时，为什么要除以 (n-1) 而不是 n？",
+      "options": [
+        "It makes the computation faster",
+        "It accounts for the fact that the sample mean is not the true population mean (Bessel's correction)",
+        "It converts the variance to standard deviation",
+        "It only applies when the sample size is odd"
+      ],
+      "optionsZh": [
+        "这加快了计算（computation）速度。",
+        "它考虑了样本均值 (sample mean) 并非总体真实均值 (population mean) 这一事实（贝塞尔校正 (Bessel's correction)）。",
+        "它将方差 (variance) 转换为标准差 (standard deviation)。",
+        "仅当样本量 (sample size) 为奇数时才适用。"
+      ],
+      "explanation": "Bessel's correction (dividing by n-1) compensates for the bias introduced by using the sample mean instead of the true population mean. Without it, sample variance systematically underestimates the true population variance.",
+      "explanationZh": "贝塞尔校正 (Bessel's correction)（除以 n-1）用于补偿因使用样本均值 (sample mean) 而非真实总体均值 (population mean) 所引入的偏差 (bias)。若不进行该校正，样本方差 (sample variance) 会系统性地低估真实总体方差 (population variance)。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "You test 20 different model configurations at alpha = 0.05. What is the approximate probability of at least one false positive?",
+      "questionZh": "在 alpha = 0.05 的显著性水平下，你对 20 种不同的模型配置（model configurations）进行了测试。出现至少一次假阳性（false positive）的近似概率是多少？",
+      "options": [
+        "5%",
+        "25%",
+        "64%",
+        "95%"
+      ],
+      "optionsZh": [
+        "5%",
+        "25%",
+        "64%",
+        "95%"
+      ],
+      "explanation": "P(at least one false positive) = 1 - (1 - 0.05)^20 = 1 - 0.95^20 ≈ 0.64 (64%). This is the multiple comparison problem. Bonferroni correction addresses it by testing each at alpha/20 = 0.0025.",
+      "explanationZh": "至少出现一次假阳性（False Positive）的概率 P = 1 - (1 - 0.05)^20 = 1 - 0.95^20 ≈ 0.64 (64%)。这就是多重比较问题（Multiple Comparison Problem）。邦费罗尼校正（Bonferroni Correction）通过将每次检验的显著性水平设定为 alpha/20 = 0.0025 来解决该问题。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Model A scores 0.9234 and Model B scores 0.9237 on 1 million test samples with p-value = 0.001. What should you conclude?",
+      "questionZh": "在100万个测试样本（test samples）上，模型A的得分为0.9234，模型B的得分为0.9237，p值（p-value）为0.001。你应得出什么结论？",
+      "options": [
+        "Model B is significantly better and should be deployed immediately",
+        "The difference is statistically significant but a 0.03% improvement may not be practically significant",
+        "The test is invalid because the sample size is too large",
+        "Model A is better because it was tested first"
+      ],
+      "optionsZh": [
+        "模型B的性能显著更优，应立即部署。",
+        "该差异在统计学上显著（statistically significant），但 0.03% 的提升在实际应用中可能并不具备实际显著性（practically significant）。",
+        "测试无效，因为样本量 (sample size) 过大。",
+        "模型A更优，因为它率先接受了测试。"
+      ],
+      "explanation": "With 1 million samples, even trivially small differences become statistically significant. The p-value confirms the difference is real, but the effect size (0.03% accuracy gain) may not justify the engineering cost of deployment. Always report both p-value and effect size.",
+      "explanationZh": "当样本量达到 100 万时，即使微不足道的差异也会变得具有统计显著性（statistically significant）。p值（p-value）证实了该差异是真实存在的，但效应量（effect size）（仅带来 0.03% 的准确率提升）可能不足以证明部署所需的工程成本是合理的。务必同时报告 p值 和效应量。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What advantage does bootstrap have over the paired t-test for comparing two ML models?",
+      "questionZh": "在比较两个机器学习（Machine Learning）模型时，自助法（Bootstrap）相较于配对t检验（Paired t-test）有哪些优势？",
+      "options": [
+        "Bootstrap always produces smaller p-values",
+        "Bootstrap requires no distributional assumptions and works for any metric (AUC, F1, median)",
+        "Bootstrap needs fewer samples to reach significance",
+        "Bootstrap can only be used with neural networks"
+      ],
+      "optionsZh": [
+        "自助法（Bootstrap）总是会产生更小的p值（p-value）。",
+        "自助法 (Bootstrap) 无需任何分布假设，且适用于任意评估指标（如 AUC、F1、中位数 (median)）。",
+        "自助法（Bootstrap）只需更少的样本即可达到显著性。",
+        "自助法（Bootstrap）仅适用于神经网络（Neural Networks）。"
+      ],
+      "explanation": "Bootstrap resampling estimates the sampling distribution of any statistic by resampling with replacement. Unlike the t-test, it does not assume normality. It works for any metric — AUC, F1, precision@k, median — without needing a closed-form formula.",
+      "explanationZh": "自助法重采样（Bootstrap resampling）通过有放回重采样（resampling with replacement）来估计任意统计量（statistic）的抽样分布（sampling distribution）。与t检验（t-test）不同，它不假设数据满足正态性（normality）。该方法适用于任意评估指标（metric）——如 AUC、F1、precision@k 或中位数（median）——且无需依赖闭式公式（closed-form formula）。"
+    }
+  ]
+}

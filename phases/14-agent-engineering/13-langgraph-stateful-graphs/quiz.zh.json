@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does LangGraph treat as the core unit of the agent?",
+      "questionZh": "LangGraph 将什么视为智能体（Agent）的核心单元？",
+      "options": [
+        "A free-form LLM call",
+        "A state machine with typed state, function nodes, and conditional edges",
+        "A single tool registry",
+        "A vector index"
+      ],
+      "optionsZh": [
+        "自由格式的大语言模型（LLM）调用",
+        "具备类型化状态（Typed State）、函数节点（Function Nodes）与条件边（Conditional Edges）的状态机（State Machine）",
+        "单一工具注册中心 (Tool Registry)",
+        "向量索引 (Vector Index)"
+      ],
+      "explanation": "LangGraph models the agent as a state graph: nodes are pure functions, edges are transitions, state is typed and immutable.",
+      "explanationZh": "LangGraph 将智能体（Agent）建模为状态图（State Graph）：节点为纯函数（Pure Function），边表示状态转移（Transition），状态为类型化（Typed）且不可变（Immutable）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Which problem does durable execution solve?",
+      "questionZh": "持久化执行 (Durable Execution) 解决了什么问题？",
+      "options": [
+        "Reducing inference cost",
+        "Resuming a 40-step run from step 38 when it fails, with exact state, instead of starting over",
+        "Generating embeddings faster",
+        "Translating between providers"
+      ],
+      "optionsZh": [
+        "降低推理成本 (Inference Cost)",
+        "当运行 (Run) 失败时，可从第38步精确恢复状态 (Exact State) 以继续完成40步的流程，而非从头开始。",
+        "加速嵌入（Embeddings）生成",
+        "跨提供商 (Providers) 转换"
+      ],
+      "explanation": "Checkpoints after every node let the runtime resume from the last successful step.",
+      "explanationZh": "每个节点（Node）后的检查点（Checkpoint）可使运行时（Runtime）从最近一次成功的步骤恢复执行。"
+    },
+    {
+      "stage": "check",
+      "correct": 3,
+      "question": "Which of these is NOT one of the three topologies LangGraph supports?",
+      "questionZh": "以下哪一项不是 LangGraph 支持的三种拓扑结构（topology）之一？",
+      "options": [
+        "Supervisor",
+        "Swarm (peer-to-peer)",
+        "Hierarchical (nested subgraphs)",
+        "Gradient ring"
+      ],
+      "optionsZh": [
+        "监督器 (Supervisor)",
+        "集群（Swarm）（对等网络）",
+        "层次化（嵌套子图）",
+        "渐变环 (Gradient ring)"
+      ],
+      "explanation": "Topologies are supervisor, swarm, and hierarchical. Gradient ring is not a LangGraph topology.",
+      "explanationZh": "拓扑结构（Topologies）包括监督模式（Supervisor）、群体模式（Swarm）和层级模式（Hierarchical）。梯度环（Gradient ring）并非 LangGraph 的拓扑结构。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Why must nodes be deterministic for resume to work cleanly?",
+      "questionZh": "为什么节点（nodes）必须具备确定性（deterministic），才能确保恢复（resume）过程干净无误？",
+      "options": [
+        "Providers require determinism",
+        "Resume assumes the same inputs produce the same state update; random seeds, wall-clock, and external APIs must be captured",
+        "Determinism reduces token cost",
+        "It is required by the GIL"
+      ],
+      "optionsZh": [
+        "提供商需要确定性 (determinism)",
+        "恢复训练（Resume）假设相同的输入会产生相同的状态更新（state update）；因此必须捕获随机种子（random seeds）、墙钟时间（wall-clock）以及外部 API（external APIs）的状态。",
+        "确定性（Determinism）可降低 Token 成本。",
+        "这是全局解释器锁 (GIL) 的要求。"
+      ],
+      "explanation": "If a node depends on uncaptured nondeterminism, resume cannot reconstruct the post-step state.",
+      "explanationZh": "如果某个节点（node）依赖于未捕获的非确定性（uncaptured nondeterminism），则恢复（resume）操作将无法重建步骤后状态（post-step state）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is a conditional edge?",
+      "questionZh": "什么是条件边（conditional edge）？",
+      "options": [
+        "An edge weighted by training loss",
+        "An edge chosen by a function of state, used to branch the graph",
+        "An edge that runs only on GPUs",
+        "An edge with a TTL"
+      ],
+      "optionsZh": [
+        "以训练损失 (training loss) 加权的边",
+        "由状态函数 (State Function) 选择的边 (Edge)，用于对图进行分支。",
+        "仅在 GPU 上运行的边",
+        "带有生存时间（TTL）的边"
+      ],
+      "explanation": "Conditional edges branch based on state; overusing them makes the graph hard to reason about.",
+      "explanationZh": "条件边（Conditional edges）会根据状态进行分支；过度使用会使图（Graph）难以推理。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "What goes wrong when checkpoints are too small?",
+      "questionZh": "当检查点 (checkpoints) 过小时会出现什么问题？",
+      "options": [
+        "Tool state and memory writes are not recoverable; full state must serialize",
+        "The disk fills up",
+        "The graph cannot reach END",
+        "The model produces shorter answers"
+      ],
+      "optionsZh": [
+        "工具状态（Tool state）与内存写入（memory writes）均不可恢复；完整状态（full state）必须进行序列化（serialize）。",
+        "磁盘已满",
+        "图 (Graph) 无法到达 END",
+        "该模型会生成更简短的回答。"
+      ],
+      "explanation": "Only checkpointing conversation turns leaves tool state and memory writes outside resume's reach.",
+      "explanationZh": "仅对对话轮次（conversation turns）进行检查点保存（checkpointing），会导致工具状态（tool state）和记忆写入（memory writes）无法被恢复（resume）操作所覆盖。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Where does human-in-the-loop fit into LangGraph's design?",
+      "questionZh": "人在回路（Human-in-the-Loop）在 LangGraph 的设计中处于什么位置？",
+      "options": [
+        "It requires a fork of the runtime",
+        "Pause before a critical node, surface serialized state to a human, accept modifications, resume; the checkpointer makes this cheap",
+        "Only at START and END",
+        "Through a separate provider API"
+      ],
+      "optionsZh": [
+        "这需要使用运行时（runtime）的一个分支（fork）。",
+        "在关键节点（critical node）前暂停，将序列化状态（serialized state）呈现给人类，接受修改后恢复执行；检查点机制（checkpointer）使这一过程的开销极低。",
+        "仅在开始（START）和结束（END）时",
+        "通过独立的提供商 API (Provider API)"
+      ],
+      "explanation": "Because state is already serialized between nodes, human review and edit is a natural pause-and-resume pattern.",
+      "explanationZh": "由于状态（state）已在节点（nodes）之间完成序列化（serialized），人工审核与编辑自然形成了一种暂停与恢复（pause-and-resume）模式。"
+    }
+  ]
+}

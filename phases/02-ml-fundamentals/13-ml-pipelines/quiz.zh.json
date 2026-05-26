@@ -1,0 +1,109 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "pipeline-pre-1",
+      "question": "What is data leakage in the context of ML pipelines?",
+      "questionZh": "在机器学习流水线（Machine Learning Pipelines）的语境下，什么是数据泄露（Data Leakage）？",
+      "options": [
+        "Data being accidentally deleted during preprocessing",
+        "Information from the test set or future data contaminating the training process",
+        "The model being too slow to process the data",
+        "Features being dropped during encoding"
+      ],
+      "optionsZh": [
+        "预处理 (Preprocessing) 过程中数据被意外删除",
+        "测试集 (Test Set) 或未来数据 (Future Data) 的信息污染训练过程 (Training Process)",
+        "模型 (Model) 处理数据的速度过慢",
+        "编码 (Encoding) 过程中被丢弃的特征 (Features)"
+      ],
+      "explanation": "Data leakage occurs when information that would not be available at prediction time is used during training. Example: computing the scaler's mean/std on the full dataset including test data.",
+      "explanationZh": "数据泄露（Data Leakage）是指在训练过程中使用了在预测阶段（Prediction Time）本不可用的信息。例如：在包含测试数据（Test Data）的完整数据集上计算缩放器（Scaler）的均值/标准差（Mean/Standard Deviation）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "pipeline-pre-2",
+      "question": "Why is fitting a scaler on the full dataset before splitting into train/test considered leaky?",
+      "questionZh": "为什么在划分训练集/测试集（train/test split）之前，对完整数据集（full dataset）拟合缩放器（scaler）会被视为数据泄露（data leakage）？",
+      "options": [
+        "Scaling changes the data distribution",
+        "The scaler's statistics (mean, std) include test data, so the model indirectly sees test information during training",
+        "Scaling should only be done on the test set",
+        "Fitting the scaler takes too long on large datasets"
+      ],
+      "optionsZh": [
+        "缩放 (Scaling) 会改变数据分布 (Data Distribution)。",
+        "缩放器（Scaler）的统计量（均值（mean）、标准差（std））包含了测试数据（Test Data），因此模型（Model）在训练（Training）过程中会间接获取到测试信息。",
+        "缩放 (Scaling) 仅应在测试集 (Test Set) 上执行。",
+        "在大规模数据集上拟合缩放器 (scaler) 耗时过长。"
+      ],
+      "explanation": "When the scaler is fit on all data, its mean and standard deviation encode information from test samples. Training features are then shifted using test statistics, leaking future information into training.",
+      "explanationZh": "当缩放器（Scaler）在全部数据上进行拟合（fit）时，其均值（mean）和标准差（standard deviation）会编码来自测试样本（test samples）的信息。随后，训练特征（training features）会利用测试统计量（test statistics）进行平移，导致未来信息泄露至训练阶段。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "pipeline-post-1",
+      "question": "In sklearn, what is the difference between calling fit_transform and transform on a pipeline step?",
+      "questionZh": "在 sklearn 中，对管道步骤（Pipeline Step）调用 fit_transform 和 transform 有什么区别？",
+      "options": [
+        "They are identical -- both fit and transform",
+        "fit_transform learns parameters from the data and applies the transform; transform only applies previously learned parameters",
+        "transform is for training data; fit_transform is for test data",
+        "fit_transform is slower but more accurate"
+      ],
+      "optionsZh": [
+        "它们完全相同——均支持 fit 和 transform 操作。",
+        "fit_transform 会从数据中学习参数并应用转换；而 transform 仅使用先前已学习到的参数进行转换。",
+        "transform 用于训练数据（training data）；fit_transform 用于测试数据（test data）。",
+        "`fit_transform` 速度较慢，但精度更高。"
+      ],
+      "explanation": "fit_transform computes statistics (e.g., mean, std) from the data AND transforms it. transform applies the already-learned statistics without recomputing. On test data, you must use transform to avoid leakage.",
+      "explanationZh": "fit_transform 会从数据中计算统计量（例如均值 (mean)、标准差 (std)）并同时进行转换。transform 则直接应用已学习到的统计量，而不会重新计算。在测试数据上，必须使用 transform 以避免数据泄露 (data leakage)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "pipeline-post-2",
+      "question": "Why is a ColumnTransformer necessary for real-world datasets?",
+      "questionZh": "为什么真实世界的数据集必须使用列转换器（ColumnTransformer）？",
+      "options": [
+        "It makes the pipeline run in parallel on multiple CPUs",
+        "It applies different preprocessing steps to numeric and categorical columns within the same pipeline",
+        "It removes columns with missing values automatically",
+        "It converts all columns to the same data type"
+      ],
+      "optionsZh": [
+        "它使流水线 (pipeline) 能够在多个 CPU 上并行运行。",
+        "它在同一个流水线 (pipeline) 中，对数值列 (numeric columns) 和类别列 (categorical columns) 分别应用不同的预处理步骤 (preprocessing steps)。",
+        "它会自动移除包含缺失值（missing values）的列。",
+        "它会将所有列（columns）转换为相同的数据类型（data type）。"
+      ],
+      "explanation": "Real datasets have mixed types. Numeric columns need scaling, categorical columns need encoding. ColumnTransformer routes each column subset to the appropriate transformer within a single pipeline.",
+      "explanationZh": "真实数据集通常包含混合类型的数据。数值列（Numeric columns）需要进行缩放（Scaling），类别列（Categorical columns）则需要进行编码（Encoding）。ColumnTransformer 能够在单一流水线（Pipeline）中，将各列子集路由至对应的转换器（Transformer）进行处理。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "id": "pipeline-post-3",
+      "question": "A production model receives a categorical value it never saw during training ('new_category'). What should the pipeline handle?",
+      "questionZh": "当生产模型（Production Model）接收到一个在训练（Training）阶段从未见过的类别值（Categorical Value）（'new_category'）时，流水线（Pipeline）应如何处理？",
+      "options": [
+        "Ignore the row entirely and return no prediction",
+        "Retrain the entire model from scratch",
+        "Handle unknown categories gracefully, e.g., by using an 'unknown' bucket or the global mean in target encoding",
+        "Convert the unknown category to the number zero"
+      ],
+      "optionsZh": [
+        "完全忽略该行，且不返回任何预测结果。",
+        "从头开始重新训练整个模型",
+        "妥善处理未知类别（unknown categories），例如在目标编码（target encoding）中使用“未知”桶（'unknown' bucket）或全局均值（global mean）。",
+        "将未知类别（unknown category）转换为数值 0。"
+      ],
+      "explanation": "Robust pipelines anticipate unseen categories in production. Solutions include an 'unknown' fallback for one-hot encoding, or defaulting to the global mean for target encoding.",
+      "explanationZh": "健壮的流水线（pipeline）能够提前应对生产环境（production）中出现的未见类别（unseen categories）。解决方案包括为独热编码（one-hot encoding）设置“未知”（'unknown'）兜底值，或在目标编码（target encoding）中默认采用全局均值（global mean）。"
+    }
+  ]
+}

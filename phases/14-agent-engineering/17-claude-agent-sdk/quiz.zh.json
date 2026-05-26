@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What is the difference between the Anthropic Client SDK and the Claude Agent SDK?",
+      "questionZh": "Anthropic 客户端 SDK（Anthropic Client SDK）与 Claude 智能体 SDK（Claude Agent SDK）有什么区别？",
+      "options": [
+        "Client SDK is raw Messages API; Agent SDK is the Claude Code harness shape with built-in tools, MCP, hooks, subagents, and session store",
+        "Client SDK is paid; Agent SDK is free",
+        "Client SDK is for Python only",
+        "There is no difference"
+      ],
+      "optionsZh": [
+        "客户端 SDK (Client SDK) 提供原始的消息 API (Messages API)；智能体 SDK (Agent SDK) 则采用 Claude Code 的 harness 架构 (harness)，内置了工具、MCP (Model Context Protocol)、钩子 (hooks)、子智能体 (subagents) 以及会话存储 (session store)。",
+        "客户端 SDK (Client SDK) 需付费；智能体 SDK (Agent SDK) 免费。",
+        "客户端软件开发工具包（Client SDK）仅支持 Python。",
+        "没有区别"
+      ],
+      "explanation": "Client SDK gives you the loop; Agent SDK ships the loop pre-built.",
+      "explanationZh": "客户端 SDK (Client SDK) 提供循环 (loop) 供你自行构建；智能体 SDK (Agent SDK) 则直接内置预构建的循环 (loop)。"
+    },
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What are the two documented purposes of subagents?",
+      "questionZh": "文档中记载的子代理（subagents）的两个用途是什么？",
+      "options": [
+        "Parallelization and context isolation",
+        "Caching and rate limiting",
+        "Logging and metrics",
+        "Authn and authz"
+      ],
+      "optionsZh": [
+        "并行化（Parallelization）与上下文隔离（Context Isolation）",
+        "缓存 (Caching) 与限流 (Rate Limiting)",
+        "日志 (Logging) 与指标 (Metrics)",
+        "身份验证 (Authentication) 与授权 (Authorization)"
+      ],
+      "explanation": "Subagents run independent work concurrently and preserve the orchestrator's context budget by isolating context.",
+      "explanationZh": "子代理（Subagents）通过隔离上下文（Context）并发执行独立任务，从而保留编排器（Orchestrator）的上下文预算（Context Budget）。"
+    },
+    {
+      "stage": "check",
+      "correct": 3,
+      "question": "Which method is NOT part of the session store surface?",
+      "questionZh": "以下哪个方法不属于会话存储（session store）的公开接口？",
+      "options": [
+        "append",
+        "load",
+        "list_subkeys",
+        "compile_prompt"
+      ],
+      "optionsZh": [
+        "append",
+        "load",
+        "list_subkeys",
+        "compile_prompt"
+      ],
+      "explanation": "Session store ships append, load, list_sessions, delete, list_subkeys; compile_prompt is not a session API.",
+      "explanationZh": "会话存储 (Session store) 提供 append、load、list_sessions、delete、list_subkeys 方法；compile_prompt 不属于会话 API。"
+    },
+    {
+      "stage": "check",
+      "correct": 3,
+      "question": "Which is NOT a Claude Agent SDK lifecycle hook?",
+      "questionZh": "以下哪项不是 Claude Agent SDK 的生命周期钩子（lifecycle hook）？",
+      "options": [
+        "PreToolUse",
+        "PostToolUse",
+        "PreCompact",
+        "PreEmbedding"
+      ],
+      "optionsZh": [
+        "PreToolUse",
+        "工具使用后（PostToolUse）",
+        "PreCompact",
+        "PreEmbedding"
+      ],
+      "explanation": "Hooks include PreToolUse, PostToolUse, SessionStart/End, UserPromptSubmit, PreCompact, Stop, Notification. PreEmbedding is not a hook.",
+      "explanationZh": "钩子（Hooks）包括 PreToolUse、PostToolUse、SessionStart/End、UserPromptSubmit、PreCompact、Stop 和 Notification。PreEmbedding 不是钩子。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "How does trace context propagate across the agent and CLI subprocess?",
+      "questionZh": "追踪上下文（Trace Context）如何在代理（Agent）与 CLI 子进程（CLI Subprocess）之间传播？",
+      "options": [
+        "Through the file system",
+        "Through W3C trace context headers passed into the CLI subprocess",
+        "Only via the provider's dashboard",
+        "Through environment variables only"
+      ],
+      "optionsZh": [
+        "通过文件系统",
+        "通过传入 CLI 子进程的 W3C 追踪上下文标头（W3C Trace Context Headers）",
+        "仅通过提供商的控制台 (Dashboard)",
+        "仅通过环境变量 (Environment Variables)"
+      ],
+      "explanation": "OTel spans on the caller propagate into the CLI subprocess via W3C trace context, so the whole multi-process run is one trace.",
+      "explanationZh": "调用方的 OTel 跨度（span）会通过 W3C 追踪上下文（trace context）传播至 CLI 子进程，因此整个多进程运行过程将归属于同一个追踪（trace）。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "What is subagent over-spawn and when does it happen?",
+      "questionZh": "什么是子智能体过度生成（Subagent Over-spawn）？它通常在什么情况下发生？",
+      "options": [
+        "Spawning 100 subagents for 100 tiny tasks where overhead dominates; batch instead",
+        "Forgetting to close subagents",
+        "Spawning before SessionStart",
+        "Spawning more subagents than CPU cores"
+      ],
+      "optionsZh": [
+        "为100个微小任务分别生成100个子代理（subagents）会导致开销（overhead）占主导；应改用批处理（batch）。",
+        "忘记关闭子代理 (subagents)",
+        "在 SessionStart 之前派生 (Spawn)",
+        "生成的子智能体 (subagents) 数量超过 CPU 核心 (CPU cores) 数"
+      ],
+      "explanation": "Subagents have overhead; batch small tasks instead of spawning one each.",
+      "explanationZh": "子代理（Subagents）会产生开销（overhead）；建议批量处理小型任务，而非为每个任务单独生成一个。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "What does Claude Managed Agents trade off against the self-hosted SDK?",
+      "questionZh": "与自托管 SDK (Self-hosted SDK) 相比，Claude 托管智能体 (Claude Managed Agents) 有哪些取舍？",
+      "options": [
+        "Control for managed infrastructure (long-running async, built-in prompt caching, built-in compaction)",
+        "Latency for cost",
+        "Tools for memory",
+        "Tracing for streaming"
+      ],
+      "optionsZh": [
+        "托管基础设施 (Managed Infrastructure) 的控制（长时异步 (Long-running Async)、内置提示词缓存 (Built-in Prompt Caching)、内置压缩 (Built-in Compaction)）",
+        "延迟与成本",
+        "记忆工具 (Memory Tools)",
+        "流式传输的追踪 (Tracing for Streaming)"
+      ],
+      "explanation": "Managed Agents is the hosted alternative for long-running async work; less control, less ops surface.",
+      "explanationZh": "托管代理（Managed Agents）是用于长时间运行异步任务（async work）的托管替代方案；其可控性较低，但运维面（ops surface）也更小。"
+    }
+  ]
+}

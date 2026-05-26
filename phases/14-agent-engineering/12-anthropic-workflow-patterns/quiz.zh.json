@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "How does Anthropic distinguish a workflow from an agent?",
+      "questionZh": "Anthropic 如何区分工作流（Workflow）与智能体（Agent）？",
+      "options": [
+        "Workflows use embeddings; agents use tools",
+        "Workflows are engineer-owned predefined graphs; agents are model-owned dynamic tool direction",
+        "Workflows run on CPUs; agents need GPUs",
+        "Workflows are stateless; agents are stateful"
+      ],
+      "optionsZh": [
+        "工作流（Workflows）使用嵌入（Embeddings）；智能体（Agents）使用工具（Tools）。",
+        "工作流（Workflow）是由工程师主导的预定义图（Graph）；智能体（Agent）则是由模型主导的动态工具调度（Dynamic Tool Direction）。",
+        "工作流 (Workflows) 在 CPU 上运行；智能体 (Agents) 需要 GPU。",
+        "工作流（Workflow）是无状态的（stateless）；智能体（Agent）是有状态的（stateful）。"
+      ],
+      "explanation": "Workflow = predefined code path the engineer owns; agent = the model owns the graph.",
+      "explanationZh": "工作流（Workflow）= 工程师主导的预定义代码路径；智能体（Agent）= 模型自主掌控的图（Graph）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What are the three capabilities of the augmented LLM that underpins all five patterns?",
+      "questionZh": "支撑所有五种模式（Patterns）的增强型大语言模型（Augmented LLM）具备哪三项能力？",
+      "options": [
+        "Search (retrieval), tools (actions), memory (persistence)",
+        "Embeddings, fine-tuning, RAG",
+        "Vector, KV, graph",
+        "Plan, execute, reflect"
+      ],
+      "optionsZh": [
+        "搜索（检索，Retrieval）、工具（动作，Actions）、记忆（持久化，Persistence）",
+        "嵌入 (Embeddings)、微调 (Fine-tuning)、检索增强生成 (RAG)",
+        "向量 (Vector), 键值 (Key-Value), 图 (Graph)",
+        "规划、执行、反思"
+      ],
+      "explanation": "The atomic unit is one LLM with retrieval, tools, and memory wired in.",
+      "explanationZh": "原子单元（Atomic Unit）是一个集成了检索（Retrieval）、工具（Tools）与记忆（Memory）的大语言模型（LLM）。"
+    },
+    {
+      "stage": "check",
+      "correct": 3,
+      "question": "Which is NOT one of the five Anthropic workflow patterns?",
+      "questionZh": "以下哪一项不属于 Anthropic 的五种工作流模式（Anthropic workflow patterns）？",
+      "options": [
+        "Prompt chaining",
+        "Routing",
+        "Evaluator-optimizer",
+        "Gradient distillation"
+      ],
+      "optionsZh": [
+        "提示词链 (Prompt chaining)",
+        "Routing",
+        "评估器-优化器 (Evaluator-Optimizer)",
+        "梯度蒸馏 (Gradient Distillation)"
+      ],
+      "explanation": "The five are prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. Gradient distillation is a training concept.",
+      "explanationZh": "这五种分别是提示链（Prompt Chaining）、路由（Routing）、并行化（Parallelization）、编排器-工作节点（Orchestrator-Workers）以及评估器-优化器（Evaluator-Optimizer）。梯度蒸馏（Gradient Distillation）是一种训练概念（Training Concept）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Which two shapes does parallelization come in?",
+      "questionZh": "并行化 (Parallelization) 主要有哪两种形式？",
+      "options": [
+        "Sync and async",
+        "Sectioning (different chunks) and voting (same prompt N times, aggregate)",
+        "Hot and cold",
+        "Stateful and stateless"
+      ],
+      "optionsZh": [
+        "同步 (Synchronous) 与异步 (Asynchronous)",
+        "分段处理（Sectioning，不同分块）与投票机制（Voting，相同提示词执行N次并聚合结果）",
+        "热与冷（Hot and Cold）",
+        "有状态 (Stateful) 与无状态 (Stateless)"
+      ],
+      "explanation": "Parallelization is sectioning or voting; both fan out N calls and aggregate.",
+      "explanationZh": "并行化（Parallelization）通常采用分片（Sectioning）或投票（Voting）模式；两者均会扇出（Fan-out）N 次调用，并对结果进行聚合（Aggregate）。"
+    },
+    {
+      "stage": "check",
+      "correct": 3,
+      "question": "Which workflow pattern is Self-Refine generalized?",
+      "questionZh": "Self-Refine 泛化了哪种工作流模式（Workflow Pattern）？",
+      "options": [
+        "Prompt chaining",
+        "Routing",
+        "Orchestrator-workers",
+        "Evaluator-optimizer"
+      ],
+      "optionsZh": [
+        "提示词链 (Prompt chaining)",
+        "Routing",
+        "编排器与工作节点 (Orchestrator-workers)",
+        "评估器-优化器 (Evaluator-Optimizer)"
+      ],
+      "explanation": "Evaluator-optimizer is the Anthropic name for the Self-Refine / CRITIC iterative pattern.",
+      "explanationZh": "评估器-优化器（Evaluator-Optimizer）是 Anthropic 对自我精炼（Self-Refine）/ CRITIC 迭代模式（iterative pattern）的命名。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "When do workflows beat agents according to the lesson?",
+      "questionZh": "根据课程内容，工作流（Workflow）在什么情况下优于智能体（Agent）？",
+      "options": [
+        "Always",
+        "On predictable, cost-bounded, or compliance-bounded tasks where the graph can be enumerated and audited",
+        "Only for chat",
+        "Only on GPUs"
+      ],
+      "optionsZh": [
+        "Always",
+        "适用于可预测、成本受限（Cost-Bounded）或合规受限（Compliance-Bounded）的任务，且此类任务中的图（Graph）结构可被枚举与审计。",
+        "仅用于聊天",
+        "仅支持 GPU"
+      ],
+      "explanation": "Workflows are cheaper, easier to debug, and auditable; pick them when steps are knowable.",
+      "explanationZh": "工作流 (Workflow) 成本更低、更易于调试且具备可审计性；当执行步骤明确可知时，应优先选用工作流。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the lesson's recommended default starting point?",
+      "questionZh": "本课程推荐的默认起始点是什么？",
+      "options": [
+        "A multi-agent framework",
+        "Direct API calls; add frameworks only when durable state, actor concurrency, or role templating earns its cost",
+        "Fine-tune the model",
+        "Build a custom MCTS"
+      ],
+      "optionsZh": [
+        "多智能体框架（Multi-Agent Framework）",
+        "直接使用 API 调用；仅在持久化状态（durable state）、Actor 并发（actor concurrency）或角色模板化（role templating）的收益足以证明引入框架的成本合理时，才添加框架。",
+        "微调模型 (Fine-tune the model)",
+        "构建自定义蒙特卡洛树搜索 (MCTS)"
+      ],
+      "explanation": "Schluntz and Zhang: start simple; add framework complexity only when justified.",
+      "explanationZh": "Schluntz 与 Zhang：从简单入手；仅在确有必要时，才增加框架的复杂度。"
+    }
+  ]
+}

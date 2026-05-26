@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "A YOLO detector with grid 13x13, 3 anchors per cell, and 20 classes produces a head output of shape (N, 13, 13, 3, 25). Why is the last dimension 25?",
+      "questionZh": "一个采用 13x13 网格、每个网格单元包含 3 个锚框 (anchors) 且包含 20 个类别的 YOLO 检测器 (YOLO detector)，其检测头 (head) 输出的形状为 (N, 13, 13, 3, 25)。为什么最后一个维度是 25？",
+      "options": [
+        "4 box coords + 1 bias + 20 classes",
+        "4 box coords + 1 objectness + 20 classes = 5 + C",
+        "25 is the number of classes in COCO",
+        "It is padding to the next power of 2"
+      ],
+      "optionsZh": [
+        "4个边界框坐标 + 1个偏置项 + 20个类别",
+        "4个边界框坐标 (box coords) + 1个目标置信度 (objectness) + 20个类别 (classes) = 5 + C",
+        "25 是 COCO 数据集中的类别数量。",
+        "这是将其填充（padding）至下一个2的幂次方（power of 2）的操作。"
+      ],
+      "explanation": "Every anchor emits four box regression targets (tx, ty, tw, th), one objectness score, and C class logits. For YOLO-style detectors the per-anchor dimension is always 5 + C. On COCO with 80 classes it is 85; on PASCAL VOC with 20 it is 25.",
+      "explanationZh": "每个锚框 (anchor) 会输出四个边界框回归目标 (box regression targets) (tx, ty, tw, th)、一个目标置信度 (objectness score) 以及 C 个类别 logits (class logits)。对于 YOLO 风格检测器 (YOLO-style detectors)，单锚框维度 (per-anchor dimension) 始终为 5 + C。在包含 80 个类别的 COCO 数据集上，该维度为 85；在包含 20 个类别的 PASCAL VOC 数据集上，该维度为 25。"
+    },
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "Why does YOLO predict tx, ty through a sigmoid before adding the grid cell?",
+      "questionZh": "为什么 YOLO 在加上网格单元（grid cell）之前，要通过 Sigmoid 函数（Sigmoid）来预测 tx 和 ty？",
+      "options": [
+        "To normalise them to [0, 1] so the centre stays inside the cell and cannot escape to a neighbouring cell's territory",
+        "Sigmoid is required by the convolution",
+        "To prevent NaN during training",
+        "To make the box larger"
+      ],
+      "optionsZh": [
+        "为了将它们归一化（Normalization）至 [0, 1] 区间，从而确保中心点始终位于当前单元格（Cell）内部，而不会越界进入相邻单元格的区域。",
+        "卷积 (Convolution) 需要使用 Sigmoid 激活函数 (Sigmoid)。",
+        "防止训练过程中出现非数字 (NaN) 值",
+        "若要增大方框尺寸"
+      ],
+      "explanation": "sigmoid(tx) is in [0, 1], so (sigmoid(tx) + cell_x) * stride places the centre somewhere inside the cell at column cell_x. This constraint keeps each cell responsible for only the objects centred within its own area, which is the assumption that makes grid-based training stable.",
+      "explanationZh": "`sigmoid(tx)` 的值位于 `[0, 1]` 区间内，因此 `(sigmoid(tx) + cell_x) * stride` 会将中心点定位在 `cell_x` 列对应的网格单元 (cell) 内部。这一约束确保每个网格单元仅负责预测其自身区域内居中的目标，该假设正是基于网格的训练 (grid-based training) 能够保持稳定的关键。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Your detector predicts 15 boxes around a single object after the head. You apply NMS with iou_threshold=0.45 and get back 1 box. What did NMS do?",
+      "questionZh": "你的检测器（detector）在经过检测头（detection head）后，针对单个目标预测了15个边界框（bounding box）。你应用了非极大值抑制（Non-Maximum Suppression, NMS）并设置 iou_threshold=0.45，最终返回了1个边界框。NMS 做了什么？",
+      "options": [
+        "It averaged all 15 predictions",
+        "It sorted the 15 boxes by score, kept the highest-scoring, and deleted every box whose IoU with it exceeded 0.45; the other 14 all overlapped the winner above the threshold so one remained",
+        "It picked a random survivor",
+        "It merged the boxes geometrically"
+      ],
+      "optionsZh": [
+        "它对全部 15 个预测结果 (predictions) 求取了平均值。",
+        "它按得分（score）对15个边界框（bounding box）进行排序，保留得分最高的一个，并删除所有与其交并比（Intersection over Union, IoU）超过0.45的边界框；其余14个边界框与胜出框的重叠程度均高于该阈值（threshold），因此最终仅保留了一个。",
+        "它随机选择了一个幸存者。",
+        "它通过几何方式合并了这些边界框（bounding boxes）。"
+      ],
+      "explanation": "NMS is a greedy deduplication: sort by score, keep the top, remove everything close to it (IoU > threshold), repeat. It does not merge or average. That is why detection latency benchmarks include NMS time and why modern models like RT-DETR replace it with a learned alternative.",
+      "explanationZh": "非极大值抑制 (Non-Maximum Suppression) 是一种贪心去重策略：按置信度排序，保留最高分，移除与其接近的所有目标（交并比 (Intersection over Union) > 阈值），并重复该过程。它不会进行合并或平均。这就是为什么检测延迟基准测试会包含非极大值抑制的耗时，以及为什么像 RT-DETR 这样的现代模型会采用可学习的替代方案来取代它。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Your model has mAP@0.5 = 0.75 but mAP@0.5:0.95 = 0.32. What is the most accurate interpretation?",
+      "questionZh": "你的模型平均精度均值 (mAP)@0.5 为 0.75，但 mAP@0.5:0.95 为 0.32。对此最准确的解读是什么？",
+      "options": [
+        "The model is broken; mAP@0.5 must equal mAP@0.5:0.95",
+        "The model finds the right objects but its boxes are not tightly localised — fine at IoU 0.5, fail at IoU 0.7+",
+        "The dataset has too many classes",
+        "The inference threshold is too high"
+      ],
+      "optionsZh": [
+        "模型已损坏；mAP@0.5 必须等于 mAP@0.5:0.95。",
+        "模型能够正确识别目标，但其边界框 (bounding boxes) 定位不够紧密——在交并比 (IoU) 为 0.5 时表现尚可，但在 IoU 0.7+ 时则无法达标。",
+        "数据集 (dataset) 的类别 (classes) 过多",
+        "推理阈值 (Inference Threshold) 过高"
+      ],
+      "explanation": "mAP@0.5 is lenient about localisation; mAP@0.5:0.95 averages over strict thresholds up to 0.95. A big gap between the two means the boxes are in roughly the right place but not tight. Typical fixes: CIoU/DIoU box loss, higher-resolution features, anchor sets better tuned to the dataset.",
+      "explanationZh": "平均精度均值@0.5 (mAP@0.5) 对定位 (localisation) 的要求较为宽松；平均精度均值@0.5:0.95 (mAP@0.5:0.95) 则是在高达 0.95 的严格阈值 (thresholds) 上取平均值。两者之间存在较大差距，意味着预测的边界框 (bounding boxes) 位置大致正确，但贴合度不够紧密。典型的改进方法包括：采用 CIoU/DIoU 边界框损失 (CIoU/DIoU box loss)、引入更高分辨率的特征 (higher-resolution features)，以及针对数据集 (dataset) 更好地调优锚框集合 (anchor sets)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "YOLO loss weights lambda_coord=5.0 and lambda_noobj=0.5 roughly mirror the original paper. What do these ratios encode?",
+      "questionZh": "YOLO 的损失权重（loss weights）lambda_coord=5.0 和 lambda_noobj=0.5 大致沿用了原始论文的设置。这些比值具体编码（encode）了哪些信息？",
+      "options": [
+        "GPU memory trade-offs",
+        "The fact that most cells have no object, so the no-object cells must be downweighted or they would dominate the total loss; and the fact that box regression is a smaller-scale loss than cross-entropy, so it needs upweighting to produce comparable gradients",
+        "Random choices the authors never justified",
+        "The number of anchors per cell"
+      ],
+      "optionsZh": [
+        "GPU 显存 (GPU Memory) 权衡",
+        "一方面，大多数网格（grid cells）不包含目标，因此必须降低无目标网格的权重，否则它们将主导总损失；另一方面，边界框回归（box regression）的损失量级小于交叉熵（cross-entropy）损失，因此需要提高其权重，以产生量级相当的梯度。",
+        "作者从未给出合理解释的随机选择",
+        "每个网格单元 (cell) 的锚框 (anchor) 数量"
+      ],
+      "explanation": "In a 13x13 grid there are 169 cells, usually with one to five objects. The 160+ empty cells all contribute objectness loss; without a small lambda_noobj they would overwhelm the positive signal. Conversely, MSE box loss is numerically small next to cross-entropy, so lambda_coord > 1 keeps its gradients comparable. Both ratios are about balancing per-component gradient magnitudes.",
+      "explanationZh": "在 13x13 的网格 (grid) 中共有 169 个单元格 (cell)，通常包含一到五个目标 (object)。这 160 多个空白单元格都会产生目标置信度损失 (objectness loss)；若没有较小的 `lambda_noobj` 进行调节，它们将淹没正信号 (positive signal)。相反，均方误差边界框损失 (MSE box loss) 的数值相较于交叉熵 (cross-entropy) 要小得多，因此设置 `lambda_coord > 1` 可使其梯度 (gradient) 保持在可比较的量级。这两个比例系数本质上都是为了平衡各分量的梯度幅值 (per-component gradient magnitude)。"
+    }
+  ]
+}

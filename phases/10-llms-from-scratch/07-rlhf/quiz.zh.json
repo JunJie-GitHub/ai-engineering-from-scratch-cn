@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the reward model in RLHF learn from?",
+      "questionZh": "在基于人类反馈的强化学习（RLHF）中，奖励模型（Reward Model）从什么数据中学习？",
+      "options": [
+        "Raw text documents",
+        "Human preference pairs: given two responses, which one humans preferred",
+        "Benchmark scores",
+        "Model loss curves"
+      ],
+      "optionsZh": [
+        "原始文本文档",
+        "人类偏好对（Human Preference Pairs）：给定两个回复，人类更偏好哪一个。",
+        "基准测试得分 (Benchmark scores)",
+        "模型损失曲线 (Model Loss Curves)"
+      ],
+      "explanation": "The reward model is trained on preference data: pairs of responses to the same prompt where a human labeled which is better. It learns to assign higher scores to responses that match human preferences.",
+      "explanationZh": "奖励模型（Reward Model）基于偏好数据（Preference Data）进行训练：该数据由针对同一提示词（Prompt）生成的回复对组成，并由人工标注出优劣。模型通过学习，能够为更符合人类偏好的回复赋予更高的分数。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why is a KL divergence penalty used in PPO training for RLHF?",
+      "questionZh": "为什么在基于人类反馈的强化学习（Reinforcement Learning from Human Feedback）的近端策略优化（Proximal Policy Optimization）训练中要使用KL散度（Kullback-Leibler divergence）惩罚项？",
+      "options": [
+        "To speed up training",
+        "To prevent the policy from diverging too far from the SFT model, which would lead to reward hacking",
+        "To reduce memory usage",
+        "To improve tokenization"
+      ],
+      "optionsZh": [
+        "为加速训练 (training)",
+        "为了防止策略 (policy) 偏离监督微调模型 (SFT model) 过远，进而导致奖励欺骗 (reward hacking)",
+        "为降低内存占用 (memory usage)",
+        "为优化分词 (Tokenization)"
+      ],
+      "explanation": "Without the KL penalty, the model finds degenerate ways to maximize the reward score (e.g., producing repetitive text that exploits reward model weaknesses). KL keeps the model close to the well-behaved SFT baseline.",
+      "explanationZh": "若不引入KL惩罚（KL penalty），模型会寻找退化的方式来最大化奖励得分（reward score）（例如，生成重复文本以利用奖励模型（reward model）的弱点）。KL惩罚能够使模型保持在表现良好的SFT基线（SFT baseline）附近。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "How many separate models are required for a full RLHF pipeline?",
+      "questionZh": "一个完整的基于人类反馈的强化学习（RLHF）流水线（pipeline）需要多少个独立的模型？",
+      "options": [
+        "One",
+        "Two",
+        "Three: SFT model, reward model, and policy model being optimized",
+        "Four"
+      ],
+      "optionsZh": [
+        "One",
+        "Two",
+        "三：监督微调（SFT）模型、奖励模型（Reward Model）与正在优化的策略模型（Policy Model）",
+        "Four"
+      ],
+      "explanation": "RLHF requires: (1) SFT model as the starting point and KL reference, (2) reward model trained on preferences, (3) policy model being optimized with PPO. This complexity is why DPO (lesson 08) was developed.",
+      "explanationZh": "人类反馈强化学习（RLHF）需要：（1）以监督微调（SFT）模型作为起点和KL散度参考基准（KL reference）；（2）基于偏好（preferences）训练的奖励模型（reward model）；（3）使用近端策略优化（PPO）进行优化的策略模型（policy model）。正是由于这种复杂性，才催生了直接偏好优化（DPO）（第08课）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is 'reward hacking' in RLHF?",
+      "questionZh": "什么是人类反馈强化学习（RLHF）中的奖励欺骗（Reward Hacking）？",
+      "options": [
+        "When the reward model is attacked by adversaries",
+        "When the policy finds ways to maximize the reward score without actually improving response quality",
+        "When training data is corrupted",
+        "When the learning rate is too high"
+      ],
+      "optionsZh": [
+        "当奖励模型（Reward Model）遭受对抗攻击（Adversarial Attack）时",
+        "当策略 (policy) 找到在不实际提升响应质量 (response quality) 的情况下最大化奖励分数 (reward score) 的方法时",
+        "训练数据 (Training Data) 损坏时",
+        "当学习率（Learning Rate）过高时"
+      ],
+      "explanation": "The reward model is an imperfect proxy for human judgment. The policy can discover patterns that score high rewards (e.g., verbose responses, excessive hedging) without actually being more helpful. The KL penalty limits this.",
+      "explanationZh": "奖励模型（Reward Model）只是人类判断的不完美代理。策略（Policy）可能会发现一些能获取高奖励的模式（例如冗长的回复、过度使用模糊措辞），但实际上并未真正提升帮助性。KL惩罚（KL Penalty）正是为了抑制这种现象。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does PPO's clipping mechanism prevent?",
+      "questionZh": "近端策略优化（PPO）的截断机制（clipping mechanism）能防止什么？",
+      "options": [
+        "Gradient overflow",
+        "Excessively large policy updates that could destabilize training",
+        "Memory overflow",
+        "Data leakage"
+      ],
+      "optionsZh": [
+        "梯度溢出 (Gradient Overflow)",
+        "可能导致训练不稳定的过大策略更新 (policy updates)",
+        "内存溢出 (Memory Overflow)",
+        "数据泄露 (Data leakage)"
+      ],
+      "explanation": "PPO clips the probability ratio between the new and old policy to a range like [0.8, 1.2]. This prevents any single update from changing the policy too drastically, making training more stable than vanilla policy gradient.",
+      "explanationZh": "PPO（近端策略优化，Proximal Policy Optimization）会将新旧策略之间的概率比裁剪至类似 [0.8, 1.2] 的范围内。这能防止单次更新对策略造成过于剧烈的改变，从而使训练过程比原始策略梯度（Vanilla Policy Gradient）更加稳定。"
+    }
+  ]
+}

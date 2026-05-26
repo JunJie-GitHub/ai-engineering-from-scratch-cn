@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "You have 500 labelled images for a new task close to the ImageNet distribution. Which regime makes the most sense?",
+      "questionZh": "针对一个数据分布接近 ImageNet 分布 (ImageNet distribution) 的新任务，你拥有 500 张标注图像 (labelled images)。此时采用哪种训练策略 (regime) 最为合理？",
+      "options": [
+        "Train a ResNet-50 from scratch",
+        "Freeze an ImageNet-pretrained backbone and train only a new linear head",
+        "Fine-tune every layer with the same large LR",
+        "Ignore pretrained weights; small datasets work best with small models"
+      ],
+      "optionsZh": [
+        "从头训练残差网络-50（ResNet-50）",
+        "冻结在 ImageNet 上预训练的骨干网络（backbone），仅训练一个新的线性分类头（linear head）。",
+        "使用相同的大学习率 (Learning Rate) 微调 (Fine-tuning) 每一层",
+        "忽略预训练权重（pretrained weights）；小型数据集（small datasets）搭配小型模型（small models）效果最佳。"
+      ],
+      "explanation": "With 500 images you do not have enough signal to train a deep network from scratch or to safely fine-tune all layers end-to-end without destroying pretrained features. Freezing the backbone and training only a new head (linear probe) uses the pretrained features directly and is the standard recipe for small, close-domain datasets.",
+      "explanationZh": "仅有500张图像时，数据无法提供足够的信号来从头训练深度网络（Deep Network），也无法在不破坏预训练特征（Pretrained Features）的前提下，安全地对所有层进行端到端（End-to-End）微调（Fine-tune）。冻结骨干网络（Backbone）并仅训练一个新的头部（Head，即线性探针 Linear Probe）可直接利用预训练特征，这是针对小规模、封闭领域（Closed-Domain）数据集的标准做法。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why do early conv layers of an ImageNet-pretrained network transfer well to medical images even though ImageNet contains no X-rays?",
+      "questionZh": "尽管 ImageNet 数据集中不包含 X 射线图像 (X-rays)，为何基于 ImageNet 预训练的网络 (ImageNet-pretrained network) 的早期卷积层 (early convolutional layers) 仍能很好地迁移 (transfer) 到医学图像 (medical images) 上？",
+      "options": [
+        "PyTorch re-initialises early layers automatically",
+        "Early layers encode generic visual primitives — edges, orientations, contrast — that are shared across almost any visual domain; only late layers specialise to ImageNet categories",
+        "ImageNet secretly contains medical data",
+        "Transfer only works when domains match"
+      ],
+      "optionsZh": [
+        "PyTorch 会自动重新初始化（re-initialize）浅层（early layers）",
+        "早期层（early layers）编码了通用的视觉基元（visual primitives）——如边缘、方向和对比度——这些特征几乎在所有视觉领域（visual domain）中都是共享的；只有晚期层（late layers）才会针对 ImageNet 类别（ImageNet categories）进行特化。",
+        "ImageNet 中暗藏医疗数据 (medical data)",
+        "迁移（transfer）仅在域（domain）匹配时生效。"
+      ],
+      "explanation": "Gabor-like filters and simple texture detectors are the features early CNN layers learn on any natural-image corpus. They reflect the statistics of light, shadow, and edges that hold across photography, medical imaging, microscopy, and satellite data. Late layers progressively specialise, which is why fine-tuning focuses on the last few blocks.",
+      "explanationZh": "类Gabor滤波器（Gabor-like filters）与简单纹理检测器（simple texture detectors）是卷积神经网络（CNN）早期层在任意自然图像数据集（natural-image corpus）上学习到的特征。它们反映了光照、阴影与边缘的统计特性，这些特性在摄影、医学成像、显微成像及卫星数据中普遍适用。网络深层（late layers）会逐渐特化，这也正是微调（fine-tuning）通常仅针对最后几个模块（blocks）进行的原因。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "When fine-tuning end-to-end with discriminative learning rates, why should early layers get a smaller LR than late layers?",
+      "questionZh": "在使用差异化学习率 (Discriminative Learning Rates) 进行端到端 (End-to-end) 微调 (Fine-tuning) 时，为什么浅层 (Early layers) 应该分配比深层 (Late layers) 更小的学习率 (Learning Rate, LR)？",
+      "options": [
+        "Early layers have fewer parameters",
+        "Early layers encode general features you want to preserve; late layers encode task-specific features that must move; a smaller LR on early layers prevents feature drift and catastrophic forgetting",
+        "PyTorch requires layer-wise LR for correctness",
+        "A smaller LR in the early layers speeds up training"
+      ],
+      "optionsZh": [
+        "早期层（Early layers）的参数（parameters）较少。",
+        "浅层（early layers）编码您希望保留的通用特征（general features）；深层（late layers）编码必须进行调整的任务特定特征（task-specific features）；为浅层设置较小的学习率（learning rate, LR）可防止特征漂移（feature drift）与灾难性遗忘（catastrophic forgetting）。",
+        "PyTorch 需要逐层学习率（layer-wise learning rate）以确保正确性。",
+        "在网络浅层（early layers）使用较小的学习率（Learning Rate）可加快训练速度。"
+      ],
+      "explanation": "Early layers already encode the right visual primitives; you want tiny updates so those features are preserved. Late layers need to move toward the new task. One learning rate for the whole model forces a compromise that hurts both ends. Discriminative LRs let each stage move at its own pace, which is the empirical sweet spot for fine-tuning.",
+      "explanationZh": "浅层（early layers）已经编码了正确的视觉基元（visual primitives）；此时只需进行微小的更新，即可保留这些特征。而深层（late layers）则需要向新任务的方向调整。若为整个模型采用单一的学习率（learning rate），往往会迫使模型做出折中，导致两端性能均受损。判别式学习率（Discriminative Learning Rates）允许各阶段以各自的步调进行更新，这正是微调（fine-tuning）在经验上的最佳平衡点。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "You fine-tune a ResNet on a 10-class medical dataset of 800 grayscale images (replicated to 3 channels). Accuracy is 10% (random chance for 10 classes). What is the most likely cause?",
+      "questionZh": "你在一个包含800张灰度图像（已复制为3个通道）的10类医学数据集上对残差网络 (ResNet) 进行微调 (fine-tune)。准确率仅为10%（相当于10个类别的随机猜测概率）。最可能的原因是什么？",
+      "options": [
+        "You used the wrong loss function",
+        "BatchNorm running statistics are from ImageNet RGB photos and badly mismatch the grayscale-medical distribution, so the first few BN layers produce noise that propagates forward",
+        "ResNet cannot handle grayscale input",
+        "800 images is simply too few for any transfer learning"
+      ],
+      "optionsZh": [
+        "你使用了错误的损失函数 (Loss Function)",
+        "批归一化（Batch Normalization）的运行统计量（running statistics）源自 ImageNet 的 RGB 图像，与灰度医学图像的分布严重不匹配，因此前几个 BN 层会产生噪声并向前传播。",
+        "残差网络（ResNet）无法处理灰度输入（grayscale input）",
+        "对于任何迁移学习（Transfer Learning）而言，800张图像的数据量都远远不够。"
+      ],
+      "explanation": "BatchNorm keeps running_mean and running_var from ImageNet. On a small, distribution-shifted dataset those buffers never adapt fast enough during a short fine-tune, and BN normalises activations with the wrong stats. Fixes: freeze BN statistics, switch to GroupNorm, or pretrain BN stats with a BN-only warmup pass on the target dataset.",
+      "explanationZh": "批归一化（Batch Normalization）保留了来自 ImageNet 的 running_mean 和 running_var。在规模较小且存在分布偏移（distribution shift）的数据集上，这些缓冲区在短暂的微调（fine-tuning）过程中无法足够快地适应，导致 BN 使用错误的统计量（statistics）对激活值（activations）进行归一化。解决方法：冻结 BN 统计量、切换至组归一化（Group Normalization），或在目标数据集上仅使用 BN 进行一轮预热（warmup）以预训练 BN 统计量。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "You compare two runs: (a) linear probe on frozen ImageNet backbone, 82% accuracy; (b) end-to-end fine-tune, 78% accuracy. What should you conclude?",
+      "questionZh": "你对比了两次实验运行 (runs)：(a) 在冻结的 ImageNet 骨干网络 (frozen ImageNet backbone) 上进行线性探测 (linear probe)，准确率为 82%；(b) 进行端到端微调 (end-to-end fine-tuning)，准确率为 78%。你应该得出什么结论？",
+      "options": [
+        "Fine-tuning is not helpful; ship the linear probe",
+        "A fine-tune that ends below the linear probe is almost always a training bug — LR too high, BN mishandled, or scheduler/optimizer misconfigured; diagnose before concluding anything about transfer",
+        "The dataset is too large",
+        "Pretrained weights are bad"
+      ],
+      "optionsZh": [
+        "微调（Fine-tuning）并无益处；直接部署线性探针（Linear Probe）",
+        "若微调（Fine-tuning）的最终性能低于线性探测（Linear Probe），这几乎总是训练缺陷（Training Bug）所致——通常是学习率（LR）过高、批归一化（BN）处理不当，或调度器/优化器（Scheduler/Optimizer）配置有误；在得出任何关于迁移学习（Transfer Learning）的结论之前，请先进行排查诊断。",
+        "数据集 (Dataset) 过大",
+        "预训练权重 (Pretrained weights) 存在局限性。"
+      ],
+      "explanation": "Fine-tuning should always beat or match the linear probe, since the linear probe is a special case of fine-tuning with backbone LR = 0. If fine-tune is worse, the pipeline is actively destroying pretrained features. The fix is to lower backbone LR, apply discriminative LRs, or freeze BN — not to abandon fine-tuning.",
+      "explanationZh": "微调（Fine-tuning）的效果理应始终优于或至少持平于线性探测（Linear Probe），因为线性探测本质上是主干网络学习率（Backbone LR）为 0 的微调特例。如果微调效果反而更差，说明当前流程（Pipeline）正在破坏预训练特征（Pretrained Features）。正确的解决方式是降低主干网络学习率、采用差异化学习率（Discriminative LRs）或冻结批归一化层（Freeze BN），而不是直接放弃微调。"
+    }
+  ]
+}

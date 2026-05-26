@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the Fourier transform do to a signal?",
+      "questionZh": "傅里叶变换（Fourier transform）对信号（signal）有什么作用？",
+      "options": [
+        "Compresses the signal to use less storage",
+        "Decomposes the signal into sine waves of different frequencies, amplitudes, and phases",
+        "Removes noise from the signal",
+        "Converts the signal from analog to digital"
+      ],
+      "optionsZh": [
+        "压缩信号以减少存储空间占用。",
+        "将信号 (signal) 分解为不同频率 (frequency)、振幅 (amplitude) 和相位 (phase) 的正弦波 (sine wave)。",
+        "去除信号 (signal) 中的噪声 (noise)",
+        "将模拟信号转换为数字信号 (Analog-to-Digital Conversion)"
+      ],
+      "explanation": "The Fourier transform converts a signal from the time domain to the frequency domain. Each frequency coefficient X[k] tells you the amplitude and phase of a sine wave at frequency k. The signal is re-expressed as a sum of these sine waves.",
+      "explanationZh": "傅里叶变换（Fourier transform）将信号从时域（time domain）转换到频域（frequency domain）。每个频率系数（frequency coefficient）X[k] 表示频率为 k 的正弦波（sine wave）的振幅（amplitude）与相位（phase）。该信号被重新表示为这些正弦波的叠加。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the time complexity of the Fast Fourier Transform (FFT) compared to the direct DFT?",
+      "questionZh": "与直接计算离散傅里叶变换（DFT）相比，快速傅里叶变换（FFT）的时间复杂度是多少？",
+      "options": [
+        "Both are O(N^2)",
+        "FFT is O(N log N), DFT is O(N^2)",
+        "FFT is O(N), DFT is O(N log N)",
+        "FFT is O(log N), DFT is O(N)"
+      ],
+      "optionsZh": [
+        "两者均为 O(N^2)",
+        "快速傅里叶变换 (FFT) 的时间复杂度为 O(N log N)，离散傅里叶变换 (DFT) 的时间复杂度为 O(N^2)。",
+        "快速傅里叶变换 (Fast Fourier Transform) 的时间复杂度为 O(N)，离散傅里叶变换 (Discrete Fourier Transform) 的时间复杂度为 O(N log N)。",
+        "快速傅里叶变换 (FFT) 的时间复杂度为 O(log N)，离散傅里叶变换 (DFT) 的时间复杂度为 O(N)。"
+      ],
+      "explanation": "The direct DFT computes N outputs, each summing over N inputs: O(N^2). The Cooley-Tukey FFT splits the signal into even/odd halves recursively, doing O(N) work at each of log2(N) levels, giving O(N log N). For N = 1 million, this is 20 million vs 1 trillion operations.",
+      "explanationZh": "直接离散傅里叶变换（Discrete Fourier Transform, DFT）计算 N 个输出，每个输出需对 N 个输入求和，时间复杂度为 O(N^2)。Cooley-Tukey 快速傅里叶变换（Fast Fourier Transform, FFT）算法将信号递归地拆分为奇偶子序列，在 log2(N) 个层级中的每一层执行 O(N) 次运算，从而将时间复杂度降至 O(N log N)。当 N = 100 万时，两者的运算量分别为 2000 万次与 1 万亿次。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the convolution theorem state?",
+      "questionZh": "卷积定理（Convolution Theorem）表述了什么？",
+      "options": [
+        "Convolution in the time domain equals addition in the frequency domain",
+        "Convolution in the time domain equals pointwise multiplication in the frequency domain",
+        "Convolution always increases the length of a signal",
+        "Convolution and correlation are identical operations"
+      ],
+      "optionsZh": [
+        "时域 (time domain) 中的卷积 (convolution) 等于频域 (frequency domain) 中的加法 (addition)。",
+        "时域（Time domain）中的卷积（Convolution）等于频域（Frequency domain）中的逐点乘法（Pointwise multiplication）。",
+        "卷积（Convolution）总是会增加信号（Signal）的长度。",
+        "卷积 (Convolution) 和相关 (Correlation) 是相同的操作。"
+      ],
+      "explanation": "The convolution theorem states that convolution in the time domain equals pointwise multiplication in the frequency domain: x * h = IFFT(FFT(x) . FFT(h)). This is why FFT-based convolution is O(N log N) instead of O(N*M) for large kernels.",
+      "explanationZh": "卷积定理（Convolution Theorem）指出，时域（Time Domain）中的卷积等于频域（Frequency Domain）中的逐点乘法（Pointwise Multiplication）：x * h = IFFT(FFT(x) . FFT(h))。这正是为何在处理大卷积核（Large Kernels）时，基于快速傅里叶变换（FFT）的卷积时间复杂度为 O(N log N)，而非 O(N*M)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does zero-padding a signal before FFT NOT increase the true frequency resolution?",
+      "questionZh": "为什么在快速傅里叶变换（FFT）前对信号进行补零（zero-padding）操作，并不能提高真实的频率分辨率（true frequency resolution）？",
+      "options": [
+        "Zero-padding introduces noise that cancels the improvement",
+        "Zero-padding interpolates between existing frequency bins but cannot reveal frequency detail absent from the original samples",
+        "Zero-padding only works for power-of-2 signal lengths",
+        "The FFT algorithm ignores zero-padded samples"
+      ],
+      "optionsZh": [
+        "零填充（Zero-padding）会引入噪声，从而抵消了性能的提升。",
+        "零填充（Zero-padding）可在现有频率仓（frequency bins）之间进行插值，但无法揭示原始采样（original samples）中原本不存在的频率细节。",
+        "零填充 (Zero-padding) 仅适用于长度为 2 的幂 (power-of-2) 的信号。",
+        "快速傅里叶变换（Fast Fourier Transform, FFT）算法会忽略零填充样本（zero-padded samples）。"
+      ],
+      "explanation": "True frequency resolution depends on the observation time T = N/fs. Zero-padding adds more frequency bins (finer grid) but only interpolates the existing spectrum — it gives a smoother-looking result without resolving frequencies closer than 1/T Hz apart.",
+      "explanationZh": "实际频率分辨率（Frequency Resolution）取决于观测时间（Observation Time）T = N/fs。零填充（Zero-padding）会增加更多的频率点（Frequency Bins）（即更密的网格），但仅对现有频谱（Spectrum）进行插值——这只能使结果看起来更平滑，而无法分辨间隔小于 1/T Hz 的频率。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "In the original Transformer's sinusoidal positional encodings, why are different dimension pairs assigned geometrically spaced frequencies?",
+      "questionZh": "在原始 Transformer 的正弦位置编码（sinusoidal positional encodings）中，为何要为不同的维度对（dimension pairs）分配几何间隔频率（geometrically spaced frequencies）？",
+      "options": [
+        "It reduces the computational cost of attention",
+        "Each frequency provides a different resolution — high frequencies encode fine position, low frequencies encode coarse position, giving each position a unique fingerprint",
+        "Geometric spacing is required by the FFT algorithm",
+        "It ensures all encoding values are between 0 and 1"
+      ],
+      "optionsZh": [
+        "它降低了注意力机制（Attention）的计算开销。",
+        "每个频率 (frequency) 提供不同的分辨率 (resolution)——高频编码 (encode) 精细位置，低频编码粗略位置，从而为每个位置赋予唯一的指纹 (fingerprint) 标识。",
+        "快速傅里叶变换 (Fast Fourier Transform) 算法要求采用几何间距 (Geometric spacing)。",
+        "它确保所有编码值（encoding values）均介于 0 和 1 之间。"
+      ],
+      "explanation": "High-frequency dimensions change rapidly with position (fine resolution), while low-frequency dimensions change slowly (coarse resolution). Together, the multi-frequency encoding gives every position a unique pattern — similar to how Fourier coefficients uniquely identify a signal.",
+      "explanationZh": "高频维度 (High-frequency dimensions) 随位置快速变化（细粒度分辨率），而低频维度 (Low-frequency dimensions) 变化缓慢（粗粒度分辨率）。多频编码 (Multi-frequency encoding) 共同为每个位置赋予唯一的模式——这类似于傅里叶系数 (Fourier coefficients) 唯一标识信号的方式。"
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the goal of running the same task through prompt-only and workbench-guided pipelines?",
+      "questionZh": "通过纯提示词（prompt-only）与工作台引导（workbench-guided）流水线（pipelines）运行同一任务的目标是什么？",
+      "options": [
+        "To compare models",
+        "To produce a before/after report you can hand to a skeptic with numbers, not arguments",
+        "To pick a vendor",
+        "To benchmark GPUs"
+      ],
+      "optionsZh": [
+        "比较模型",
+        "为了生成一份前后对比报告，你可以将其交给持怀疑态度的人，用具体数据而非主观论据来说服他们。",
+        "选择供应商 (Vendor)",
+        "用于对 GPU 进行基准测试 (benchmark)"
+      ],
+      "explanation": "The numbers do the arguing; the case is made on a real-feeling task, not a toy.",
+      "explanationZh": "数据指标自会给出结论；该论证基于贴近实际的任务，而非玩具示例。"
+    },
+    {
+      "stage": "pre",
+      "correct": 3,
+      "question": "Which is NOT one of the five outcomes measured?",
+      "questionZh": "以下哪一项不是所衡量的五个结果之一？",
+      "options": [
+        "tests_actually_run",
+        "acceptance_met",
+        "files_outside_scope",
+        "model_perplexity"
+      ],
+      "optionsZh": [
+        "tests_actually_run",
+        "acceptance_met",
+        "files_outside_scope",
+        "model_perplexity"
+      ],
+      "explanation": "The five are tests_actually_run, acceptance_met, files_outside_scope, handoff_quality, reviewer_total.",
+      "explanationZh": "这五个指标分别为 tests_actually_run、acceptance_met、files_outside_scope、handoff_quality 和 reviewer_total。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What did LangChain's Anatomy of an Agent Harness measure on Terminal Bench 2.0?",
+      "questionZh": "LangChain 的《智能体评估框架剖析》（Anatomy of an Agent Harness）在 Terminal Bench 2.0 上评估了哪些指标？",
+      "options": [
+        "Models all converged at top-3",
+        "Same model moved from outside top 30 to rank five by changing only the harness",
+        "Top model lost 25 places",
+        "Harness changes did not move the rank"
+      ],
+      "optionsZh": [
+        "所有模型均在 top-3 处收敛",
+        "仅通过更换评测框架（harness），同一模型便从30名开外跃升至第五名。",
+        "榜首模型排名下滑25位",
+        "测试框架 (Test Harness) 的更改未影响排名。"
+      ],
+      "explanation": "Twenty-five-rank delta on the same model is the headline harness-vs-model receipt.",
+      "explanationZh": "同一模型上25个排名的差异（rank delta）是评估框架（harness）与模型对比结果记录（receipt）中的核心结论。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does the preprints.org paper cite as the failure rate for enterprise agent projects?",
+      "questionZh": "根据 preprints.org 上的论文，企业级智能体（Agent）项目的失败率是多少？",
+      "options": [
+        "8%",
+        "About 88% fail to reach production, with failures clustering around runtime, not reasoning",
+        "About 50%",
+        "None fail"
+      ],
+      "optionsZh": [
+        "8%",
+        "约 88% 未能成功部署至生产环境（production），且失败原因主要集中在运行时（runtime）阶段，而非推理（reasoning）能力。",
+        "About 50%",
+        "None fail"
+      ],
+      "explanation": "The Harness Engineering for Language Agents preprint traces failures to runtime issues (stale state, brittle retries, overgrown context).",
+      "explanationZh": "《Harness Engineering for Language Agents》预印本将失败归因于运行时问题（runtime issues），具体包括状态陈旧（stale state）、重试机制脆弱（brittle retries）以及上下文膨胀（overgrown context）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does WebAgent baseline accuracy do in long-context conditions?",
+      "questionZh": "在长上下文条件（long-context conditions）下，WebAgent 的基线准确率（baseline accuracy）表现如何？",
+      "options": [
+        "Stays flat",
+        "Drops from 40-50% to under 10% mostly from infinite loops and goal loss",
+        "Goes up by 30%",
+        "Halves but stays above 30%"
+      ],
+      "optionsZh": [
+        "保持平稳",
+        "从 40-50% 降至 10% 以下，主要归因于无限循环 (infinite loops) 和目标丢失 (goal loss)。",
+        "增长了 30%",
+        "减半但仍保持在 30% 以上"
+      ],
+      "explanation": "Long-context collapse is what the Ralph Loop and handoff packet exist to absorb.",
+      "explanationZh": "长上下文崩溃 (Long-context collapse) 正是 Ralph 循环 (Ralph Loop) 与交接数据包 (handoff packet) 旨在吸收的问题。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the lesson say about false negatives (cases where prompt-only is faster)?",
+      "questionZh": "课程中关于假阴性（False Negatives）（即仅提示词（Prompt-only）速度更快的情况）有何说明？",
+      "options": [
+        "They do not exist",
+        "Single-step factual tasks, one-line lints, formatter runs are faster prompt-only; enumerate them honestly so the workbench is not framed as overkill",
+        "They prove the workbench fails",
+        "They invalidate the harness thesis"
+      ],
+      "optionsZh": [
+        "它们不存在。",
+        "对于单步事实性任务、单行代码检查（lint）与代码格式化（formatter）运行，采用纯提示词（prompt-only）方式速度更快；请如实列举这些场景，以免工作台（workbench）被视作过度设计。",
+        "它们证实了工作台（workbench）无法正常运行。",
+        "它们推翻了测试框架假说（harness thesis）。"
+      ],
+      "explanation": "Honest enumeration of prompt-only-fastest cases keeps the harness argument credible.",
+      "explanationZh": "如实列举仅提示词最快用例（prompt-only-fastest cases），能够确保评估框架（harness）的论证保持可信。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Where do you cite the report from this lesson?",
+      "questionZh": "你应该在哪里引用本课的报告？",
+      "options": [
+        "Internal HR review",
+        "When someone wants to drop the verification gate 'just for this sprint', or when a new agent product launches and needs a portable time-savings benchmark",
+        "Only in marketing decks",
+        "Only at hackathons"
+      ],
+      "optionsZh": [
+        "内部人力资源审核",
+        "当有人希望“仅针对本次迭代（Sprint）”暂时绕过验证关卡（Verification Gate）时，或是当一款新的智能体（Agent）产品发布，且需要一个可复用的效率提升基准（Portable Time-Savings Benchmark）时。",
+        "仅用于营销演示文稿",
+        "仅限黑客马拉松（Hackathon）"
+      ],
+      "explanation": "The numbers travel further than the explanation; cite the report when pressure tries to short-circuit surfaces.",
+      "explanationZh": "数据比解释更具说服力；当面临压力或试图简化问题时，请引用报告作为依据。"
+    }
+  ]
+}

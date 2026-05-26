@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why can diffusion training pick any timestep t directly instead of simulating the forward Markov chain step by step?",
+      "questionZh": "为什么扩散训练（Diffusion Training）可以直接选取任意时间步 t（timestep t），而无需逐步模拟前向马尔可夫链（Forward Markov Chain）？",
+      "options": [
+        "It is an approximation that ignores the intermediate steps",
+        "Because the composition of many Gaussian additions still yields a Gaussian, giving a closed-form q(x_t|x_0) = N(sqrt(alpha_bar_t) x_0, (1 - alpha_bar_t) I) that you can sample in one step",
+        "Because x_t is independent of x_0",
+        "It is required by PyTorch's autograd"
+      ],
+      "optionsZh": [
+        "这是一种忽略中间步骤的近似（approximation）方法。",
+        "由于多次高斯噪声（Gaussian noise）叠加的复合结果仍然服从高斯分布（Gaussian distribution），因此可以得到一个闭式解（closed-form）q(x_t|x_0) = N(sqrt(alpha_bar_t) x_0, (1 - alpha_bar_t) I)，从而支持一步采样（one-step sampling）。",
+        "由于 x_t 与 x_0 相互独立",
+        "PyTorch 的自动求导 (autograd) 需要它"
+      ],
+      "explanation": "Repeated Gaussian additions close up analytically. The cumulative product alpha_bar_t encodes 'how much signal is left after t steps', and you can sample x_t directly without running the chain. This is why diffusion training is O(1) per step rather than O(T).",
+      "explanationZh": "重复的高斯加噪（Gaussian addition）操作在解析上具有闭式解（analytically closed form）。累积乘积（cumulative product）alpha_bar_t 记录了“经过 t 步后还剩余多少信号”，因此你可以直接对 x_t 进行采样，而无需逐步运行整个扩散链。这正是扩散模型训练（diffusion training）中单步计算复杂度为 O(1) 而非 O(T) 的原因。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does a DDPM's neural network actually predict?",
+      "questionZh": "去噪扩散概率模型（DDPM）的神经网络（Neural Network）实际上在预测什么？",
+      "options": [
+        "The next image x_{t-1} directly",
+        "The noise epsilon that was added at step t, from which x_{t-1}'s mean is derived analytically",
+        "The class label of the input",
+        "The signal-to-noise ratio"
+      ],
+      "optionsZh": [
+        "下一张图像 x_{t-1} 直接",
+        "在步骤 t 添加的噪声 epsilon (noise epsilon)，x_{t-1} 的均值正是基于该噪声通过解析推导得出。",
+        "输入的类别标签 (class label)",
+        "信噪比 (Signal-to-Noise Ratio)"
+      ],
+      "explanation": "DDPM parameterises the model to predict epsilon. Given the noise prediction and the noise schedule, x_{t-1}'s Gaussian mean and variance are closed-form. Predicting epsilon instead of x_0 or x_{t-1} simplifies the loss to a plain MSE and gives numerically better gradients.",
+      "explanationZh": "去噪扩散概率模型（Denoising Diffusion Probabilistic Models, DDPM）将模型参数化以预测噪声（epsilon）。在给定噪声预测和噪声调度（noise schedule）的情况下，x_{t-1} 的高斯均值和方差具有闭式解（closed-form）。预测 epsilon 而非 x_0 或 x_{t-1} 可将损失函数简化为普通的均方误差（Mean Squared Error, MSE），并能提供数值上更优的梯度。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does DDIM achieve similar sample quality to DDPM with ~20x fewer steps?",
+      "questionZh": "为什么去噪扩散隐式模型（DDIM）仅需约1/20的步数，就能达到与去噪扩散概率模型（DDPM）相似的样本质量？",
+      "options": [
+        "DDIM changes the training objective",
+        "DDIM reformulates sampling as a deterministic ODE whose trajectory can be discretised with far fewer steps while hitting nearly the same endpoint; no retraining required",
+        "DDIM uses a faster model architecture",
+        "DDIM generates smaller images"
+      ],
+      "optionsZh": [
+        "DDIM 改变了训练目标（training objective）",
+        "DDIM 将采样（sampling）重新表述为一个确定性常微分方程（ODE），其轨迹可通过少得多的步数进行离散化，同时仍能到达几乎相同的终点；且无需重新训练。",
+        "去噪扩散隐式模型（Denoising Diffusion Implicit Models）采用了更快的模型架构（model architecture）。",
+        "去噪扩散隐式模型（DDIM）生成更小的图像"
+      ],
+      "explanation": "DDIM's key observation is that the reverse process, when re-parameterised deterministically, becomes an ODE that a few steps approximate well. The model (weights and loss) is unchanged from DDPM; only the sampler differs. A DDPM checkpoint can be used with a DDIM, DPM-Solver, or Euler sampler interchangeably.",
+      "explanationZh": "去噪扩散隐式模型（DDIM）的关键观察在于：当反向过程经过确定性重参数化后，会转化为一个常微分方程（ODE），仅需少量步数即可实现良好近似。该模型（权重与损失函数）与去噪扩散概率模型（DDPM）保持一致，仅采样器有所不同。因此，DDPM 的检查点（checkpoint）可与 DDIM、DPM-Solver 或欧拉采样器（Euler sampler）无缝互换使用。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "You plot `alpha_bar_t` for a linear beta schedule with T=1000 and see it drops to near-zero by t=600. Why does this matter?",
+      "questionZh": "你绘制了 T=1000 的线性 beta 调度 (linear beta schedule) 下的 `alpha_bar_t` 曲线，发现它在 t=600 时已衰减至接近零。这为何重要？",
+      "options": [
+        "It does not matter",
+        "The last 40% of timesteps add almost no signal; training those timesteps teaches the network to denoise noise that is already approximately N(0, I), which wastes capacity. Cosine or sigmoid schedules fix this by spreading the noise injection more evenly",
+        "alpha_bar_t must be zero at the end",
+        "PyTorch requires a linear schedule"
+      ],
+      "optionsZh": [
+        "这并不重要。",
+        "最后 40% 的时间步 (timesteps) 几乎不增加任何有效信号；对这些时间步进行训练，只会让网络学习对已经近似服从 N(0, I) 分布的噪声进行去噪 (denoise)，从而浪费模型容量 (capacity)。采用余弦 (cosine) 或 S 型 (sigmoid) 调度 (schedules) 可以解决这一问题，它们能够更均匀地分配噪声注入 (noise injection) 过程。",
+        "alpha_bar_t 在末尾必须为零。",
+        "PyTorch 需要线性调度 (linear schedule)。"
+      ],
+      "explanation": "Linear beta schedules finish the diffusion process too early. By t=600 the signal is already destroyed; training and sampling through t=600-1000 adds nothing. Cosine schedules (Nichol & Dhariwal) keep signal around longer, which is why modern models use them, especially at lower resolutions.",
+      "explanationZh": "线性 beta 调度 (Linear beta schedule) 会过早地结束扩散过程 (diffusion process)。当 t=600 时，信号 (signal) 就已经被破坏；在 t=600-1000 范围内进行训练与采样 (training and sampling) 毫无增益。余弦调度 (Cosine schedule)（Nichol & Dhariwal）能够更长时间地保留信号，这也是现代模型普遍采用该策略的原因，尤其是在较低分辨率下。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does time conditioning get added to the U-Net via a sinusoidal embedding instead of a one-hot timestep?",
+      "questionZh": "为什么时间条件（time conditioning）要通过正弦嵌入（sinusoidal embedding）而不是独热时间步（one-hot timestep）添加到 U-Net 中？",
+      "options": [
+        "One-hot vectors are too large",
+        "A sinusoidal embedding is smooth in t, which lets the network interpolate between timesteps it has not seen exactly and encodes scale information the architecture can use additively at multiple depths",
+        "Sinusoidal is required by BatchNorm",
+        "One-hot would violate the chain rule"
+      ],
+      "optionsZh": [
+        "独热向量（One-hot vectors）过于庞大",
+        "正弦嵌入（Sinusoidal Embedding）关于 t 具有平滑性，这使得网络能够在未精确见过的时间步（Timesteps）之间进行插值，并编码尺度信息（Scale Information），供模型架构在多个网络深度上以加法形式使用。",
+        "批归一化 (BatchNorm) 需要正弦函数 (Sinusoidal)。",
+        "独热编码（One-hot encoding）会违反链式法则（chain rule）。"
+      ],
+      "explanation": "Sinusoidal embeddings give the network a continuous representation of t at multiple frequencies. Any timestep is a unique point in that embedding space, and nearby timesteps are nearby embeddings. That lets the model generalise across all T values with far fewer parameters than a learned per-timestep embedding. Same idea as transformer positional encoding.",
+      "explanationZh": "正弦嵌入（Sinusoidal embeddings）为网络提供了在多个频率下对 t 的连续表示。在该嵌入空间（embedding space）中，任意时间步（timestep）都对应一个唯一的点，且相邻时间步的嵌入表示也彼此接近。这使得模型能够以远少于逐时间步学习嵌入（learned per-timestep embedding）的参数量，在所有 T 值上实现泛化。其核心思想与 Transformer 位置编码（Transformer positional encoding）相同。"
+    }
+  ]
+}

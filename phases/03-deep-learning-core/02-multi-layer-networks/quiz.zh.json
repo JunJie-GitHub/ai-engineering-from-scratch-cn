@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the purpose of a hidden layer in a multi-layer network?",
+      "questionZh": "在多层网络（Multi-layer Network）中，隐藏层（Hidden Layer）的作用是什么？",
+      "options": [
+        "To store the training data",
+        "To transform inputs into new feature representations that enable nonlinear decision boundaries",
+        "To reduce the number of parameters",
+        "To apply the loss function"
+      ],
+      "optionsZh": [
+        "存储训练数据 (training data)",
+        "将输入转换为新的特征表示（feature representations），以实现非线性决策边界（nonlinear decision boundaries）。",
+        "为减少参数 (parameters) 数量",
+        "要应用损失函数（Loss Function）"
+      ],
+      "explanation": "Hidden layers apply weights, biases, and activation functions to create new feature representations. These intermediate features allow the network to learn nonlinear mappings that a single layer cannot.",
+      "explanationZh": "隐藏层（Hidden layers）通过应用权重（weights）、偏置（biases）和激活函数（activation functions）来构建新的特征表示（feature representations）。这些中间特征（intermediate features）使得网络能够学习单层（single layer）无法实现的非线性映射（nonlinear mappings）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 2,
+      "question": "What does the forward pass do in a neural network?",
+      "questionZh": "在神经网络（Neural Network）中，前向传播（Forward Pass）的作用是什么？",
+      "options": [
+        "Updates the weights using gradients",
+        "Computes gradients for backpropagation",
+        "Pushes input through each layer to produce an output",
+        "Shuffles the training data"
+      ],
+      "optionsZh": [
+        "使用梯度 (gradients) 更新权重 (weights)",
+        "计算用于反向传播 (backpropagation) 的梯度 (gradients)",
+        "将输入逐层传递以生成输出",
+        "随机打乱训练数据 (training data)"
+      ],
+      "explanation": "The forward pass is pure computation: for each layer, multiply by weights, add bias, apply activation, and pass the result to the next layer. No learning happens during the forward pass.",
+      "explanationZh": "前向传播 (forward pass) 是纯粹的计算过程：针对每一层，依次执行与权重 (weights) 相乘、加上偏置 (bias)、应用激活 (activation) 的操作，并将结果传递至下一层。该过程不涉及任何学习 (learning)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "For a layer with 3 neurons receiving input from 2 neurons, what is the shape of the weight matrix?",
+      "questionZh": "对于一个包含 3 个神经元 (Neuron) 且接收来自 2 个神经元输入的层 (Layer)，其权重矩阵 (Weight Matrix) 的形状 (Shape) 是什么？",
+      "options": [
+        "(2, 3)",
+        "(3, 2)",
+        "(3, 3)",
+        "(2, 2)"
+      ],
+      "optionsZh": [
+        "(2, 3)",
+        "(3, 2)",
+        "(3, 3)",
+        "(2, 2)"
+      ],
+      "explanation": "The weight matrix has shape (neurons_in_current_layer, neurons_in_previous_layer) = (3, 2). Each row contains one neuron's weights across all inputs.",
+      "explanationZh": "权重矩阵（weight matrix）的形状（shape）为 (neurons_in_current_layer, neurons_in_previous_layer) = (3, 2)。每一行包含一个神经元（neuron）针对所有输入的权重。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the Universal Approximation Theorem guarantee?",
+      "questionZh": "通用近似定理（Universal Approximation Theorem）保证了什么？",
+      "options": [
+        "Any network can be trained in polynomial time",
+        "A single hidden layer with enough neurons can approximate any continuous function",
+        "Deeper networks always outperform shallow ones",
+        "Neural networks can solve any computational problem"
+      ],
+      "optionsZh": [
+        "任何网络（Network）均可在多项式时间（Polynomial Time）内完成训练。",
+        "单个隐藏层（Hidden Layer）只要包含足够数量的神经元（Neurons），即可逼近任意连续函数（Continuous Function）。",
+        "更深的网络（Deeper networks）始终优于较浅的网络（Shallow networks）。",
+        "神经网络 (Neural Networks) 能够解决任意计算问题 (Computational Problems)。"
+      ],
+      "explanation": "Cybenko (1989) proved that a network with one hidden layer and sufficient neurons can approximate any continuous function to any desired accuracy. In practice, deeper networks achieve the same with fewer total parameters.",
+      "explanationZh": "Cybenko (1989) 证明，包含单个隐藏层（hidden layer）且具备足够数量神经元（neurons）的网络，能够以任意期望的精度逼近任意连续函数（continuous function）。在实际应用中，更深的网络（deeper networks）仅需更少的总参数量（parameters）即可实现相同的效果。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "Why does the sigmoid activation function make learning possible, unlike the step function used in perceptrons?",
+      "questionZh": "为什么 Sigmoid 激活函数（sigmoid activation function）能够使学习成为可能，而不像感知机（perceptron）中使用的阶跃函数（step function）那样？",
+      "options": [
+        "Sigmoid outputs larger values",
+        "Sigmoid is faster to compute",
+        "Sigmoid is smooth and differentiable everywhere, so gradients exist for backpropagation",
+        "Sigmoid outputs negative values"
+      ],
+      "optionsZh": [
+        "Sigmoid函数 (Sigmoid) 输出较大的值",
+        "Sigmoid函数 (Sigmoid) 的计算速度更快。",
+        "Sigmoid 函数（Sigmoid function）处处平滑且可导，因此存在用于反向传播（backpropagation）的梯度（gradients）。",
+        "Sigmoid 函数 (Sigmoid function) 输出负值"
+      ],
+      "explanation": "The step function has zero gradient almost everywhere and undefined gradient at the threshold. Sigmoid is smooth with a well-defined derivative (s*(1-s)) at every point, which is essential for gradient-based learning.",
+      "explanationZh": "阶跃函数（Step Function）在几乎所有位置的梯度（Gradient）均为零，且在阈值（Threshold）处梯度未定义。Sigmoid 函数（Sigmoid Function）具有平滑特性，在每一点都有明确定义的导数（Derivative）（s*(1-s)），这对于基于梯度的学习（Gradient-based Learning）至关重要。"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What problem do embeddings solve that keyword search cannot?",
+      "questionZh": "嵌入（Embeddings）解决了关键词搜索（Keyword Search）无法解决的什么问题？",
+      "options": [
+        "Embeddings are faster",
+        "Embeddings capture semantic meaning, matching 'payment didn't go through' with 'charge was declined' even though they share no words",
+        "Embeddings use less storage",
+        "Embeddings work offline"
+      ],
+      "optionsZh": [
+        "嵌入（Embeddings）的速度更快",
+        "嵌入（Embeddings）能够捕捉语义含义，即使“支付未成功”与“扣款被拒绝”这两个表述毫无共同词汇，也能将它们准确匹配。",
+        "嵌入 (Embeddings) 占用更少的存储空间",
+        "嵌入（Embeddings）支持离线运行。"
+      ],
+      "explanation": "Keyword search treats words as independent symbols. Embeddings map text to high-dimensional vectors where semantic similarity = geometric proximity. Texts with the same meaning cluster together regardless of word choice.",
+      "explanationZh": "关键词搜索 (Keyword Search) 将单词视为独立的符号。嵌入 (Embeddings) 将文本映射至高维向量 (High-dimensional Vectors) 空间，其中语义相似度 (Semantic Similarity) 等于几何邻近度 (Geometric Proximity)。无论具体用词如何，含义相同的文本都会聚集在一起。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does cosine similarity measure between two embedding vectors?",
+      "questionZh": "余弦相似度（Cosine Similarity）衡量的是两个嵌入向量（Embedding Vectors）之间的什么？",
+      "options": [
+        "The Euclidean distance",
+        "The angle between the vectors, indicating how similar their directions are regardless of magnitude",
+        "The sum of their components",
+        "The number of matching dimensions"
+      ],
+      "optionsZh": [
+        "欧几里得距离 (Euclidean distance)",
+        "向量（vector）之间的夹角，用于表示其方向的相似程度，且与模长（magnitude）无关。",
+        "它们各分量的总和",
+        "匹配维度的数量"
+      ],
+      "explanation": "Cosine similarity = dot(A,B) / (|A|*|B|). It ranges from -1 (opposite) to 1 (identical direction). Two texts with the same meaning will have vectors pointing in nearly the same direction, giving cosine similarity near 1.",
+      "explanationZh": "余弦相似度 (Cosine Similarity) = dot(A,B) / (|A|*|B|)。其取值范围为 -1（方向相反）到 1（方向相同）。语义相同的两段文本，其对应的向量方向几乎一致，因此余弦相似度会接近 1。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "What is the typical dimensionality of modern text embedding models?",
+      "questionZh": "现代文本嵌入模型（text embedding models）的典型维度（dimensionality）是多少？",
+      "options": [
+        "2-10 dimensions",
+        "50-100 dimensions",
+        "768-3072 dimensions",
+        "100,000+ dimensions"
+      ],
+      "optionsZh": [
+        "2-10 维",
+        "50-100 维（dimensions）",
+        "768-3072 维（dimensions）",
+        "10 万+ 维度"
+      ],
+      "explanation": "Modern embedding models (OpenAI text-embedding-3, BGE, E5) produce vectors with 768 to 3072 dimensions. Higher dimensions capture more nuance but cost more to store and search.",
+      "explanationZh": "现代嵌入模型（embedding models）（如 OpenAI text-embedding-3、BGE、E5）会生成 768 至 3072 维的向量（vectors）。更高的维度（dimensions）能够捕捉更细微的语义特征，但也会增加存储与检索的成本。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why should you evaluate embedding quality using retrieval benchmarks rather than just inspecting similarity scores?",
+      "questionZh": "为什么应该使用检索基准测试（Retrieval Benchmarks）来评估嵌入质量（Embedding Quality），而不是仅仅检查相似度分数（Similarity Scores）？",
+      "options": [
+        "Similarity scores are always wrong",
+        "Absolute similarity values vary by model; what matters is whether relevant documents rank higher than irrelevant ones (precision@k, recall)",
+        "Retrieval benchmarks are faster",
+        "Similarity scores don't use cosine distance"
+      ],
+      "optionsZh": [
+        "相似度得分 (Similarity Scores) 总是错误的",
+        "绝对相似度值 (Absolute similarity values) 因模型而异；关键在于相关文档的排名是否高于不相关文档（精确率@k (Precision@k)、召回率 (Recall)）。",
+        "检索基准测试 (Retrieval benchmarks) 速度更快。",
+        "相似度分数（Similarity scores）不采用余弦距离（Cosine distance）。"
+      ],
+      "explanation": "A cosine similarity of 0.85 might mean 'very similar' for one model and 'somewhat similar' for another. Retrieval metrics (precision@k, recall) measure what actually matters: does the right document come back?",
+      "explanationZh": "对于某个模型而言，0.85 的余弦相似度（Cosine Similarity）可能意味着“非常相似”，而对另一个模型来说可能只是“较为相似”。检索指标（Retrieval Metrics）（精确率@k（precision@k）、召回率（Recall））衡量的才是真正关键的问题：正确的文档是否被成功检索返回？"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "When would you use a local/open-source embedding model instead of an API-based one?",
+      "questionZh": "在什么场景下，你会选择使用本地/开源嵌入模型（Embedding Model），而不是基于 API 的模型？",
+      "options": [
+        "Local models are always better",
+        "When you need data privacy, offline operation, lower cost at scale, or domain-specific fine-tuning",
+        "Local models produce higher quality embeddings",
+        "API models don't support batching"
+      ],
+      "optionsZh": [
+        "本地模型（Local models）总是更好。",
+        "当您需要数据隐私（Data Privacy）、离线运行（Offline Operation）、大规模部署下的更低成本（Lower Cost at Scale），或领域特定微调（Domain-Specific Fine-Tuning）时",
+        "本地模型 (local models) 生成更高质量的嵌入 (embeddings)",
+        "API 模型不支持批处理 (batching)"
+      ],
+      "explanation": "API embeddings (OpenAI, Cohere) are easy but send your data externally. Local models (BGE, E5, Nomic) keep data private, eliminate per-call costs at scale, and can be fine-tuned on domain-specific data.",
+      "explanationZh": "使用 API 向量嵌入 (Embeddings)（如 OpenAI、Cohere）虽然便捷，但会将数据发送至外部。而本地模型 (Local Models)（如 BGE、E5、Nomic）能够保障数据隐私，在大规模调用时消除按次计费成本，并且支持使用领域特定数据进行微调 (Fine-tuning)。"
+    }
+  ]
+}

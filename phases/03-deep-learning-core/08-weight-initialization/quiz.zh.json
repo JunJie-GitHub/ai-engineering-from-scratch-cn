@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What happens if you initialize all weights in a neural network to zero?",
+      "questionZh": "如果将神经网络（neural network）中的所有权重（weights）都初始化为零，会发生什么？",
+      "options": [
+        "The network trains normally but slowly",
+        "All neurons compute identical outputs and receive identical gradients, so the network has only 1 effective neuron per layer",
+        "The network diverges",
+        "Zero init is the recommended default"
+      ],
+      "optionsZh": [
+        "网络训练正常，但速度较慢",
+        "所有神经元（neurons）都会产生相同的输出并接收相同的梯度（gradients），因此该网络（network）的每一层实际上仅包含 1 个有效神经元（effective neuron）。",
+        "网络发散 (Network Diverges)",
+        "零初始化 (Zero Initialization) 是推荐的默认值。"
+      ],
+      "explanation": "With zero weights, every neuron in a layer computes the same function, receives the same gradient, and updates identically. This 'symmetry' means hundreds of parameters behave as one.",
+      "explanationZh": "当权重（weights）为零时，层（layer）中的每个神经元（neuron）都会计算相同的函数，接收相同的梯度（gradient），并进行完全相同的更新。这种“对称性（symmetry）”意味着数百个参数（parameters）的行为将如同单个参数。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why does the scale of random weight initialization matter?",
+      "questionZh": "为什么随机权重初始化（Random Weight Initialization）的尺度（Scale）很重要？",
+      "options": [
+        "Larger weights train faster",
+        "If variance is too high, activations explode; if too low, activations vanish -- both prevent training",
+        "Scale only matters for the output layer",
+        "It doesn't matter as long as weights are nonzero"
+      ],
+      "optionsZh": [
+        "较大的权重 (weights) 训练速度更快",
+        "如果方差 (variance) 过高，激活值 (activations) 会爆炸；如果过低，激活值会消失——这两种情况都会阻碍训练。",
+        "缩放 (scale) 仅对输出层 (output layer) 有影响。",
+        "只要权重 (weights) 不为零，具体数值无关紧要。"
+      ],
+      "explanation": "Each layer multiplies variance by fan_in * Var(w). If this product is > 1, signal explodes exponentially through layers. If < 1, it vanishes. Proper initialization keeps this product at exactly 1.",
+      "explanationZh": "每一层都会将方差 (variance) 乘以 `fan_in * Var(w)`。若该乘积大于 1，信号将在网络层间呈指数级爆炸；若小于 1，信号则会逐渐消失。恰当的初始化 (initialization) 策略可确保该乘积恰好等于 1。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the formula for Kaiming/He initialization variance?",
+      "questionZh": "Kaiming/He 初始化（Kaiming/He Initialization）的方差公式是什么？",
+      "options": [
+        "Var(w) = 1/fan_in",
+        "Var(w) = 2/fan_in",
+        "Var(w) = 2/(fan_in + fan_out)",
+        "Var(w) = 1/(fan_in + fan_out)"
+      ],
+      "optionsZh": [
+        "Var(w) = 1/fan_in",
+        "Var(w) = 2/fan_in",
+        "Var(w) = 2/(fan_in + fan_out)",
+        "Var(w) = 1/(fan_in + fan_out)"
+      ],
+      "explanation": "Kaiming init uses Var(w) = 2/fan_in. The factor of 2 compensates for ReLU zeroing half the activations (negative values become 0), which effectively halves the fan_in.",
+      "explanationZh": "Kaiming 初始化（Kaiming Initialization）采用 `Var(w) = 2/fan_in`。其中的系数 2 用于补偿 ReLU 将一半激活值（activations）置零（负值变为 0）的影响，这实际上使扇入（fan_in）减半。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "When should you use Xavier/Glorot initialization instead of Kaiming/He?",
+      "questionZh": "何时应使用 Xavier/Glorot 初始化（Xavier/Glorot initialization）而非 Kaiming/He 初始化（Kaiming/He initialization）？",
+      "options": [
+        "Always -- Xavier is universally better",
+        "When using sigmoid or tanh activations, which don't zero half the outputs like ReLU",
+        "When training on small datasets",
+        "When using Adam optimizer"
+      ],
+      "optionsZh": [
+        "始终如此——Xavier 初始化 (Xavier initialization) 普遍更优",
+        "在使用 Sigmoid 激活函数 (Sigmoid activation function) 或 Tanh 激活函数 (Tanh activation function) 时，它们不会像 ReLU 激活函数 (ReLU activation function) 那样将一半的输出置零。",
+        "在小数据集上训练时",
+        "使用Adam优化器 (Adam optimizer) 时"
+      ],
+      "explanation": "Xavier init uses Var(w) = 2/(fan_in + fan_out), designed for activations that are roughly linear near zero (sigmoid, tanh). Kaiming's extra factor of 2 compensates for ReLU's half-zeroing, which Xavier doesn't need.",
+      "explanationZh": "Xavier 初始化（Xavier initialization）采用 Var(w) = 2/(fan_in + fan_out)，专为在零点附近近似线性的激活函数（activation functions）（如 sigmoid、tanh）设计。Kaiming 初始化（Kaiming initialization）额外引入的系数 2 旨在补偿 ReLU 的负值置零特性，而 Xavier 初始化则无需此项补偿。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does GPT-2 scale residual layer weights by 1/sqrt(2N)?",
+      "questionZh": "为什么 GPT-2 要将残差层权重（residual layer weights）按 1/sqrt(2N) 进行缩放？",
+      "options": [
+        "To speed up training",
+        "Each residual addition increases variance, so scaling prevents the accumulated signal from growing unbounded through N layers",
+        "To reduce the number of parameters",
+        "To improve tokenization"
+      ],
+      "optionsZh": [
+        "为加速训练 (training)",
+        "每次残差相加（residual addition）都会增加方差（variance），因此缩放（scaling）可防止累积信号（accumulated signal）在经过 N 层（N layers）时无界增长。",
+        "为减少参数数量",
+        "为了优化分词 (Tokenization)"
+      ],
+      "explanation": "Residual connections add sublayer output to the input: x = x + sublayer(x). Each addition increases variance. With N residual layers, variance grows proportionally to N. Scaling by 1/sqrt(2N) keeps the signal stable.",
+      "explanationZh": "残差连接（Residual Connections）会将子层（sublayer）的输出叠加到输入上：x = x + sublayer(x)。每次相加操作都会导致方差（variance）增大。当包含 N 个残差层（residual layers）时，方差的增长与 N 成正比。通过按 1/sqrt(2N) 进行缩放，可以保持信号的稳定。"
+    }
+  ]
+}

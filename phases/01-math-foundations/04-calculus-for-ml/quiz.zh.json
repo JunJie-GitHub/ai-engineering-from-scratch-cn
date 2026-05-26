@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the derivative of a function at a point tell you?",
+      "questionZh": "函数在某一点的导数（derivative）告诉你什么？",
+      "options": [
+        "The value of the function at that point",
+        "The rate of change (slope) of the function at that point",
+        "The area under the function up to that point",
+        "The maximum value the function can reach"
+      ],
+      "optionsZh": [
+        "该点处的函数值",
+        "函数在该点的变化率（斜率）",
+        "截至该点的函数曲线下面积 (Area Under the Function)",
+        "函数所能达到的最大值"
+      ],
+      "explanation": "The derivative f'(x) measures how much the output changes per unit change in input. Geometrically, it is the slope of the tangent line at that point.",
+      "explanationZh": "导数（derivative）f'(x) 衡量的是输入每发生一个单位变化时，输出变化的幅度。从几何角度来看，它表示该点处切线（tangent line）的斜率（slope）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is a gradient in the context of machine learning?",
+      "questionZh": "在机器学习（machine learning）中，梯度（gradient）是什么？",
+      "options": [
+        "A measure of model accuracy",
+        "A vector of all partial derivatives that points in the direction of steepest ascent",
+        "The learning rate used during training",
+        "The difference between predicted and actual values"
+      ],
+      "optionsZh": [
+        "衡量模型准确率（Model Accuracy）的指标",
+        "由所有偏导数组成的向量，指向最陡上升方向。",
+        "训练过程中使用的学习率 (Learning Rate)",
+        "预测值 (predicted values) 与实际值 (actual values) 之间的差异"
+      ],
+      "explanation": "The gradient collects every partial derivative into one vector. It points in the direction that increases the function fastest. To minimize loss, you move opposite the gradient.",
+      "explanationZh": "梯度（gradient）将所有偏导数（partial derivative）组合成一个向量（vector）。它指向函数值增长最快的方向。为了最小化损失（loss），你需要沿梯度的反方向移动。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "In gradient descent, what does the update rule 'w = w - lr * dL/dw' accomplish?",
+      "questionZh": "在梯度下降（Gradient Descent）中，更新规则（Update Rule）`'w = w - lr * dL/dw'` 的作用是什么？",
+      "options": [
+        "It increases the loss to test model robustness",
+        "It adjusts each weight in the direction that reduces the loss, scaled by the learning rate",
+        "It resets the weight to its initial value minus the gradient",
+        "It normalizes the weight to have magnitude 1"
+      ],
+      "optionsZh": [
+        "它通过增加损失（loss）来测试模型鲁棒性（model robustness）。",
+        "它会沿着降低损失（loss）的方向调整每个权重（weight），调整幅度由学习率（learning rate）进行缩放。",
+        "它将权重（weight）重置为其初始值减去梯度（gradient）。",
+        "它将权重 (weight) 归一化 (normalize)，使其模长 (magnitude) 为 1。"
+      ],
+      "explanation": "dL/dw tells you which direction increases the loss. Subtracting it (times the learning rate) moves the weight in the direction that decreases the loss. This is repeated for every weight in the model.",
+      "explanationZh": "`dL/dw` 指明了使损失（Loss）增加的方向。减去该值（乘以学习率（Learning Rate）后）会使权重（Weight）朝着降低损失的方向移动。该过程会针对模型（Model）中的每一个权重重复执行。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why can't Newton's method (which uses the Hessian matrix) be directly applied to neural networks with millions of parameters?",
+      "questionZh": "为什么无法将使用海森矩阵（Hessian matrix）的牛顿法（Newton's method）直接应用于包含数百万个参数（parameters）的神经网络（neural networks）？",
+      "options": [
+        "Newton's method only works for convex functions",
+        "The Hessian is an N x N matrix, requiring O(N^2) storage and O(N^3) computation per step, which is intractable for millions of parameters",
+        "Newton's method requires analytical derivatives which cannot be computed for neural networks",
+        "Newton's method converges too slowly for deep networks"
+      ],
+      "optionsZh": [
+        "牛顿法（Newton's method）仅适用于凸函数（convex functions）。",
+        "海森矩阵 (Hessian matrix) 是一个 N x N 的矩阵，每一步需要 O(N^2) 的存储空间和 O(N^3) 的计算量，对于数百万个参数而言，这在计算上是难以处理的。",
+        "牛顿法（Newton's method）需要解析导数（analytical derivatives），而神经网络（neural networks）无法计算此类导数。",
+        "牛顿法 (Newton's method) 在深度网络 (deep networks) 中的收敛速度过慢"
+      ],
+      "explanation": "For N=1 million parameters, the Hessian has 1 trillion entries. Computing and inverting it is impossible. This is why we use first-order methods (SGD, Adam) that approximate second-order information cheaply.",
+      "explanationZh": "当参数量 N=100 万时，海森矩阵（Hessian）将包含 1 万亿个元素。直接计算并求逆该矩阵在计算上是不可行的。因此，我们采用一阶方法（first-order methods）（如 SGD、Adam），以较低的计算成本来近似二阶信息（second-order information）。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "What is the numerical (central difference) approximation for f'(x)?",
+      "questionZh": "f'(x) 的数值近似（中心差分 (central difference)）是什么？",
+      "options": [
+        "f(x+h) / h",
+        "(f(x+h) - f(x)) / h",
+        "(f(x+h) - f(x-h)) / (2*h)",
+        "f(x) * h"
+      ],
+      "optionsZh": [
+        "f(x+h) / h",
+        "(f(x+h) - f(x)) / h",
+        "(f(x+h) - f(x-h)) / (2*h)",
+        "f(x) * h"
+      ],
+      "explanation": "The central difference (f(x+h) - f(x-h)) / (2h) is more accurate than the forward difference because it averages the slope on both sides of x, canceling out the leading error term.",
+      "explanationZh": "中心差分（central difference）(f(x+h) - f(x-h)) / (2h) 比前向差分（forward difference）更精确，因为它对 x 两侧的斜率进行平均，从而抵消了主导误差项（leading error term）。"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 2,
+      "question": "Why does a 2D+pool video model fail on the Something-Something V2 dataset?",
+      "questionZh": "为什么 2D+池化视频模型（2D+pool video model）在 Something-Something V2 数据集上表现不佳？",
+      "options": [
+        "The images are too small",
+        "The model architecture is incompatible",
+        "The dataset's labels are defined by motion direction ('pushing something from left to right'), not appearance; order-invariant average pooling over per-frame features cannot distinguish motion direction",
+        "There are too many classes"
+      ],
+      "optionsZh": [
+        "图像尺寸过小",
+        "模型架构 (Model Architecture) 不兼容。",
+        "该数据集的标签由运动方向（motion direction）（如“将某物从左向右推”）定义，而非外观（appearance）；对逐帧特征（per-frame features）进行顺序无关的平均池化（order-invariant average pooling）无法区分运动方向。",
+        "类 (classes) 数量过多。"
+      ],
+      "explanation": "Something-Something labels are literally 'X moved left to right' vs 'X moved right to left'. The two look identical in any single frame, and averaging frame embeddings is order-invariant so pool(f1, f2, ..., fT) == pool(fT, ..., f2, f1). Motion-defined labels require a model that attends to temporal order.",
+      "explanationZh": "Something-Something 数据集的标签（labels）字面含义即为“X 从左向右移动”与“X 从右向左移动”。在任意单帧（single frame）中，这两者看起来完全一致；而对帧嵌入（frame embeddings）进行平均操作具有顺序不变性（order-invariant），因此 pool(f1, f2, ..., fT) == pool(fT, ..., f2, f1)。基于运动定义的标签（motion-defined labels）要求模型必须能够关注时间顺序（temporal order）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is I3D's inflation trick?",
+      "questionZh": "什么是 I3D 的膨胀技巧 (inflation trick)？",
+      "options": [
+        "A way to pretrain on more images",
+        "Take a 2D CNN's pretrained kernels, copy each along a new time axis (dividing by kernel_T to preserve activation scale), and use them to initialise a 3D CNN — giving the 3D model strong weights without 3D pretraining",
+        "A scheduler for learning rates",
+        "A method for compressing videos"
+      ],
+      "optionsZh": [
+        "一种在更多图像上进行预训练的方法",
+        "将二维卷积神经网络（2D CNN）的预训练卷积核（pretrained kernels）沿新增的时间轴（time axis）进行复制（除以 `kernel_T` 以保持激活尺度（activation scale）不变），并用于初始化三维卷积神经网络（3D CNN）——从而使该三维模型无需进行三维预训练（3D pretraining）即可获得较强的初始权重。",
+        "学习率调度器 (Learning Rate Scheduler)",
+        "一种视频压缩方法"
+      ],
+      "explanation": "Inflation bootstraps 3D video models from strong 2D ImageNet weights. A 3x3 2D kernel becomes a 3x3x3 3D kernel by replicating along T with a 1/kernel_T rescale. It transfers object and texture features learnt on ImageNet directly into the video model, which is why I3D was the first 3D model to seriously beat 2D+pool baselines.",
+      "explanationZh": "权重膨胀（Inflation）技术利用强大的 2D ImageNet 权重（2D ImageNet Weights）来初始化 3D 视频模型（3D Video Models）。通过沿时间维度（T）复制并按 1/kernel_T 进行缩放，3x3 的 2D 卷积核（2D Kernel）即可转换为 3x3x3 的 3D 卷积核（3D Kernel）。该方法将 ImageNet 上学习到的物体与纹理特征直接迁移至视频模型中，这也是 I3D 成为首个大幅超越 2D+池化（2D+pool）基线模型的 3D 模型的原因。"
+    },
+    {
+      "stage": "post",
+      "correct": 3,
+      "question": "A (2+1)D factorised convolution splits a 3D conv into which two operations?",
+      "questionZh": "(2+1)D 分解卷积（(2+1)D Factorised Convolution）将 3D 卷积（3D Convolution）拆分为哪两种操作？",
+      "options": [
+        "One temporal conv followed by one depthwise conv",
+        "A grouped conv and a 1x1 conv",
+        "Two 3D convs with different strides",
+        "A spatial 1x3x3 conv followed by a temporal 3x1x1 conv, with a BN+ReLU in between to add a non-linearity that full 3D convs do not have"
+      ],
+      "optionsZh": [
+        "一个时间卷积（Temporal Convolution）后接一个深度卷积（Depthwise Convolution）",
+        "分组卷积（Grouped Convolution）与 1x1卷积（1x1 Convolution）",
+        "两个步长 (Stride) 不同的三维卷积 (3D Convolution)",
+        "先执行空间 1x3x3 卷积 (spatial 1x3x3 conv)，随后执行时间 3x1x1 卷积 (temporal 3x1x1 conv)，并在两者之间加入 BN+ReLU，以引入完整 3D 卷积 (full 3D convs) 所不具备的非线性 (non-linearity)。"
+      ],
+      "explanation": "(2+1)D factorises the 3x3x3 kernel into (1x3x3) then (3x1x1). The two convs have a non-linearity between them (BN+ReLU), which increases expressive power per parameter. On Kinetics, R(2+1)D-34 outperforms an equivalent R3D-34 with fewer params — the extra non-linearity is doing real work.",
+      "explanationZh": "(2+1)D 将 3x3x3 卷积核 (kernel) 分解为先 (1x3x3) 后 (3x1x1) 的形式。这两个卷积层 (convolutions) 之间引入了非线性激活 (non-linearity)（即 BN+ReLU），从而提升了单位参数的表达能力 (expressive power)。在 Kinetics 数据集上，R(2+1)D-34 以更少的参数量 (parameters) 实现了优于等效 R3D-34 模型的性能——这额外的非线性激活确实带来了实质性的性能提升。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "In a video transformer, what does 'divided attention' mean?",
+      "questionZh": "在视频 Transformer（Video Transformer）中，“分离注意力（Divided Attention）”是什么意思？",
+      "options": [
+        "Attention over half the tokens",
+        "Each transformer block has two attention modules: one over tokens at the same spatial position across time (temporal attention), then one over tokens at the same timestep across space (spatial attention) — breaking the O((T*H*W)^2) full attention into O(T^2) + O((H*W)^2)",
+        "Attention applied only during training",
+        "Attention that skips some layers"
+      ],
+      "optionsZh": [
+        "对超过一半的词元 (tokens) 进行注意力 (Attention) 计算",
+        "每个 Transformer 块 (Transformer Block) 包含两个注意力模块 (Attention Module)：一个作用于时间维度上相同空间位置的词元 (Token)（即时间注意力 (Temporal Attention)），随后另一个作用于空间维度上相同时间步的词元（即空间注意力 (Spatial Attention)）——从而将 O((T*H*W)^2) 的全注意力 (Full Attention) 分解为 O(T^2) + O((H*W)^2)。",
+        "注意力机制 (Attention Mechanism) 仅在训练期间应用",
+        "跳过部分层的注意力机制 (Attention Mechanism)"
+      ],
+      "explanation": "Full joint spatio-temporal attention is O((T*H*W)^2), which is infeasible for long videos. Divided attention (TimeSformer) alternates temporal and spatial attention within each block, bringing cost to O(T^2 + (H*W)^2). It trades off a theoretical loss in expressivity for tractable training; in practice divided attention matches or beats joint on most benchmarks.",
+      "explanationZh": "完整联合时空注意力（Full Joint Spatio-Temporal Attention）的计算复杂度为 O((T*H*W)^2)，这对于长视频而言是不可行的。分离注意力（Divided Attention，TimeSformer）在每个模块内交替执行时间注意力（Temporal Attention）与空间注意力（Spatial Attention），将计算成本降至 O(T^2 + (H*W)^2)。该设计以理论上的表达能力（Expressivity）损失为代价，换取了计算上可行的训练过程；在实际应用中，分离注意力在大多数基准测试上的表现均能匹敌甚至超越联合注意力。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "Your Kinetics-400 model reports 76% clip accuracy and 82% video accuracy. What does the gap tell you?",
+      "questionZh": "你的 Kinetics-400 模型报告的片段准确率（clip accuracy）为 76%，视频准确率（video accuracy）为 82%。这一差距说明了什么？",
+      "options": [
+        "Per-clip predictions are noisy; averaging predictions across multiple sampled clips per video (test-time augmentation) stabilises the result. A large gap suggests the model's features are sensitive to which 8-frame window was sampled, and longer clips or stronger spatial augmentation during training would shrink the gap",
+        "The model is broken",
+        "The test set is too small",
+        "Clip accuracy is always lower than video accuracy by definition"
+      ],
+      "optionsZh": [
+        "单个片段（clip）的预测结果通常噪声较大；对每个视频中采样的多个片段的预测结果取平均（测试时数据增强，Test-Time Augmentation）可使结果更加稳定。若存在较大差距，则表明模型的特征对具体采样的8帧窗口（8-frame window）较为敏感；在训练期间使用更长的片段或更强的空间数据增强（Spatial Augmentation）将有助于缩小该差距。",
+        "模型 (model) 已损坏。",
+        "测试集 (test set) 过小。",
+        "根据定义，片段准确率（Clip Accuracy）始终低于视频准确率（Video Accuracy）。"
+      ],
+      "explanation": "Clip accuracy evaluates the model on a single sampled window; video accuracy averages predictions across multiple windows. A 6-point gap means the model is sensitive to which window you sampled. Closing the gap means the model has generalised better across the temporal distribution of each video — which is what you want in deployment. Report both numbers always.",
+      "explanationZh": "片段准确率（Clip Accuracy）基于单个采样窗口对模型进行评估；视频准确率（Video Accuracy）则对多个窗口的预测结果取平均。两者相差6个百分点，意味着模型对采样窗口的选择较为敏感。缩小这一差距表明模型在每段视频的时间分布（Temporal Distribution）上具有更好的泛化（Generalization）能力——这正是实际部署（Deployment）中所期望的。请务必始终同时报告这两项指标。"
+    }
+  ]
+}

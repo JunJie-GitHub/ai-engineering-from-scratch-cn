@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What license does Langfuse ship under after the June 2025 open-sourcing of formerly commercial modules?",
+      "questionZh": "在2025年6月将原商业模块开源后，Langfuse 采用何种许可证发布？",
+      "options": [
+        "GPLv3",
+        "MIT",
+        "Elastic License 2.0",
+        "Apache 2.0"
+      ],
+      "optionsZh": [
+        "GPLv3",
+        "MIT",
+        "Elastic 许可证 2.0",
+        "Apache 2.0 许可证"
+      ],
+      "explanation": "Langfuse is MIT, including LLM-as-a-judge, annotation queues, prompt experiments, and Playground after June 2025.",
+      "explanationZh": "Langfuse 采用 MIT 许可证 (MIT License)，自 2025 年 6 月起，将包含大语言模型作为评判者 (LLM-as-a-judge)、标注队列 (annotation queues)、提示词实验 (prompt experiments) 以及实验场 (Playground) 等功能。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is Arize Phoenix strongest at according to the lesson?",
+      "questionZh": "根据课程内容，Arize Phoenix 最擅长什么？",
+      "options": [
+        "Prompt versioning",
+        "Deep agent-specific evaluation: trace clustering, anomaly detection, RAG retrieval relevancy, OpenInference auto-instrumentation",
+        "Automated optimization loop",
+        "Static analysis of code"
+      ],
+      "optionsZh": [
+        "提示词版本控制 (Prompt Versioning)",
+        "深度智能体专项评估（Deep Agent-Specific Evaluation）：追踪聚类（Trace Clustering）、异常检测（Anomaly Detection）、RAG 检索相关性（RAG Retrieval Relevancy）、OpenInference 自动插桩（OpenInference Auto-instrumentation）",
+        "自动化优化循环 (Automated Optimization Loop)",
+        "静态代码分析 (Static Code Analysis)"
+      ],
+      "explanation": "Phoenix focuses on behavioral drift and RAG evaluation with OpenInference auto-instrumentation.",
+      "explanationZh": "Phoenix 专注于利用 OpenInference 自动插桩 (Auto-instrumentation) 技术，实现行为漂移 (Behavioral Drift) 监控与 RAG 评估 (RAG Evaluation)。"
+    },
+    {
+      "stage": "check",
+      "correct": 2,
+      "question": "Which platform pairs automated prompt optimization with guardrails (PII redaction, topical constraints) and LLM-judge hallucination detection?",
+      "questionZh": "哪个平台将自动化提示词优化 (Automated Prompt Optimization) 与安全护栏 (Guardrails)（如个人身份信息脱敏 (PII Redaction)、主题约束 (Topical Constraints)）以及大语言模型裁判幻觉检测 (LLM-judge Hallucination Detection) 相结合？",
+      "options": [
+        "Langfuse",
+        "Phoenix",
+        "Opik",
+        "Jaeger"
+      ],
+      "optionsZh": [
+        "Langfuse",
+        "Phoenix",
+        "Opik",
+        "Jaeger"
+      ],
+      "explanation": "Opik centers on the optimization + guardrail loop.",
+      "explanationZh": "Opik 以优化与护栏循环（Optimization + Guardrail Loop）为核心。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "Which platform does the lesson recommend for an all-in-one with prompt management?",
+      "questionZh": "课程推荐使用哪个平台作为包含提示词管理（Prompt Management）的一体化平台？",
+      "options": [
+        "Langfuse",
+        "Phoenix",
+        "Opik",
+        "Datadog APM"
+      ],
+      "optionsZh": [
+        "Langfuse",
+        "Phoenix",
+        "Opik",
+        "Datadog 应用性能监控 (APM)"
+      ],
+      "explanation": "Langfuse covers tracing + prompt management + evals + session replay end-to-end.",
+      "explanationZh": "Langfuse 提供端到端（End-to-End）的追踪（Tracing）、提示词管理（Prompt Management）、评估（Evals）以及会话回放（Session Replay）功能。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does the lesson say about vendor-published platform benchmarks?",
+      "questionZh": "本节对供应商发布的平台基准测试（vendor-published platform benchmarks）有何说明？",
+      "options": [
+        "They are definitive",
+        "Take them as directional; measure your own corpus",
+        "They are forbidden by OpenTelemetry",
+        "Only Opik's are reliable"
+      ],
+      "optionsZh": [
+        "它们是权威的。",
+        "请将其视为指导性参考；请根据您的实际语料库（corpus）进行具体测量。",
+        "它们被开放遥测 (OpenTelemetry) 所禁止。",
+        "只有 Opik 是可靠的。"
+      ],
+      "explanation": "Even the cited 14x gap between Opik and Langfuse should be measured on your own data before deciding.",
+      "explanationZh": "在做出决定之前，即便被引用的数据表明 Opik 与 Langfuse 之间存在 14 倍的差距，也建议您先使用自有数据进行实测验证。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why is tracing without evaluation considered expensive logging?",
+      "questionZh": "为什么未经评估（Evaluation）的追踪（Tracing）会被视为高开销的日志记录（Expensive Logging）？",
+      "options": [
+        "Disk costs more than CPU",
+        "You see runs but you do not score them, so regressions are invisible and bisection is impossible",
+        "Providers charge for spans",
+        "Spans cannot be replayed"
+      ],
+      "optionsZh": [
+        "磁盘（Disk）成本高于 CPU。",
+        "你能查看运行记录 (runs)，但无法对其进行评分，因此性能回退 (regressions) 将不可见，且无法进行二分排查 (bisection)。",
+        "服务提供商按跨度（Span）计费。",
+        "跨度（Span）无法重放"
+      ],
+      "explanation": "Evals are what turn traces into actionable quality signals.",
+      "explanationZh": "评估 (Evals) 能够将追踪 (Traces) 转化为可操作的质量信号。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the lesson's warning about self-rolled LLM-judges?",
+      "questionZh": "关于自行构建的大语言模型裁判（LLM-judges），本课程提出了什么警告？",
+      "options": [
+        "They are forbidden by Apache 2.0",
+        "CRITIC applies: judges need external grounding for factual verification or they rubber-stamp",
+        "They only work in TypeScript",
+        "They must run on GPUs"
+      ],
+      "optionsZh": [
+        "它们受 Apache 2.0 许可证（Apache License 2.0）禁止。",
+        "CRITIC 指出：评估模型（judges）在进行事实核查（factual verification）时需要外部依据（external grounding），否则其评判将流于形式（rubber-stamp）。",
+        "它们仅适用于 TypeScript。",
+        "它们必须在图形处理器 (GPU) 上运行。"
+      ],
+      "explanation": "Without external tool-grounded verification, LLM-judges drift toward rubber-stamping (CRITIC, Lesson 5).",
+      "explanationZh": "若无基于外部工具的验证（external tool-grounded verification），大语言模型评判器（LLM-judges）往往会倾向于盲目认可（rubber-stamping）（CRITIC，第 5 课）。"
+    }
+  ]
+}

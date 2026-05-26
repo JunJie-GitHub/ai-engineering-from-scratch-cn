@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is an eigenvector of a matrix?",
+      "questionZh": "什么是矩阵（matrix）的特征向量（eigenvector）？",
+      "options": [
+        "The largest row in the matrix",
+        "A vector that the matrix only scales (never rotates) when multiplied",
+        "A vector perpendicular to all columns of the matrix",
+        "The diagonal entries of the matrix expressed as a vector"
+      ],
+      "optionsZh": [
+        "矩阵 (matrix) 中的最大行",
+        "与矩阵相乘时仅发生缩放（从不旋转）的向量。",
+        "与矩阵所有列正交的向量",
+        "以向量 (vector) 形式表示的矩阵 (matrix) 对角线元素 (diagonal entries)"
+      ],
+      "explanation": "An eigenvector v satisfies Av = lambda*v, meaning the matrix A only stretches v by the scalar factor lambda (the eigenvalue) without changing its direction.",
+      "explanationZh": "特征向量 (eigenvector) v 满足 Av = lambda*v，这意味着矩阵 (matrix) A 仅通过标量因子 (scalar factor) lambda（即特征值 (eigenvalue)）对 v 进行拉伸，而不会改变其方向。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the determinant of a 2D transformation matrix represent geometrically?",
+      "questionZh": "二维变换矩阵（2D transformation matrix）的行列式（determinant）在几何上表示什么？",
+      "options": [
+        "The angle of rotation applied by the matrix",
+        "The factor by which the matrix scales area",
+        "The number of eigenvectors the matrix has",
+        "The trace of the matrix"
+      ],
+      "optionsZh": [
+        "矩阵 (matrix) 所应用的旋转角度 (angle of rotation)",
+        "矩阵缩放面积的因子",
+        "矩阵的特征向量（eigenvector）数量",
+        "矩阵的迹 (trace)"
+      ],
+      "explanation": "The determinant measures how much the transformation scales area. det=1 preserves area (rotation), det=2 doubles area, det=0 crushes to a lower dimension, and det=-1 preserves area but flips orientation.",
+      "explanationZh": "行列式（Determinant）衡量了变换（Transformation）对面积的缩放程度。det=1 表示面积保持不变（旋转），det=2 表示面积翻倍，det=0 表示空间被压缩至低维，而 det=-1 表示面积保持不变但定向（Orientation）发生翻转。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does the order of matrix transformations matter? (i.e., why is R @ S different from S @ R?)",
+      "questionZh": "为什么矩阵变换（Matrix Transformations）的顺序很重要？（即，为什么 R @ S 与 S @ R 不同？）",
+      "options": [
+        "Matrix addition is not commutative",
+        "Matrix multiplication is not commutative: rotating then scaling gives a different result than scaling then rotating",
+        "The determinants are different for each order",
+        "One order produces a larger matrix than the other"
+      ],
+      "optionsZh": [
+        "矩阵加法 (Matrix addition) 不满足交换律 (commutative)",
+        "矩阵乘法 (Matrix Multiplication) 不满足交换律：先旋转 (Rotation) 后缩放 (Scaling) 的结果，与先缩放后旋转的结果不同。",
+        "不同阶 (order) 的行列式 (determinant) 各不相同。",
+        "其中一种顺序 (order) 产生的矩阵 (matrix) 比另一种更大。"
+      ],
+      "explanation": "Matrix multiplication is not commutative. Rotating (1,0) by 90 degrees then scaling by (2,0.5) gives (0,0.5), but scaling first then rotating gives (0,2). The geometric operations compose differently.",
+      "explanationZh": "矩阵乘法（Matrix Multiplication）不满足交换律（Commutative Property）。将向量 (1,0) 旋转 90 度后再按 (2,0.5) 进行缩放，结果为 (0,0.5)；但若先缩放再旋转，结果则为 (0,2)。这表明几何变换（Geometric Transformations）的组合顺序不同，会产生不同的结果。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "In a recurrent neural network, what happens when the weight matrix has eigenvalues with magnitude greater than 1?",
+      "questionZh": "在循环神经网络（Recurrent Neural Network）中，当权重矩阵（Weight Matrix）的特征值（Eigenvalues）的模（Magnitude）大于1时，会发生什么？",
+      "options": [
+        "The network learns faster",
+        "Outputs explode exponentially over time steps (exploding gradient problem)",
+        "The network becomes more stable",
+        "The eigenvalues converge to 1 over training"
+      ],
+      "optionsZh": [
+        "网络（Network）的学习速度更快。",
+        "输出随时间步呈指数级爆炸（梯度爆炸问题，Exploding Gradient Problem）",
+        "网络 (Network) 变得更加稳定",
+        "在训练过程中，特征值（eigenvalues）收敛至 1。"
+      ],
+      "explanation": "Repeated multiplication by a matrix amplifies the eigenvalue directions. Eigenvalues > 1 cause exponential growth (exploding gradients), while eigenvalues < 1 cause exponential decay (vanishing gradients).",
+      "explanationZh": "矩阵的连续相乘会放大特征值方向 (eigenvalue directions)。当特征值 (eigenvalues) > 1 时，会导致指数级增长（即梯度爆炸 (exploding gradients)）；而当特征值 < 1 时，则会导致指数级衰减（即梯度消失 (vanishing gradients)）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "The matrix A = [[2, 1], [1, 2]] has eigenvalues 3 and 1. What does eigendecomposition A = V @ D @ V^(-1) reveal?",
+      "questionZh": "矩阵 A = [[2, 1], [1, 2]] 的特征值 (eigenvalues) 为 3 和 1。特征分解 (eigendecomposition) A = V @ D @ V^(-1) 揭示了什么？",
+      "options": [
+        "A is equivalent to two rotations",
+        "A stretches space by 3x along the [1,1] direction and leaves the [1,-1] direction unchanged",
+        "A compresses all vectors by a factor of 2",
+        "A has rank 1 and maps all vectors to a line"
+      ],
+      "optionsZh": [
+        "A 等价于两次旋转",
+        "A 沿 [1,1] 方向将空间拉伸 3 倍，并保持 [1,-1] 方向不变。",
+        "A 将所有向量 (vector) 压缩为原来的一半。",
+        "A 的秩（rank）为 1，并将所有向量（vector）映射到一条直线（line）上。"
+      ],
+      "explanation": "The eigenvalue 3 with eigenvector [1,1] means A stretches 3x along the diagonal. The eigenvalue 1 with eigenvector [1,-1] means A leaves the anti-diagonal unchanged. D holds {3,1}, V holds the eigenvectors.",
+      "explanationZh": "特征值 (eigenvalue) 3 与特征向量 (eigenvector) [1,1] 表示 A 沿对角线方向拉伸了 3 倍。特征值 1 与特征向量 [1,-1] 表示 A 在反对角线 (anti-diagonal) 方向上保持不变。D 包含 {3,1}，V 包含特征向量。"
+    }
+  ]
+}

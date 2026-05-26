@@ -1,0 +1,109 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "unsupervised-pre-1",
+      "question": "What distinguishes unsupervised learning from supervised learning?",
+      "questionZh": "无监督学习（Unsupervised Learning）与监督学习（Supervised Learning）有何区别？",
+      "options": [
+        "Unsupervised learning uses more data",
+        "Unsupervised learning has no labeled outputs -- the algorithm finds structure on its own",
+        "Unsupervised learning only works with text data",
+        "Unsupervised learning always produces better results"
+      ],
+      "optionsZh": [
+        "无监督学习（Unsupervised learning）会使用更多的数据。",
+        "无监督学习（Unsupervised Learning）没有标注输出（Labeled Outputs）——算法会自行发现数据中的内在结构。",
+        "无监督学习（Unsupervised Learning）仅适用于文本数据。",
+        "无监督学习（Unsupervised learning）总能产生更好的结果。"
+      ],
+      "explanation": "In unsupervised learning, there are no labels. The algorithm discovers patterns, groupings, or structure in the data without being told what the correct output should be.",
+      "explanationZh": "在无监督学习（Unsupervised Learning）中，不存在标签（Labels）。算法无需被告知正确的输出结果，即可自行发现数据中的模式（Patterns）、分组（Groupings）或结构（Structure）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "unsupervised-pre-2",
+      "question": "What does K-Means require you to specify before training?",
+      "questionZh": "在训练 K均值聚类算法（K-Means）之前，需要指定什么？",
+      "options": [
+        "The exact cluster centers",
+        "The number of clusters K",
+        "The labels for each data point",
+        "The distance metric to use"
+      ],
+      "optionsZh": [
+        "精确的聚类中心 (cluster centers)",
+        "聚类数 (clusters) K",
+        "每个数据点 (data point) 的标签 (labels)",
+        "要使用的距离度量（Distance Metric）"
+      ],
+      "explanation": "K-Means requires the number of clusters K as input. It then iteratively assigns points to the nearest centroid and recomputes centroids until convergence.",
+      "explanationZh": "K均值聚类 (K-Means) 需要将簇 (clusters) 的数量 K 作为输入。随后，算法会迭代地将数据点分配至最近的质心 (centroid)，并重新计算质心，直至收敛 (convergence)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "unsupervised-post-1",
+      "question": "K-Means fails on two interlocking half-moon shapes but DBSCAN succeeds. Why?",
+      "questionZh": "K均值聚类 (K-Means) 在处理两个相互交错的半月形数据分布时会失效，而基于密度的空间聚类算法 (DBSCAN) 却能成功。原因是什么？",
+      "options": [
+        "DBSCAN uses more data than K-Means",
+        "DBSCAN finds clusters based on density, so it can discover arbitrary shapes, while K-Means assumes spherical clusters",
+        "DBSCAN always outperforms K-Means on every dataset",
+        "K-Means cannot handle 2D data"
+      ],
+      "optionsZh": [
+        "基于密度的空间聚类算法（DBSCAN）相比 K均值聚类算法（K-Means）需要更多的数据。",
+        "基于密度的空间聚类算法（DBSCAN）依据密度进行聚类，因此能够发现任意形状的簇，而 K均值聚类算法（K-Means）则假设簇呈球形。",
+        "基于密度的空间聚类算法 (DBSCAN) 在所有数据集上的表现始终优于 K均值聚类算法 (K-Means)。",
+        "K均值 (K-Means) 无法处理二维数据 (2D data)。"
+      ],
+      "explanation": "K-Means assigns points to the nearest centroid, producing spherical (convex) clusters. DBSCAN grows clusters from dense regions, discovering any shape as long as the cluster is connected by density.",
+      "explanationZh": "K均值聚类（K-Means）将数据点分配至最近的质心（centroid），从而生成球形（凸）簇。基于密度的空间聚类算法（DBSCAN）从高密度区域（dense regions）扩展簇，只要簇在密度上相连（density-connected），即可发现任意形状的簇。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "unsupervised-post-2",
+      "question": "What is the silhouette score measuring?",
+      "questionZh": "轮廓系数（Silhouette Score）衡量的是什么？",
+      "options": [
+        "The total number of clusters found",
+        "How similar each point is to its own cluster compared to the nearest other cluster",
+        "The speed of the clustering algorithm",
+        "The percentage of outliers in the data"
+      ],
+      "optionsZh": [
+        "找到的聚类（cluster）总数",
+        "衡量每个数据点 (data point) 与其所属簇 (cluster) 的相似度，相较于其与最近的其他簇的相似度。",
+        "聚类算法（clustering algorithm）的速度",
+        "数据中异常值 (outliers) 的百分比"
+      ],
+      "explanation": "Silhouette score = (b - a) / max(a, b), where a is mean intra-cluster distance and b is mean nearest-cluster distance. It ranges from -1 (wrong cluster) to +1 (well-clustered).",
+      "explanationZh": "轮廓系数 (Silhouette Score) = (b - a) / max(a, b)，其中 a 为平均簇内距离 (mean intra-cluster distance)，b 为平均最近簇距离 (mean nearest-cluster distance)。其取值范围为 -1（聚类错误）至 +1（聚类良好）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "unsupervised-post-3",
+      "question": "How does a Gaussian Mixture Model differ from K-Means in its cluster assignments?",
+      "questionZh": "高斯混合模型 (Gaussian Mixture Model) 与 K 均值聚类 (K-Means) 在簇分配 (cluster assignments) 方面有何不同？",
+      "options": [
+        "GMM uses hard assignments where each point belongs to exactly one cluster",
+        "GMM gives soft (probabilistic) assignments where each point has a probability of belonging to each cluster",
+        "GMM does not use centroids at all",
+        "GMM only works with one-dimensional data"
+      ],
+      "optionsZh": [
+        "高斯混合模型（Gaussian Mixture Model）采用硬分配（hard assignment）机制，每个数据点（data point）仅属于一个簇（cluster）。",
+        "高斯混合模型 (Gaussian Mixture Model) 提供软分配 (soft assignment)，其中每个数据点都具有属于各个簇的概率。",
+        "高斯混合模型（GMM）完全不使用质心（centroids）。",
+        "高斯混合模型（Gaussian Mixture Model）仅适用于一维数据（one-dimensional data）。"
+      ],
+      "explanation": "K-Means assigns each point to exactly one cluster (hard). GMM computes the probability that each point belongs to each Gaussian component (soft), and can model elliptical, overlapping clusters.",
+      "explanationZh": "K均值聚类 (K-Means) 将每个数据点严格分配至单一簇（硬分配 (hard assignment)）。高斯混合模型 (GMM) 则计算每个数据点属于各个高斯分量 (Gaussian component) 的概率（软分配 (soft assignment)），并能够对椭圆形且相互重叠的簇进行建模。"
+    }
+  ]
+}

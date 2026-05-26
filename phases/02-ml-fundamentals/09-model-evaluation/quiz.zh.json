@@ -1,0 +1,109 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "eval-pre-1",
+      "question": "Why should you never tune hyperparameters based on test set performance?",
+      "questionZh": "为什么绝不应根据测试集（Test Set）性能来调优超参数（Hyperparameters）？",
+      "options": [
+        "The test set is too small for reliable estimates",
+        "Adjusting the model based on test results effectively trains on the test set, making reported performance meaningless",
+        "Hyperparameters cannot be changed after training",
+        "The test set always has different features than the training set"
+      ],
+      "optionsZh": [
+        "测试集 (Test Set) 规模过小，无法得出可靠的估计 (Reliable Estimates)。",
+        "根据测试结果调整模型实际上等同于在测试集（test set）上进行训练，这会导致所报告的性能指标失去意义。",
+        "训练完成后无法更改超参数（Hyperparameters）。",
+        "测试集（Test Set）的特征（Features）始终与训练集（Training Set）不同。"
+      ],
+      "explanation": "Every time you adjust your model based on test performance, you leak test information into your modeling decisions. The test set must be used exactly once at the end for an unbiased estimate.",
+      "explanationZh": "每次根据测试性能调整模型时，都会将测试信息泄露到建模决策中。测试集 (test set) 必须在最后仅使用一次，以获得无偏估计 (unbiased estimate)。"
+    },
+    {
+      "stage": "pre",
+      "correct": 2,
+      "id": "eval-pre-2",
+      "question": "A dataset has 95% negative and 5% positive samples. A model predicts 'negative' for every sample. What is its accuracy?",
+      "questionZh": "一个数据集（Dataset）包含 95% 的负样本（Negative Samples）和 5% 的正样本（Positive Samples）。若模型（Model）对每个样本均预测为“负类”，其准确率（Accuracy）是多少？",
+      "options": [
+        "50%",
+        "5%",
+        "95%",
+        "0%"
+      ],
+      "optionsZh": [
+        "50%",
+        "5%",
+        "95%",
+        "0%"
+      ],
+      "explanation": "Accuracy = correct predictions / total = 950/1000 = 95%. This shows why accuracy is misleading for imbalanced data -- a useless model looks great.",
+      "explanationZh": "准确率（Accuracy）= 正确预测数 / 总数 = 950/1000 = 95%。这解释了为何准确率在处理不平衡数据（Imbalanced Data）时具有误导性——一个毫无实际价值的模型，其评估结果看起来却非常出色。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "eval-post-1",
+      "question": "In K-fold cross-validation with K=5, how many times is each data point used for validation?",
+      "questionZh": "在 K=5 的 K折交叉验证（K-fold cross-validation）中，每个数据点会被用于验证多少次？",
+      "options": [
+        "5 times",
+        "Exactly once",
+        "It depends on the random seed",
+        "Never -- all data is used for training"
+      ],
+      "optionsZh": [
+        "5 times",
+        "精确一次 (Exactly once)",
+        "这取决于随机种子 (random seed)",
+        "从不——所有数据均用于训练 (training)"
+      ],
+      "explanation": "In K-fold CV, data is split into K equal folds. Each fold is used as the validation set exactly once while the remaining K-1 folds are used for training.",
+      "explanationZh": "在K折交叉验证（K-fold Cross-Validation）中，数据被划分为K个大小相等的折。每个折恰好作为验证集使用一次，而其余K-1个折则用于训练。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "eval-post-2",
+      "question": "A learning curve shows training score = 0.95 and validation score = 0.60 that does not improve with more data. What should you try?",
+      "questionZh": "学习曲线（Learning Curve）显示训练得分（Training Score）= 0.95，验证得分（Validation Score）= 0.60，且该分数未随数据量的增加而提升。你应该尝试什么？",
+      "options": [
+        "Collect more training data",
+        "Use a simpler model or add regularization to reduce variance (overfitting)",
+        "Remove the validation set to give the model more training data",
+        "Increase the learning rate"
+      ],
+      "optionsZh": [
+        "收集更多训练数据 (training data)",
+        "使用更简单的模型或添加正则化（Regularization）以降低方差（Variance，即过拟合（Overfitting））。",
+        "移除验证集（Validation Set），以便为模型提供更多训练数据（Training Data）。",
+        "提高学习率 (learning rate)"
+      ],
+      "explanation": "A large gap between training (high) and validation (low) scores is high variance (overfitting). The fix is a simpler model, more regularization, or techniques like dropout -- not more data if the gap persists.",
+      "explanationZh": "训练集得分（高）与验证集得分（低）之间存在较大差距，这属于高方差 (High Variance) 问题，即过拟合 (Overfitting)。解决方法是采用更简单的模型、增加正则化 (Regularization) 强度，或使用随机失活 (Dropout) 等技术；若该差距持续存在，增加数据量并非有效对策。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "eval-post-3",
+      "question": "AUC-ROC = 0.5 for a binary classifier. What does this indicate?",
+      "questionZh": "二分类器（binary classifier）的 ROC曲线下面积（AUC-ROC）= 0.5，这意味着什么？",
+      "options": [
+        "The model perfectly separates the two classes",
+        "The model performs no better than random guessing at ranking positives above negatives",
+        "The model has 50% accuracy",
+        "The model has equal precision and recall"
+      ],
+      "optionsZh": [
+        "该模型完美地将两个类别 (classes) 区分开来。",
+        "该模型在将正样本（positives）排在负样本（negatives）之前的排序表现上，并不优于随机猜测（random guessing）。",
+        "该模型 (model) 的准确率 (accuracy) 为 50%。",
+        "该模型的精确率 (Precision) 与召回率 (Recall) 相等。"
+      ],
+      "explanation": "AUC-ROC = 0.5 means the model's ranking of positive and negative examples is no better than random. AUC = 1.0 would be perfect separation. The metric is threshold-independent.",
+      "explanationZh": "受试者工作特征曲线下面积 (AUC-ROC) = 0.5 表示模型对正负样本的排序能力并不优于随机猜测。AUC = 1.0 则表示模型能够实现完美区分。该指标独立于阈值 (threshold-independent)。"
+    }
+  ]
+}

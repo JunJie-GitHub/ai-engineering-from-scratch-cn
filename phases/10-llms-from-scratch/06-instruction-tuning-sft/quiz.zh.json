@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the fundamental difference between a base language model and an instruction-tuned model?",
+      "questionZh": "基础语言模型（Base Language Model）与指令微调模型（Instruction-Tuned Model）之间的根本区别是什么？",
+      "options": [
+        "They have different architectures",
+        "A base model continues text patterns; an instruction-tuned model follows instructions and answers questions",
+        "Instruction-tuned models are larger",
+        "Base models are faster"
+      ],
+      "optionsZh": [
+        "它们具有不同的架构 (architecture)。",
+        "基础模型（Base Model）用于延续文本模式；指令微调模型（Instruction-Tuned Model）则用于遵循指令并回答问题。",
+        "指令微调模型 (Instruction-tuned models) 的规模更大。",
+        "基础模型 (Base models) 速度更快。"
+      ],
+      "explanation": "A base model trained with next-token prediction continues text patterns. Ask it a question and it may generate more questions. SFT teaches it to produce answers by training on (instruction, response) pairs.",
+      "explanationZh": "采用下一个词元预测（Next-Token Prediction）训练的基础模型（Base Model）主要用于续写文本模式。向它提问时，它可能会生成更多问题。监督微调（Supervised Fine-Tuning, SFT）则通过在（指令，回复）对上进行训练，使模型学会生成答案。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the purpose of masking loss on non-assistant tokens during SFT?",
+      "questionZh": "在监督微调（Supervised Fine-Tuning, SFT）过程中，对非助手词元（Non-assistant Tokens）进行损失掩码（Masking Loss）的目的是什么？",
+      "options": [
+        "To speed up training",
+        "To train the model only to generate responses, not to memorize the instruction format or system prompts",
+        "To reduce memory usage",
+        "To prevent overfitting"
+      ],
+      "optionsZh": [
+        "为了加快训练 (training) 速度",
+        "仅训练模型生成回复，而非使其记忆指令格式或系统提示词。",
+        "为降低内存占用 (memory usage)",
+        "为了防止过拟合（Overfitting）"
+      ],
+      "explanation": "During SFT, you want the model to learn how to respond, not how to reproduce the instruction. Loss masking sets the loss to 0 for system/user tokens so gradients only come from the assistant's response tokens.",
+      "explanationZh": "在监督微调（Supervised Fine-Tuning, SFT）过程中，你希望模型学习的是如何生成回复，而非如何复述指令。损失掩码（Loss Masking）会将系统与用户词元（Token）的损失（Loss）设为 0，从而使梯度（Gradient）仅来源于助手回复部分的词元。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What format does SFT training data typically follow?",
+      "questionZh": "监督微调（SFT）训练数据通常采用什么格式？",
+      "options": [
+        "Raw text documents",
+        "Chat template with system, user, and assistant roles marked by special tokens",
+        "Key-value pairs",
+        "SQL queries and results"
+      ],
+      "optionsZh": [
+        "原始文本文档（Raw text documents）",
+        "使用特殊标记 (special tokens) 标识系统 (system)、用户 (user) 和助手 (assistant) 角色的聊天模板 (chat template)",
+        "键值对 (Key-value pairs)",
+        "SQL 查询与结果"
+      ],
+      "explanation": "SFT data uses a structured chat format: a system prompt setting behavior, a user instruction, and an assistant response. Special tokens mark role boundaries so the model learns the conversational structure.",
+      "explanationZh": "监督微调（Supervised Fine-Tuning, SFT）数据采用结构化的对话格式：包含用于设定行为的系统提示词（System Prompt）、用户指令（User Instruction）以及助手回复（Assistant Response）。特殊标记（Special Tokens）用于划分角色边界，以便模型学习对话结构。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why might an SFT model produce lower perplexity on benchmarks but worse conversational quality?",
+      "questionZh": "为什么监督微调（Supervised Fine-Tuning, SFT）模型在基准测试（Benchmarks）上可能表现出更低的困惑度（Perplexity），但对话质量却更差？",
+      "options": [
+        "The benchmarks are wrong",
+        "SFT optimizes for pattern matching on training examples, not for the nuanced quality judgments humans care about -- that requires RLHF/DPO",
+        "The model is too small",
+        "The learning rate was wrong"
+      ],
+      "optionsZh": [
+        "基准测试 (benchmarks) 有误。",
+        "监督微调（SFT）优化的是训练样本上的模式匹配，而非人类所关注的细微质量判断——后者需要依赖基于人类反馈的强化学习（RLHF）或直接偏好优化（DPO）。",
+        "模型 (Model) 太小",
+        "学习率 (Learning Rate) 设置错误。"
+      ],
+      "explanation": "SFT teaches the model to follow formats and produce plausible responses. It doesn't teach which response is better when multiple valid options exist. Human preference alignment (RLHF/DPO) addresses this gap.",
+      "explanationZh": "监督微调（Supervised Fine-Tuning, SFT）旨在教会模型遵循特定格式并生成合理的回复。然而，当存在多个有效选项时，它无法指导模型判断哪个回复更优。人类偏好对齐（Human Preference Alignment，RLHF/DPO）正是为了弥补这一空白。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How many high-quality instruction-response pairs are typically needed for effective SFT?",
+      "questionZh": "要实现有效的监督微调（Supervised Fine-Tuning, SFT），通常需要多少高质量的指令-回复对（instruction-response pairs）？",
+      "options": [
+        "Millions",
+        "10,000 to 100,000 high-quality examples",
+        "Fewer than 100",
+        "Billions"
+      ],
+      "optionsZh": [
+        "Millions",
+        "10,000 到 100,000 个高质量样本",
+        "少于 100",
+        "Billions"
+      ],
+      "explanation": "SFT is surprisingly data-efficient. Studies show that 10K-100K high-quality examples (like the Alpaca or LIMA datasets) can effectively teach instruction following. Quality matters far more than quantity.",
+      "explanationZh": "监督微调 (SFT) 的数据效率出奇地高。研究表明，仅需 1 万至 10 万条高质量样本（如 Alpaca 或 LIMA 数据集），即可有效训练模型掌握指令遵循 (Instruction Following) 能力。质量远比数量重要。"
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Which two flow directions does a Pipecat pipeline use?",
+      "questionZh": "Pipecat 管道 (Pipecat pipeline) 使用哪两种数据流向？",
+      "options": [
+        "Read and write",
+        "DOWNSTREAM (source to sink) and UPSTREAM (feedback, cancel, barge-in)",
+        "Inbound and outbound",
+        "Hot and cold"
+      ],
+      "optionsZh": [
+        "读写",
+        "下行（Downstream，源到汇）与上行（Upstream，反馈、取消、打断）",
+        "入站与出站",
+        "热与冷 (Hot and Cold)"
+      ],
+      "explanation": "Frames flow downstream source-to-sink and upstream for control and cancellation.",
+      "explanationZh": "帧（Frames）沿下游（Downstream）从源到汇（Source-to-Sink）流动，控制与取消（Cancellation）信号则沿上游（Upstream）传输。"
+    },
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What is the canonical Pipecat voice pipeline?",
+      "questionZh": "什么是 Pipecat 的标准语音流水线（Voice Pipeline）？",
+      "options": [
+        "VAD -> STT -> LLM -> TTS -> transport",
+        "TTS -> STT -> LLM -> VAD",
+        "LLM -> embed -> retrieve -> answer",
+        "Audio -> JSON -> SQL -> response"
+      ],
+      "optionsZh": [
+        "语音活动检测 (VAD) -> 语音转文本 (STT) -> 大语言模型 (LLM) -> 文本转语音 (TTS) -> 传输 (transport)",
+        "语音合成 (TTS) -> 语音识别 (STT) -> 大语言模型 (LLM) -> 语音活动检测 (VAD)",
+        "大语言模型 (LLM) -> 嵌入 (Embedding) -> 检索 (Retrieval) -> 回答 (Answer)",
+        "音频 (Audio) -> JSON -> SQL -> 响应 (Response)"
+      ],
+      "explanation": "VAD detects voice activity, STT transcribes, LLM responds, TTS speaks, transport delivers.",
+      "explanationZh": "语音活动检测 (Voice Activity Detection) 识别语音活动，语音转文本 (Speech-to-Text) 执行转录，大语言模型 (Large Language Model) 生成回复，文本转语音 (Text-to-Speech) 合成语音，传输模块 (Transport) 完成数据交付。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "Which two voice agent classes does LiveKit Agents ship?",
+      "questionZh": "LiveKit Agents 提供了哪两个语音智能体类（voice agent classes）？",
+      "options": [
+        "MultimodalAgent (direct audio) and VoicePipelineAgent (STT/LLM/TTS cascade)",
+        "BatchAgent and StreamAgent",
+        "TextAgent and SpeechAgent",
+        "LocalAgent and CloudAgent"
+      ],
+      "optionsZh": [
+        "`MultimodalAgent`（直接音频处理）与 `VoicePipelineAgent`（语音转文本（STT）/大语言模型（LLM）/文本转语音（TTS）级联）",
+        "批处理智能体 (BatchAgent) 与流式智能体 (StreamAgent)",
+        "文本代理（TextAgent）与语音代理（SpeechAgent）",
+        "LocalAgent 与 CloudAgent"
+      ],
+      "explanation": "MultimodalAgent uses direct audio (Realtime-style); VoicePipelineAgent uses STT->LLM->TTS for text-level control.",
+      "explanationZh": "MultimodalAgent 采用直接音频处理（实时模式（Realtime-style））；VoicePipelineAgent 则通过语音转文本（STT）-> 大语言模型（LLM）-> 文本转语音（TTS）流程实现文本级控制。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is barge-in and how is it handled?",
+      "questionZh": "什么是打断 (barge-in)？系统如何处理该功能？",
+      "options": [
+        "An LLM cost spike; reduce tokens",
+        "The user interrupts while the agent is speaking; UPSTREAM cancel frames stop TTS mid-utterance",
+        "A provider outage; switch regions",
+        "Captcha failure; retry"
+      ],
+      "optionsZh": [
+        "大语言模型 (LLM) 成本激增；减少词元 (Token) 消耗",
+        "用户在智能体（Agent）语音播报期间进行打断；上游取消帧（UPSTREAM cancel frames）会在语音生成中途停止文本转语音（TTS）输出。",
+        "服务提供商故障 (Provider Outage)；切换区域 (Switch Regions)",
+        "验证码（CAPTCHA）失败；请重试"
+      ],
+      "explanation": "Barge-in is user interruption; UPSTREAM cancellation is how Pipecat handles it cleanly.",
+      "explanationZh": "插话（Barge-in）即用户中断；上游取消（UPSTREAM cancellation）则是 Pipecat 优雅处理该中断的方式。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What end-to-end latency does the lesson describe as premium?",
+      "questionZh": "课程中将哪种端到端延迟（end-to-end latency）描述为高级（premium）级别？",
+      "options": [
+        "About 50 ms",
+        "About 450-600 ms",
+        "About 1500 ms",
+        "About 5000 ms"
+      ],
+      "optionsZh": [
+        "约 50 毫秒",
+        "约 450-600 毫秒",
+        "约 1500 毫秒",
+        "约 5000 毫秒"
+      ],
+      "explanation": "Premium stacks land around 450-600 ms; 800-1200 ms is common; over 1500 ms feels broken.",
+      "explanationZh": "高端技术栈（Premium stacks）的延迟通常落在 450-600 ms 区间；800-1200 ms 较为常见；超过 1500 ms 则会给人系统卡顿或失效的体验。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What goes wrong if STT confidence is ignored?",
+      "questionZh": "如果忽略语音转文本（STT）置信度，会引发哪些问题？",
+      "options": [
+        "Latency improves",
+        "Low-confidence transcripts feed the LLM as if gospel, producing wrong answers; gate on confidence or ask for confirmation",
+        "TTS gets faster",
+        "Calls get cheaper"
+      ],
+      "optionsZh": [
+        "延迟 (Latency) 降低",
+        "若将低置信度转写文本（transcripts）视为绝对真理直接输入给大语言模型（LLM），会导致生成错误答案；应基于置信度进行过滤（gate），或请求确认。",
+        "文本转语音（TTS）速度提升",
+        "调用成本降低"
+      ],
+      "explanation": "Treating low-confidence STT as truth is a top voice-agent failure mode.",
+      "explanationZh": "将低置信度的语音转文本（Speech-to-Text, STT）结果直接视为准确事实，是语音智能体（Voice Agent）最主要的故障模式（Failure Mode）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does the lesson recommend summing component latencies before shipping?",
+      "questionZh": "为什么本教程建议在部署前累加各组件的延迟（latency）？",
+      "options": [
+        "Providers bill by latency",
+        "Every component adds 50-200 ms; the sum determines whether the experience feels broken",
+        "It satisfies a compliance requirement",
+        "Latency is required by WebRTC"
+      ],
+      "optionsZh": [
+        "服务提供商按延迟 (Latency) 计费",
+        "每个组件 (component) 会增加 50-200 毫秒的延迟；累计延迟的总和决定了整体体验是否会显得卡顿。",
+        "它满足了一项合规要求 (compliance requirement)。",
+        "延迟 (Latency) 是 WebRTC 的必要条件。"
+      ],
+      "explanation": "Sum the chain (VAD + STT + LLM + TTS + transport) before shipping; targets are tight.",
+      "explanationZh": "在发布前，请核算整个处理链路（语音活动检测 (VAD) + 语音转文本 (STT) + 大语言模型 (LLM) + 文本转语音 (TTS) + 网络传输 (transport)）的总耗时；各项性能指标要求十分严格。"
+    }
+  ]
+}

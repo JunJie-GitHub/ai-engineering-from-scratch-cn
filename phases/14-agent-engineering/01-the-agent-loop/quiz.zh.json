@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "Why does an LLM on its own behave like an autocomplete rather than an agent?",
+      "questionZh": "为什么大语言模型（Large Language Model）在独立运行时，其行为更像自动补全（Autocomplete）而非智能体（Agent）？",
+      "options": [
+        "It cannot read files, run queries, or verify claims against the outside world",
+        "Its context window is too small to hold a question",
+        "It refuses to answer without a system prompt",
+        "It only emits one token at a time"
+      ],
+      "optionsZh": [
+        "它无法读取文件、执行查询，或对照外部世界验证相关断言。",
+        "它的上下文窗口（Context Window）太小，无法容纳完整的问题。",
+        "在没有系统提示词（System Prompt）的情况下，它将拒绝回答。",
+        "它每次仅输出一个词元 (token)。"
+      ],
+      "explanation": "An LLM with no loop and no tools can only produce text from its weights; it cannot observe state or act on it.",
+      "explanationZh": "一个不包含循环（loop）且未配备工具（tools）的大语言模型（Large Language Model）仅能基于其权重（weights）生成文本；它无法观察状态（state）或对其采取行动。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Which three labels appear in the canonical ReAct trace from Yao et al. 2022?",
+      "questionZh": "Yao 等人（2022）提出的标准推理与行动（ReAct）轨迹中出现了哪三个标签？",
+      "options": [
+        "Prompt, Response, Reward",
+        "Thought, Action, Observation",
+        "Plan, Execute, Reflect",
+        "System, User, Assistant"
+      ],
+      "optionsZh": [
+        "提示词（Prompt）、回复（Response）、奖励（Reward）",
+        "思考 (Thought)、行动 (Action)、观察 (Observation)",
+        "规划、执行、反思",
+        "系统 (System), 用户 (User), 助手 (Assistant)"
+      ],
+      "explanation": "ReAct interleaves Thought, Action, and Observation lines in a single stream.",
+      "explanationZh": "ReAct 在单一数据流中交错穿插思考（Thought）、行动（Action）与观察（Observation）行。"
+    },
+    {
+      "stage": "check",
+      "correct": 3,
+      "question": "Which item is NOT one of the five ingredients the lesson lists for an agent loop?",
+      "questionZh": "以下哪一项不是本课程为智能体循环（Agent Loop）列出的五个要素之一？",
+      "options": [
+        "Message buffer",
+        "Tool registry",
+        "Observation formatter",
+        "Gradient optimizer"
+      ],
+      "optionsZh": [
+        "消息缓冲区 (Message buffer)",
+        "工具注册表 (Tool Registry)",
+        "观测格式化器 (Observation Formatter)",
+        "梯度优化器 (Gradient Optimizer)"
+      ],
+      "explanation": "The five ingredients are message buffer, tool registry, stop condition, turn budget, and observation formatter. Gradient optimizers belong to training, not the inference loop.",
+      "explanationZh": "这五个核心组件分别是消息缓冲区 (Message Buffer)、工具注册表 (Tool Registry)、停止条件 (Stop Condition)、轮次预算 (Turn Budget) 和观测格式化器 (Observation Formatter)。梯度优化器 (Gradient Optimizers) 属于训练 (Training) 阶段，而非推理循环 (Inference Loop)。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is the role of a turn budget in the loop?",
+      "questionZh": "在循环中，轮次预算 (turn budget) 的作用是什么？",
+      "options": [
+        "It caps the number of tokens per response",
+        "It hard-caps loop iterations to prevent runaway agents",
+        "It controls how many tools the registry exposes",
+        "It rate-limits the LLM provider"
+      ],
+      "optionsZh": [
+        "它限制了每次响应的词元（token）数量上限。",
+        "它对循环迭代 (loop iterations) 次数设置了硬性上限 (hard-cap)，以防止智能体失控 (runaway agents)。",
+        "它控制注册中心（Registry）公开的工具数量。",
+        "它会对大语言模型（Large Language Model, LLM）提供商实施速率限制（rate limiting）。"
+      ],
+      "explanation": "Turn budget is a cap on loop iterations; 2026 agents commonly run 40-400 steps and need a task-appropriate cap.",
+      "explanationZh": "轮次预算（Turn Budget）是对循环迭代次数的上限限制；2026年的智能体（Agents）通常运行 40-400 步，因此需要根据具体任务设定合适的上限。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What changed in the 2025-2026 native-reasoning shift compared to prompt-based Thought tokens?",
+      "questionZh": "与基于提示词（prompt-based）的思维标记（Thought tokens）相比，2025-2026 年向原生推理（native reasoning）的转变带来了哪些变化？",
+      "options": [
+        "The loop control flow was replaced with a DAG",
+        "Thought tokens are now emitted on a separate reasoning channel passed through turns",
+        "Models stopped using tool calls and rely on chain-of-thought only",
+        "Observations are removed from the prompt entirely"
+      ],
+      "optionsZh": [
+        "循环控制流（Loop Control Flow）已被替换为有向无环图（DAG）。",
+        "思考令牌 (Thought tokens) 现已通过独立的推理通道 (reasoning channel) 输出，并在对话轮次间传递。",
+        "模型已停止使用工具调用（tool calls），仅依赖思维链（chain-of-thought）。",
+        "观测值 (Observations) 将完全从提示词 (Prompt) 中移除。"
+      ],
+      "explanation": "Reasoning content moves to a dedicated channel (often encrypted across providers), but the observe-think-act control flow is unchanged.",
+      "explanationZh": "推理内容（Reasoning content）将迁移至专用通道（dedicated channel）（通常在跨提供商传输时进行加密），但观察-思考-执行（observe-think-act）控制流保持不变。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does the lesson say tool outputs are untrusted input?",
+      "questionZh": "为什么课程中指出工具输出（tool outputs）属于不可信输入（untrusted input）？",
+      "options": [
+        "Tool runtimes are slow and unreliable",
+        "Retrieved content can carry hidden instructions like delete-the-repo and only direct user input counts as permission",
+        "Tool results are always larger than the model's context window",
+        "The provider strips tool output bytes by default"
+      ],
+      "optionsZh": [
+        "工具运行时（Tool Runtimes）运行缓慢且不可靠",
+        "检索内容可能携带诸如 delete-the-repo 之类的隐藏指令，且仅有直接的用户输入才被视为有效授权。",
+        "工具返回结果（Tool results）始终会超出模型的上下文窗口（context window）限制。",
+        "默认情况下，提供商会剥离工具输出的字节数据。"
+      ],
+      "explanation": "OpenAI CUA docs state explicitly that only direct user instructions count as permission; tool outputs can carry adversarial instructions and must be treated as untrusted.",
+      "explanationZh": "OpenAI CUA 文档明确指出，仅直接的用户指令（direct user instructions）可视为授权；工具输出（tool outputs）可能携带对抗性指令（adversarial instructions），必须将其视为不可信内容。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does the lesson claim every 2026 framework still runs ReAct under the hood?",
+      "questionZh": "为什么课程中指出，2026年的所有框架底层依然基于推理与行动（ReAct）模式运行？",
+      "options": [
+        "Because providers require the ReAct keywords in the prompt",
+        "Because the observe-think-act control flow is invariant; frameworks differ in checkpointing, actors, role templates, and tracing around it",
+        "Because Yao et al. own a patent on the loop",
+        "Because LangGraph forces all other frameworks to inherit from it"
+      ],
+      "optionsZh": [
+        "因为提供商 (providers) 要求在提示词 (prompt) 中包含 ReAct 关键词。",
+        "由于“观察-思考-行动”（observe-think-act）控制流是恒定不变的，各框架的差异主要体现在检查点（checkpointing）、参与者（actors）、角色模板（role templates）以及围绕该控制流的追踪（tracing）机制上。",
+        "由于Yao等人拥有该循环（loop）的专利",
+        "因为 LangGraph 强制所有其他框架继承自它。"
+      ],
+      "explanation": "Differences across Claude Agent SDK, OpenAI Agents SDK, LangGraph, AutoGen, CrewAI, Agno, and Mastra are about what wraps the loop, not the loop itself.",
+      "explanationZh": "Claude Agent SDK、OpenAI Agents SDK、LangGraph、AutoGen、CrewAI、Agno 和 Mastra 之间的差异，主要在于封装循环（loop）的外围架构，而非循环本身。"
+    }
+  ]
+}

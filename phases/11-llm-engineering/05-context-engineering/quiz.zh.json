@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the difference between prompt engineering and context engineering?",
+      "questionZh": "提示工程（Prompt Engineering）与上下文工程（Context Engineering）之间有什么区别？",
+      "options": [
+        "They are the same thing",
+        "A prompt is the user's query; context is everything in the model's window: system prompt, tools, retrieved docs, history, and the prompt itself",
+        "Context engineering is about database design",
+        "Prompt engineering is more advanced"
+      ],
+      "optionsZh": [
+        "它们是同一个东西。",
+        "提示词（Prompt）即用户的查询；上下文（Context）则是模型上下文窗口（Context Window）中的所有内容：系统提示词（System Prompt）、工具（Tools）、检索到的文档（Retrieved Documents）、历史记录（History）以及提示词本身。",
+        "上下文工程（Context Engineering）的核心在于数据库设计（Database Design）。",
+        "提示工程（Prompt Engineering）已更为先进。"
+      ],
+      "explanation": "Prompt engineering focuses on crafting the user instruction. Context engineering manages the entire input to the model: what goes in, what stays out, in what order, and how to allocate the limited context window.",
+      "explanationZh": "提示词工程（Prompt Engineering）侧重于精心设计用户指令。上下文工程（Context Engineering）则负责管理模型的整体输入：决定哪些内容纳入、哪些排除、以何种顺序排列，以及如何分配有限的上下文窗口（Context Window）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why does context window order matter for LLM performance?",
+      "questionZh": "为什么上下文窗口（Context Window）的顺序会影响大语言模型（LLM）的性能？",
+      "options": [
+        "It doesn't -- LLMs process all tokens equally",
+        "LLMs have recency and primacy biases, paying more attention to the beginning and end of the context window",
+        "Alphabetical order helps the model search faster",
+        "Order only matters for code"
+      ],
+      "optionsZh": [
+        "事实并非如此——大语言模型（LLMs）会同等处理所有词元（tokens）。",
+        "大语言模型（Large Language Models）存在近因偏差（recency bias）与首因偏差（primacy bias），即会更关注上下文窗口（context window）的开头和结尾部分。",
+        "按字母顺序排列有助于模型更快地进行搜索。",
+        "顺序仅对代码重要。"
+      ],
+      "explanation": "Research shows LLMs attend more to the start and end of the context window ('lost in the middle' phenomenon). Placing the most important information at the beginning or end of context improves utilization.",
+      "explanationZh": "研究表明，大语言模型（LLMs）对上下文窗口（context window）的开头和结尾部分注意力更为集中（即“中间迷失”现象（lost in the middle phenomenon））。将最重要的信息置于上下文的起始或末尾位置，可有效提升其利用效率。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "A coding assistant uses 22,700 tokens of a 128K context window. Why is budget management still important?",
+      "questionZh": "编程助手 (Coding Assistant) 占用了 128K 上下文窗口 (Context Window) 中的 22,700 个词元 (Token)。为什么预算管理 (Budget Management) 仍然很重要？",
+      "options": [
+        "128K should be enough for any use case",
+        "Long conversations, large code files, and retrieved documentation can quickly fill the window; without budget management, critical context gets truncated",
+        "Token counting is inaccurate",
+        "Only the prompt matters"
+      ],
+      "optionsZh": [
+        "128K 应该足以满足任何用例 (use case)。",
+        "长对话、大型代码文件以及检索到的文档会迅速填满上下文窗口 (Context Window)；若缺乏预算/额度管理 (Budget Management)，关键上下文 (Critical Context) 将被截断。",
+        "词元计数 (Token counting) 不准确",
+        "只有提示词（Prompt）才是关键"
+      ],
+      "explanation": "22,700 tokens is the baseline. A 50-turn conversation adds 30K+ tokens. Retrieving a large codebase adds 50K+. Tool call results add more. Without active management, the window fills and oldest context is lost.",
+      "explanationZh": "22,700 个词元（token）是基准值。一次 50 轮次（turn）的对话会增加 30K+ 个词元。检索大型代码库（codebase）会增加 50K+ 个词元。工具调用（tool call）的结果还会进一步增加消耗。若不进行主动管理，上下文窗口（context window）将被填满，最早的上下文（context）将会丢失。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the sliding window strategy for conversation history?",
+      "questionZh": "什么是用于对话历史（Conversation History）的滑动窗口策略（Sliding Window Strategy）？",
+      "options": [
+        "Moving the model to a different server",
+        "Keeping only the N most recent turns in context and dropping older turns, optionally summarizing them first",
+        "Processing the conversation in fixed-size chunks",
+        "Expanding the context window dynamically"
+      ],
+      "optionsZh": [
+        "将模型迁移至其他服务器",
+        "仅保留上下文（context）中最近的 N 个对话轮次（turns），丢弃较早的轮次，并可选择先对其进行摘要。",
+        "按固定大小的块 (fixed-size chunks) 处理对话",
+        "动态扩展上下文窗口 (context window)"
+      ],
+      "explanation": "Sliding window keeps the K most recent conversation turns in full context. Older turns are either dropped or replaced with a summary. This bounds memory usage while preserving the most relevant recent context.",
+      "explanationZh": "滑动窗口 (Sliding Window) 会在完整上下文 (context) 中保留最近的 K 轮对话 (conversation turns)。较早的对话轮次会被丢弃或替换为摘要。该机制在保留最相关的近期上下文的同时，有效限制了内存使用量 (memory usage)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How should a context assembler allocate tokens across components?",
+      "questionZh": "上下文组装器（Context Assembler）应如何在各组件之间分配词元（Token）？",
+      "options": [
+        "Equal allocation to each component",
+        "Dynamically based on query type: a simple question needs less retrieval context; a complex question needs more, with generation headroom always reserved",
+        "Maximize retrieval context always",
+        "Minimize system prompt tokens"
+      ],
+      "optionsZh": [
+        "为每个组件平均分配",
+        "根据查询类型 (Query Type) 动态调整：简单问题所需的检索上下文 (Retrieval Context) 较少；复杂问题则需要更多，同时始终为生成预留余量 (Generation Headroom)。",
+        "始终最大化检索上下文 (Retrieval Context)",
+        "最小化系统提示词（System Prompt）Token 数量"
+      ],
+      "explanation": "A simple factual question might need 500 tokens of retrieved context. A complex analysis might need 10,000. A good context assembler adjusts allocation dynamically while always reserving headroom for the model's response.",
+      "explanationZh": "一个简单的事实性问题可能仅需 500 个词元（tokens）的检索上下文（retrieved context），而复杂的分析则可能需要 10,000 个。优秀的上下文组装器（context assembler）能够动态调整分配（allocation），并始终为模型响应（model's response）预留充足的余量（headroom）。"
+    }
+  ]
+}

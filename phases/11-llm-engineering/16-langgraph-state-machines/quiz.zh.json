@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does the `messages` field in a LangGraph State TypedDict need `Annotated[list, add_messages]`?",
+      "questionZh": "为什么 LangGraph 的 State TypedDict 中的 `messages` 字段需要使用 `Annotated[list, add_messages]`？",
+      "options": [
+        "It enables streaming of token deltas from the model.",
+        "Without the reducer, node updates overwrite the list instead of appending, so every turn loses the prior history.",
+        "It compresses the message list when checkpoints are written to disk.",
+        "It converts plain dicts into LangChain message objects at runtime."
+      ],
+      "optionsZh": [
+        "它支持从模型流式输出（streaming）token 增量（token deltas）。",
+        "如果没有归约器 (reducer)，节点更新会直接覆盖列表而非追加内容，导致每一轮次都会丢失先前的历史记录。",
+        "在将检查点（checkpoint）写入磁盘时，它会压缩消息列表（message list）。",
+        "它在运行时（runtime）将普通字典（plain dicts）转换为 LangChain 消息对象（LangChain message objects）。"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the difference between `interrupt_before=['tools']` and `interrupt_after=['tools']`?",
+      "questionZh": "`interrupt_before=['tools']` 和 `interrupt_after=['tools']` 有什么区别？",
+      "options": [
+        "No difference; they are aliases.",
+        "`interrupt_before` pauses after the model emits tool_calls but before the tools execute; `interrupt_after` pauses after the tools have already run.",
+        "`interrupt_before` runs the tool in a sandbox first; `interrupt_after` runs it in production.",
+        "`interrupt_before` is for unit tests; `interrupt_after` is for production."
+      ],
+      "optionsZh": [
+        "没有区别；它们是别名。",
+        "`interrupt_before` 会在模型（model）发出工具调用（tool_calls）之后、但在工具执行之前暂停；`interrupt_after` 则在工具运行结束后暂停。",
+        "`interrupt_before` 会先在沙盒（sandbox）中运行该工具；而 `interrupt_after` 则会在生产环境（production）中运行。",
+        "`interrupt_before` 用于单元测试；`interrupt_after` 用于生产环境。"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "Given a thread's checkpoint history, how do you time-travel to a prior state and explore a different branch?",
+      "questionZh": "给定线程的检查点历史（checkpoint history），如何进行时间回溯（time-travel）以恢复到先前状态，并探索不同的分支（branch）？",
+      "options": [
+        "Call `graph.reset(thread_id)` then `graph.invoke(new_input, config)`.",
+        "Delete the checkpoint directory and reinvoke with the same thread_id.",
+        "Invoke the graph with the desired prior `checkpoint_id` in the config; passing `None` as input replays from that checkpoint, passing a new value appends to it before resuming.",
+        "Set `graph.rewind = True` and reinvoke."
+      ],
+      "optionsZh": [
+        "调用 `graph.reset(thread_id)`，然后调用 `graph.invoke(new_input, config)`。",
+        "删除检查点目录（checkpoint directory），并使用相同的 thread_id 重新调用。",
+        "在配置（config）中指定所需的先前 `checkpoint_id` 以调用图（graph）；传入 `None` 作为输入将从该检查点开始回放（replay），传入新值则会在恢复执行前将其追加（append）到该检查点。",
+        "设置 `graph.rewind = True`，并重新调用。"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "In a four-node ReAct graph (agent, tools, conditional edge, static edge back to agent), where does the conditional edge live?",
+      "questionZh": "在一个四节点的 ReAct 图 (ReAct Graph)（包含智能体 (Agent)、工具 (Tools)、条件边 (Conditional Edge) 以及返回智能体的静态边 (Static Edge)）中，条件边 (Conditional Edge) 应该位于何处？",
+      "options": [
+        "From `tools` back to `agent`, routing on whether tool output was empty.",
+        "From `agent`, routing to `tools` if the last message has tool_calls and to `END` otherwise.",
+        "From `START`, routing to either `agent` or `END` based on input length.",
+        "There is no conditional edge; both are static."
+      ],
+      "optionsZh": [
+        "从 `tools` 返回至 `agent`，根据工具输出是否为空进行路由 (routing)。",
+        "从 `agent` 开始，若最后一条消息包含 `tool_calls`，则路由至 `tools`，否则路由至 `END`。",
+        "根据输入长度，从 `START` 路由至 `agent` 或 `END`。",
+        "不存在条件边 (conditional edge)；两者均为静态 (static)。"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "When should you use `Send(node_name, state)` instead of a plain edge?",
+      "questionZh": "何时应使用 `Send(node_name, state)` 而非普通边 (plain edge)？",
+      "options": [
+        "To retry a node after a failure.",
+        "To defer a node until a timer expires.",
+        "To dispatch N parallel executions of a target node whose outputs merge back through the state reducer.",
+        "To invoke a node in a different process for isolation."
+      ],
+      "optionsZh": [
+        "在节点失败后进行重试。",
+        "将节点（node）推迟执行，直至计时器（timer）到期。",
+        "用于调度目标节点 (Target Node) 的 N 次并行执行，其输出将通过状态归约器 (State Reducer) 重新汇聚。",
+        "在独立进程中调用节点以实现隔离。"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    }
+  ]
+}

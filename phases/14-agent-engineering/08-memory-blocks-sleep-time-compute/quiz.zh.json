@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What are Letta's three memory tiers?",
+      "questionZh": "Letta 的三个记忆层级 (memory tiers) 分别是什么？",
+      "options": [
+        "Cache, KV, archival",
+        "Core, recall, archival",
+        "RAM, swap, disk",
+        "Working, episodic, semantic"
+      ],
+      "optionsZh": [
+        "缓存 (Cache)、键值 (Key-Value)、归档 (Archival)",
+        "核心（Core）、召回（Recall）、归档（Archival）",
+        "内存 (RAM)、交换空间 (swap)、磁盘 (disk)",
+        "工作记忆 (Working Memory)、情景记忆 (Episodic Memory)、语义记忆 (Semantic Memory)"
+      ],
+      "explanation": "Letta uses core (always visible), recall (conversation history), and archival (external) tiers.",
+      "explanationZh": "Letta 采用核心层（Core，始终可见）、召回层（Recall，对话历史）和归档层（Archival，外部）三个层级。"
+    },
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "Which production problem does sleep-time compute target?",
+      "questionZh": "休眠期计算 (sleep-time compute) 旨在解决生产环境中的哪些问题？",
+      "options": [
+        "Tail latency from doing memory consolidation on the critical path",
+        "Higher accuracy on math problems",
+        "Lower embedding cost",
+        "Faster JSON parsing"
+      ],
+      "optionsZh": [
+        "在关键路径（Critical Path）上执行内存整合（Memory Consolidation）导致的尾部延迟（Tail Latency）",
+        "数学问题准确率更高",
+        "降低嵌入（Embedding）成本",
+        "更快的 JSON 解析 (JSON parsing)"
+      ],
+      "explanation": "Sleep-time moves prune/summarize/reconcile off the user-facing path, so primary responses stay fast.",
+      "explanationZh": "后台处理 (background processing) 将剪枝 (pruning)、摘要 (summarization) 与协调 (reconciliation) 操作移出面向用户的路径 (user-facing path)，从而确保主要响应 (primary responses) 保持快速。"
+    },
+    {
+      "stage": "check",
+      "correct": 3,
+      "question": "Which property is NOT a memory block field in Letta?",
+      "questionZh": "Letta 中哪个属性不是记忆块字段（memory block field）？",
+      "options": [
+        "label",
+        "value",
+        "limit",
+        "embedding_model_version"
+      ],
+      "optionsZh": [
+        "label",
+        "value",
+        "limit",
+        "embedding_model_version"
+      ],
+      "explanation": "Blocks carry id, label, value, limit, description; embedding model version is not part of the block schema.",
+      "explanationZh": "块（Block）包含 ID、标签（Label）、值（Value）、限制（Limit）和描述（Description）；嵌入模型版本（Embedding Model Version）不属于块模式（Block Schema）的一部分。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Why can the sleep-time agent run a stronger model than the primary?",
+      "questionZh": "为什么休眠期智能体 (sleep-time agent) 能够运行比主智能体 (primary agent) 更强大的模型？",
+      "options": [
+        "It receives a private API key",
+        "It is off the critical path, so it is not latency-constrained",
+        "It is exempt from rate limits",
+        "Memory ops cost half tokens"
+      ],
+      "optionsZh": [
+        "它接收一个私有 API 密钥 (Private API Key)",
+        "它位于关键路径（critical path）之外，因此不受延迟约束（latency-constrained）。",
+        "它不受速率限制（Rate Limits）的约束。",
+        "内存操作 (Memory ops) 消耗一半的词元 (token)"
+      ],
+      "explanation": "Because it does not block user responses, the sleep-time agent can be slower and more expensive.",
+      "explanationZh": "由于不会阻塞用户响应，休眠代理 (sleep-time agent) 的速度可能更慢，且成本更高。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What pattern do the Human and Persona blocks generalize to?",
+      "questionZh": "Human 和 Persona 模块（blocks）可泛化（generalize）为何种模式？",
+      "options": [
+        "Vector embeddings",
+        "Arbitrary user-defined typed editable blocks (Task, Project, Safety, ...)",
+        "JSON-RPC channels",
+        "OS processes"
+      ],
+      "optionsZh": [
+        "向量嵌入 (Vector Embeddings)",
+        "任意用户自定义的类型化可编辑区块（Typed Editable Blocks）（Task、Project、Safety 等）",
+        "JSON-RPC 通道",
+        "操作系统进程 (OS processes)"
+      ],
+      "explanation": "Letta generalizes the two MemGPT blocks to any user-defined block with id, label, value, limit, description.",
+      "explanationZh": "Letta 将 MemGPT 的两个块（blocks）泛化为任意用户自定义块，包含 id、label、value、limit 和 description 字段。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "What is silent drift in this pattern?",
+      "questionZh": "在此模式中，静默漂移（silent drift）指的是什么？",
+      "options": [
+        "A primary agent never seeing that the sleep-time agent rewrote a block underneath it; fix with versioning and visible diffs",
+        "Slow disk writes",
+        "Embedding model upgrades",
+        "Rate-limit jitter"
+      ],
+      "optionsZh": [
+        "主智能体（Primary Agent）未能察觉休眠智能体（Sleep-time Agent）重写了其底层的代码块；通过引入版本控制（Versioning）与可见的差异对比（Visible Diffs）修复该问题。",
+        "磁盘写入缓慢",
+        "嵌入模型 (Embedding Model) 升级",
+        "速率限制抖动 (Rate-limit jitter)"
+      ],
+      "explanation": "Versioning blocks and surfacing diffs in the trace makes sleep-time rewrites visible to the primary loop.",
+      "explanationZh": "对代码块进行版本控制（versioning blocks）并在追踪记录（trace）中呈现差异（diffs），可使休眠期重写（sleep-time rewrites）对主循环（primary loop）可见。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "What replaced inline `Thought:` tokens and the send_message/heartbeat pattern in Letta V1?",
+      "questionZh": "在 Letta V1 中，什么取代了内联的 `Thought:` 词元（token）以及 `send_message/heartbeat` 模式？",
+      "options": [
+        "Native reasoning emitted on a separate channel and passed through turns",
+        "A second LLM dedicated to thoughts",
+        "A bigger system prompt",
+        "Manual user-typed thoughts"
+      ],
+      "optionsZh": [
+        "原生推理（Native reasoning）在独立通道上输出，并在对话轮次间传递。",
+        "第二个专用于思考的大语言模型 (LLM)",
+        "更长的系统提示词 (System Prompt)",
+        "用户手动输入的思考 (Manual User-typed Thoughts)"
+      ],
+      "explanation": "Letta V1 (letta_v1_agent) uses provider-level native reasoning, not prompt-shaped thoughts.",
+      "explanationZh": "Letta V1 (letta_v1_agent) 采用提供商级原生推理（provider-level native reasoning），而非提示词塑造的思维（prompt-shaped thoughts）。"
+    }
+  ]
+}

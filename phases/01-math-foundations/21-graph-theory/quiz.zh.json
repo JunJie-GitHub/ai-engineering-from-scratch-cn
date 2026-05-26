@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the adjacency matrix A[i][j] = 1 represent?",
+      "questionZh": "邻接矩阵（adjacency matrix）中的 A[i][j] = 1 表示什么？",
+      "options": [
+        "Node i has degree j",
+        "There is an edge from node i to node j",
+        "Node i and node j have the same label",
+        "The shortest path from i to j has length 1"
+      ],
+      "optionsZh": [
+        "节点 (Node) i 的度 (Degree) 为 j",
+        "存在一条从节点 (node) i 到节点 (node) j 的边 (edge)。",
+        "节点 i 和节点 j 具有相同的标签",
+        "从 i 到 j 的最短路径 (shortest path) 长度为 1。"
+      ],
+      "explanation": "The adjacency matrix is the core representation of a graph. A[i][j] = 1 means there is an edge connecting node i to node j. For undirected graphs, the matrix is symmetric (A[i][j] = A[j][i]).",
+      "explanationZh": "邻接矩阵（Adjacency Matrix）是图（Graph）的核心表示形式。A[i][j] = 1 表示节点（Node）i 与节点 j 之间存在一条边（Edge）。对于无向图（Undirected Graph），该矩阵是对称的，即 A[i][j] = A[j][i]。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What data structure does BFS use and what does it find?",
+      "questionZh": "广度优先搜索（Breadth-First Search）使用什么数据结构？它能找到什么？",
+      "options": [
+        "Stack; finds connected components",
+        "Queue; finds shortest paths in unweighted graphs",
+        "Priority queue; finds minimum spanning tree",
+        "Hash map; finds duplicate nodes"
+      ],
+      "optionsZh": [
+        "栈 (Stack)；查找连通分量 (Connected Components)",
+        "队列（Queue）；用于在无权图（unweighted graph）中寻找最短路径（shortest path）",
+        "优先队列（Priority Queue）；用于查找最小生成树（Minimum Spanning Tree）",
+        "哈希表 (Hash Map)；查找重复节点"
+      ],
+      "explanation": "BFS uses a queue (FIFO) to explore all neighbors at distance k before moving to distance k+1. This guarantees that the first time a node is discovered, it is via a shortest path from the source.",
+      "explanationZh": "广度优先搜索（Breadth-First Search, BFS）使用队列（Queue，FIFO）在推进至距离 k+1 之前，先遍历所有距离为 k 的邻居节点。这确保了节点首次被发现时，必然是通过从源节点（Source）出发的最短路径（Shortest Path）到达的。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "The graph Laplacian L = D - A of a connected graph has how many zero eigenvalues?",
+      "questionZh": "连通图（Connected Graph）的图拉普拉斯矩阵（Graph Laplacian）L = D - A 有多少个零特征值（Zero Eigenvalues）？",
+      "options": [
+        "Zero",
+        "Exactly one",
+        "Equal to the number of nodes",
+        "Equal to the number of edges"
+      ],
+      "optionsZh": [
+        "Zero",
+        "恰好一个",
+        "等于节点 (nodes) 数量",
+        "等于边的数量"
+      ],
+      "explanation": "The number of zero eigenvalues of the Laplacian equals the number of connected components. A connected graph has exactly one connected component, so exactly one zero eigenvalue. A graph with k disconnected pieces has k zero eigenvalues.",
+      "explanationZh": "拉普拉斯矩阵（Laplacian matrix）的零特征值（zero eigenvalues）数量等于连通分量（connected components）的数量。连通图（connected graph）恰好只有一个连通分量，因此也恰好只有一个零特征值。包含 k 个不连通部分的图则具有 k 个零特征值。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "In GNN message passing, what does h_v^(k+1) = sigma(W * mean({h_u^(k) : u in neighbors(v)})) compute?",
+      "questionZh": "在图神经网络（Graph Neural Network）的消息传递（message passing）过程中，h_v^(k+1) = sigma(W * mean({h_u^(k) : u in neighbors(v)})) 计算的是什么？",
+      "options": [
+        "The shortest path from v to all other nodes",
+        "A new feature vector for node v by aggregating neighbor features, transforming with learned weights, and applying a nonlinearity",
+        "The degree of node v at layer k+1",
+        "The PageRank score of node v"
+      ],
+      "optionsZh": [
+        "从 v 到所有其他节点的最短路径 (Shortest Path)",
+        "通过聚合邻居特征 (neighbor features)、使用学习到的权重 (learned weights) 进行变换，并应用非线性激活函数 (nonlinearity)，为节点 v (node v) 生成新的特征向量 (feature vector)。",
+        "第 k+1 层节点 v 的度 (degree)",
+        "节点 v 的 PageRank 得分"
+      ],
+      "explanation": "Each node collects features from its neighbors (mean aggregation), multiplies by a learned weight matrix W, and applies an activation function sigma. After k rounds, each node has information from its k-hop neighborhood.",
+      "explanationZh": "每个节点 (node) 收集其邻居节点的特征 (feature)（均值聚合 (mean aggregation)），乘以学习到的权重矩阵 (weight matrix) W，并应用激活函数 (activation function) sigma。经过 k 轮迭代后，每个节点都包含了其 k 跳邻域 (k-hop neighborhood) 的信息。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How does spectral clustering use the Fiedler vector (eigenvector of the second-smallest eigenvalue of L)?",
+      "questionZh": "谱聚类（Spectral Clustering）是如何利用菲德勒向量（Fiedler vector，即矩阵 L 的第二小特征值对应的特征向量）的？",
+      "options": [
+        "Nodes with the largest Fiedler vector entries form one cluster",
+        "Nodes with positive Fiedler vector values go in one group, nodes with negative values go in the other",
+        "The Fiedler vector is used as edge weights",
+        "The Fiedler vector determines the number of clusters"
+      ],
+      "optionsZh": [
+        "对应菲德勒向量 (Fiedler vector) 最大分量的节点构成一个簇。",
+        "菲德勒向量（Fiedler vector）值为正的节点归入一组，值为负的节点归入另一组。",
+        "菲德勒向量（Fiedler vector）被用作边权重（edge weights）。",
+        "菲德勒向量（Fiedler vector）决定了聚类（cluster）的数量。"
+      ],
+      "explanation": "The Fiedler vector encodes the smoothest non-trivial function on the graph. Nodes in the same tightly-connected cluster get similar values, while nodes separated by a bottleneck get values with opposite signs. The sign split partitions the graph into two clusters.",
+      "explanationZh": "菲德勒向量 (Fiedler vector) 编码了图 (graph) 上最平滑的非平凡函数 (smoothest non-trivial function)。位于同一紧密连接簇 (tightly-connected cluster) 中的节点会获得相似的数值，而被瓶颈 (bottleneck) 分隔的节点则会获得符号相反 (opposite signs) 的数值。符号划分 (sign split) 将该图划分为两个簇。"
+    }
+  ]
+}

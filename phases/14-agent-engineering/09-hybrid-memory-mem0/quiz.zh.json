@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Which query class does a KV store handle best?",
+      "questionZh": "键值存储（Key-Value Store）最擅长处理哪类查询（Query Class）？",
+      "options": [
+        "Semantic similarity over long conversations",
+        "Direct fact lookup keyed by (user, type, entity)",
+        "Reachability across customers sharing a billing entity",
+        "Temporal queries valid-at-time"
+      ],
+      "optionsZh": [
+        "长对话中的语义相似度 (Semantic Similarity)",
+        "以（用户、类型、实体）为键的直接事实查找（Direct Fact Lookup）",
+        "共享同一计费实体（Billing Entity）的客户之间的可达性（Reachability）",
+        "指定时间有效的时序查询（Temporal Queries Valid-at-Time）"
+      ],
+      "explanation": "KV is O(1) on exact keys; vector is for similarity, graph is for relationships.",
+      "explanationZh": "键值（Key-Value）在精确键查询时具有 O(1) 的时间复杂度；向量（Vector）用于相似度检索，图（Graph）用于关系建模。"
+    },
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What are the three stores Mem0 writes in parallel on each add()?",
+      "questionZh": "每次调用 `add()` 时，Mem0 会并行写入哪三个存储（stores）？",
+      "options": [
+        "Vector, KV, graph",
+        "Cache, queue, log",
+        "Postgres, Redis, ClickHouse",
+        "Embedding, attention, FFN"
+      ],
+      "optionsZh": [
+        "向量 (Vector)、键值 (Key-Value)、图 (Graph)",
+        "缓存 (Cache)、队列 (Queue)、日志 (Log)",
+        "PostgreSQL 数据库 (PostgreSQL)、Redis 缓存数据库 (Redis)、ClickHouse 列式数据库 (ClickHouse)",
+        "嵌入 (Embedding)、注意力机制 (Attention)、前馈神经网络 (FFN)"
+      ],
+      "explanation": "Mem0 fans every write out to vector, KV, and graph stores.",
+      "explanationZh": "Mem0 将每次写入操作分发至向量存储（Vector Store）、键值存储（Key-Value Store）和图存储（Graph Store）。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "What three dimensions feed Mem0's fusion score?",
+      "questionZh": "哪三个维度用于计算 Mem0 的融合分数 (fusion score)？",
+      "options": [
+        "Relevance, importance, recency",
+        "Precision, recall, F1",
+        "Latency, throughput, cost",
+        "Confidence, perplexity, BLEU"
+      ],
+      "optionsZh": [
+        "相关性 (Relevance)、重要性 (Importance)、时效性 (Recency)",
+        "精确率 (Precision)、召回率 (Recall)、F1分数 (F1-score)",
+        "延迟 (Latency)、吞吐量 (Throughput)、成本 (Cost)",
+        "置信度 (Confidence)、困惑度 (Perplexity)、BLEU"
+      ],
+      "explanation": "Score is a weighted sum of relevance, importance, and recency; weights tune per product.",
+      "explanationZh": "得分（Score）是相关性（Relevance）、重要性（Importance）与时效性（Recency）的加权和（Weighted Sum）；权重（Weights）会根据具体产品进行调优。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does Mem0g do when an incoming fact contradicts an existing edge?",
+      "questionZh": "当传入的事实与现有边（edge）发生冲突时，Mem0g 会如何处理？",
+      "options": [
+        "Deletes the edge",
+        "Marks the existing edge invalid but does not delete it, so temporal queries can still traverse",
+        "Raises an exception",
+        "Rewrites the user_id"
+      ],
+      "optionsZh": [
+        "删除边 (Edge)",
+        "将现有边 (Edge) 标记为无效，但不会将其删除，以便时序查询 (Temporal Query) 仍可对其进行遍历。",
+        "抛出异常",
+        "重写 user_id"
+      ],
+      "explanation": "Soft invalidation preserves history for temporal (valid-at-time) queries.",
+      "explanationZh": "软失效 (Soft Invalidation) 会保留历史记录，以支持时态（时间点有效）查询 (Temporal (Valid-at-Time) Queries)。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Why does the lesson recommend tuning fusion weights per product?",
+      "questionZh": "为什么课程建议针对每个产品单独调优融合权重（fusion weights）？",
+      "options": [
+        "Providers require it",
+        "Recency dominates for chat agents while importance dominates for compliance agents and relevance dominates for retrieval agents",
+        "Vector libraries reject equal weights",
+        "It is required by Apache 2.0"
+      ],
+      "optionsZh": [
+        "提供商需要此项",
+        "对于对话智能体 (Chat Agents)，时效性 (Recency) 占主导地位；对于合规智能体 (Compliance Agents)，重要性 (Importance) 起主导作用；而对于检索智能体 (Retrieval Agents)，相关性 (Relevance) 则是首要考量。",
+        "向量库（Vector libraries）拒绝等权重（equal weights）",
+        "需遵循 Apache 2.0 许可证 (Apache License 2.0) 要求。"
+      ],
+      "explanation": "Different products want different bias on relevance/importance/recency; one set of weights does not fit all.",
+      "explanationZh": "不同产品对相关性（Relevance）、重要性（Importance）和时效性（Recency）的侧重各不相同，一套权重（Weights）无法适用于所有场景。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the scope taxonomy Mem0 uses?",
+      "questionZh": "Mem0 使用的作用域分类体系 (scope taxonomy) 是什么？",
+      "options": [
+        "Public, private, secret",
+        "User, session, agent",
+        "Local, regional, global",
+        "Read, write, admin"
+      ],
+      "optionsZh": [
+        "公开（Public）、私有（Private）、机密（Secret）",
+        "用户 (User)、会话 (Session)、智能体 (Agent)",
+        "本地、区域、全球",
+        "读取、写入、管理"
+      ],
+      "explanation": "Scopes are user (cross-session), session (one thread), agent (per-instance state).",
+      "explanationZh": "作用域 (Scope) 分为用户级（跨会话）、会话级（单线程）和代理级（单实例状态）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is embedding drift in this pattern, and how does the lesson recommend mitigating it?",
+      "questionZh": "在此模式中，什么是嵌入漂移（Embedding Drift）？课程建议如何缓解这一问题？",
+      "options": [
+        "Vectors get encrypted; rotate keys",
+        "Vector retrieval quality degrades as the corpus grows; periodically re-embed the top-N most used records",
+        "Embeddings overflow integers; switch to float64",
+        "The embedding API changes URL; pin a domain"
+      ],
+      "optionsZh": [
+        "向量 (Vectors) 会被加密；轮换密钥 (Keys)",
+        "随着语料库（Corpus）规模的扩大，向量检索（Vector Retrieval）的质量会逐渐下降；建议定期为使用频率最高的前 N 条记录重新计算嵌入向量（Re-embed）。",
+        "嵌入 (Embeddings) 导致整数溢出；切换至 float64",
+        "嵌入 API (Embedding API) 的 URL 已变更；请固定域名 (Pin a Domain)"
+      ],
+      "explanation": "Periodic re-embedding of hot records keeps retrieval quality steady as the corpus grows.",
+      "explanationZh": "随着语料库（Corpus）规模的不断扩大，对热点记录（Hot Records）进行定期重新嵌入（Periodic Re-embedding）能够保持检索质量（Retrieval Quality）的稳定。"
+    }
+  ]
+}

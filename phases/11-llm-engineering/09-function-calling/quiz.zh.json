@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Can LLMs actually execute functions or access external systems?",
+      "questionZh": "大型语言模型（LLM）实际上能否执行函数或访问外部系统？",
+      "options": [
+        "Yes, LLMs can call APIs directly",
+        "No -- LLMs only generate text (typically JSON) describing which function to call; your code must execute it",
+        "Only GPT-4 can execute functions",
+        "LLMs execute functions through embeddings"
+      ],
+      "optionsZh": [
+        "是的，大语言模型（Large Language Models）可以直接调用 API（Application Programming Interface）。",
+        "否——大语言模型（Large Language Models）仅生成描述应调用哪个函数的文本（通常为 JSON 格式）；具体的执行必须由你的代码来完成。",
+        "仅 GPT-4 能够执行函数",
+        "大语言模型（Large Language Models）通过嵌入（Embeddings）执行函数。"
+      ],
+      "explanation": "LLMs generate tokens. When 'calling a function,' the model outputs JSON specifying the function name and arguments. Your application code parses this JSON, executes the actual function, and sends the result back to the model.",
+      "explanationZh": "大语言模型 (Large Language Models) 会生成词元 (tokens)。当“调用函数 (function calling)”时，模型会输出指定函数名和参数的 JSON 数据。你的应用程序代码负责解析该 JSON，执行实际的函数，并将结果返回给模型。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is a tool schema in the context of function calling?",
+      "questionZh": "在函数调用（Function Calling）的上下文中，什么是工具模式（Tool Schema）？",
+      "options": [
+        "The model's architecture diagram",
+        "A JSON description of a function's name, parameters, types, and purpose that tells the model what tools are available",
+        "A database schema",
+        "The API endpoint URL"
+      ],
+      "optionsZh": [
+        "模型架构图",
+        "用于描述函数（Function）名称、参数（Parameters）、类型（Types）及用途的 JSON 描述，旨在告知模型（Model）当前可用的工具（Tools）。",
+        "数据库模式 (Database Schema)",
+        "API 端点 URL"
+      ],
+      "explanation": "Tool schemas describe available functions to the model: function name, parameter names and types, descriptions of what each parameter does, and what the function returns. The model uses these to decide when and how to call tools.",
+      "explanationZh": "工具模式 (Tool Schema) 向模型描述了可用的函数：包括函数名称、参数名称与类型、各参数作用的说明，以及函数的返回值。模型利用这些信息来决定何时以及如何调用工具。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the standard pattern for a multi-turn function calling loop?",
+      "questionZh": "多轮函数调用循环（multi-turn function calling loop）的标准模式是什么？",
+      "options": [
+        "Call all functions at once",
+        "Send message -> model requests tool call -> execute function -> send result back -> model generates final response (repeat if needed)",
+        "The model executes functions internally",
+        "Parse the entire conversation as a batch"
+      ],
+      "optionsZh": [
+        "同时调用所有函数",
+        "发送消息 -> 模型请求工具调用 (Tool Call) -> 执行函数 -> 返回结果 -> 模型生成最终响应（如需则重复）",
+        "模型在内部执行函数",
+        "将整个对话作为批次 (Batch) 进行解析"
+      ],
+      "explanation": "The loop: (1) send user message + tool schemas, (2) model responds with a tool call request, (3) execute the function, (4) send the result back as a tool response, (5) model generates the next response or another tool call.",
+      "explanationZh": "循环流程：(1) 发送用户消息及工具模式（Tool Schemas），(2) 模型返回工具调用请求（Tool Call Request），(3) 执行对应函数，(4) 将执行结果作为工具响应（Tool Response）返回，(5) 模型生成下一步回复或发起新的工具调用。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How do you prevent infinite tool calling loops?",
+      "questionZh": "如何防止无限工具调用循环（Infinite Tool Calling Loops）？",
+      "options": [
+        "Use a faster model",
+        "Set a maximum number of tool call iterations and implement a timeout, breaking the loop if the limit is reached",
+        "Infinite loops can't happen with function calling",
+        "Remove all tool schemas after the first call"
+      ],
+      "optionsZh": [
+        "使用更快的模型",
+        "设置工具调用迭代次数（tool call iterations）的上限并实现超时机制（timeout），在达到限制时中断循环。",
+        "使用函数调用（Function calling）时不会发生无限循环（Infinite loops）。",
+        "首次调用后移除所有工具模式 (tool schemas)"
+      ],
+      "explanation": "Without limits, a model could repeatedly call tools (e.g., searching for information it can never find). A max iteration count (e.g., 10 rounds) and total timeout prevent runaway loops in production.",
+      "explanationZh": "若不加以限制，模型（model）可能会反复调用工具（tools）（例如，持续搜索其根本无法获取的信息）。通过设置最大迭代次数（max iteration count）（例如 10 轮）和总超时时间（total timeout），可有效防止生产环境（production）中出现失控循环（runaway loops）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why are clear, descriptive parameter names and descriptions important in tool schemas?",
+      "questionZh": "为什么在工具模式（Tool Schema）中，清晰且具有描述性的参数名称和描述非常重要？",
+      "options": [
+        "They make the code more readable",
+        "The model uses descriptions to decide which tool to call and how to fill in parameters -- vague descriptions lead to wrong tool selections and incorrect arguments",
+        "They are required by the API",
+        "They improve response time"
+      ],
+      "optionsZh": [
+        "它们使代码更具可读性。",
+        "模型 (Model) 会根据描述来决定调用哪个工具以及如何填充参数——模糊的描述会导致错误的工具选择与错误的参数 (Arguments)。",
+        "它们是 API 所必需的。",
+        "它们缩短了响应时间 (Response Time)"
+      ],
+      "explanation": "The model reads tool descriptions to decide what to call and how. A parameter described as 'q' vs 'search_query: The user's search terms to look up in the knowledge base' gives vastly different results.",
+      "explanationZh": "模型（Model）会读取工具描述（Tool Descriptions）来决定调用哪个工具以及如何进行调用。将参数（Parameter）描述为 'q'，与描述为 'search_query: 用户在知识库（Knowledge Base）中检索的搜索词' 相比，会产生截然不同的结果。"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "ensemble-pre-1",
+      "question": "Why does combining multiple weak classifiers into an ensemble improve accuracy?",
+      "questionZh": "为什么将多个弱分类器（weak classifier）组合成集成（ensemble）能够提高准确率（accuracy）？",
+      "options": [
+        "Each weak classifier memorizes a different part of the test set",
+        "If the classifiers make different errors, majority voting cancels out individual mistakes",
+        "Ensembles always use more training data than single models",
+        "Weak classifiers are always faster than strong classifiers"
+      ],
+      "optionsZh": [
+        "每个弱分类器（weak classifier）会记忆测试集（test set）的不同部分。",
+        "若各分类器 (classifiers) 的错误互不相同，多数投票 (majority voting) 即可抵消单个模型的错误。",
+        "集成模型（Ensembles）使用的训练数据（Training Data）总是多于单一模型（Single Models）。",
+        "弱分类器（Weak Classifier）的运行速度始终快于强分类器（Strong Classifier）。"
+      ],
+      "explanation": "The key is diversity. If classifiers make independent errors, majority voting means a wrong answer must fool more than half the models. Errors cancel out, and the ensemble accuracy exceeds any individual.",
+      "explanationZh": "关键在于多样性（Diversity）。如果分类器（Classifiers）产生的错误相互独立，那么多数投票（Majority Voting）机制意味着，一个错误的答案必须同时误导超过半数的模型。这些错误会相互抵消，从而使集成（Ensemble）的准确率超过其中任何一个单独的模型。"
+    },
+    {
+      "stage": "pre",
+      "correct": 0,
+      "id": "ensemble-pre-2",
+      "question": "What is the main difference between bagging and boosting?",
+      "questionZh": "装袋法（Bagging）与提升法（Boosting）的主要区别是什么？",
+      "options": [
+        "Bagging trains models in parallel on random subsets; boosting trains models sequentially, focusing on previous errors",
+        "Bagging uses deep neural networks; boosting uses decision trees",
+        "Bagging reduces bias; boosting reduces variance",
+        "Bagging requires labeled data; boosting works unsupervised"
+      ],
+      "optionsZh": [
+        "装袋法（Bagging）在随机子集上并行训练模型；提升法（Boosting）则按顺序训练模型，并专注于修正先前的错误。",
+        "装袋法（Bagging）使用深度神经网络（Deep Neural Networks）；提升法（Boosting）使用决策树（Decision Trees）。",
+        "装袋法（Bagging）降低偏差（Bias）；提升法（Boosting）降低方差（Variance）。",
+        "装袋法 (Bagging) 需要标注数据 (Labeled Data)；提升法 (Boosting) 可在无监督 (Unsupervised) 模式下工作。"
+      ],
+      "explanation": "Bagging trains models independently on bootstrap samples (parallel, reduces variance). Boosting trains models sequentially, with each new model focusing on the mistakes of the ensemble so far (reduces bias).",
+      "explanationZh": "装袋法（Bagging）在自助采样样本（bootstrap samples）上独立训练模型（并行，降低方差（variance））。提升法（Boosting）则按顺序训练模型，每个新模型都专注于修正当前集成模型（ensemble）此前的错误（降低偏差（bias））。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "ensemble-post-1",
+      "question": "In AdaBoost, what happens to the sample weight of a misclassified training point after each round?",
+      "questionZh": "在自适应提升算法 (AdaBoost) 中，每一轮迭代后，被错误分类的训练样本的权重会发生怎样的变化？",
+      "options": [
+        "It stays the same",
+        "It increases, so the next weak learner focuses more on this hard example",
+        "It decreases, so the next learner ignores it",
+        "It is removed from the training set"
+      ],
+      "optionsZh": [
+        "保持不变",
+        "其权重会增加，因此下一个弱学习器（weak learner）将更加关注该困难样本（hard example）。",
+        "其值会下降，因此下一个学习器（learner）将忽略它。",
+        "它将从训练集 (training set) 中移除。"
+      ],
+      "explanation": "AdaBoost increases the weights of misclassified samples after each round. This forces the next weak learner to pay more attention to the examples the ensemble currently gets wrong.",
+      "explanationZh": "AdaBoost 会在每一轮结束后增加误分类样本 (misclassified samples) 的权重 (weights)。这会促使下一个弱学习器 (weak learner) 更加关注当前集成模型 (ensemble) 预测错误的样本。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "ensemble-post-2",
+      "question": "A random forest with 100 trees has the same test accuracy as 200 trees. Adding more trees to 500 also shows no improvement. Why?",
+      "questionZh": "包含 100 棵树的随机森林 (Random Forest) 与包含 200 棵树的模型具有相同的测试准确率 (Test Accuracy)。将树的数量增加到 500 棵也未带来任何性能提升。这是为什么？",
+      "options": [
+        "The random forest is underfitting and needs a different algorithm",
+        "After enough trees, variance reduction plateaus and adding more trees provides diminishing returns without increasing overfitting",
+        "500 trees is the maximum allowed",
+        "The trees are all identical so adding more has no effect"
+      ],
+      "optionsZh": [
+        "随机森林 (Random Forest) 出现了欠拟合 (Underfitting) 现象，需要更换其他算法。",
+        "当决策树（Decision Trees）的数量达到一定规模后，方差降低（Variance Reduction）的效果会趋于平稳；此时继续增加树的数量只会带来边际效益递减，而不会加剧过拟合（Overfitting）。",
+        "最多允许 500 棵树 (Trees)。",
+        "由于所有决策树 (Decision Trees) 都完全相同，因此增加更多的树不会产生任何效果。"
+      ],
+      "explanation": "Random forests do not overfit with more trees (unlike boosting). However, variance reduction plateaus once enough diverse trees have been averaged. More trees just add compute cost without improving accuracy.",
+      "explanationZh": "随机森林 (Random Forests) 不会随着树数量的增加而过拟合 (overfitting)（这与提升方法 (Boosting) 不同）。然而，当对足够多具有多样性的树进行平均后，方差缩减 (variance reduction) 的效果便会趋于平稳。继续增加树的数量只会徒增计算成本，而无法进一步提升模型准确率。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "ensemble-post-3",
+      "question": "Gradient boosting fits each new tree to what quantity?",
+      "questionZh": "梯度提升（Gradient Boosting）将每棵新树拟合到什么量上？",
+      "options": [
+        "The original target values",
+        "The residuals (errors) of the current ensemble's predictions",
+        "Random subsets of features",
+        "The predictions of the previous tree"
+      ],
+      "optionsZh": [
+        "原始目标值 (target values)",
+        "当前集成模型（ensemble）预测的残差（residuals）（误差（errors））",
+        "随机特征子集 (Random Subsets of Features)",
+        "前一棵树的预测结果。"
+      ],
+      "explanation": "In gradient boosting, each new tree is trained to predict the residuals (negative gradient of the loss) of the current ensemble. This sequentially reduces the remaining error.",
+      "explanationZh": "在梯度提升 (Gradient Boosting) 中，每棵新树都会被训练以预测当前集成模型 (Ensemble) 的残差 (Residuals)（即损失 (Loss) 的负梯度）。这一过程会逐步降低剩余误差。"
+    }
+  ]
+}

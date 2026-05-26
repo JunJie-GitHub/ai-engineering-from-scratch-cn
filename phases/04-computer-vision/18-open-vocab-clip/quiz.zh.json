@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "CLIP's contrastive loss is symmetric (image-to-text + text-to-image). Why both directions?",
+      "questionZh": "CLIP 的对比损失（Contrastive Loss）是对称的（包含图像到文本（Image-to-Text）与文本到图像（Text-to-Image））。为何需要同时计算这两个方向？",
+      "options": [
+        "Numerical stability",
+        "You want both queries to work at inference: text-to-image retrieval and image-to-text retrieval. Training only one direction makes the other direction's accuracy drop significantly",
+        "Because loss must sum to zero",
+        "Symmetry is required by PyTorch"
+      ],
+      "optionsZh": [
+        "数值稳定性 (Numerical stability)",
+        "您希望两种查询在推理（Inference）阶段均能正常工作：文本到图像检索（Text-to-Image Retrieval）与图像到文本检索（Image-to-Text Retrieval）。若仅训练单一方向，将导致另一方向的准确率显著下降。",
+        "因为损失（loss）的总和必须为零。",
+        "PyTorch 要求具备对称性 (Symmetry)。"
+      ],
+      "explanation": "The embedding space needs to be symmetric across modalities because downstream tasks query in both directions. Zero-shot classification is text-to-image (classify image given text prompts). Retrieval can go either way. Training with only i2t or only t2i leaves the other direction weak.",
+      "explanationZh": "嵌入空间（Embedding Space）需要在不同模态（Modality）之间保持对称，因为下游任务（Downstream Task）需要进行双向查询。零样本分类（Zero-shot Classification）属于文本到图像（Text-to-Image）任务（即根据文本提示（Text Prompt）对图像进行分类）。检索（Retrieval）则支持双向进行。若仅使用 i2t 或仅使用 t2i 进行训练，会导致模型在另一方向上的能力较弱。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Zero-shot classification with CLIP works by... ?",
+      "questionZh": "基于 CLIP 的零样本分类（Zero-shot classification）的工作原理是……？",
+      "options": [
+        "Running a classifier head trained on ImageNet",
+        "Encoding prompts like 'a photo of a dog' for each candidate class, encoding the test image, and taking argmax of cosine similarities between the image embedding and all class text embeddings",
+        "Fine-tuning the image encoder on the class",
+        "Searching a database of labelled examples"
+      ],
+      "optionsZh": [
+        "运行基于 ImageNet 训练的分类头 (classifier head)",
+        "为每个候选类别 (Candidate Class) 编码诸如“一张狗的照片”的提示词 (Prompt)，对测试图像 (Test Image) 进行编码，并取图像嵌入 (Image Embedding) 与所有类别文本嵌入 (Class Text Embedding) 之间余弦相似度 (Cosine Similarity) 的 `argmax`。",
+        "在类别 (Class) 上微调 (Fine-tuning) 图像编码器 (Image Encoder)",
+        "搜索标注样本（labelled examples）数据库"
+      ],
+      "explanation": "Zero-shot means no task-specific training: the model's representations already let you compare images to arbitrary text descriptions. Write one prompt per class, encode all prompts and the test image, cosine similarity, argmax. The only 'trick' is prompt engineering — using multiple templates per class and averaging their embeddings gains 1-3 top-1 on ImageNet.",
+      "explanationZh": "零样本（Zero-shot）意味着无需进行特定任务训练（task-specific training）：模型的表征（representations）已足以让你将图像与任意文本描述进行对比。为每个类别编写一个提示词（prompt），对所有提示词和测试图像进行编码（encode），计算余弦相似度（cosine similarity），然后执行 argmax。唯一的“技巧”在于提示词工程（prompt engineering）——为每个类别使用多个模板（templates）并对其嵌入向量（embeddings）进行平均，可在 ImageNet 上将 Top-1 准确率（top-1 accuracy）提升 1%~3%。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "SigLIP replaces CLIP's softmax with a sigmoid loss per pair. What benefit does that give?",
+      "questionZh": "SigLIP 将 CLIP 的 Softmax (Softmax) 替换为逐对计算的 Sigmoid 损失 (Sigmoid Loss)。这样做带来了什么优势？",
+      "options": [
+        "Faster GPU kernels",
+        "The sigmoid loss is per-pair, so it does not depend on the batch as a normalisation denominator. SigLIP trains well at smaller batch sizes where CLIP's softmax loss starves for negatives",
+        "Lower memory use",
+        "Better accuracy on COCO only"
+      ],
+      "optionsZh": [
+        "更快的 GPU 内核",
+        "Sigmoid 损失（Sigmoid Loss）采用逐对（per-pair）计算，因此不依赖批次（batch）作为归一化分母（normalisation denominator）。SigLIP 在较小的批次大小下仍能良好训练，而 CLIP 的 Softmax 损失（Softmax Loss）在此情况下则会因负样本（negatives）不足而受限。",
+        "降低内存占用",
+        "仅在 COCO 数据集上实现更高的准确率"
+      ],
+      "explanation": "CLIP's symmetric cross-entropy is a softmax over the whole batch, so effective negatives = batch_size - 1. Small batches starve it. SigLIP is per-pair: each (image, caption) pair gets a binary decision (match or not). No batch-level normalisation, so SigLIP works at batch 128 while CLIP needs 8192. At equal scale SigLIP matches or beats CLIP.",
+      "explanationZh": "CLIP 的对称交叉熵（symmetric cross-entropy）在整个批次（batch）上应用 Softmax 函数（softmax），因此有效负样本（effective negatives）数量等于 batch_size - 1。小批次会导致其负样本匮乏。SigLIP 采用逐对（per-pair）机制：每个（图像，文本）对都会进行独立的二分类决策（binary decision）（匹配或不匹配）。由于无需批次级归一化（batch-level normalisation），SigLIP 在批次大小为 128 时即可有效工作，而 CLIP 则需要 8192。在同等规模（scale）下，SigLIP 的性能与 CLIP 持平甚至更优。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "A practitioner reports 88% zero-shot top-1 on CIFAR-10 with CLIP ViT-B/32 and 90% with the same model using 80 prompt templates per class. Why does template averaging help?",
+      "questionZh": "一位实践者报告称，使用 CLIP ViT-B/32 模型在 CIFAR-10 上取得了 88% 的零样本（zero-shot）Top-1 准确率；而在为每个类别使用 80 个提示模板（prompt templates）时，同一模型的准确率提升至 90%。为什么模板平均（template averaging）能带来这种性能提升？",
+      "options": [
+        "It doubles the dataset",
+        "Different templates activate different aspects of the text encoder's learned distribution; averaging smooths the class embedding over the manifold of plausible natural-language descriptions of the class, producing a more robust centroid",
+        "It reduces variance in logit_scale",
+        "80 is the magic number for CLIP"
+      ],
+      "optionsZh": [
+        "它将数据集 (dataset) 扩大一倍。",
+        "不同的模板（templates）会激活文本编码器（text encoder）学习到的分布（learned distribution）的不同方面；取平均（averaging）操作能够在该类别合理的自然语言描述所构成的流形（manifold）上对类别嵌入（class embedding）进行平滑处理，从而生成一个更具鲁棒性（robust）的质心（centroid）。",
+        "它降低了 logit_scale 的方差。",
+        "80 是 CLIP 的魔法数字（magic number）。"
+      ],
+      "explanation": "Each template is a different natural-language cue. 'a photo of a dog' emphasises one aspect; 'a blurry photo of a dog' another; 'a sketch of a dog' yet another. Averaging the text embeddings gives a smoother representation of the concept 'dog' that is less sensitive to individual-prompt quirks. The OpenAI CLIP paper published 80 templates that lift ImageNet zero-shot by ~2 points.",
+      "explanationZh": "每个模板都代表一种不同的自然语言提示（natural-language cue）。“一张狗的照片”强调了某一特征；“一张模糊的狗的照片”强调了另一特征；“一幅狗的素描”则又指向了不同的方面。对文本嵌入（text embeddings）进行平均处理，可以得到对“狗”这一概念更平滑的表示，从而降低对单个提示词（prompt）特有偏差的敏感度。OpenAI 的 CLIP 论文发布了 80 个模板，使 ImageNet 零样本（zero-shot）分类性能提升了约 2 个百分点。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why do modern VLMs (LLaVA, Qwen-VL, InternVL) use a CLIP-family vision encoder instead of a supervised ImageNet ResNet?",
+      "questionZh": "为什么现代视觉语言模型 (Vision-Language Models, VLMs)（如 LLaVA、Qwen-VL、InternVL）采用 CLIP 系列视觉编码器 (CLIP-family Vision Encoder)，而非基于 ImageNet 监督训练的 ResNet (Supervised ImageNet ResNet)？",
+      "options": [
+        "CLIP encoders are faster",
+        "CLIP features are aligned with natural language, so the LLM can reason about them with less adaptation; supervised ImageNet features were never trained against captions and need heavy projection layers to bridge to text",
+        "ResNets cannot see colour",
+        "It is a licensing requirement"
+      ],
+      "optionsZh": [
+        "CLIP 编码器速度更快。",
+        "CLIP 特征 (CLIP features) 与自然语言对齐，因此大语言模型 (LLM) 只需较少的适配即可对其进行推理；而监督式 ImageNet 特征 (supervised ImageNet features) 从未针对图像描述 (captions) 进行训练，需要依赖复杂的投影层 (projection layers) 才能桥接至文本。",
+        "残差网络（ResNets）无法感知颜色",
+        "这是一项许可要求。"
+      ],
+      "explanation": "A VLM bolts a vision encoder to a language model and trains a small projection. CLIP-style encoders were trained against text, so their outputs already live in a space the LLM can consume with a few linear layers of adaptation. Supervised ImageNet encoders have no notion of natural-language structure and require much larger bridging MLPs to work with an LLM. This is why every SOTA VLM uses a CLIP-family vision tower.",
+      "explanationZh": "视觉-语言模型（Vision-Language Model）将视觉编码器（vision encoder）与语言模型（language model）拼接，并训练一个小型的投影层（projection layer）。CLIP风格编码器（CLIP-style encoders）基于文本进行对比训练，因此其输出特征已处于一个只需通过少量线性层（linear layers）进行适配，即可被大语言模型（Large Language Model）直接处理的空间中。相比之下，监督式ImageNet编码器（supervised ImageNet encoders）不具备自然语言结构（natural-language structure）的概念，需要规模大得多的桥接多层感知机（bridging MLPs）才能与语言模型协同工作。这就是为何当前所有最先进（State-of-the-Art）的视觉-语言模型均采用CLIP家族的视觉主干网络（vision tower）。"
+    }
+  ]
+}

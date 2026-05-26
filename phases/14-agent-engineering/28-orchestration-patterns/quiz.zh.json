@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "Which four orchestration patterns does the lesson list?",
+      "questionZh": "课程中列出了哪四种编排模式（Orchestration Patterns）？",
+      "options": [
+        "Supervisor-worker, swarm/peer-to-peer, hierarchical, debate",
+        "Sequential, parallel, distributed, federated",
+        "Plan, act, reflect, refine",
+        "Push, pull, batch, stream"
+      ],
+      "optionsZh": [
+        "主管-工作者 (Supervisor-Worker)、群体/对等网络 (Swarm/Peer-to-Peer)、层级式 (Hierarchical)、辩论式 (Debate)",
+        "串行（Sequential）、并行（Parallel）、分布式（Distributed）、联邦（Federated）",
+        "规划、执行、反思、优化",
+        "推送 (Push)、拉取 (Pull)、批处理 (Batch)、流处理 (Stream)"
+      ],
+      "explanation": "Supervisor-worker, swarm, hierarchical, and debate recur across 2026 frameworks.",
+      "explanationZh": "监督者-工作者（Supervisor-Worker）、群体（Swarm）、分层（Hierarchical）与辩论（Debate）等模式在2026年的各类框架中反复出现。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the 2026 LangChain recommendation regarding supervision?",
+      "questionZh": "2026 年 LangChain 关于监督（Supervision）的建议是什么？",
+      "options": [
+        "Always use create_supervisor",
+        "Prefer direct tool calls over create_supervisor for finer context-engineering control",
+        "Avoid supervision entirely",
+        "Run supervisors on GPUs"
+      ],
+      "optionsZh": [
+        "始终使用 create_supervisor",
+        "优先使用直接工具调用（Direct Tool Calls）而非 `create_supervisor`，以实现更精细的上下文工程（Context Engineering）控制。",
+        "完全避免监督（Supervision）",
+        "在 GPU 上运行监督进程 (Supervisors)"
+      ],
+      "explanation": "Tool-call-based supervision gives you precise control over what each specialist sees.",
+      "explanationZh": "基于工具调用的监督（Tool-call-based supervision）让你能够精确控制每个专家（Specialist）所能看到的内容。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What distinguishes a swarm from a supervisor-worker topology?",
+      "questionZh": "集群 (Swarm) 与主管-工作节点拓扑 (Supervisor-Worker Topology) 有何区别？",
+      "options": [
+        "Swarm uses GPUs",
+        "Swarm has no central router; agents hand off directly via a shared tool surface",
+        "Swarm is single-agent",
+        "Swarm runs on cron only"
+      ],
+      "optionsZh": [
+        "Swarm 使用图形处理器（GPU）",
+        "Swarm 没有中心路由器 (Central Router)；智能体 (Agents) 通过共享工具接口 (Shared Tool Surface) 直接进行交接。",
+        "Swarm 是单智能体（single-agent）。",
+        "Swarm 仅通过 cron 运行"
+      ],
+      "explanation": "Swarm is peer-to-peer; supervisor centralizes routing through one LLM.",
+      "explanationZh": "Swarm 采用点对点（peer-to-peer）架构；监督器（supervisor）则通过单个大语言模型（LLM）集中进行路由（routing）调度。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "When is hierarchical orchestration justified?",
+      "questionZh": "何时适合采用分层编排 (Hierarchical Orchestration)？",
+      "options": [
+        "Always; it scales for free",
+        "When a single supervisor's context budget cannot hold descriptions of all specialists",
+        "Only with GPUs",
+        "Never; it is an antipattern"
+      ],
+      "optionsZh": [
+        "始终可用；免费弹性伸缩",
+        "当单个监督器 (Supervisor) 的上下文预算 (Context Budget) 无法容纳所有专家 (Specialists) 的描述时",
+        "仅限图形处理器 (GPU)",
+        "绝对不要；这是一种反模式 (anti-pattern)"
+      ],
+      "explanation": "Nested supervisors are for large specialist populations that exceed one supervisor's budget.",
+      "explanationZh": "嵌套监督器（Nested Supervisors）适用于规模庞大、超出单个监督器预算（Budget）限制的专家群体（Specialist Populations）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is the recommended decision order Anthropic supports?",
+      "questionZh": "Anthropic 推荐的决策顺序 (decision order) 是什么？",
+      "options": [
+        "Always start with hierarchical multi-agent",
+        "Start with a single agent plus workflow patterns; add topology only when needed; supervisor before swarm before hierarchical; debate when accuracy beats cost",
+        "Start with debate",
+        "Start with swarm and contract toward single"
+      ],
+      "optionsZh": [
+        "始终从分层多智能体（Hierarchical Multi-Agent）架构开始。",
+        "从单智能体（Agent）结合工作流模式（Workflow Patterns）起步；仅在必要时引入拓扑结构（Topology）；优先采用监督者（Supervisor）模式，其次为群体（Swarm）模式，最后为层级（Hierarchical）模式；当准确性（Accuracy）优于成本（Cost）时，采用辩论（Debate）模式。",
+        "从辩论开始",
+        "从集群（Swarm）起步，逐步收敛至单一（Single）"
+      ],
+      "explanation": "Anthropic's guidance is to build the right system for your needs, not the most sophisticated.",
+      "explanationZh": "Anthropic 的建议是：构建适合您需求的系统，而非最复杂的系统。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is fake hierarchy in this lesson?",
+      "questionZh": "本课中的伪层次结构 (fake hierarchy) 具体指什么？",
+      "options": [
+        "Mislabelled YAML",
+        "Three layers of supervisors because 'enterprise' when there are only two actual teams; collapse it",
+        "An orchestrator written in TypeScript",
+        "A test fixture"
+      ],
+      "optionsZh": [
+        "标记错误的 YAML",
+        "实际仅有两个团队，却因“企业级”架构设置了三层主管；应将其精简。",
+        "一个使用 TypeScript 编写的编排器 (Orchestrator)",
+        "测试夹具 (test fixture)"
+      ],
+      "explanation": "Layers that do not correspond to real teams add operational complexity without payoff.",
+      "explanationZh": "不与实际团队对应的层级只会增加运维复杂度，却没有任何实际收益。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How do you mitigate bouncing handoffs in a swarm (A -> B -> A -> B)?",
+      "questionZh": "如何在智能体集群 (swarm) 中缓解弹跳式交接 (bouncing handoffs) 问题（A -> B -> A -> B）？",
+      "options": [
+        "Pin the temperature to 0",
+        "Add a hop counter and refuse after N transfers",
+        "Disable tracing",
+        "Lower the rate limit"
+      ],
+      "optionsZh": [
+        "将温度 (Temperature) 固定为 0",
+        "添加跳数计数器（hop counter），并在 N 次传输后拒绝。",
+        "禁用追踪 (Tracing)",
+        "降低速率限制 (Rate Limit)"
+      ],
+      "explanation": "A hop counter caps swarm cycles before they loop indefinitely.",
+      "explanationZh": "跳数计数器（hop counter）用于限制群体循环（swarm cycles）的次数，以防止其陷入无限循环。"
+    }
+  ]
+}

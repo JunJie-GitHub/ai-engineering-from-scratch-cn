@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the main advantage of DPO over RLHF?",
+      "questionZh": "与基于人类反馈的强化学习（RLHF）相比，直接偏好优化（DPO）的主要优势是什么？",
+      "options": [
+        "DPO produces better models",
+        "DPO eliminates the need for a separate reward model and PPO, training directly on preference pairs in a single loop",
+        "DPO uses less training data",
+        "DPO works without any preference data"
+      ],
+      "optionsZh": [
+        "直接偏好优化（Direct Preference Optimization）能够训练出性能更优的模型。",
+        "直接偏好优化 (Direct Preference Optimization) 消除了对独立奖励模型 (reward model) 和近端策略优化 (Proximal Policy Optimization) 的需求，直接在偏好对 (preference pairs) 上进行单循环训练。",
+        "DPO（直接偏好优化）所需的训练数据更少",
+        "DPO（直接偏好优化）无需任何偏好数据即可运行。"
+      ],
+      "explanation": "RLHF requires training a reward model separately, then running PPO optimization. DPO folds both steps into a single training objective that directly optimizes the language model on preference pairs.",
+      "explanationZh": "基于人类反馈的强化学习（RLHF）需要单独训练奖励模型（reward model），随后执行近端策略优化（PPO）。直接偏好优化（DPO）将这两个步骤整合为单一的训练目标（training objective），直接在偏好对（preference pairs）上优化语言模型（language model）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What role does the reference model play in DPO?",
+      "questionZh": "参考模型（Reference Model）在直接偏好优化（Direct Preference Optimization, DPO）中起什么作用？",
+      "options": [
+        "It generates training data",
+        "It serves as the anchor that prevents the trained model from diverging too far, similar to the KL penalty in RLHF",
+        "It evaluates model quality",
+        "It handles tokenization"
+      ],
+      "optionsZh": [
+        "它生成训练数据 (training data)。",
+        "它作为锚点（anchor），防止训练模型（trained model）过度偏离，其作用类似于基于人类反馈的强化学习（RLHF）中的KL惩罚（KL penalty）。",
+        "它用于评估模型质量 (Model Quality)。",
+        "它负责处理分词（Tokenization）。"
+      ],
+      "explanation": "The DPO loss compares log probabilities under the trained policy and the reference (usually SFT) model. The reference model constrains how far the policy can drift, preventing reward hacking without explicit KL tuning.",
+      "explanationZh": "DPO 损失（DPO loss）会比较训练策略（trained policy）与参考模型（reference model，通常为监督微调 SFT 模型）所输出的对数概率（log probabilities）。参考模型限制了策略的偏离范围，从而在无需显式进行 KL 散度调节（KL tuning）的情况下，防止奖励欺骗（reward hacking）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the beta parameter in DPO control?",
+      "questionZh": "直接偏好优化（Direct Preference Optimization, DPO）中的 beta 参数控制什么？",
+      "options": [
+        "The learning rate",
+        "How strongly the policy is constrained to stay close to the reference model -- higher beta means more conservative updates",
+        "The batch size",
+        "The number of training epochs"
+      ],
+      "optionsZh": [
+        "学习率 (Learning Rate)",
+        "策略（Policy）受约束以贴近参考模型（Reference Model）的程度——beta 值越高，表示更新越保守。",
+        "批次大小 (batch size)",
+        "训练轮数 (training epochs)"
+      ],
+      "explanation": "Beta scales the implicit KL divergence penalty. Beta=0.1 allows the model to diverge significantly from the reference (potentially better but riskier). Beta=0.5 keeps it close (safer but less learning).",
+      "explanationZh": "Beta 参数用于缩放隐式 KL 散度（KL divergence）惩罚项。Beta=0.1 允许模型显著偏离参考模型（reference model）（可能带来更好的效果，但风险也更高）。Beta=0.5 则使其保持接近（更安全，但学习优化空间较小）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How does DPO implicitly represent a reward model?",
+      "questionZh": "DPO（直接偏好优化）如何隐式表示奖励模型（Reward Model）？",
+      "options": [
+        "It doesn't -- DPO has no concept of reward",
+        "The DPO loss function can be derived by showing that the optimal policy under a reward function is directly expressible through policy log probabilities",
+        "It trains a hidden reward model inside the language model",
+        "DPO uses the loss function as the reward"
+      ],
+      "optionsZh": [
+        "并非如此——DPO（直接偏好优化）根本没有奖励（reward）的概念。",
+        "可以通过证明在奖励函数（reward function）下的最优策略（optimal policy）能够直接由策略对数概率（policy log probabilities）表示，从而推导出 DPO 损失函数（DPO loss function）。",
+        "它在语言模型 (language model) 内部训练一个隐藏奖励模型 (hidden reward model)。",
+        "直接偏好优化（Direct Preference Optimization）将损失函数（loss function）作为奖励（reward）。"
+      ],
+      "explanation": "Rafailov et al. showed that the closed-form solution of the RLHF objective expresses the reward as a function of the policy's log-probabilities relative to the reference. DPO optimizes this directly, implicitly learning the reward.",
+      "explanationZh": "Rafailov 等人指出，基于人类反馈的强化学习（RLHF）目标函数的闭式解（closed-form solution）可将奖励（reward）表示为策略（policy）相对于参考策略（reference）的对数概率（log-probabilities）的函数。直接偏好优化（DPO）直接对此进行优化，从而隐式地学习奖励。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "When might RLHF still be preferred over DPO?",
+      "questionZh": "在哪些情况下，基于人类反馈的强化学习（RLHF）仍然可能优于直接偏好优化（DPO）？",
+      "options": [
+        "Always -- RLHF is strictly better",
+        "When you need a reusable reward model for evaluating multiple policies or when online data collection is beneficial",
+        "When you have less preference data",
+        "When training smaller models"
+      ],
+      "optionsZh": [
+        "始终成立——基于人类反馈的强化学习 (RLHF) 严格更优",
+        "当您需要一个可复用的奖励模型（Reward Model）来评估多个策略（Policy），或在线数据收集（Online Data Collection）更具优势时",
+        "当偏好数据（preference data）较少时",
+        "训练较小模型时"
+      ],
+      "explanation": "DPO is offline (fixed preference data). RLHF allows online data collection where the reward model scores new generations, discovering reward-hacking patterns. A standalone reward model is also useful for evaluation and other policies.",
+      "explanationZh": "直接偏好优化（Direct Preference Optimization）为离线方法（使用固定的偏好数据）。基于人类反馈的强化学习（Reinforcement Learning from Human Feedback）支持在线数据收集，奖励模型（Reward Model）在此过程中对新生成的内容进行打分，进而发现奖励欺骗（Reward Hacking）模式。此外，独立的奖励模型也可用于模型评估及其他策略（Policy）的优化。"
+    }
+  ]
+}

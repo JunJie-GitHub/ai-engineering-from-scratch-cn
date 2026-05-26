@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why does U-Net need skip connections between the encoder and decoder?",
+      "questionZh": "为什么 U-Net 需要在编码器（encoder）和解码器（decoder）之间引入跳跃连接（skip connections）？",
+      "options": [
+        "To speed up training",
+        "The encoder compresses spatial detail to gain context; the decoder cannot reconstruct sharp boundaries without access to the encoder's high-resolution feature maps, and skips supply exactly that",
+        "Because transposed convolutions require extra inputs",
+        "To match PyTorch shape conventions"
+      ],
+      "optionsZh": [
+        "为了加速训练 (training)",
+        "编码器（Encoder）通过压缩空间细节来获取上下文（Context）；若无法访问编码器的高分辨率特征图（High-resolution feature maps），解码器（Decoder）便无法重建清晰的边界，而跳跃连接（Skip connections）恰好提供了这些信息。",
+        "由于转置卷积 (Transposed Convolution) 需要额外的输入",
+        "为匹配 PyTorch 的形状规范"
+      ],
+      "explanation": "Without skips, a U-Net's decoder is producing H x W predictions from a very low-resolution bottleneck, which cannot resolve crisp edges. Skip connections splice the encoder's high-resolution, low-semantic features into the decoder's low-resolution, high-semantic features so both context and detail are available at every output stage.",
+      "explanationZh": "若不使用跳跃连接（skip connections），U-Net 的解码器（decoder）只能基于分辨率极低的瓶颈层（bottleneck）生成 H×W 的预测结果，导致无法还原清晰的边缘。跳跃连接将编码器（encoder）的高分辨率、低语义特征与解码器的低分辨率、高语义特征进行拼接，从而确保在网络的每个输出阶段都能同时兼顾上下文信息与细节特征。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "A segmentation task has 99% background pixels and 1% tumour pixels. You train with plain cross-entropy and reach 99% pixel accuracy. What happened?",
+      "questionZh": "某分割任务（Segmentation Task）中，背景像素（Background Pixels）占比为99%，肿瘤像素（Tumour Pixels）仅占1%。若直接使用普通交叉熵（Cross-Entropy）进行训练，模型最终达到了99%的像素准确率（Pixel Accuracy）。这是怎么回事？",
+      "options": [
+        "The model converged",
+        "The model learned to predict background for every pixel; pixel accuracy is dominated by the majority class and ignores the class you actually care about",
+        "The loss function was implemented incorrectly",
+        "The optimizer failed"
+      ],
+      "optionsZh": [
+        "模型已收敛 (converged)",
+        "模型学会了将所有像素都预测为背景；像素准确率（Pixel Accuracy）受多数类（Majority Class）主导，从而忽略了你真正关心的类别。",
+        "损失函数（Loss Function）实现有误。",
+        "优化器 (Optimizer) 失败"
+      ],
+      "explanation": "Pixel accuracy on an imbalanced dataset is a useless metric. The network collects the easy 99% by always predicting background and produces empty tumour masks. The fix: combine cross-entropy with Dice loss (overlap-based, scale-free) and report IoU/Dice per foreground class.",
+      "explanationZh": "在类别不平衡数据集（Imbalanced Dataset）上，像素准确率（Pixel Accuracy）是一种无效的评估指标（Metric）。网络（Network）只需始终预测背景（Background）即可轻松获得99%的准确率，但这会导致生成的肿瘤掩码（Tumor Masks）全为空。解决方案：将交叉熵（Cross-Entropy）与Dice损失（Dice Loss，基于重叠度且尺度无关）相结合，并针对每个前景类别（Foreground Class）分别报告交并比（IoU）与Dice系数。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Which task type separates individual cars of the same class from each other?",
+      "questionZh": "哪种任务类型能够将同一类别的不同车辆个体区分开来？",
+      "options": [
+        "Semantic segmentation",
+        "Instance segmentation",
+        "Both produce the same output",
+        "Neither — that requires a detection model instead"
+      ],
+      "optionsZh": [
+        "语义分割 (Semantic Segmentation)",
+        "实例分割 (Instance Segmentation)",
+        "两者生成的输出结果相同。",
+        "两者都不是——这需要改用检测模型 (detection model)。"
+      ],
+      "explanation": "Semantic segmentation labels every pixel with a class but merges touching instances of the same class into one blob. Instance segmentation keeps instance IDs, so each car, each person, each apple is a separate predicted mask. Panoptic segmentation unifies both: semantic labels for stuff, instance IDs for things.",
+      "explanationZh": "语义分割（Semantic Segmentation）为每个像素分配类别标签，但会将同一类别中相邻的实例合并为一个连通区域。实例分割（Instance Segmentation）则保留实例ID，因此每辆车、每个人、每个苹果都会生成独立的预测掩码。全景分割（Panoptic Segmentation）将两者统一：为无定形区域（stuff）提供语义标签，为可数物体（things）分配实例ID。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "You swap U-Net's bilinear upsample + 3x3 conv for a ConvTranspose2d with kernel_size=2, stride=2 and see checkerboard artifacts in the output. Why?",
+      "questionZh": "将 U-Net 中的双线性上采样（bilinear upsampling）与 3x3 卷积（3x3 convolution）替换为 `kernel_size=2, stride=2` 的 `ConvTranspose2d` 后，输出中出现了棋盘格伪影（checkerboard artifacts）。这是为什么？",
+      "options": [
+        "Transposed conv is broken in PyTorch",
+        "When kernel_size is not evenly divisible by stride, output pixels receive unequal contributions from input pixels, producing a periodic pattern in the output that looks like a checkerboard",
+        "The learning rate was too low",
+        "Batch norm has to be added before transposed conv"
+      ],
+      "optionsZh": [
+        "PyTorch 中的转置卷积（Transposed Convolution）存在缺陷",
+        "当 `kernel_size` 无法被 `stride` 整除时，输出像素会接收到来自输入像素的不均等贡献，从而在输出中形成类似棋盘格（checkerboard）的周期性图案。",
+        "学习率 (Learning Rate) 过低。",
+        "必须在转置卷积 (Transposed Convolution) 之前添加批归一化 (Batch Normalization)。"
+      ],
+      "explanation": "Checkerboard artifacts come from uneven overlap of the transposed convolution's receptive field across output positions. Using kernel_size = stride * n (e.g. kernel 4, stride 2) or replacing transposed conv with bilinear upsample + conv eliminates the artifacts. The modern default is bilinear + conv for this reason.",
+      "explanationZh": "棋盘格伪影（Checkerboard artifacts）源于转置卷积（transposed convolution）的感受野（receptive field）在不同输出位置上的重叠不均匀。使用 `kernel_size = stride * n`（例如 kernel 4, stride 2）或将转置卷积替换为双线性上采样（bilinear upsample）+ 卷积（conv）即可消除该伪影。出于此原因，当前的默认做法是采用双线性上采样 + 卷积。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "You report mIoU = 0.78 on a 10-class segmentation task. Why should you also publish per-class IoU?",
+      "questionZh": "你在一个10类分割任务中报告的平均交并比 (mIoU) 为 0.78。为什么你还应该发布逐类交并比 (per-class IoU)？",
+      "options": [
+        "Per-class IoU is required by PyTorch",
+        "Mean IoU hides individual class failures; a mIoU of 0.78 is consistent with eight classes at 0.9 and two at 0.3, which is a very different deployment story than all classes near 0.78",
+        "Per-class IoU is always higher than mIoU",
+        "It is only needed for medical imaging"
+      ],
+      "optionsZh": [
+        "PyTorch 需要逐类交并比 (Per-class IoU)。",
+        "平均交并比（Mean IoU）会掩盖个别类别的性能缺陷；0.78 的 mIoU 可能对应八个类别达到 0.9 而两个类别仅为 0.3 的情况，这与所有类别均接近 0.78 的情况在实际部署中有着截然不同的表现。",
+        "各类别交并比（Per-class IoU）始终高于平均交并比（mIoU）。",
+        "仅在医学影像（Medical Imaging）中需要。"
+      ],
+      "explanation": "An aggregate mean compresses the distribution of per-class scores, which is exactly what the reader needs to decide whether the model is ready to ship. Two weak classes in an otherwise strong model may make the system unusable for the intended task; a flat profile means the model needs a uniform data upgrade. Always publish per-class metrics alongside the mean.",
+      "explanationZh": "聚合均值 (aggregate mean) 会压缩各类别得分 (per-class scores) 的分布，而这正是读者判断模型是否准备上线 (ready to ship) 所需的关键信息。在一个整体表现强劲的模型中，若存在两个表现较弱的类别 (weak classes)，可能会导致系统无法胜任预期任务；而各项得分分布平坦 (flat profile) 则意味着模型需要进行均衡的数据升级 (uniform data upgrade)。请务必在发布均值 (mean) 的同时，一并公布各类别指标 (per-class metrics)。"
+    }
+  ]
+}

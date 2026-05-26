@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why is scope creep called the most under-monitored failure mode?",
+      "questionZh": "为什么范围蔓延（Scope Creep）被称为最缺乏监控的失效模式（Failure Mode）？",
+      "options": [
+        "It crashes the agent loudly",
+        "Each touch had a plausible reason in the moment; together they form a different change than was reviewed",
+        "It is too rare to monitor",
+        "Tests catch it automatically"
+      ],
+      "optionsZh": [
+        "这会导致智能体（Agent）发生显式崩溃。",
+        "每次修改在当时看来都有合理的理由；但累积起来，却构成了与审查时不同的变更。",
+        "过于罕见，难以监控",
+        "测试会自动捕获该问题。"
+      ],
+      "explanation": "Agents narrate each step in good faith; the silent total is the creep.",
+      "explanationZh": "智能体（Agents）会如实叙述每一步；而沉默的总和正是悄然蔓延的偏差（creep）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Which contract field does the lesson call half the contract?",
+      "questionZh": "课程中将哪个契约字段 (contract field) 称为“契约的一半 (half the contract)”？",
+      "options": [
+        "goal",
+        "forbidden_files (the negative space)",
+        "task_id",
+        "approvals_required"
+      ],
+      "optionsZh": [
+        "goal",
+        "forbidden_files（排除范围）",
+        "task_id",
+        "approvals_required"
+      ],
+      "explanation": "A contract without forbidden_files is incomplete; the negative space is half the contract.",
+      "explanationZh": "缺少 forbidden_files 的契约是不完整的；负空间（negative space）同样构成了契约的一半。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Why pin allowed/forbidden to globs rather than raw paths?",
+      "questionZh": "为什么将允许/禁止的规则限定为通配符模式（glob patterns），而非原始路径（raw paths）？",
+      "options": [
+        "Globs are faster",
+        "Real repos move files; globs survive refactors between sessions",
+        "Globs encrypt better",
+        "Raw paths are not JSON-serializable"
+      ],
+      "optionsZh": [
+        "通配符模式 (Glob) 速度更快。",
+        "实际代码仓库（Repository）中文件常发生移动；通配符模式（Glob）可在跨会话重构时保持有效。",
+        "通配符 (Glob) 加密效果更佳",
+        "原始路径（Raw paths）无法进行 JSON 序列化（JSON-serializable）。"
+      ],
+      "explanation": "Globs (app/**/*.py) keep the contract valid through refactors.",
+      "explanationZh": "Glob 模式 (Globs) (app/**/*.py) 可在代码重构过程中保持契约 (Contract) 的有效性。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does the 'violation budget' pattern do?",
+      "questionZh": "“违规预算”（Violation Budget）模式的作用是什么？",
+      "options": [
+        "Sets a monthly budget for the agent",
+        "Allows minor scope slips as warnings within a budget; only excess triggers a merge refusal — the difference between a gate that ships and one that gets disabled",
+        "Throttles model calls",
+        "Charges per violation"
+      ],
+      "optionsZh": [
+        "设置智能体 (Agent) 的月度预算",
+        "允许在预算 (budget) 范围内将轻微的范围偏移 (scope slip) 作为警告处理；仅当超出预算时才会触发合并拒绝 (merge refusal) —— 这正是能够顺利交付的门禁 (gate) 与最终被禁用的门禁之间的区别。",
+        "限制模型调用频率",
+        "每次违规收费"
+      ],
+      "explanation": "agent-guardrails uses violationBudget so the gate is usable in day-to-day flow.",
+      "explanationZh": "agent-guardrails 使用 violationBudget，从而使该门控（gate）能够适用于日常工作流。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What did the specsmaxxing practitioner report?",
+      "questionZh": "硬件规格极限优化 (specsmaxxing) 实践者报告了什么？",
+      "options": [
+        "Latency dropped 90%",
+        "Rabbit-hole rate dropped from 52% to 21% in three weeks without changing the agent; the contract did the work, not the model",
+        "Cost rose 5x",
+        "Tests slowed down"
+      ],
+      "optionsZh": [
+        "延迟 (Latency) 降低了 90%",
+        "在未更改智能体 (Agent) 的情况下，陷入死循环率 (Rabbit-hole rate) 在三周内从 52% 降至 21%；真正发挥作用的是契约 (Contract)，而非模型 (Model)。",
+        "成本上升了5倍",
+        "测试变慢"
+      ],
+      "explanation": "Scope contracts in YAML before invoking the agent halved the rabbit-hole rate without model changes.",
+      "explanationZh": "在调用智能体 (Agent) 前，于 YAML 中限定契约范围 (Scope contracts)，无需更改模型即可使陷入死胡同率 (rabbit-hole rate) 减半。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What are the multi-contract merge semantics (least privilege)?",
+      "questionZh": "多合约合并语义（multi-contract merge semantics）是什么（最小权限原则（least privilege））？",
+      "options": [
+        "Last contract wins",
+        "Intersect allowed_files; union forbidden_files; min time_budget; accumulate approvals; deny-all sticks; merge of None defers to the other side",
+        "First contract wins",
+        "Random tie-break"
+      ],
+      "optionsZh": [
+        "以最后合约 (Contract) 为准",
+        "对允许文件（allowed_files）取交集；对禁止文件（forbidden_files）取并集；对时间预算（time_budget）取最小值；累积审批（approvals）；拒绝所有（deny-all）策略具有粘性（即一旦拒绝则保持生效）；与 None 合并时，以另一方的值为准。",
+        "首个合同中标",
+        "随机打破平局 (Random tie-break)"
+      ],
+      "explanation": "Least-privilege merge: intersection on allows, union on forbids, most-restrictive time, accumulate approvals.",
+      "explanationZh": "最小权限合并（Least-privilege merge）：允许规则取交集，禁止规则取并集，时间限制采用最严格标准，审批要求累积叠加。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "Why do time and network budgets belong in the contract too?",
+      "questionZh": "为什么时间与网络预算（Time and Network Budgets）也应纳入契约（Contract）中？",
+      "options": [
+        "Wall clock and external-host access are scope dimensions; file globs alone are necessary but not sufficient",
+        "Providers require them",
+        "They make the JSON smaller",
+        "They are required by Apache 2.0"
+      ],
+      "optionsZh": [
+        "挂钟时间 (Wall clock) 与外部主机访问 (External-host access) 属于作用域维度 (Scope dimensions)；仅依赖文件通配符 (File globs) 是必要但不充分的条件。",
+        "提供商需要它们",
+        "它们能减小 JSON 的体积",
+        "它们需遵循 Apache 2.0 许可证 (Apache License 2.0) 的规定。"
+      ],
+      "explanation": "time_budget_minutes and network_egress allowlists are scope dimensions on top of file globs.",
+      "explanationZh": "time_budget_minutes 和 network_egress 允许列表（allowlists）是叠加在文件通配符模式（file globs）之上的作用域维度（scope dimensions）。"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "feateng-pre-1",
+      "question": "Why is feature engineering often more impactful than choosing a fancier algorithm?",
+      "questionZh": "为什么特征工程（Feature Engineering）往往比选择更复杂的算法（Algorithm）更能显著提升模型效果？",
+      "options": [
+        "Feature engineering makes the code run faster",
+        "Good features expose patterns to the model that raw data hides, making even simple models effective",
+        "Feature engineering eliminates the need for a test set",
+        "Fancy algorithms cannot process raw data"
+      ],
+      "optionsZh": [
+        "特征工程（Feature Engineering）能够加快代码的运行速度。",
+        "优质的特征（features）能够向模型（model）揭示原始数据（raw data）中隐藏的模式，从而使即使是简单的模型也能发挥出色的效果。",
+        "特征工程（Feature Engineering）消除了对测试集（Test Set）的需求。",
+        "高级算法 (algorithms) 无法处理原始数据 (raw data)。"
+      ],
+      "explanation": "The representation of data matters more than the algorithm. A well-engineered feature like BMI (weight/height^2) directly exposes the relevant pattern, making even logistic regression competitive with complex ensembles.",
+      "explanationZh": "数据表示（Data Representation）比算法（Algorithm）更重要。像 BMI (weight/height^2) 这样精心构建的特征（Feature）能够直接揭示相关的数据模式，使得即便是逻辑回归（Logistic Regression）也能与复杂的集成模型（Ensemble Models）具备同等的竞争力。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "feateng-pre-2",
+      "question": "What is one-hot encoding?",
+      "questionZh": "什么是独热编码 (one-hot encoding)？",
+      "options": [
+        "Replacing each category with its frequency in the dataset",
+        "Creating one binary column per category, with exactly one column set to 1 per row",
+        "Converting all features to values between 0 and 1",
+        "Encoding the target variable as a probability"
+      ],
+      "optionsZh": [
+        "将每个类别 (Category) 替换为其在数据集 (Dataset) 中的频次 (Frequency)",
+        "为每个类别创建一个二值列（binary column），且每行中恰好有一列的值设为 1。",
+        "将所有特征 (Feature) 转换为 0 到 1 之间的值",
+        "将目标变量 (Target Variable) 编码为概率形式"
+      ],
+      "explanation": "One-hot encoding creates a binary column for each unique category. For a color feature with values red/blue/green, it produces three columns: is_red, is_blue, is_green.",
+      "explanationZh": "独热编码（One-hot encoding）会为每个唯一类别创建一个二元列（binary column）。对于取值为 red/blue/green 的颜色特征（feature），它将生成三列：is_red、is_blue 和 is_green。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "feateng-post-1",
+      "question": "What is the data leakage risk with target encoding?",
+      "questionZh": "目标编码（Target Encoding）存在怎样的数据泄露（Data Leakage）风险？",
+      "options": [
+        "It makes the model too slow to train",
+        "It replaces categories with the mean target value, which can leak information from the test set if not computed on training data only",
+        "It creates too many features",
+        "It only works with binary targets"
+      ],
+      "optionsZh": [
+        "这会导致模型训练速度过慢。",
+        "该方法使用目标均值（mean target value）替换类别（categories），若未仅在训练数据（training data）上计算该值，则可能导致测试集（test set）的信息泄露（information leakage）。",
+        "它会生成过多的特征 (features)",
+        "它仅适用于二分类目标 (binary targets)。"
+      ],
+      "explanation": "Target encoding replaces each category with the mean target for that category. If computed on the full dataset (including test data), test labels leak into training features, inflating performance estimates.",
+      "explanationZh": "目标编码（Target Encoding）将每个类别替换为该类别对应的目标均值。若在完整数据集（包含测试数据）上进行计算，测试标签会泄露至训练特征中，从而导致性能评估结果虚高。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "feateng-post-2",
+      "question": "TF-IDF weights a word by its inverse document frequency. What is the effect?",
+      "questionZh": "词频-逆文档频率（TF-IDF）根据逆文档频率（Inverse Document Frequency）对词语进行加权。这会产生什么效果？",
+      "options": [
+        "Common words like 'the' get high weight because they appear frequently",
+        "Rare, distinctive words get higher weight while common words get lower weight",
+        "All words get equal weight regardless of frequency",
+        "Only the most frequent word in each document is kept"
+      ],
+      "optionsZh": [
+        "像“the”这类常见词（common words）由于出现频率较高，会被赋予较高的权重（weight）。",
+        "罕见且具有区分度的词会获得更高的权重（weight），而常见词则会获得较低的权重。",
+        "所有词汇均赋予相同权重（weight），与词频（frequency）无关。",
+        "仅保留每个文档中出现频率最高的词（most frequent word）。"
+      ],
+      "explanation": "IDF = log(total docs / docs containing word). Common words (appearing in many documents) get low IDF. Rare, distinctive words get high IDF, making them more influential in the representation.",
+      "explanationZh": "逆文档频率（Inverse Document Frequency）的计算公式为 IDF = log(total docs / docs containing word)。常见词（出现在大量文档中）的 IDF 值较低。罕见且具有区分度的词则会获得较高的 IDF 值，从而在文本表示（representation）中发挥更大的影响力。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "feateng-post-3",
+      "question": "You have two features with correlation 0.98. Why might you remove one?",
+      "questionZh": "如果你有两个相关性 (correlation) 为 0.98 的特征 (features)，为什么可能会考虑移除其中一个？",
+      "options": [
+        "Highly correlated features always cause the model to crash",
+        "They are redundant -- both carry nearly the same information, and keeping both increases overfitting risk without adding signal",
+        "Correlated features make the data non-stationary",
+        "Correlation above 0.5 means the features are measuring different things"
+      ],
+      "optionsZh": [
+        "高度相关的特征 (Highly correlated features) 总是会导致模型崩溃。",
+        "它们是冗余的——两者携带的信息几乎相同，同时保留它们不仅无法增加有效信号，反而会提高过拟合（overfitting）的风险。",
+        "相关特征 (Correlated features) 会导致数据非平稳 (non-stationary)。",
+        "相关性 (Correlation) 高于 0.5 意味着这些特征 (Features) 衡量的是不同的事物。"
+      ],
+      "explanation": "Features with r=0.98 are nearly redundant. Keeping both adds a noisy duplicate that increases dimensionality, overfitting risk, and multicollinearity without providing new information about the target.",
+      "explanationZh": "相关系数 r=0.98 的特征（Features）几乎冗余。同时保留两者会引入带有噪声的重复项，从而增加维度（Dimensionality）、过拟合风险（Overfitting risk）和多重共线性（Multicollinearity），且无法为目标变量（Target）提供新的信息。"
+    }
+  ]
+}

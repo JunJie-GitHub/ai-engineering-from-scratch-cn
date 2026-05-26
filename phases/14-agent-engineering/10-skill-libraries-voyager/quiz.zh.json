@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does Voyager treat as the action space?",
+      "questionZh": "Voyager 将什么视为动作空间 (action space)？",
+      "options": [
+        "Primitive Minecraft commands",
+        "Executable code (JavaScript functions) stored, retrieved, and composed",
+        "Text prompts only",
+        "Reinforcement learning Q-values"
+      ],
+      "optionsZh": [
+        "Minecraft 基础命令",
+        "可执行代码（JavaScript 函数）的存储、检索与组合",
+        "仅文本提示词 (Text Prompts)",
+        "强化学习（Reinforcement Learning）Q值（Q-values）"
+      ],
+      "explanation": "Voyager's contribution is making code the action: skills are programs, not raw commands.",
+      "explanationZh": "Voyager 的贡献在于将代码（code）作为动作（action）：技能（skills）是程序（programs），而非原始命令（raw commands）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What three components define a Voyager agent?",
+      "questionZh": "定义 Voyager 智能体 (Agent) 的三个组件是什么？",
+      "options": [
+        "Encoder, decoder, value head",
+        "Automatic curriculum, skill library, iterative prompting",
+        "Planner, executor, judge",
+        "Retriever, generator, ranker"
+      ],
+      "optionsZh": [
+        "编码器 (Encoder)、解码器 (Decoder)、价值头 (Value Head)",
+        "自动课程（Automatic Curriculum）、技能库（Skill Library）、迭代提示（Iterative Prompting）",
+        "规划器 (Planner)、执行器 (Executor)、评判器 (Judge)",
+        "检索器 (Retriever)、生成器 (Generator)、排序器 (Ranker)"
+      ],
+      "explanation": "Voyager structures the agent around curriculum, skill library, and iterative prompting.",
+      "explanationZh": "Voyager 围绕课程（Curriculum）、技能库（Skill Library）和迭代提示（Iterative Prompting）构建智能体（Agent）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What three signals can return from a skill execution attempt?",
+      "questionZh": "技能（Skill）执行尝试可能返回哪三种信号（Signal）？",
+      "options": [
+        "Pass, fail, retry",
+        "Success, error (with stack trace), self-verification failure",
+        "Green, yellow, red",
+        "Heartbeat, ack, nack"
+      ],
+      "optionsZh": [
+        "通过、失败、重试",
+        "成功、错误（含堆栈跟踪）、自验证失败",
+        "绿色、黄色、红色",
+        "心跳 (Heartbeat)、确认 (Ack)、否定确认 (Nack)"
+      ],
+      "explanation": "Voyager's iterative prompting mechanism is driven by these three signals folded back into the next version.",
+      "explanationZh": "Voyager 的迭代提示机制（Iterative Prompting Mechanism）由这三个信号驱动，这些信号将被反馈并整合到下一版本中。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "How does the automatic curriculum pick the next task?",
+      "questionZh": "自动课程（Automatic Curriculum）如何选择下一个任务？",
+      "options": [
+        "Random uniform over the action space",
+        "Just above current capability, based on environment state and skill inventory (the exploration sweet spot)",
+        "Always the hardest available task",
+        "User-supplied list only"
+      ],
+      "optionsZh": [
+        "在动作空间 (action space) 上均匀随机 (uniform random)",
+        "略高于当前能力（current capability），基于环境状态（environment state）与技能清单（skill inventory）（探索最佳区间 exploration sweet spot）",
+        "始终选择当前可用的最难任务",
+        "仅限用户提供的列表"
+      ],
+      "explanation": "The proposer aims for tasks just above current capability so progress is steady.",
+      "explanationZh": "任务提议器 (Task Proposer) 旨在选择略高于当前能力水平的任务，以确保进展稳步推进。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Which 2026 product is the lesson's clearest match for the Voyager skill?",
+      "questionZh": "2026 年的哪款产品与本课程的 Voyager 技能（Voyager skill）最为匹配？",
+      "options": [
+        "OpenAI fine-tuning",
+        "Claude Agent SDK skills: named, retrievable code plus instructions loaded on demand",
+        "Pinecone indices",
+        "AWS Lambda layers"
+      ],
+      "optionsZh": [
+        "OpenAI 微调 (fine-tuning)",
+        "Claude Agent SDK 技能 (Skills)：命名且可检索的代码与指令相结合，支持按需加载 (loaded on demand)。",
+        "Pinecone 索引（Indices）",
+        "AWS Lambda 层 (Layers)"
+      ],
+      "explanation": "Agent SDK skills match Voyager's named-retrievable-composable code pattern.",
+      "explanationZh": "智能体软件开发工具包 (Agent SDK) 的技能 (skills) 契合 Voyager 的命名-可检索-可组合代码模式 (named-retrievable-composable code pattern)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does the lesson recommend dedup on write for the skill library?",
+      "questionZh": "为什么课程推荐在技能库（skill library）中采用写入时去重（dedup on write）？",
+      "options": [
+        "Disk is expensive",
+        "Without dedup, the same skill gets added many times with slightly different descriptions; retrieval should return one canonical version",
+        "Providers reject duplicates",
+        "Git blocks duplicates"
+      ],
+      "optionsZh": [
+        "磁盘 (Disk) 成本高昂",
+        "若不进行去重 (deduplication)，同一技能 (skill) 会因描述存在细微差异而被多次添加；检索 (retrieval) 应仅返回一个规范版本 (canonical version)。",
+        "提供商将剔除重复项",
+        "Git 阻止重复项"
+      ],
+      "explanation": "Near-duplicate descriptions collapse to a single canonical skill so retrieval stays clean.",
+      "explanationZh": "近似重复（near-duplicate）的描述将合并为单一的标准技能（canonical skill），从而确保检索结果清晰准确。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What problem does composed-skill drift describe?",
+      "questionZh": "组合技能漂移（Composed-Skill Drift）描述的是什么问题？",
+      "options": [
+        "A skill stops compiling after a Python upgrade",
+        "A parent skill silently picks up a refined child version it was never tested against; fix by pinning skill versions",
+        "Skills get encrypted in storage",
+        "Retrieval returns nothing"
+      ],
+      "optionsZh": [
+        "Python 升级后技能 (Skill) 停止编译",
+        "父技能（parent skill）会静默引入未经测试的优化子版本（child version）；可通过锁定技能版本（pinning skill versions）来修复。",
+        "技能在存储时会被加密",
+        "检索 (Retrieval) 未返回任何结果"
+      ],
+      "explanation": "Without version pinning, a refinement to a child silently changes the parent's behavior.",
+      "explanationZh": "若未进行版本锁定（Version Pinning），对子模块（Child）的改进将静默地改变父模块（Parent）的行为。"
+    }
+  ]
+}

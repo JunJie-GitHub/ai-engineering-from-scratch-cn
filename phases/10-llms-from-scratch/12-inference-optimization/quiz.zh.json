@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What are the two phases of LLM inference?",
+      "questionZh": "大语言模型（LLM）推理（Inference）的两个阶段是什么？",
+      "options": [
+        "Training and evaluation",
+        "Prefill (processes the prompt in parallel, compute-bound) and decode (generates tokens one at a time, memory-bound)",
+        "Encoding and decoding",
+        "Forward and backward"
+      ],
+      "optionsZh": [
+        "训练与评估",
+        "预填充（Prefill，并行处理提示词，计算密集型）与解码（Decode，逐个生成词元，访存密集型）",
+        "编码与解码",
+        "前向传播与反向传播（Forward and Backward Propagation）"
+      ],
+      "explanation": "Prefill processes all prompt tokens in parallel (limited by compute). Decode generates tokens autoregressively one at a time (limited by memory bandwidth for loading model weights). Different optimizations target each phase.",
+      "explanationZh": "预填充（Prefill）阶段会并行处理所有提示词令牌（Prompt Tokens）（受限于算力（Compute））。解码（Decode）阶段则以自回归（Autoregressively）方式逐个生成令牌（受限于加载模型权重（Model Weights）所需的内存带宽（Memory Bandwidth））。不同的优化（Optimization）策略分别针对这两个阶段（Phase）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does KV-cache eliminate during autoregressive generation?",
+      "questionZh": "在自回归生成（autoregressive generation）过程中，KV缓存（KV-cache）消除了什么？",
+      "options": [
+        "The need for attention masks",
+        "Redundant recomputation of key and value vectors for all previous tokens at each generation step",
+        "The embedding lookup",
+        "The softmax computation"
+      ],
+      "optionsZh": [
+        "注意力掩码（attention masks）的必要性",
+        "在每个生成步骤 (generation step) 中，对所有先前词元 (token) 的键向量 (key vector) 与值向量 (value vector) 进行冗余的重复计算。",
+        "嵌入查找 (Embedding Lookup)",
+        "Softmax 计算 (Softmax computation)"
+      ],
+      "explanation": "Without KV-cache, generating token N requires recomputing attention keys and values for all N-1 previous tokens. KV-cache stores these vectors, so each new token only computes its own K and V, saving O(N) computation per step.",
+      "explanationZh": "如果不使用 KV缓存（KV-cache），生成第 N 个词元（token）需要重新计算前 N-1 个词元的所有注意力键和值（attention keys and values）。KV缓存会存储这些向量，因此每个新词元只需计算自身的 K 和 V，从而在每一步节省 O(N) 的计算量。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is continuous batching and why does it improve throughput?",
+      "questionZh": "什么是连续批处理（Continuous Batching）？它为何能提升吞吐量（Throughput）？",
+      "options": [
+        "Processing all requests in one large batch",
+        "Dynamically adding and removing requests from the running batch as they start and finish, instead of waiting for the entire batch to complete",
+        "Using larger batch sizes",
+        "Batching across multiple models"
+      ],
+      "optionsZh": [
+        "将所有请求合并至单个大批次 (batch) 中处理",
+        "随着请求的开始与完成，动态地在运行中的批处理（batch）中添加或移除请求，而不是等待整个批处理完成。",
+        "使用更大的批量大小 (batch size)",
+        "跨多模型批处理 (Batching)"
+      ],
+      "explanation": "In static batching, a short request holds its batch slot until the longest request finishes. Continuous batching immediately fills completed slots with new requests, keeping the GPU busy and improving overall throughput.",
+      "explanationZh": "在静态批处理（Static Batching）中，较短的请求会一直占用其批次槽位（Batch Slot），直到最长的请求完成为止。连续批处理（Continuous Batching）则会立即用新请求填补已完成的槽位，从而保持 GPU 持续工作，并提升整体吞吐量（Throughput）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What problem does PagedAttention (used in vLLM) solve?",
+      "questionZh": "vLLM 中使用的分页注意力机制（PagedAttention）旨在解决什么问题？",
+      "options": [
+        "It speeds up the attention computation",
+        "It manages KV-cache memory in fixed-size blocks like virtual memory, eliminating fragmentation from variable-length sequences",
+        "It reduces model size",
+        "It improves tokenization speed"
+      ],
+      "optionsZh": [
+        "它加速了注意力计算（attention computation）。",
+        "它借鉴虚拟内存（virtual memory）的机制，以固定大小的块来管理键值缓存（KV-cache）内存，从而消除了变长序列（variable-length sequences）导致的内存碎片化（fragmentation）问题。",
+        "它能够减小模型大小 (model size)。",
+        "它提升了分词（Tokenization）的速度。"
+      ],
+      "explanation": "KV-cache for variable-length sequences causes memory fragmentation (wasted gaps between allocations). PagedAttention allocates KV-cache in fixed blocks and maps them with a page table, like OS virtual memory.",
+      "explanationZh": "变长序列的键值缓存（KV-cache）会导致内存碎片（memory fragmentation）（分配之间产生的浪费空隙）。分页注意力机制（PagedAttention）以固定大小的块分配 KV-cache，并通过页表（page table）进行映射，其原理类似于操作系统的虚拟内存（virtual memory）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is speculative decoding?",
+      "questionZh": "什么是投机解码（Speculative Decoding）？",
+      "options": [
+        "Generating multiple responses and picking the best",
+        "Using a small draft model to propose multiple tokens that the large model verifies in parallel, speeding up generation",
+        "Predicting which tokens the user wants",
+        "Caching frequently generated sequences"
+      ],
+      "optionsZh": [
+        "生成多个响应并择优选择",
+        "使用小型草稿模型 (draft model) 预生成多个词元 (token)，再由大模型 (large model) 进行并行验证，从而加速生成过程。",
+        "预测用户期望的词元 (token)",
+        "缓存频繁生成的序列 (Caching Frequently Generated Sequences)"
+      ],
+      "explanation": "A small fast model generates N candidate tokens. The large model verifies all N in a single forward pass (parallel). If K tokens are accepted, you've generated K tokens in the time of roughly 1 large-model step.",
+      "explanationZh": "小型快速模型 (small fast model) 生成 N 个候选词元 (candidate tokens)。大型模型 (large model) 在单次前向传播 (forward pass) 中并行 (parallel) 验证所有 N 个词元。若其中 K 个词元被接受 (accept)，则你仅用约 1 次大型模型步骤 (large-model step) 的时间，便生成了 K 个词元。"
+    }
+  ]
+}

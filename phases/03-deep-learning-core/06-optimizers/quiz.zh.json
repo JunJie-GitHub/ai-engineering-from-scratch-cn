@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What problem does momentum solve in gradient descent?",
+      "questionZh": "在梯度下降（Gradient Descent）中，动量（Momentum）解决了什么问题？",
+      "options": [
+        "It reduces memory usage",
+        "It dampens oscillation by accumulating past gradients, accelerating movement in consistent directions",
+        "It eliminates the need for a learning rate",
+        "It prevents overfitting"
+      ],
+      "optionsZh": [
+        "它降低了内存使用量 (memory usage)。",
+        "它通过累积历史梯度（gradients）来抑制振荡（oscillation），从而在一致的方向上加速移动。",
+        "它免去了对学习率（learning rate）的需求。",
+        "它可以防止过拟合 (Overfitting)"
+      ],
+      "explanation": "In narrow valleys, gradients oscillate across the valley while making slow progress along it. Momentum accumulates past gradients: consistent directions amplify while oscillating directions cancel, giving smoother, faster convergence.",
+      "explanationZh": "在狭窄的山谷中，梯度（Gradient）会在山谷横向上来回振荡，而沿山谷方向的进展却十分缓慢。动量（Momentum）会累积历史梯度：方向一致的分量会被放大，而振荡的分量则会相互抵消，从而实现更平滑、更快的收敛（Convergence）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the key difference between Adam and AdamW?",
+      "questionZh": "Adam 优化器（Adam）与 AdamW 优化器（AdamW）之间的关键区别是什么？",
+      "options": [
+        "AdamW uses a higher learning rate",
+        "AdamW applies weight decay directly to weights instead of through the gradient, giving proper regularization",
+        "AdamW doesn't use momentum",
+        "AdamW only works with transformers"
+      ],
+      "optionsZh": [
+        "AdamW 优化器（AdamW）使用更高的学习率（learning rate）。",
+        "AdamW 优化器直接将权重衰减（weight decay）应用于权重（weights），而非通过梯度（gradient）进行，从而实现了正确的正则化（regularization）。",
+        "AdamW 不使用动量（Momentum）",
+        "AdamW 优化器仅适用于 Transformer 架构。"
+      ],
+      "explanation": "In Adam + L2, the adaptive learning rate scales the regularization term differently per parameter. AdamW decouples weight decay from the gradient update, applying uniform shrinkage regardless of gradient statistics.",
+      "explanationZh": "在 Adam + L2 中，自适应学习率（adaptive learning rate）会针对每个参数对正则化项（regularization term）进行不同程度的缩放。AdamW 将权重衰减（weight decay）与梯度更新（gradient update）解耦，无论梯度统计信息（gradient statistics）如何，均施加均匀的收缩效果。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does Adam use bias correction in early training steps?",
+      "questionZh": "为什么Adam优化器在训练初期需要使用偏差校正（Bias Correction）？",
+      "options": [
+        "To prevent overfitting",
+        "The moment estimates are initialized to zero, so early values are biased toward zero; correction compensates for this cold start",
+        "To clip large gradients",
+        "To speed up convergence"
+      ],
+      "optionsZh": [
+        "为防止过拟合（Overfitting）",
+        "矩估计（moment estimates）初始化为零，因此早期值会偏向于零；修正（correction）机制补偿了这种冷启动（cold start）效应。",
+        "用于裁剪过大的梯度（Gradient Clipping）",
+        "为了加快收敛 (convergence) 速度"
+      ],
+      "explanation": "At step 1 with beta1=0.9, m_1 = 0.1 * gradient (10x too small). Dividing by (1 - 0.9^1) = 0.1 corrects this to the actual gradient. The correction becomes negligible after ~50 steps.",
+      "explanationZh": "在第 1 步（step）且 beta1=0.9 时，m_1 = 0.1 * 梯度（gradient）（数值偏小 10 倍）。除以 (1 - 0.9^1) = 0.1 可将其修正为实际梯度。经过约 50 步后，该修正项的影响可忽略不计。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What are the standard default hyperparameters for Adam?",
+      "questionZh": "Adam优化器 (Adam Optimizer) 的标准默认超参数 (hyperparameters) 是什么？",
+      "options": [
+        "lr=0.1, beta1=0.5, beta2=0.5",
+        "lr=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8",
+        "lr=0.01, beta1=0.99, beta2=0.99",
+        "lr=0.0001, beta1=0.8, beta2=0.9"
+      ],
+      "optionsZh": [
+        "lr=0.1, beta1=0.5, beta2=0.5",
+        "lr=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8",
+        "lr=0.01, beta1=0.99, beta2=0.99",
+        "lr=0.0001, beta1=0.8, beta2=0.9"
+      ],
+      "explanation": "The original Adam paper (Kingma & Ba, 2014) recommended lr=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8. These defaults work well for most problems.",
+      "explanationZh": "Adam优化器 (Adam) 的原始论文 (Kingma & Ba, 2014) 推荐设置 lr=0.001、beta1=0.9、beta2=0.999、epsilon=1e-8。这些默认参数在大多数问题中均表现良好。"
+    },
+    {
+      "stage": "post",
+      "correct": 3,
+      "question": "Which optimizer is the modern default for training transformers and LLMs?",
+      "questionZh": "目前训练 Transformer 和大语言模型（LLM）的默认优化器（Optimizer）是什么？",
+      "options": [
+        "Vanilla SGD",
+        "SGD with momentum",
+        "RMSProp",
+        "AdamW"
+      ],
+      "optionsZh": [
+        "标准随机梯度下降 (Vanilla SGD)",
+        "带动量的随机梯度下降（SGD with Momentum）",
+        "RMSProp",
+        "AdamW"
+      ],
+      "explanation": "AdamW (Adam with decoupled weight decay) is used to train BERT, GPT, LLaMA, and virtually all modern transformers. It combines adaptive learning rates with proper weight decay regularization.",
+      "explanationZh": "AdamW（带解耦权重衰减的 Adam）被用于训练 BERT、GPT、LLaMA 以及几乎所有现代 Transformer 模型（Transformer）。该算法将自适应学习率（adaptive learning rates）与恰当的权重衰减正则化（weight decay regularization）相结合。"
+    }
+  ]
+}

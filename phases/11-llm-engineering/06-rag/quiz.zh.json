@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does RAG stand for and what problem does it solve?",
+      "questionZh": "RAG（检索增强生成，Retrieval-Augmented Generation）代表什么？它解决了什么问题？",
+      "options": [
+        "Random Augmented Generation -- generating random outputs",
+        "Retrieval-Augmented Generation -- giving LLMs access to external knowledge they weren't trained on",
+        "Recurrent Attention Generation -- improving attention mechanisms",
+        "Reduced Architecture Generation -- making models smaller"
+      ],
+      "optionsZh": [
+        "随机增强生成（Random Augmented Generation）—— 生成随机输出",
+        "检索增强生成（Retrieval-Augmented Generation）—— 让大语言模型（LLMs）能够访问其训练数据之外的外部知识。",
+        "循环注意力生成（Recurrent Attention Generation）——改进注意力机制（Attention Mechanism）",
+        "精简架构生成 (Reduced Architecture Generation)——使模型更轻量"
+      ],
+      "explanation": "RAG retrieves relevant documents from an external knowledge base and adds them to the prompt. This gives the LLM access to up-to-date, domain-specific information without retraining.",
+      "explanationZh": "检索增强生成（RAG）从外部知识库中检索相关文档，并将其添加到提示词（Prompt）中。这使得大语言模型（LLM）无需重新训练即可获取最新、特定领域的信息。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why is RAG preferred over fine-tuning for most knowledge-grounded applications?",
+      "questionZh": "为什么在大多数基于知识的应用（knowledge-grounded applications）中，检索增强生成（Retrieval-Augmented Generation）比微调（fine-tuning）更受青睐？",
+      "options": [
+        "RAG produces better models",
+        "RAG is cheaper, instantly updatable when documents change, and provides source attribution -- fine-tuning is expensive and becomes stale",
+        "Fine-tuning doesn't work",
+        "RAG uses less memory"
+      ],
+      "optionsZh": [
+        "检索增强生成（RAG）能够构建出更优的模型",
+        "检索增强生成（RAG）成本更低，文档变更时可即时更新，并提供来源溯源；而微调（fine-tuning）成本高昂，且知识容易过时。",
+        "微调（Fine-tuning）无效",
+        "检索增强生成（RAG）占用更少的内存。"
+      ],
+      "explanation": "Fine-tuning costs thousands of dollars, produces a static model that becomes stale as documents change, and offers no source attribution. RAG updates instantly (just update the document store), costs only embedding + storage, and can cite its sources.",
+      "explanationZh": "微调 (Fine-tuning) 的成本高达数千美元，生成的是静态模型，会随着文档变更而过时，且无法提供来源溯源。检索增强生成 (RAG) 可实现即时更新（只需更新文档存储），成本仅涉及嵌入 (Embedding) 与存储，并且能够准确引用信息来源。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the correct order of steps in a basic RAG pipeline?",
+      "questionZh": "在基础的检索增强生成（RAG）流水线中，步骤的正确顺序是什么？",
+      "options": [
+        "Generate, retrieve, embed, chunk",
+        "Chunk documents, embed chunks, store in vector DB, embed query, retrieve similar chunks, generate answer with context",
+        "Embed query, generate answer, retrieve documents",
+        "Store documents, query the LLM, add documents to response"
+      ],
+      "optionsZh": [
+        "生成 (Generate)、检索 (Retrieve)、嵌入 (Embed)、分块 (Chunk)",
+        "文档分块（Chunk Documents），分块嵌入（Embed Chunks），存储至向量数据库（Vector DB），查询嵌入（Embed Query），检索相似分块（Retrieve Similar Chunks），结合上下文生成答案（Generate Answer with Context）",
+        "嵌入查询、生成答案、检索文档",
+        "存储文档，查询大语言模型 (LLM)，将文档添加到响应中"
+      ],
+      "explanation": "Ingestion: chunk documents -> embed chunks -> store in vector DB. Query time: embed the user's query -> retrieve top-K similar chunks -> add chunks to prompt -> generate answer grounded in retrieved context.",
+      "explanationZh": "数据摄入（Data Ingestion）：文档分块（Document Chunking） -> 文本块嵌入（Embedding） -> 存储至向量数据库（Vector Database）。查询阶段（Query Time）：用户查询嵌入 -> 检索最相似的 Top-K 个文本块 -> 将文本块加入提示词（Prompt） -> 基于检索上下文生成答案。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is a common failure mode in basic RAG systems?",
+      "questionZh": "基础检索增强生成（Retrieval-Augmented Generation, RAG）系统中常见的失效模式是什么？",
+      "options": [
+        "The LLM refuses to answer",
+        "The retrieved chunks are semantically similar to the query but don't contain the actual answer (e.g., returning 'revenue strategy' when asked for 'Q3 revenue numbers')",
+        "The vector database crashes",
+        "The embeddings are too large"
+      ],
+      "optionsZh": [
+        "大语言模型（LLM）拒绝回答。",
+        "检索到的文本块（Chunks）与查询（Query）在语义上相似，但并未包含实际答案（例如，当询问“第三季度营收数据”时，返回的却是“营收策略”）。",
+        "向量数据库 (Vector Database) 崩溃",
+        "嵌入（Embeddings）过大"
+      ],
+      "explanation": "Semantic search finds text that 'sounds like' the query, not necessarily text that 'answers' it. A query about revenue might retrieve chunks discussing revenue strategy rather than the chunk containing the actual number.",
+      "explanationZh": "语义搜索（Semantic Search）会检索与查询（Query）“语义相似”的文本，而不一定是能直接“回答”该查询的文本。关于营收的查询可能会检索到讨论营收策略的文本块（Chunks），而非包含具体数值的文本块。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How do you evaluate RAG quality?",
+      "questionZh": "如何评估检索增强生成（RAG）的质量？",
+      "options": [
+        "By checking if the LLM produces any output",
+        "Using both retrieval metrics (did we find the right chunks?) and generation metrics (is the answer faithful to the retrieved context?)",
+        "By measuring response time only",
+        "By counting the number of retrieved documents"
+      ],
+      "optionsZh": [
+        "通过检查大语言模型（Large Language Model）是否生成任何输出",
+        "同时使用检索指标 (Retrieval Metrics)（我们是否找到了正确的文本块？）和生成指标 (Generation Metrics)（答案是否忠实于检索到的上下文？）",
+        "仅通过测量响应时间 (Response Time)",
+        "通过统计检索文档（retrieved documents）的数量"
+      ],
+      "explanation": "RAG evaluation has two parts: retrieval quality (precision/recall of retrieved chunks against ground truth) and generation quality (faithfulness to context, relevance to query, no hallucination beyond retrieved information).",
+      "explanationZh": "RAG（检索增强生成）评估包含两个部分：检索质量（Retrieval Quality）和生成质量（Generation Quality）。检索质量主要衡量检索到的文本块（Retrieved Chunks）相对于基准事实（Ground Truth）的精确率（Precision）与召回率（Recall）；生成质量则关注对上下文的忠实度（Faithfulness to Context）、与查询的相关性（Relevance to Query），以及是否会产生超出检索信息范围的幻觉（Hallucination）。"
+    }
+  ]
+}

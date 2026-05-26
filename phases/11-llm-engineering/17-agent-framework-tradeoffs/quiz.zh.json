@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "Which framework is the right first pick for a workflow that must resume after a crash, accept a human approval mid-run, and fan out to three retrievers in parallel?",
+      "questionZh": "对于一个必须在崩溃后恢复、运行中途接受人工审批，并能并行扇出（fan out）至三个检索器（retriever）的工作流（workflow），哪个框架（framework）是首选？",
+      "options": [
+        "CrewAI",
+        "AutoGen",
+        "LangGraph",
+        "Agno"
+      ],
+      "optionsZh": [
+        "CrewAI",
+        "AutoGen",
+        "LangGraph",
+        "Agno"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does LLM-selected routing cost more tokens per turn than explicit routing?",
+      "questionZh": "为什么大语言模型（LLM）选择的路由（LLM-selected routing）比显式路由（explicit routing）每轮交互消耗的 token 更多？",
+      "options": [
+        "It pre-fetches the next node in parallel to hedge latency.",
+        "A planner LLM call picks the next step each turn, adding prompt and completion tokens for every decision.",
+        "It duplicates the tool list for every agent in the crew.",
+        "It sends the whole conversation history to a verifier model."
+      ],
+      "optionsZh": [
+        "它并行预取（prefetch）下一个节点，以掩盖延迟（latency）。",
+        "规划器大语言模型（Planner LLM）的每次调用都会在每一轮中选定下一步，从而为每次决策增加提示词（prompt）与补全（completion）的词元（token）消耗。",
+        "它会为团队（Crew）中的每个智能体（Agent）复制一份工具列表（Tool List）。",
+        "它将完整的对话历史发送给验证模型（Verifier Model）。"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "Proposer-critic dialogue in code review naturally maps to which framework's core abstraction?",
+      "questionZh": "代码审查 (Code Review) 中的提议者-批评者对话 (Proposer-Critic Dialogue) 自然映射到哪个框架的核心抽象 (Core Abstraction)？",
+      "options": [
+        "CrewAI's sequential Crew",
+        "LangGraph's StateGraph",
+        "AutoGen's GroupChat / ConversableAgent pair",
+        "Agno's single Agent with tools"
+      ],
+      "optionsZh": [
+        "CrewAI 的顺序型 Crew (Sequential Crew)",
+        "LangGraph 的状态图 (StateGraph)",
+        "AutoGen 的 GroupChat / ConversableAgent 组合",
+        "Agno 的带工具单智能体（Agent）"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    },
+    {
+      "stage": "post",
+      "correct": 3,
+      "question": "Which framework has built-in storage drivers (SQLite, Postgres, Redis, Mongo, DynamoDB) attached directly to the Agent primitive for session and memory persistence?",
+      "questionZh": "哪个框架将内置存储驱动（Storage Drivers，如 SQLite、Postgres、Redis、Mongo、DynamoDB）直接集成至 Agent 原语（Agent Primitive），以实现会话与记忆持久化（Session and Memory Persistence）？",
+      "options": [
+        "LangGraph",
+        "CrewAI",
+        "AutoGen",
+        "Agno"
+      ],
+      "optionsZh": [
+        "LangGraph",
+        "CrewAI",
+        "AutoGen",
+        "Agno"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "You have a two-call summarizer: fetch text, summarize. Which option is the right framework choice?",
+      "questionZh": "你有一个双调用摘要器（Two-call Summarizer）：先获取文本，再生成摘要。哪种选项才是正确的框架（Framework）选择？",
+      "options": [
+        "LangGraph StateGraph — always use a framework for reliability.",
+        "CrewAI with researcher + summarizer roles — roles make it clearer.",
+        "Plain Python with the provider SDK — no framework is the fastest framework for tiny pipelines.",
+        "AutoGen GroupChat — two agents can argue about the best summary."
+      ],
+      "optionsZh": [
+        "LangGraph StateGraph —— 始终使用框架以确保可靠性。",
+        "CrewAI 搭配研究员（Researcher）与总结者（Summarizer）角色——明确的角色设定使任务逻辑更加清晰。",
+        "纯 Python（Plain Python）搭配提供商 SDK（Provider SDK）—— 对于微型流水线（Tiny Pipelines）而言，不使用任何框架反而是最快的“框架”。",
+        "AutoGen 群聊 (GroupChat) —— 两个智能体 (agents) 可以就最佳摘要展开辩论。"
+      ],
+      "explanation": "",
+      "explanationZh": ""
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "nb-pre-1",
+      "question": "What is the 'naive' assumption in Naive Bayes?",
+      "questionZh": "朴素贝叶斯（Naive Bayes）中的“朴素”假设是什么？",
+      "options": [
+        "The prior probability of each class is equal",
+        "All features are conditionally independent given the class label",
+        "The data is normally distributed",
+        "The model has no parameters to learn"
+      ],
+      "optionsZh": [
+        "每个类别的先验概率（Prior Probability）相等。",
+        "在给定类别标签 (class label) 的条件下，所有特征 (features) 均条件独立 (conditionally independent)。",
+        "数据服从正态分布 (normally distributed)",
+        "该模型没有可学习参数 (learnable parameters)。"
+      ],
+      "explanation": "Naive Bayes assumes every feature is independent of every other feature, conditioned on the class. This is mathematically wrong (e.g., 'machine' and 'learning' co-occur) but works well in practice.",
+      "explanationZh": "朴素贝叶斯（Naive Bayes）假设在给定类别（class）的条件下，每个特征（feature）均与其他特征相互独立。这一假设在数学上并不准确（例如，“machine”与“learning”经常共现（co-occur）），但在实际应用中却表现良好。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "nb-pre-2",
+      "question": "What does Laplace smoothing prevent in Naive Bayes?",
+      "questionZh": "在朴素贝叶斯（Naive Bayes）中，拉普拉斯平滑（Laplace smoothing）主要用于防止什么问题？",
+      "options": [
+        "Overfitting to large datasets",
+        "Zero probabilities for words never seen in a class during training",
+        "Slow training on high-dimensional data",
+        "Class imbalance in the dataset"
+      ],
+      "optionsZh": [
+        "对大规模数据集的过拟合 (Overfitting to Large Datasets)",
+        "训练过程中某类别从未出现过的词汇的零概率 (Zero Probability)",
+        "高维数据 (High-dimensional data) 训练缓慢",
+        "数据集中的类别不平衡 (Class Imbalance)"
+      ],
+      "explanation": "Without smoothing, a word that never appeared in 'spam' training emails would get P(word|spam) = 0, making the entire product zero regardless of other strong evidence. Laplace smoothing adds 1 to each count.",
+      "explanationZh": "若不进行平滑 (Smoothing)，在“垃圾邮件 (spam)”训练集中从未出现过的词，其条件概率 P(word|spam) 将为 0。这将导致整个概率乘积归零，无论其他证据多么充分。拉普拉斯平滑 (Laplace smoothing) 会为每个计数加 1。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "nb-post-1",
+      "question": "The naive independence assumption is clearly wrong for text. Why does Naive Bayes still classify well?",
+      "questionZh": "对于文本数据而言，朴素独立性假设（Naive Independence Assumption）显然是不成立的。那么，为什么朴素贝叶斯（Naive Bayes）依然能取得良好的分类效果呢？",
+      "options": [
+        "It only works on very small vocabularies where independence holds",
+        "Classification only needs correct class rankings, not correct probability estimates, and the assumption introduces stable errors that affect all classes similarly",
+        "Modern implementations secretly remove the independence assumption",
+        "It only works when features are truly independent"
+      ],
+      "optionsZh": [
+        "它仅适用于独立性 (independence) 假设成立的极小词汇表 (vocabulary)。",
+        "分类（Classification）仅需正确的类别排序（Class Rankings），而非准确的概率估计（Probability Estimates）；该假设（Assumption）会引入稳定误差（Stable Errors），且这些误差对所有类别的影响是相似的。",
+        "现代实现实际上隐式地移除了独立性假设 (independence assumption)。",
+        "仅当特征 (features) 真正相互独立时，该方法才有效。"
+      ],
+      "explanation": "NB needs to rank classes correctly, not estimate exact probabilities. The independence assumption is high bias but low variance, making it stable with limited data. Correlated features double-count evidence for the correct class too.",
+      "explanationZh": "朴素贝叶斯（Naive Bayes）的核心在于正确地对类别进行排序，而非精确估计概率。其独立性假设（Independence Assumption）带来了高偏差（High Bias）但低方差（Low Variance）的特性，这使得模型在数据有限时仍能保持稳定。此外，相关特征（Correlated Features）同样会导致对正确类别的证据被重复计算。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "nb-post-2",
+      "question": "When should you use Multinomial NB versus Gaussian NB?",
+      "questionZh": "何时应使用多项式朴素贝叶斯（Multinomial NB）而非高斯朴素贝叶斯（Gaussian NB）？",
+      "options": [
+        "Multinomial for regression, Gaussian for classification",
+        "Multinomial for word count/frequency features, Gaussian for continuous real-valued features",
+        "Multinomial for binary data, Gaussian for multi-class problems",
+        "They are interchangeable -- always use whichever is faster"
+      ],
+      "optionsZh": [
+        "多项分布 (Multinomial) 用于回归 (Regression)，高斯分布 (Gaussian) 用于分类 (Classification)。",
+        "多项式（Multinomial）适用于词计数/词频特征，高斯（Gaussian）适用于连续实值特征。",
+        "多项式（Multinomial）适用于二值数据（binary data），高斯（Gaussian）适用于多分类问题（multi-class problems）",
+        "它们可互换使用——请始终选择速度更快的那个。"
+      ],
+      "explanation": "Multinomial NB models feature counts (word frequencies in text). Gaussian NB assumes features follow normal distributions, suitable for continuous features like measurements or sensor readings.",
+      "explanationZh": "多项式朴素贝叶斯 (Multinomial Naive Bayes) 模型对特征计数 (feature counts)（如文本中的词频）进行建模。高斯朴素贝叶斯 (Gaussian Naive Bayes) 假设特征服从正态分布 (normal distribution)，适用于连续特征 (continuous features)，例如测量值或传感器读数。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "nb-post-3",
+      "question": "An email contains 'free' twice and 'money' once. In Multinomial NB with log probabilities, how is the spam score computed?",
+      "questionZh": "一封电子邮件中出现了两次“free”和一次“money”。在使用对数概率 (log probabilities) 的多项式朴素贝叶斯 (Multinomial Naive Bayes) 模型中，垃圾邮件评分 (spam score) 是如何计算的？",
+      "options": [
+        "log P(spam) + log P(free|spam) + log P(money|spam)",
+        "log P(spam) + 2 * log P(free|spam) + 1 * log P(money|spam)",
+        "P(spam) * P(free|spam) * P(money|spam)",
+        "log P(spam) * 2 * log P(free|spam)"
+      ],
+      "optionsZh": [
+        "log P(spam) + log P(free|spam) + log P(money|spam)",
+        "log P(spam) + 2 * log P(free|spam) + 1 * log P(money|spam)",
+        "P(spam) * P(free|spam) * P(money|spam)",
+        "log P(spam) * 2 * log P(free|spam)"
+      ],
+      "explanation": "Multinomial NB multiplies the word likelihoods raised to their count. In log space: log P(spam) + 2*log P(free|spam) + 1*log P(money|spam). The word count acts as an exponent.",
+      "explanationZh": "多项式朴素贝叶斯（Multinomial Naive Bayes）会将各词的似然概率（word likelihoods）以其出现次数为指数进行连乘。在对数空间（log space）中，该计算表示为：log P(spam) + 2*log P(free|spam) + 1*log P(money|spam)。其中，词频（word count）直接作为指数参与运算。"
+    }
+  ]
+}

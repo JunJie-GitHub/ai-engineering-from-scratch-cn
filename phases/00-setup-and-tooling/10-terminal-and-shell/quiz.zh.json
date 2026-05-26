@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the pipe operator '|' do in a shell command?",
+      "questionZh": "在 Shell 命令（shell command）中，管道操作符（pipe operator）'|' 的作用是什么？",
+      "options": [
+        "Runs two commands in parallel",
+        "Sends the standard output of one command as standard input to the next",
+        "Saves the output of a command to a file",
+        "Combines two files into one"
+      ],
+      "optionsZh": [
+        "并行 (parallel) 执行两条命令",
+        "将一个命令的标准输出（Standard Output）作为标准输入（Standard Input）传递给下一个命令。",
+        "将命令的输出保存到文件中",
+        "将两个文件合并为一个"
+      ],
+      "explanation": "The pipe operator connects commands in a pipeline. For example, 'cat log.txt | grep error' sends the contents of log.txt as input to grep, which filters for lines containing 'error'.",
+      "explanationZh": "管道操作符（pipe operator）用于连接管道（pipeline）中的命令。例如，'cat log.txt | grep error' 会将 log.txt 的内容作为输入传递给 grep，后者会筛选出包含 'error' 的行。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What happens to a running process when you close the terminal that started it?",
+      "questionZh": "当你关闭启动某个运行中进程 (process) 的终端 (terminal) 时，该进程会发生什么？",
+      "options": [
+        "The process continues running in the background",
+        "The process receives a hangup signal (SIGHUP) and typically terminates",
+        "The process pauses until you open a new terminal",
+        "The process automatically migrates to a system service"
+      ],
+      "optionsZh": [
+        "该进程 (process) 将继续在后台运行。",
+        "该进程在接收到挂断信号 (SIGHUP) 后通常会终止。",
+        "该进程 (process) 将暂停，直到您打开一个新的终端 (terminal)。",
+        "该进程 (process) 将自动迁移至系统服务 (system service)。"
+      ],
+      "explanation": "Closing the terminal sends SIGHUP to child processes, which causes them to terminate by default. Tools like tmux, nohup, or screen prevent this.",
+      "explanationZh": "关闭终端会向子进程 (child processes) 发送挂断信号 (SIGHUP)，默认情况下会导致它们终止。使用 tmux、nohup 或 screen 等工具可防止此情况发生。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the key advantage of tmux over using 'nohup command &' for long-running training jobs?",
+      "questionZh": "与使用 'nohup command &' 相比，tmux 在长时间运行的训练任务中的关键优势是什么？",
+      "options": [
+        "tmux uses less CPU than nohup",
+        "tmux lets you detach, reattach, and see live output with multiple panes",
+        "tmux automatically restarts failed processes",
+        "tmux compresses the process output to save disk space"
+      ],
+      "optionsZh": [
+        "tmux 比 nohup 占用更少的 CPU 资源。",
+        "tmux 允许你分离（detach）和重新连接（reattach）会话，并在多个窗格（panes）中查看实时输出（live output）。",
+        "tmux 会自动重启失败的进程。",
+        "tmux 会压缩进程输出，以节省磁盘空间。"
+      ],
+      "explanation": "tmux creates persistent sessions you can detach from and reattach to later, with live output visible in multiple panes. nohup only logs to a file with no way to interact or reattach.",
+      "explanationZh": "tmux 能够创建持久化会话（persistent sessions），支持随时分离（detach）并在之后重新连接（reattach），且实时输出（live output）可在多个窗格（panes）中查看。相比之下，nohup 仅将输出记录到文件中，无法进行交互或重新连接。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does 'python train.py > output.log 2>&1' accomplish?",
+      "questionZh": "命令 'python train.py > output.log 2>&1' 的作用是什么？",
+      "options": [
+        "Runs train.py and saves only errors to output.log",
+        "Runs train.py and redirects both standard output and standard error to output.log",
+        "Runs train.py twice and logs the second run",
+        "Runs train.py with double the memory allocation"
+      ],
+      "optionsZh": [
+        "运行 train.py 并仅将错误信息保存至 output.log。",
+        "运行 train.py，并将标准输出 (standard output) 和标准错误 (standard error) 重定向到 output.log。",
+        "运行 train.py 两次，并记录第二次运行的日志。",
+        "使用双倍的内存分配 (memory allocation) 运行 train.py"
+      ],
+      "explanation": "'> output.log' redirects stdout to the file. '2>&1' sends stderr to the same place as stdout. The result is both normal output and errors captured in one file.",
+      "explanationZh": "`'> output.log'` 将标准输出（stdout）重定向到该文件。`'2>&1'` 将标准错误（stderr）发送到与标准输出相同的位置。最终结果是正常输出和错误信息都被捕获到同一个文件中。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Which command lets you access a remote Jupyter notebook running on port 8888 of a GPU box from your local browser?",
+      "questionZh": "哪个命令允许你通过本地浏览器访问运行在 GPU 主机（GPU box）8888 端口上的远程 Jupyter 笔记本（Jupyter Notebook）？",
+      "options": [
+        "scp -P 8888 user@gpu-box:~/notebook.ipynb",
+        "ssh -L 8888:localhost:8888 user@gpu-box",
+        "rsync -avz user@gpu-box:8888 localhost:8888",
+        "ssh user@gpu-box --forward-port 8888"
+      ],
+      "optionsZh": [
+        "scp -P 8888 user@gpu-box:~/notebook.ipynb",
+        "ssh -L 8888:localhost:8888 user@gpu-box",
+        "rsync -avz user@gpu-box:8888 localhost:8888",
+        "ssh user@gpu-box --forward-port 8888"
+      ],
+      "explanation": "SSH local port forwarding (-L) maps a remote port to your local machine. After this command, opening localhost:8888 in your browser accesses the remote Jupyter server.",
+      "explanationZh": "SSH 本地端口转发（SSH local port forwarding）通过 -L 参数将远程端口映射至本地计算机。执行该命令后，在浏览器中访问 localhost:8888 即可连接到远程 Jupyter 服务器（Jupyter server）。"
+    }
+  ]
+}

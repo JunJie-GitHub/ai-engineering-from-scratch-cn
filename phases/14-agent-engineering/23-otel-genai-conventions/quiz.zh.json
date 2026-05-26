@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Which span name represents an agent run in the GenAI conventions?",
+      "questionZh": "在生成式 AI (Generative AI) 规范中，哪个跨度名称 (span name) 代表智能体运行 (agent run)？",
+      "options": [
+        "agent.start",
+        "invoke_agent (optionally suffixed by gen_ai.agent.name)",
+        "run_chain",
+        "agent_loop"
+      ],
+      "optionsZh": [
+        "agent.start",
+        "invoke_agent（可选后缀为 gen_ai.agent.name）",
+        "run_chain",
+        "智能体循环 (agent_loop)"
+      ],
+      "explanation": "invoke_agent is the canonical name; the agent's name attribute appears in the span name when set.",
+      "explanationZh": "`invoke_agent` 是规范名称 (canonical name)；设置后，智能体 (agent) 的名称属性 (name attribute) 将显示在跨度名称 (span name) 中。"
+    },
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "Which three span categories does the GenAI SIG define?",
+      "questionZh": "生成式人工智能特别兴趣小组 (GenAI SIG) 定义了哪三个跨度 (Span) 类别？",
+      "options": [
+        "Model/client, agent, tool",
+        "Frontend, backend, db",
+        "Read, write, exec",
+        "Latency, error, throughput"
+      ],
+      "optionsZh": [
+        "模型 (Model)/客户端 (Client)、智能体 (Agent)、工具 (Tool)",
+        "前端 (Frontend)、后端 (Backend)、数据库 (Database)",
+        "读取、写入、执行",
+        "延迟 (Latency)、错误 (Error) 和吞吐量 (Throughput)"
+      ],
+      "explanation": "Model/client (LLM calls), agent (create/invoke), tool (per invocation) are the categories.",
+      "explanationZh": "主要分为以下几类：模型/客户端（Model/Client，对应 LLM 调用）、智能体（Agent，对应创建/调用）以及工具（Tool，对应单次调用）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "When does an invoke_agent span use kind CLIENT vs INTERNAL?",
+      "questionZh": "`invoke_agent` 跨度（span）在何时使用 `CLIENT` 类型（kind），何时使用 `INTERNAL` 类型？",
+      "options": [
+        "Always INTERNAL",
+        "CLIENT for remote agent services (OpenAI Assistants, Bedrock Agents); INTERNAL for in-process frameworks (LangChain, CrewAI, local ReAct)",
+        "CLIENT for HTTPS only",
+        "Always CLIENT"
+      ],
+      "optionsZh": [
+        "始终为内部（INTERNAL）",
+        "CLIENT 用于远程智能体服务 (Remote Agent Services)（OpenAI Assistants、Bedrock Agents）；INTERNAL 用于进程内框架 (In-process Frameworks)（LangChain、CrewAI、本地 ReAct）。",
+        "仅适用于 HTTPS 的客户端 (Client)",
+        "始终为 CLIENT"
+      ],
+      "explanation": "Remote agent calls are CLIENT; in-process agent runs are INTERNAL.",
+      "explanationZh": "远程代理调用（Remote agent calls）属于 CLIENT；进程内代理运行（In-process agent runs）属于 INTERNAL。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is the default rule for content capture (inputs and outputs)?",
+      "questionZh": "内容捕获（content capture）的默认规则是什么（针对输入和输出）？",
+      "options": [
+        "Capture everything by default",
+        "Instrumentations SHOULD NOT capture by default; capture is opt-in via gen_ai.* attributes",
+        "Capture only output, never input",
+        "Capture only on errors"
+      ],
+      "optionsZh": [
+        "默认捕获所有内容",
+        "插桩（Instrumentation）默认不应进行采集（capture）；采集需通过 `gen_ai.*` 属性（attributes）显式启用（opt-in）。",
+        "仅捕获输出，绝不捕获输入",
+        "仅在发生错误时捕获"
+      ],
+      "explanation": "Default-off content capture protects PII and secrets; opt-in is explicit.",
+      "explanationZh": "默认关闭的内容捕获（Content Capture）功能可保护个人身份信息（Personally Identifiable Information, PII）与敏感信息（Secrets）；启用该功能需用户明确选择（Opt-in）。"
+    },
+    {
+      "stage": "check",
+      "correct": 2,
+      "question": "Which attribute identifies the corpus or store consulted for a retrieval?",
+      "questionZh": "哪个属性用于标识执行检索（retrieval）时所查询的语料库（corpus）或存储（store）？",
+      "options": [
+        "gen_ai.provider.name",
+        "gen_ai.request.model",
+        "gen_ai.data_source.id",
+        "gen_ai.agent.name"
+      ],
+      "optionsZh": [
+        "gen_ai.provider.name",
+        "gen_ai.request.model",
+        "gen_ai.data_source.id",
+        "gen_ai.agent.name"
+      ],
+      "explanation": "gen_ai.data_source.id labels the RAG corpus or store hit by retrieval.",
+      "explanationZh": "`gen_ai.data_source.id` 用于标识被检索命中的 RAG（检索增强生成）语料库或存储库。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the lesson recommend for storing prompt content in production?",
+      "questionZh": "本课程建议在生产环境（Production）中如何存储提示词（Prompt）内容？",
+      "options": [
+        "Capture full prompts on every span as plain text",
+        "Store content externally (S3, log store) and record reference IDs on the span instead",
+        "Never store any content",
+        "Encrypt prompts in span attributes"
+      ],
+      "optionsZh": [
+        "在每个跨度（span）上以纯文本形式捕获完整提示词（prompt）",
+        "改为将内容存储在外部（如 S3、日志存储 (log store)），并在跨度 (span) 上记录引用 ID (reference IDs)。",
+        "切勿存储任何内容",
+        "在跨度属性 (Span Attributes) 中加密提示词 (Prompt)"
+      ],
+      "explanation": "External storage with pointer IDs avoids PII leaking into traces that ops can read.",
+      "explanationZh": "采用指针标识符（pointer IDs）的外部存储可避免个人身份信息（PII）泄露至运维人员（ops）可读取的追踪数据（traces）中。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How do you opt into the experimental stable preview of GenAI conventions?",
+      "questionZh": "如何启用生成式人工智能（GenAI）规范（conventions）的实验性稳定预览版（experimental stable preview）？",
+      "options": [
+        "Edit the OTel collector config",
+        "Set OTEL_SEMCONV_STABILITY_OPT_IN=gen_ai_latest_experimental",
+        "Rebuild the SDK from source",
+        "Pay for a license"
+      ],
+      "optionsZh": [
+        "编辑 OpenTelemetry (OTel) 收集器配置",
+        "设置 OTEL_SEMCONV_STABILITY_OPT_IN=gen_ai_latest_experimental",
+        "从源代码重新构建软件开发工具包 (SDK)",
+        "购买许可证 (License)"
+      ],
+      "explanation": "The env var pins the experimental conventions so attributes are not silently renamed.",
+      "explanationZh": "该环境变量（Environment Variable）用于锁定实验性约定（Experimental Conventions），从而防止属性被静默重命名。"
+    }
+  ]
+}

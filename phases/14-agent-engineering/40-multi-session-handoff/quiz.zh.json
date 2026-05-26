@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Which field is the load-bearing one in a handoff packet?",
+      "questionZh": "在交接数据包（handoff packet）中，哪个字段是核心（load-bearing）的？",
+      "options": [
+        "summary",
+        "next_action (without it, the document is a status report, not a handoff)",
+        "commands_run",
+        "verdict_pointer"
+      ],
+      "optionsZh": [
+        "summary",
+        "next_action（若无此项，该文档仅为状态报告，而非交接文档）",
+        "commands_run",
+        "verdict_pointer"
+      ],
+      "explanation": "A handoff with everything except next_action is a status report; the next concrete step is what makes the next session productive.",
+      "explanationZh": "交接（handoff）若包含除 next_action 外的所有内容，则仅是一份状态报告（status report）；明确下一步的具体操作，才是让下一次会话（session）保持高效的关键。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why are handoffs generated, not written?",
+      "questionZh": "为什么交接文档（handoff）是生成的，而非人工编写的？",
+      "options": [
+        "Generators are faster",
+        "Hand-written handoffs get skipped on a hard day; the generator reads workbench artifacts and emits the packet, so the agent just leaves the workbench in a state the generator can summarize",
+        "Generators encrypt better",
+        "Apache 2.0 requires it"
+      ],
+      "optionsZh": [
+        "生成器 (Generators) 速度更快",
+        "在任务繁重或情况复杂时，手动编写的交接 (handoff) 往往会被跳过；生成器 (generator) 会直接读取工作台工件 (workbench artifact) 并输出数据包 (packet)，因此智能体 (agent) 只需将工作台维持在生成器能够总结 (summarize) 的状态即可。",
+        "生成器（Generators）加密效果更佳",
+        "Apache 2.0 许可证对此有要求"
+      ],
+      "explanation": "Automation closes the gap between intention and consistency.",
+      "explanationZh": "自动化弥合了设计意图与执行一致性之间的差距。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Which two forms does the packet ship in?",
+      "questionZh": "该数据包 (packet) 以哪两种形式交付？",
+      "options": [
+        "PDF and PNG",
+        "handoff.md (human-readable) and handoff.json (machine-readable, both from the same source artifacts; JSON wins on divergence)",
+        "Email and Slack",
+        "YAML and TOML"
+      ],
+      "optionsZh": [
+        "PDF 与 PNG",
+        "handoff.md（人类可读 (human-readable)）和 handoff.json（机器可读 (machine-readable)，两者均源自相同的源工件 (source artifacts)；若存在不一致，以 JSON 为准）",
+        "电子邮件 (Email) 与 Slack",
+        "YAML 和 TOML"
+      ],
+      "explanation": "Markdown for humans, JSON for the next agent; both come from the same generator.",
+      "explanationZh": "供人类阅读的 Markdown，供下一个智能体 (Agent) 使用的 JSON；两者均由同一生成器 (Generator) 生成。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "How does the lesson distinguish compaction from handoff?",
+      "questionZh": "本节内容如何区分压缩（Compaction）与交接（Handoff）？",
+      "options": [
+        "They are the same",
+        "Compaction extends a session; handoff closes one cleanly and starts the next in fresh context. The packet is what makes that transition cheap",
+        "Compaction is paid, handoff is free",
+        "Handoff requires GPU"
+      ],
+      "optionsZh": [
+        "它们是相同的。",
+        "压缩 (Compaction) 用于延长会话；切换 (Handoff) 则负责优雅地关闭当前会话，并在全新的上下文中启动下一个会话。数据包 (Packet) 正是实现这一低开销过渡的关键。",
+        "合并（Compaction）是有开销的，交接（Handoff）是无开销的。",
+        "交接（Handoff）需要 GPU。"
+      ],
+      "explanation": "Hermes Issue 20372 framing: write a compact handoff before in-place compression degrades quality, then resume in a fresh session.",
+      "explanationZh": "Hermes Issue 20372 方案框架：在原地压缩（in-place compression）导致质量下降之前，先写入一份精简的状态交接（compact handoff），随后在全新会话（fresh session）中恢复执行。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does the lesson recommend about when to wrap up a session?",
+      "questionZh": "课程建议在何时结束会话 (session)？",
+      "options": [
+        "At 100% context, then panic",
+        "Before 50-75% context budget, while context is intact; cheap to write before compression artifacts pollute state",
+        "Only at midnight",
+        "Only after a merge"
+      ],
+      "optionsZh": [
+        "当上下文（Context）达到 100% 时，触发崩溃（Panic）。",
+        "在上下文预算 (context budget) 消耗至 50-75% 之前，此时上下文仍保持完整；在压缩失真 (compression artifacts) 污染状态 (state) 之前，写入开销较低。",
+        "仅在午夜",
+        "仅在合并（merge）之后"
+      ],
+      "explanation": "Wrapping up early keeps the generator's inputs clean.",
+      "explanationZh": "提前结束处理可确保生成器 (generator) 的输入数据保持纯净。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the lesson recommend trimming the feedback log to in the packet?",
+      "questionZh": "课程建议将数据包（packet）中的反馈日志（feedback log）精简至什么程度？",
+      "options": [
+        "First K entries only",
+        "Last K entries plus every entry with a non-zero exit, so the packet stays small while the failure history survives",
+        "Random N entries",
+        "Only the most recent entry"
+      ],
+      "optionsZh": [
+        "仅前 K 项",
+        "保留最近的 K 条记录以及所有非零退出状态码（non-zero exit code）的条目，从而在保留故障历史（failure history）的同时，确保数据包（packet）体积保持较小。",
+        "随机 N 个条目",
+        "仅保留最新条目"
+      ],
+      "explanation": "Asymmetric trim: failures must survive; trivia at the tail is cheap to keep.",
+      "explanationZh": "非对称修剪（Asymmetric trim）：必须保留失败样本；尾部琐碎数据的保留成本极低。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What metadata makes coordination across multi-agent sessions work?",
+      "questionZh": "哪些元数据（metadata）能够实现跨多智能体会话（multi-agent sessions）的有效协同（coordination）？",
+      "options": [
+        "Top secret encryption",
+        "branch, last_known_good_commit, and status (active | superseded | archived); only one active handoff per branch and topic",
+        "A shared Slack channel",
+        "A central queue"
+      ],
+      "optionsZh": [
+        "绝密加密 (Top Secret Encryption)",
+        "分支（branch）、`last_known_good_commit` 与状态（status，可选值为 `active`（活跃）| `superseded`（已取代）| `archived`（已归档））；每个分支和主题仅允许存在一个处于活跃状态的交接（handoff）。",
+        "共享 Slack 频道",
+        "中央队列 (Central Queue)"
+      ],
+      "explanation": "Stale handoffs are the dominant multi-agent failure; status + branch + LKG keep the active set small.",
+      "explanationZh": "陈旧交接 (Stale Handoffs) 是多智能体系统 (Multi-Agent System) 中最主要的故障模式；通过状态 (Status) + 分支 (Branch) + LKG 机制，可有效保持活跃集 (Active Set) 的规模较小。"
+    }
+  ]
+}

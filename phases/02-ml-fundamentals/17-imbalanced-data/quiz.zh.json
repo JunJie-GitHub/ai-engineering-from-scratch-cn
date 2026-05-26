@@ -1,0 +1,109 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 2,
+      "id": "imbalanced-pre-1",
+      "question": "A fraud detection dataset has 99.9% legitimate transactions and 0.1% fraud. A model predicts 'legitimate' for every transaction. What is its accuracy?",
+      "questionZh": "某欺诈检测数据集 (Fraud Detection Dataset) 中，正常交易 (Legitimate Transactions) 占比 99.9%，欺诈交易占比 0.1%。若某模型 (Model) 将所有交易均预测为“正常”，则该模型的准确率 (Accuracy) 是多少？",
+      "options": [
+        "50%",
+        "0.1%",
+        "99.9%",
+        "100%"
+      ],
+      "optionsZh": [
+        "50%",
+        "0.1%",
+        "99.9%",
+        "100%"
+      ],
+      "explanation": "Accuracy = 999/1000 = 99.9%. The model catches zero fraud but looks great by accuracy. This is exactly why accuracy is dangerous for imbalanced datasets.",
+      "explanationZh": "准确率（Accuracy）= 999/1000 = 99.9%。该模型未能捕获任何欺诈样本，但仅凭准确率来看却显得非常出色。这正是准确率（Accuracy）在不平衡数据集（Imbalanced Datasets）上极具误导性的原因。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "imbalanced-pre-2",
+      "question": "Which metric would correctly identify the always-predict-negative model as useless?",
+      "questionZh": "哪种评估指标（Metric）能够正确地将始终预测为负类的模型（Always-Predict-Negative Model）识别为无效？",
+      "options": [
+        "Accuracy (99.9%)",
+        "Recall (0%) or F1 score (0%)",
+        "Specificity (100%)",
+        "True negative rate (100%)"
+      ],
+      "optionsZh": [
+        "准确率 (Accuracy) (99.9%)",
+        "召回率 (Recall) 为 0% 或 F1分数 (F1 score) 为 0%",
+        "特异度 (Specificity) (100%)",
+        "真负率 (True Negative Rate) (100%)"
+      ],
+      "explanation": "Recall = TP/(TP+FN) = 0/total_positives = 0%. F1 = 2*0*0/(0+0) = 0. Both correctly show the model catches nothing in the positive class. Accuracy hides this failure.",
+      "explanationZh": "召回率（Recall）= TP/(TP+FN) = 0/total_positives = 0%。F1分数（F1 Score）= 2*0*0/(0+0) = 0。这两项指标均正确地表明，该模型在正类（Positive Class）中未能识别出任何样本。而准确率（Accuracy）则掩盖了这一缺陷。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "id": "imbalanced-post-1",
+      "question": "How does SMOTE generate synthetic minority samples?",
+      "questionZh": "合成少数类过采样技术（SMOTE）是如何生成少数类合成样本的？",
+      "options": [
+        "By duplicating existing minority samples exactly",
+        "By randomly generating points anywhere in the feature space",
+        "By interpolating between a minority sample and one of its K nearest minority neighbors",
+        "By flipping the labels of majority class samples"
+      ],
+      "optionsZh": [
+        "通过精确复制现有的少数类样本 (minority samples)",
+        "通过在特征空间 (feature space) 中的任意位置随机生成点",
+        "通过在少数类样本（minority sample）与其K个最近少数类邻居（K nearest minority neighbors）之一之间进行插值（interpolation）",
+        "通过翻转多数类 (majority class) 样本的标签"
+      ],
+      "explanation": "SMOTE picks a minority point, selects one of its K nearest minority neighbors, and creates a new point on the line segment between them: new = x + rand(0,1) * (neighbor - x). This produces plausible, non-duplicate samples.",
+      "explanationZh": "合成少数类过采样技术（SMOTE）会选取一个少数类样本点，从中挑选其K个最近邻少数类样本中的一个，并在两者之间的线段上生成一个新样本点：new = x + rand(0,1) * (neighbor - x)。该方法能够生成合理且不重复的样本。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "imbalanced-post-2",
+      "question": "You lower the classification threshold from 0.5 to 0.3 on an imbalanced dataset. What happens to precision and recall?",
+      "questionZh": "在不平衡数据集（imbalanced dataset）上，将分类阈值（classification threshold）从 0.5 降至 0.3。精确率（precision）和召回率（recall）会发生什么变化？",
+      "options": [
+        "Both precision and recall increase",
+        "Recall increases (more positives caught) but precision decreases (more false positives)",
+        "Precision increases but recall decreases",
+        "Neither changes -- threshold only affects speed"
+      ],
+      "optionsZh": [
+        "精确率 (Precision) 与召回率 (Recall) 均有所提升。",
+        "召回率（Recall）上升（捕获了更多正样本），但精确率（Precision）下降（产生了更多假正例）。",
+        "精确率（Precision）上升，但召回率（Recall）下降。",
+        "两者均保持不变——阈值（threshold）仅影响速度。"
+      ],
+      "explanation": "Lowering the threshold means more samples are predicted positive. This catches more true positives (recall up) but also adds more false positives (precision down). Threshold tuning trades precision for recall.",
+      "explanationZh": "降低阈值（threshold）意味着更多样本会被预测为正类。这会捕获更多的真正例（true positives），使召回率（recall）上升，但也会引入更多的假正例（false positives），导致精确率（precision）下降。阈值调优（threshold tuning）本质上是以精确率换取召回率。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "imbalanced-post-3",
+      "question": "Why is AUPRC (Area Under Precision-Recall Curve) more informative than AUC-ROC for highly imbalanced datasets?",
+      "questionZh": "为什么在高度不平衡数据集（highly imbalanced datasets）中，精确率-召回率曲线下面积（Area Under Precision-Recall Curve, AUPRC）比ROC曲线下面积（AUC-ROC）更具参考价值？",
+      "options": [
+        "AUPRC is always higher than AUC-ROC",
+        "A random classifier has AUPRC equal to the positive class rate (e.g., 0.001), making improvements visible, while AUC-ROC starts at 0.5 regardless of imbalance",
+        "AUPRC does not require a threshold",
+        "AUC-ROC cannot be computed for imbalanced data"
+      ],
+      "optionsZh": [
+        "精确率-召回率曲线下面积（AUPRC）始终高于受试者工作特征曲线下面积（AUC-ROC）。",
+        "随机分类器（Random Classifier）的精确率-召回率曲线下面积（AUPRC）等于正类比例（Positive Class Rate）（例如 0.001），这使得改进效果更加直观可见；而无论是否存在类别不平衡（Class Imbalance），ROC曲线下面积（AUC-ROC）的基线始终为 0.5。",
+        "AUPRC（精确率-召回率曲线下面积）无需设定阈值。",
+        "对于不平衡数据（Imbalanced Data），无法计算 AUC-ROC（ROC曲线下面积）。"
+      ],
+      "explanation": "For imbalanced data, AUC-ROC can look deceptively good because the large number of true negatives inflates the true negative rate. AUPRC's baseline equals the positive rate, making real improvements in detecting the minority class much more apparent.",
+      "explanationZh": "对于不平衡数据 (Imbalanced Data)，ROC曲线下面积 (AUC-ROC) 的表现可能会好得具有欺骗性，因为大量的真负例 (True Negatives) 会抬高真负例率 (True Negative Rate)。精确率-召回率曲线下面积 (AUPRC) 的基线 (Baseline) 等于正例比例 (Positive Rate)，这使得在检测少数类 (Minority Class) 方面的实际提升变得更加明显。"
+    }
+  ]
+}

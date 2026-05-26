@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What input does Claude computer use take, and what does it emit?",
+      "questionZh": "Claude 计算机使用（Claude Computer Use）接收什么输入，又会输出什么？",
+      "options": [
+        "Accessibility tree in, keyboard/mouse commands out",
+        "Screenshots in (vision-based), keyboard/mouse commands out",
+        "DOM XML in, JavaScript out",
+        "JSON in, SQL out"
+      ],
+      "optionsZh": [
+        "输入辅助功能树（Accessibility Tree），输出键盘/鼠标指令（Keyboard/Mouse Commands）",
+        "输入为屏幕截图（基于视觉），输出为键盘/鼠标指令。",
+        "输入 DOM/XML，输出 JavaScript",
+        "输入 JSON，输出 SQL"
+      ],
+      "explanation": "Claude reads pixels and emits keyboard/mouse actions; no OS accessibility API is used.",
+      "explanationZh": "Claude 读取像素并模拟键盘/鼠标操作，未使用操作系统辅助功能 API (Accessibility API)。"
+    },
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What is Gemini 2.5 Computer Use's distinguishing safety feature?",
+      "questionZh": "Gemini 2.5 计算机使用功能（Gemini 2.5 Computer Use）最显著的安全特性是什么？",
+      "options": [
+        "A per-step safety service that assesses each action before execution and rejects unsafe ones",
+        "Hard-coded WAF rules",
+        "Mandatory CAPTCHAs",
+        "Read-only mode by default"
+      ],
+      "optionsZh": [
+        "一项逐步骤安全服务（Per-step Safety Service），在执行前评估每个动作（Action），并拒绝不安全的动作。",
+        "硬编码的 WAF 规则",
+        "强制验证码 (CAPTCHA)",
+        "默认只读模式 (Read-only mode)"
+      ],
+      "explanation": "Gemini 2.5 Computer Use ships a per-step safety classifier as a defining feature.",
+      "explanationZh": "Gemini 2.5 Computer Use 内置了逐步安全分类器（per-step safety classifier），这是其一项标志性特性。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does the lesson identify as untrusted input across all three models?",
+      "questionZh": "该课程指出，在这三个模型中，哪些内容被认定为不可信输入（untrusted input）？",
+      "options": [
+        "Only HTTPS responses",
+        "Screenshots, DOM text, tool outputs, PDF content, anything retrieved",
+        "Only PDF content",
+        "Nothing; everything is trusted"
+      ],
+      "optionsZh": [
+        "仅 HTTPS 响应",
+        "截图、DOM 文本、工具输出、PDF 内容以及任何检索到的内容",
+        "仅包含 PDF 内容",
+        "无；所有内容均受信任"
+      ],
+      "explanation": "Only direct user instructions count as permission; everything else is untrusted.",
+      "explanationZh": "仅用户的直接指令可视为授权 (permission)；其余所有内容均不可信 (untrusted)。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "Which OSWorld / WebArena numbers does the lesson cite for OpenAI CUA at launch?",
+      "questionZh": "本课在 OpenAI CUA（计算机使用智能体）发布时，引用了哪些 OSWorld / WebArena 的评测数据？",
+      "options": [
+        "OSWorld 38.1%, WebArena 58.1%, WebVoyager 87%",
+        "OSWorld 0%, WebArena 0%",
+        "OSWorld 99%, WebArena 99%",
+        "Numbers not reported"
+      ],
+      "optionsZh": [
+        "OSWorld 38.1%，WebArena 58.1%，WebVoyager 87%",
+        "OSWorld 0%，WebArena 0%",
+        "OSWorld（操作系统智能体基准）99%，WebArena（网页导航基准）99%",
+        "未报告具体数值"
+      ],
+      "explanation": "Those were the launch numbers cited.",
+      "explanationZh": "这些即为所引用的发布数据。"
+    },
+    {
+      "stage": "check",
+      "correct": 3,
+      "question": "Which defense pattern is NOT in the 2026 convergence list?",
+      "questionZh": "哪种防御模式（Defense Pattern）未列入2026年收敛列表（2026 Convergence List）？",
+      "options": [
+        "Per-step safety classifier",
+        "Allowlist/blocklist of navigation targets",
+        "Human-in-the-loop for sensitive actions",
+        "Auto-clicking through dialogs to save time"
+      ],
+      "optionsZh": [
+        "逐步安全分类器 (Per-step safety classifier)",
+        "导航目标 (Navigation Targets) 的允许列表/阻止列表 (Allowlist/Blocklist)",
+        "敏感操作中的人工介入 (Human-in-the-loop)",
+        "自动点击对话框以节省时间"
+      ],
+      "explanation": "Auto-clicking dialogs is the opposite of safe; the lesson recommends explicit confirmation.",
+      "explanationZh": "自动点击对话框（Auto-clicking dialogs）的做法极不安全；本教程建议采用显式确认（explicit confirmation）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the principal attack the lesson highlights against computer-use agents?",
+      "questionZh": "本课程重点强调的针对计算机使用智能体（Computer-Use Agents）的主要攻击是什么？",
+      "options": [
+        "Network outages",
+        "A malicious page or PDF embedding instructions in retrieved content that the model treats as user intent",
+        "Slow rendering",
+        "OS update lag"
+      ],
+      "optionsZh": [
+        "网络中断 (Network Outages)",
+        "恶意网页或 PDF 在检索内容中嵌入指令，导致模型将其视为用户意图。",
+        "渲染缓慢",
+        "操作系统更新延迟 (OS update lag)"
+      ],
+      "explanation": "Trusting screenshots or DOM text as permission is the canonical indirect-prompt-injection failure.",
+      "explanationZh": "将截图或 DOM 文本作为权限依据，是典型的间接提示词注入（indirect prompt injection）失效模式。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "When is human-in-the-loop confirmation specifically recommended?",
+      "questionZh": "何时特别推荐采用人在回路（Human-in-the-Loop）确认？",
+      "options": [
+        "On read-only navigation",
+        "On sensitive actions like login, purchase, file delete",
+        "Only when the model asks",
+        "Never"
+      ],
+      "optionsZh": [
+        "关于只读导航 (Read-only navigation)",
+        "针对登录、购买、文件删除等敏感操作",
+        "仅在模型 (model) 请求时",
+        "Never"
+      ],
+      "explanation": "Sensitive actions (money, data exposure, new logins) require explicit human confirmation.",
+      "explanationZh": "敏感操作（涉及资金、数据泄露或新登录）需要明确的人工确认。"
+    }
+  ]
+}

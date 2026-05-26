@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the lesson identify as the root cause of agent failures on real tasks?",
+      "questionZh": "本节课程指出，智能体（Agent）在实际任务中失败的根本原因是什么？",
+      "options": [
+        "Insufficient model parameters",
+        "Workbench failures: missing surfaces around the model, not LLM limitations",
+        "Slow network",
+        "Outdated training data"
+      ],
+      "optionsZh": [
+        "模型参数不足",
+        "工作台 (Workbench) 故障：模型周围表面缺失，而非大语言模型 (LLM) 的局限性",
+        "网络缓慢",
+        "过时的训练数据 (training data)"
+      ],
+      "explanation": "The model is not wrong about Python; it is wrong about the work. Surfaces around the model are missing.",
+      "explanationZh": "该模型 (Model) 对 Python 的判断没有错，错的是对任务的处理。模型周围的表面缺失。"
+    },
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What are the seven workbench surfaces the lesson names?",
+      "questionZh": "课程中提到了哪七个工作台界面（workbench surfaces）？",
+      "options": [
+        "Instructions, state, scope, feedback, verification, review, handoff",
+        "Train, eval, deploy, monitor, retrain, scale, retire",
+        "Plan, act, reflect, refine, debate, vote, ship",
+        "Read, write, exec, fork, exit, wait, kill"
+      ],
+      "optionsZh": [
+        "指令 (Instructions), 状态 (State), 范围 (Scope), 反馈 (Feedback), 验证 (Verification), 评审 (Review), 交接 (Handoff)",
+        "训练 (Training)、评估 (Evaluation)、部署 (Deployment)、监控 (Monitoring)、重新训练 (Retraining)、扩展 (Scaling)、退役 (Retirement)",
+        "规划、执行、反思、优化、辩论、投票、发布",
+        "读取 (Read)、写入 (Write)、执行 (Exec)、派生 (Fork)、退出 (Exit)、等待 (Wait)、终止 (Kill)"
+      ],
+      "explanation": "The seven surfaces are instructions, state, scope, feedback, verification, review, handoff.",
+      "explanationZh": "这七个层面（Surfaces）分别为：指令（Instructions）、状态（State）、范围（Scope）、反馈（Feedback）、验证（Verification）、审查（Review）与交接（Handoff）。"
+    },
+    {
+      "stage": "check",
+      "correct": 3,
+      "question": "Which is NOT one of the eight distributed-systems primitives the lesson maps surfaces to?",
+      "questionZh": "以下哪一项不是本课程所涉及的八个分布式系统原语（distributed systems primitives）之一？",
+      "options": [
+        "Function",
+        "Worker",
+        "Trigger",
+        "Backpropagation"
+      ],
+      "optionsZh": [
+        "Function",
+        "Worker",
+        "Trigger",
+        "反向传播 (Backpropagation)"
+      ],
+      "explanation": "The eight primitives are function, worker, trigger, runtime, HTTP/RPC, queue, session persistence, authorization policy.",
+      "explanationZh": "八大原语 (primitives) 分别为：函数 (function)、工作节点 (worker)、触发器 (trigger)、运行时 (runtime)、HTTP/RPC、队列 (queue)、会话持久化 (session persistence) 以及授权策略 (authorization policy)。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What did Vercel's reported harness change move success rate from and to?",
+      "questionZh": "Vercel 报告的 harness 变更迁移成功率从多少变为了多少？",
+      "options": [
+        "20% to 60%",
+        "80% to 100%, by deleting 80% of the agent's tools",
+        "0% to 100%, by switching models",
+        "50% to 70%, by adding RAG"
+      ],
+      "optionsZh": [
+        "20% 至 60%",
+        "80% 至 100%，通过删除智能体（Agent）80% 的工具",
+        "0% 至 100%，通过切换模型实现",
+        "50% 至 70%，通过引入检索增强生成（RAG）"
+      ],
+      "explanation": "Deleting 80% of tools moved Vercel's agent from 80% to 100% success.",
+      "explanationZh": "删除 80% 的工具（Tools）后，Vercel 的智能体（Agent）成功率从 80% 提升至 100%。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does Terminal Bench 2.0 demonstrate about model vs harness?",
+      "questionZh": "Terminal Bench 2.0 在模型（model）与评估框架（harness）的对比中揭示了什么？",
+      "options": [
+        "Models alone determine ranking",
+        "Same model moved from outside top 30 to rank five by changing only the harness",
+        "Harness changes do not matter",
+        "Only GPUs matter"
+      ],
+      "optionsZh": [
+        "仅由模型决定排序 (Ranking)",
+        "仅通过更换评估框架（harness），同一模型便从30名开外跃升至第五位。",
+        "测试框架（Test Harness）的变更无关紧要。",
+        "仅图形处理器（GPU）至关重要"
+      ],
+      "explanation": "LangChain's Anatomy of an Agent Harness: same model, harness change, 25+ rank jump.",
+      "explanationZh": "LangChain 智能体框架 (Agent Harness) 剖析：模型不变，仅更换框架，排名跃升 25 位以上。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the lesson recommend doing when you hear new harness vocabulary?",
+      "questionZh": "当听到新的专业术语（Harness vocabulary）时，课程建议怎么做？",
+      "options": [
+        "Adopt the vocabulary verbatim",
+        "Translate back to primitives (function, worker, trigger, runtime, HTTP/RPC, queue, persistence, policy) before adopting",
+        "Reject it",
+        "Wait for OpenAI to standardize it"
+      ],
+      "optionsZh": [
+        "逐字采用该词汇。",
+        "在采用之前，先将其还原为基础原语（primitives）（函数 (function)、工作节点 (worker)、触发器 (trigger)、运行时 (runtime)、HTTP/RPC、消息队列 (queue)、持久化 (persistence)、策略 (policy)）。",
+        "Reject it",
+        "等待 OpenAI 将其标准化"
+      ],
+      "explanation": "Reason from primitives, not vendor taxonomies; the vocabulary changes but the engineering does not.",
+      "explanationZh": "应从基础原语 (primitives) 出发进行推导，而非依赖厂商分类体系 (vendor taxonomies)；术语 (vocabulary) 虽会不断演变，但底层工程 (engineering) 的逻辑始终不变。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Where does chat history sit relative to the workbench?",
+      "questionZh": "聊天记录 (Chat History) 相对于工作台 (Workbench) 位于什么位置？",
+      "options": [
+        "Chat is the system of record",
+        "Chat is volatile; the repo is the system of record",
+        "Both are equivalent",
+        "Neither matters"
+      ],
+      "optionsZh": [
+        "对话 (Chat) 是记录系统 (System of Record)。",
+        "聊天（Chat）具有易失性；代码仓库（Repository）才是权威记录系统（System of Record）。",
+        "两者等价",
+        "两者均无关紧要"
+      ],
+      "explanation": "The loop closes on the state file, not on chat history.",
+      "explanationZh": "该循环的闭环基于状态文件（state file），而非对话历史（chat history）。"
+    }
+  ]
+}

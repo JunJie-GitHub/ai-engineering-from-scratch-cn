@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the key difference between zero-shot and few-shot prompting?",
+      "questionZh": "零样本提示（Zero-shot Prompting）与少样本提示（Few-shot Prompting）之间的核心区别是什么？",
+      "options": [
+        "Zero-shot is faster",
+        "Zero-shot gives only the instruction; few-shot includes example input-output demonstrations before the actual query",
+        "Few-shot uses a different model",
+        "Zero-shot doesn't use a system prompt"
+      ],
+      "optionsZh": [
+        "零样本（Zero-shot）速度更快。",
+        "零样本（Zero-shot）仅提供指令；少样本（Few-shot）则会在实际查询前提供输入输出示例。",
+        "少样本（Few-shot）使用不同的模型。",
+        "零样本（Zero-shot）不使用系统提示词（System prompt）。"
+      ],
+      "explanation": "Few-shot prompting includes worked examples (demonstrations) that show the model the expected pattern. This is like showing someone how to fill out a form before asking them to fill out their own.",
+      "explanationZh": "少样本提示（Few-shot prompting）包含完整示例（demonstrations），用于向模型（model）展示预期的模式。这就像在让人填写自己的表格之前，先向他们展示如何填写一份示例表格。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does 'Chain of Thought' prompting do?",
+      "questionZh": "思维链（Chain of Thought）提示的作用是什么？",
+      "options": [
+        "It chains multiple API calls together",
+        "It instructs the model to show intermediate reasoning steps before giving the final answer, improving accuracy on multi-step problems",
+        "It connects multiple models in sequence",
+        "It generates longer responses"
+      ],
+      "optionsZh": [
+        "它将多个 API 调用串联在一起。",
+        "它指示模型在给出最终答案之前展示中间推理步骤，从而提升其在多步问题上的准确率。",
+        "它按顺序连接多个模型 (models)。",
+        "它会生成更长的回复。"
+      ],
+      "explanation": "CoT prompting (e.g., 'Let's think step by step') gives the model 'scratch paper' to work through problems. On GSM8K math problems, this alone improved GPT-4o accuracy from 78% to 91%.",
+      "explanationZh": "思维链提示（Chain-of-Thought prompting）（例如“让我们一步步思考”）为模型提供了“草稿纸”，使其能够逐步推导并解决问题。在 GSM8K 数学问题上，仅凭这一项改进，就将 GPT-4o 的准确率（accuracy）从 78% 提升到了 91%。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How does Tree-of-Thought differ from Chain-of-Thought?",
+      "questionZh": "思维树（Tree-of-Thought）与思维链（Chain-of-Thought）有何区别？",
+      "options": [
+        "It uses a tree data structure for storage",
+        "It explores multiple reasoning paths in parallel and evaluates which path leads to the best answer",
+        "It's just a longer chain of thought",
+        "It uses a different model"
+      ],
+      "optionsZh": [
+        "它采用树形数据结构（Tree Data Structure）进行存储。",
+        "它并行探索多条推理路径（reasoning paths），并评估哪条路径能够得出最优答案。",
+        "这只是一个更长的思维链（Chain of Thought）。",
+        "它使用了不同的模型 (model)。"
+      ],
+      "explanation": "CoT follows a single reasoning path. Tree-of-Thought generates multiple candidate paths, evaluates them (possibly with the LLM itself), and selects the best one. This helps on problems where the first reasoning path might be wrong.",
+      "explanationZh": "思维链（Chain of Thought）遵循单一的推理路径。思维树（Tree of Thought）则会生成多条候选路径，对它们进行评估（可能由大语言模型（Large Language Model）自身完成），并选出最优的一条。这种方法有助于解决那些初始推理路径可能出现错误的问题。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "When selecting few-shot examples, what matters most?",
+      "questionZh": "在选择少样本示例（few-shot examples）时，最关键的因素是什么？",
+      "options": [
+        "Using as many examples as possible",
+        "Choosing diverse examples that cover different cases and demonstrate the exact format and reasoning pattern you want",
+        "Using the shortest examples",
+        "Using examples from the test set"
+      ],
+      "optionsZh": [
+        "尽可能多地使用示例",
+        "选择涵盖不同场景的多样化示例，以准确展示您期望的格式与推理模式。",
+        "使用最短示例",
+        "使用测试集 (test set) 中的示例"
+      ],
+      "explanation": "Example quality trumps quantity. 3-5 diverse, well-formatted examples that cover different edge cases teach the model the pattern better than 20 repetitive examples that waste context window tokens.",
+      "explanationZh": "示例的质量重于数量。3到5个多样化且格式规范的示例，若能涵盖不同的边界情况（edge cases），会比20个重复示例更有效地引导模型学习模式，同时避免浪费上下文窗口（context window）的词元（tokens）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does CoT prompting improve accuracy even though the model has the same knowledge with or without it?",
+      "questionZh": "为什么思维链提示（Chain-of-Thought prompting）能够提升准确率，即使模型在使用与否的情况下所掌握的知识完全相同？",
+      "options": [
+        "It activates hidden model capabilities",
+        "Generating intermediate tokens creates a larger effective context for the final answer, allowing the model to condition on its own reasoning",
+        "It uses more compute",
+        "It changes the model weights"
+      ],
+      "optionsZh": [
+        "它激活了模型的隐藏能力。",
+        "生成中间标记（intermediate tokens）为最终答案提供了更大的有效上下文（effective context），使模型能够以自身的推理（reasoning）为条件进行生成。",
+        "它需要更多的计算资源 (compute)。",
+        "它会修改模型权重 (model weights)"
+      ],
+      "explanation": "Without CoT, the model must jump directly to the answer in one token. With CoT, each intermediate step is a token the model conditions on for the next step. The model essentially 'thinks out loud,' building up to the answer.",
+      "explanationZh": "若不采用思维链 (Chain of Thought, CoT)，模型必须仅凭一个词元 (token) 直接输出答案。而在使用 CoT 时，每个中间步骤都会作为一个词元，模型会基于该词元来预测下一步。模型本质上是在“将思考过程外化”，逐步推导出最终答案。"
+    }
+  ]
+}

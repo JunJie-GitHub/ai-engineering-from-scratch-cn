@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the imaginary unit i defined by?",
+      "questionZh": "虚数单位 (imaginary unit) i 是如何定义的？",
+      "options": [
+        "i = sqrt(2)",
+        "i^2 = -1",
+        "i = -1",
+        "i^2 = 1"
+      ],
+      "optionsZh": [
+        "i = sqrt(2)",
+        "i^2 = -1",
+        "i = -1",
+        "i^2 = 1"
+      ],
+      "explanation": "The imaginary unit i is defined by the property i^2 = -1. It extends the real number line into a 2D plane. Geometrically, multiplying by i is a 90-degree rotation — two multiplications (i^2) give a 180-degree rotation, which is -1.",
+      "explanationZh": "虚数单位 (imaginary unit) i 由性质 i^2 = -1 定义。它将实数轴 (real number line) 扩展为二维平面 (2D plane)。从几何角度来看，乘以 i 相当于进行 90 度旋转——两次相乘 (i^2) 会产生 180 度旋转，其结果即为 -1。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does Euler's formula e^(i*theta) equal?",
+      "questionZh": "欧拉公式 (Euler's formula) e^(i*theta) 等于什么？",
+      "options": [
+        "theta + i",
+        "cos(theta) + i*sin(theta)",
+        "sin(theta) + cos(theta)",
+        "i^theta"
+      ],
+      "optionsZh": [
+        "theta + i",
+        "cos(theta) + i*sin(theta)",
+        "sin(theta) + cos(theta)",
+        "i^theta"
+      ],
+      "explanation": "Euler's formula states e^(i*theta) = cos(theta) + i*sin(theta). This connects complex exponentials to trigonometry and shows that e^(i*theta) traces the unit circle as theta varies.",
+      "explanationZh": "欧拉公式（Euler's formula）表明 e^(i*theta) = cos(theta) + i*sin(theta)。该公式将复指数（complex exponentials）与三角学（trigonometry）联系起来，并表明随着 theta 的变化，e^(i*theta) 会描绘出单位圆（unit circle）的轨迹。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "What is the result of (3 + 2i)(1 + 4i)?",
+      "questionZh": "(3 + 2i)(1 + 4i) 的结果是什么？",
+      "options": [
+        "3 + 8i",
+        "4 + 6i",
+        "-5 + 14i",
+        "5 + 14i"
+      ],
+      "optionsZh": [
+        "3 + 8i",
+        "4 + 6i",
+        "-5 + 14i",
+        "5 + 14i"
+      ],
+      "explanation": "Using FOIL: (3)(1) + (3)(4i) + (2i)(1) + (2i)(4i) = 3 + 12i + 2i + 8i^2 = 3 + 14i + 8(-1) = 3 + 14i - 8 = -5 + 14i.",
+      "explanationZh": "使用 FOIL 法则 (FOIL)：(3)(1) + (3)(4i) + (2i)(1) + (2i)(4i) = 3 + 12i + 2i + 8i^2 = 3 + 14i + 8(-1) = 3 + 14i - 8 = -5 + 14i。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why are complex numbers used in Rotary Position Embedding (RoPE) for transformers?",
+      "questionZh": "为什么在 Transformer 架构 (Transformer) 的旋转位置编码 (Rotary Position Embedding, RoPE) 中要使用复数 (Complex Numbers)？",
+      "options": [
+        "Complex numbers compress the position encoding to use less memory",
+        "Multiplying query/key vectors by complex rotations encodes relative position as a rotation angle",
+        "Complex numbers are required by the attention softmax function",
+        "RoPE uses imaginary numbers to handle negative positions"
+      ],
+      "optionsZh": [
+        "使用复数 (Complex numbers) 压缩位置编码 (Position Encoding) 以降低内存占用。",
+        "将查询/键向量（Query/Key vectors）与复数旋转（Complex rotations）相乘，可将相对位置（Relative position）编码为旋转角度（Rotation angle）。",
+        "注意力 softmax 函数 (Attention Softmax Function) 需要复数 (Complex numbers)。",
+        "旋转位置编码 (RoPE) 利用虚数来处理负位置。"
+      ],
+      "explanation": "RoPE multiplies query and key vectors by complex rotation matrices e^(i*m*theta) where m is the position. The relative position between two tokens becomes a rotation angle, and attention naturally becomes sensitive to relative (not absolute) position through complex multiplication.",
+      "explanationZh": "RoPE（旋转位置编码，Rotary Position Embedding）将查询向量（query vector）和键向量（key vector）与复数旋转矩阵 e^(i*m*theta) 相乘，其中 m 表示位置。两个词元（token）之间的相对位置转化为旋转角度，通过复数乘法，注意力机制（attention）自然地对相对（而非绝对）位置变得敏感。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "The N-th roots of unity are N equally spaced points on the unit circle. What is their sum?",
+      "questionZh": "N次单位根（N-th roots of unity）是单位圆（unit circle）上均匀分布的 N 个点。它们的和是多少？",
+      "options": [
+        "N",
+        "1",
+        "0",
+        "N/2"
+      ],
+      "optionsZh": [
+        "N",
+        "1",
+        "0",
+        "N/2"
+      ],
+      "explanation": "The N roots of unity are e^(2*pi*i*k/N) for k = 0, ..., N-1. They are symmetrically distributed around the unit circle, so their vector sum cancels out to zero. This symmetry property is what makes the DFT invertible.",
+      "explanationZh": "N次单位根 (N-th roots of unity) 为 e^(2*pi*i*k/N)，其中 k = 0, ..., N-1。它们在单位圆上对称分布，因此其向量和相互抵消为零。正是这种对称性使得离散傅里叶变换 (Discrete Fourier Transform, DFT) 具有可逆性。"
+    }
+  ]
+}

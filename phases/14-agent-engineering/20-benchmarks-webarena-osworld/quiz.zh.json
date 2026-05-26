@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why does WebArena self-host its four target apps?",
+      "questionZh": "WebArena 为何要自托管（self-host）其四个目标应用（target apps）？",
+      "options": [
+        "To save money",
+        "To pin reproducible versions so evaluation is execution-based and not flaky",
+        "To run on GPUs",
+        "To avoid TLS"
+      ],
+      "optionsZh": [
+        "为了节省成本",
+        "锁定可复现版本（reproducible versions），以确保评估基于实际执行（execution-based），而非不稳定的（flaky）结果。",
+        "在 GPU 上运行",
+        "为避免使用传输层安全协议（TLS）"
+      ],
+      "explanation": "Pinned self-hosted apps make execution-based evaluation reliable and comparable over time.",
+      "explanationZh": "锁定版本的自托管应用（pinned self-hosted apps）使基于执行的评估（execution-based evaluation）在长期内保持可靠且具备可比性。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why does OSWorld use real OS screenshots rather than accessibility APIs?",
+      "questionZh": "为什么 OSWorld 使用真实操作系统（Operating System, OS）截图，而不是无障碍 API（Accessibility APIs）？",
+      "options": [
+        "Accessibility APIs are too fast",
+        "Screenshots force the agent to do real GUI grounding in 1920x1080, matching production constraints",
+        "Accessibility APIs leak PII",
+        "Screenshots cost less"
+      ],
+      "optionsZh": [
+        "辅助功能 API（Accessibility API）速度过快",
+        "截图迫使智能体 (Agent) 在 1920x1080 分辨率下进行真实的 GUI 定位 (GUI Grounding)，以匹配生产环境的约束条件。",
+        "辅助功能 API (Accessibility APIs) 泄露个人身份信息 (PII)",
+        "截图成本更低"
+      ],
+      "explanation": "Screenshot-driven evaluation forces pixel-to-element grounding, the actual production constraint.",
+      "explanationZh": "截图驱动评估（Screenshot-driven evaluation）强制要求实现像素到元素定位（pixel-to-element grounding），这正是实际生产环境中的核心约束。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What two primary failure modes does OSWorld surface?",
+      "questionZh": "OSWorld 揭示了哪两种主要失败模式 (failure modes)？",
+      "options": [
+        "Latency and bandwidth",
+        "GUI grounding and operational knowledge",
+        "Embedding drift and token leakage",
+        "Hallucination and refusal"
+      ],
+      "optionsZh": [
+        "延迟（Latency）与带宽（Bandwidth）",
+        "GUI 定位 (GUI Grounding) 与操作知识",
+        "嵌入漂移 (Embedding drift) 与词元泄漏 (Token leakage)",
+        "幻觉 (Hallucination) 与拒绝 (Refusal)"
+      ],
+      "explanation": "Grounding (pixel-to-element) and operational knowledge (menus, shortcuts) are the headline blockers.",
+      "explanationZh": "视觉定位 (Grounding)（像素到元素）与操作知识 (Operational Knowledge)（菜单、快捷键）是当前的核心瓶颈。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does OSWorld-Human add on top of the base benchmark?",
+      "questionZh": "OSWorld-Human 在基础基准测试（base benchmark）之上增加了哪些内容？",
+      "options": [
+        "More tasks",
+        "Manually curated gold action trajectories that surface a 1.4-2.7x agent step-inefficiency gap",
+        "A larger screen resolution",
+        "A new OS"
+      ],
+      "optionsZh": [
+        "更多任务",
+        "人工精心整理的高质量动作轨迹（Gold Action Trajectories），揭示了智能体（Agent）在步骤效率上存在 1.4 至 2.7 倍的差距（Step-Inefficiency Gap）。",
+        "更高的屏幕分辨率 (screen resolution)",
+        "A new OS"
+      ],
+      "explanation": "Gold trajectories make trajectory efficiency measurable, not just success rate.",
+      "explanationZh": "黄金轨迹（Gold trajectories）使得轨迹效率（trajectory efficiency）变得可量化，而不仅仅局限于成功率（success rate）。"
+    },
+    {
+      "stage": "check",
+      "correct": 0,
+      "question": "Which release-time number does the lesson cite for WebArena?",
+      "questionZh": "该课程引用了 WebArena 发布时的哪个具体数值？",
+      "options": [
+        "Best GPT-4 agent 14.41% success vs human 78.24%",
+        "Best agent at 99% with human at 100%",
+        "Best agent at 50% with human at 50%",
+        "Best agent at 0% across the board"
+      ],
+      "optionsZh": [
+        "最佳 GPT-4 智能体（Agent）成功率为 14.41%，而人类为 78.24%。",
+        "最佳智能体 (Agent) 达到 99%，人类表现为 100%。",
+        "最佳智能体（Agent）与人类各占50%",
+        "在所有指标上均达到0%的最佳智能体 (Agent)"
+      ],
+      "explanation": "The 14.41% vs 78.24% gap is the WebArena release-time number.",
+      "explanationZh": "14.41% 与 78.24% 之间的差距，即为 WebArena 发布时的指标数据。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the lesson warn happens with screenshot-only evaluation when the agent uses DOM or accessibility APIs?",
+      "questionZh": "课程警告指出，当智能体（agent）使用文档对象模型（DOM）或无障碍 API（accessibility APIs）时，仅截图评估（screenshot-only evaluation）会出现什么问题？",
+      "options": [
+        "Nothing changes",
+        "You miss the grounding challenge OSWorld is designed to measure",
+        "You exceed the rate limit",
+        "Tests pass trivially"
+      ],
+      "optionsZh": [
+        "无任何更改",
+        "你未能涵盖 OSWorld 旨在评估的 grounding（ grounding）挑战。",
+        "您已超过速率限制（Rate Limit）",
+        "测试轻松通过"
+      ],
+      "explanation": "Evaluating an accessibility-API agent on screenshot-only benchmarks skips the grounding test.",
+      "explanationZh": "在纯截图基准测试（Screenshot-only Benchmarks）上评估无障碍 API 代理（Accessibility-API Agent），会跳过 grounding 测试（Grounding Test）。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "Why is ignoring trajectory length a benchmarking failure?",
+      "questionZh": "为什么忽略轨迹长度（trajectory length）是基准测试（benchmarking）的缺陷？",
+      "options": [
+        "It hides cost and inefficiency that success rate alone misses (the 1.4-2.7x gap OSWorld-Human surfaces)",
+        "Trajectory length always matches gold",
+        "Trajectories are not measurable",
+        "Length is the only metric that matters"
+      ],
+      "optionsZh": [
+        "它掩盖了仅凭成功率 (success rate) 无法捕捉的成本与低效问题（OSWorld-Human 揭示了 1.4 至 2.7 倍的差距）。",
+        "轨迹长度始终与黄金标准（gold standard）一致。",
+        "轨迹 (Trajectories) 不可测 (Measurable)。",
+        "长度（Length）是唯一重要的指标（Metric）。"
+      ],
+      "explanation": "Two agents at 60% success can differ 2-3x in steps; cost and efficiency only show up if you measure trajectory length.",
+      "explanationZh": "两个成功率均为 60% 的智能体 (agent)，其执行步数 (step) 可能相差 2 到 3 倍；只有在衡量轨迹长度 (trajectory length) 时，成本与效率的差异才会真正显现。"
+    }
+  ]
+}

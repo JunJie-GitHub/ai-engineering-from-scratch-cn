@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why is a constant learning rate usually suboptimal for training neural networks?",
+      "questionZh": "为什么在训练神经网络（neural networks）时，使用恒定学习率（constant learning rate）通常是次优的？",
+      "options": [
+        "It uses too much memory",
+        "It's either too high for late training (causes oscillation) or too low for early training (wastes compute)",
+        "Constant learning rates cause overfitting",
+        "They only work with SGD"
+      ],
+      "optionsZh": [
+        "它占用了过多内存 (Memory)",
+        "它在训练后期过高（会导致振荡 (oscillation)），或在训练初期过低（会浪费算力 (compute)）。",
+        "固定学习率 (learning rate) 会导致过拟合 (overfitting)",
+        "它们仅适用于随机梯度下降（SGD）。"
+      ],
+      "explanation": "The optimal step size changes during training. Early on, large steps cover ground quickly. Late in training, small steps are needed to settle into a minimum. A constant rate can't serve both needs.",
+      "explanationZh": "在训练过程中，最优步长（step size）会动态变化。训练初期，较大的步长能够快速推进优化进程；而在训练后期，则需要较小的步长来平稳收敛至极小值（minimum）。固定步长（constant rate）无法同时满足这两种需求。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the purpose of learning rate warmup?",
+      "questionZh": "学习率预热（Learning Rate Warmup）的目的是什么？",
+      "options": [
+        "To prevent overfitting",
+        "To let adaptive optimizer statistics (momentum, variance) stabilize before taking large steps",
+        "To increase the batch size gradually",
+        "To initialize weights properly"
+      ],
+      "optionsZh": [
+        "为防止过拟合 (Overfitting)",
+        "为了让自适应优化器（Adaptive Optimizer）的统计量（动量（Momentum）、方差（Variance））在进行大步长更新前趋于稳定。",
+        "逐步增加批次大小 (batch size)",
+        "为了正确初始化权重 (initialize weights)"
+      ],
+      "explanation": "Adam's moment estimates are initialized to zero. Early gradient updates are based on unreliable statistics. Warmup starts with a tiny LR and ramps up, giving Adam time to accumulate meaningful estimates.",
+      "explanationZh": "Adam 的矩估计（moment estimates）初始化为零。早期的梯度更新（gradient updates）基于不可靠的统计量。预热（warmup）阶段从极小的学习率（learning rate, LR）开始并逐渐提升，从而为 Adam 留出时间以积累可靠的估计值。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "What learning rate schedule do Llama 3, GPT-3, and most modern LLMs use?",
+      "questionZh": "Llama 3、GPT-3 以及大多数现代大语言模型（Large Language Models, LLMs）采用何种学习率调度策略（Learning Rate Schedule）？",
+      "options": [
+        "Constant learning rate",
+        "Step decay every 30 epochs",
+        "Linear warmup followed by cosine decay",
+        "Exponential decay"
+      ],
+      "optionsZh": [
+        "恒定学习率 (Constant learning rate)",
+        "每 30 轮 (Epochs) 执行一次阶梯衰减 (Step Decay)",
+        "线性预热 (Linear Warmup) 后接余弦衰减 (Cosine Decay)",
+        "指数衰减 (Exponential decay)"
+      ],
+      "explanation": "Linear warmup + cosine decay is the standard for transformer training. Llama 3 used 2000 warmup steps with cosine decay from 3e-4 to 3e-5. This schedule requires no milestone tuning.",
+      "explanationZh": "线性预热（Linear Warmup）结合余弦衰减（Cosine Decay）是 Transformer 训练的标准做法。Llama 3 采用了 2000 个预热步数（Warmup Steps），随后学习率从 3e-4 按余弦衰减至 3e-5。该调度策略（Schedule）无需进行里程碑调优（Milestone Tuning）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What makes the 1cycle policy different from other schedules?",
+      "questionZh": "1cycle 策略（1cycle policy）与其他调度策略（schedules）有何不同？",
+      "options": [
+        "It uses a constant learning rate",
+        "It ramps the learning rate UP in the first half of training, then back down -- the high LR phase acts as regularization",
+        "It only works with SGD",
+        "It requires no hyperparameter tuning"
+      ],
+      "optionsZh": [
+        "它采用恒定的学习率（Learning Rate）",
+        "它在训练的前半程逐步提升学习率（Learning Rate），随后再将其降低——高学习率阶段起到了正则化（Regularization）的作用。",
+        "它仅支持随机梯度下降 (SGD)。",
+        "无需超参数调优 (hyperparameter tuning)"
+      ],
+      "explanation": "Leslie Smith's 1cycle ramps LR from low to high (first half) then high to very low (second half). The high-LR phase helps the model explore more of the loss landscape before settling into the best basin.",
+      "explanationZh": "Leslie Smith 提出的 1cycle 学习率策略 (1cycle learning rate policy) 会在前半段将学习率 (Learning Rate, LR) 从低逐渐调高，随后在后半段从高降至极低。高学习率阶段有助于模型在最终落入最优吸引盆 (optimal basin) 之前，更广泛地探索损失曲面 (loss landscape)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "If training loss suddenly spikes and diverges, what is the most likely learning rate issue?",
+      "questionZh": "如果训练损失（Training Loss）突然飙升并发散，最可能的学习率（Learning Rate）问题是什么？",
+      "options": [
+        "Learning rate is too low",
+        "Learning rate is too high, causing the optimizer to overshoot the minimum",
+        "The warmup period is too long",
+        "The schedule decays too slowly"
+      ],
+      "optionsZh": [
+        "学习率 (Learning rate) 过低",
+        "学习率（Learning Rate）过高，导致优化器（Optimizer）越过最小值。",
+        "预热期 (warmup period) 过长。",
+        "调度（Schedule）衰减过慢"
+      ],
+      "explanation": "A learning rate that's too high causes the optimizer to take steps larger than the loss basin, overshooting the minimum and causing the loss to increase. This manifests as sudden divergence.",
+      "explanationZh": "学习率 (learning rate) 过高会导致优化器 (optimizer) 的步长超出损失盆地 (loss basin) 的范围，从而越过最小值点，导致损失 (loss) 上升。这种现象表现为突然的发散 (divergence)。"
+    }
+  ]
+}

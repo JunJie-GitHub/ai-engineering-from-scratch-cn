@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does Reflexion replace in standard reinforcement learning?",
+      "questionZh": "Reflexion 在标准强化学习 (Standard Reinforcement Learning) 中替代了什么？",
+      "options": [
+        "Reward shaping with a constant reward",
+        "Gradient updates with natural-language reflections stored between trials",
+        "Policy networks with random search",
+        "Episodic memory with parametric memory"
+      ],
+      "optionsZh": [
+        "使用恒定奖励 (Constant Reward) 进行奖励塑形 (Reward Shaping)",
+        "基于试验间存储的自然语言反思 (Natural-language reflections) 的梯度更新 (Gradient updates)",
+        "基于随机搜索的策略网络 (Policy Networks with Random Search)",
+        "结合参数记忆 (Parametric memory) 的情景记忆 (Episodic memory)"
+      ],
+      "explanation": "Reflexion uses natural-language reflections in episodic memory instead of weight updates.",
+      "explanationZh": "Reflexion 利用情景记忆（episodic memory）中的自然语言反思（natural-language reflections），而非权重更新（weight updates）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What three components define a Reflexion system?",
+      "questionZh": "定义 Reflexion 系统 (Reflexion system) 的三个组件是什么？",
+      "options": [
+        "Planner, Worker, Solver",
+        "Actor, Evaluator, Self-Reflector",
+        "Generator, Critic, Optimizer",
+        "Selector, Expander, Backpropagator"
+      ],
+      "optionsZh": [
+        "规划器 (Planner)、工作器 (Worker)、求解器 (Solver)",
+        "执行者 (Actor)、评估器 (Evaluator)、自反思器 (Self-Reflector)",
+        "生成器 (Generator)、评估器 (Critic)、优化器 (Optimizer)",
+        "选择器 (Selector)、扩展器 (Expander)、反向传播器 (Backpropagator)"
+      ],
+      "explanation": "Reflexion factors the agent into an Actor that runs trajectories, an Evaluator that scores them, and a Self-Reflector that writes lessons.",
+      "explanationZh": "Reflexion 将智能体（Agent）拆分为三个组件：负责执行轨迹（Trajectories）的执行器（Actor）、负责对其进行评分的评估器（Evaluator），以及负责撰写经验教训（Lessons）的自反思器（Self-Reflector）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Which evaluator type uses an external binary signal like a unit test or a known correct answer?",
+      "questionZh": "哪种评估器类型（Evaluator Type）会使用外部二元信号（External Binary Signal），例如单元测试（Unit Test）或已知正确答案（Known Correct Answer）？",
+      "options": [
+        "Heuristic",
+        "Scalar",
+        "Self-evaluated",
+        "Vote-based"
+      ],
+      "optionsZh": [
+        "Heuristic",
+        "Scalar",
+        "自评估的",
+        "基于投票的 (Vote-based)"
+      ],
+      "explanation": "Scalar evaluators read pass/fail signals from ground truth (ALFWorld success, HumanEval tests).",
+      "explanationZh": "标量评估器（Scalar evaluators）从真实值（Ground truth）中读取通过/失败信号（例如 ALFWorld 成功状态、HumanEval 测试）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Why is self-evaluation a weaker signal than scalar feedback?",
+      "questionZh": "为什么自我评估（Self-evaluation）是比标量反馈（Scalar feedback）更弱的信号？",
+      "options": [
+        "It is slower to compute",
+        "The model judging itself has no external grounding so it can rubber-stamp its own answer",
+        "It always requires a larger model",
+        "It cannot run on tools"
+      ],
+      "optionsZh": [
+        "计算速度较慢",
+        "模型在自我评估时缺乏外部依据（external grounding），因此可能会盲目认可自身的答案。",
+        "始终需要更大规模的模型 (larger model)",
+        "它无法在工具上运行。"
+      ],
+      "explanation": "Self-eval lacks an external check, so a confident hallucination scores well; pair it with tool-grounded verification.",
+      "explanationZh": "自我评估（Self-evaluation）缺乏外部校验机制，因此高置信度的幻觉（Hallucination）往往会获得高分；建议将其与基于工具的验证（Tool-grounded verification）结合使用。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Which case does the lesson list as a place where Reflexion does NOT help?",
+      "questionZh": "课程中列举了哪种情况是反思机制（Reflexion）无法提供帮助的？",
+      "options": [
+        "Code generation where tests can score",
+        "An external transient failure like the network being down",
+        "ALFWorld navigation tasks",
+        "HotpotQA multi-hop questions"
+      ],
+      "optionsZh": [
+        "支持测试评分的代码生成 (Code Generation with Test Scoring)",
+        "外部瞬态故障（external transient failure），例如网络中断",
+        "ALFWorld 导航任务",
+        "HotpotQA 多跳问题（multi-hop questions）"
+      ],
+      "explanation": "Reflecting on a transient external outage produces a reflection that does not help future runs.",
+      "explanationZh": "针对短暂的外部服务中断（transient external outage）进行反思（reflection），所生成的反思结果对后续运行（future runs）并无助益。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is memory rot in the Reflexion pattern?",
+      "questionZh": "Reflexion 模式 (Reflexion Pattern) 中的记忆衰减 (Memory Rot) 是什么？",
+      "options": [
+        "Losing reflections when the process restarts",
+        "Episodic buffer fills with obsolete or wrong reflections and slows or biases future trials",
+        "Reflections get encrypted by the provider",
+        "The reflection prompt exceeds the context window"
+      ],
+      "optionsZh": [
+        "进程重启时丢失反射（Reflections）",
+        "情景缓冲区（Episodic buffer）中积累了过时或错误的反思（reflections），导致后续试验（trials）速度变慢或引入偏差。",
+        "反思（Reflection）由提供商进行加密。",
+        "反思提示词（Reflection Prompt）超出了上下文窗口（Context Window）。"
+      ],
+      "explanation": "Accumulated stale or wrong reflections degrade behavior; mitigate with compaction or TTL.",
+      "explanationZh": "积累的陈旧或错误反思结果 (reflections) 会导致系统行为退化；可通过压缩 (compaction) 或设置生存时间 (TTL) 进行缓解。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Which production pattern is the lesson's clearest match for Reflexion?",
+      "questionZh": "Reflexion 最契合本课介绍的哪种生产模式（Production Pattern）？",
+      "options": [
+        "Cursor's apply-edits flow",
+        "Claude Code's CLAUDE.md learnings prepended to future sessions",
+        "OpenAI's batch API",
+        "Anthropic's prompt caching"
+      ],
+      "optionsZh": [
+        "Cursor 的应用编辑 (apply-edits) 流程",
+        "Claude Code 的 CLAUDE.md 学习成果将前置至后续会话",
+        "OpenAI 的批量 API（Batch API）",
+        "Anthropic 的提示词缓存 (Prompt Caching)"
+      ],
+      "explanation": "CLAUDE.md learnings, pro-workflow's learn-rule, and Letta's sleep-time compute all externalize the episodic reflection buffer.",
+      "explanationZh": "CLAUDE.md 的学习经验（learnings）、pro-workflow 的学习规则（learn-rule）以及 Letta 的休眠期计算（sleep-time compute）均将情景反思缓冲区（episodic reflection buffer）外部化。"
+    }
+  ]
+}

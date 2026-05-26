@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the chain rule in calculus state?",
+      "questionZh": "微积分（calculus）中的链式法则（chain rule）是如何表述的？",
+      "options": [
+        "The derivative of a sum is the sum of derivatives",
+        "The derivative of composed functions is the product of their individual derivatives",
+        "The integral of a product is the product of integrals",
+        "Functions can only be differentiated if they are linear"
+      ],
+      "optionsZh": [
+        "和的导数等于导数的和。",
+        "复合函数（composite function）的导数（derivative）等于其各组成函数导数的乘积。",
+        "乘积的积分等于积分的乘积。",
+        "只有线性（linear）函数才能求导（differentiate）。"
+      ],
+      "explanation": "For y = f(g(x)), the chain rule says dy/dx = f'(g(x)) * g'(x). You multiply the derivatives at each link in the chain. This is the mathematical basis of backpropagation.",
+      "explanationZh": "对于 y = f(g(x))，链式法则 (Chain Rule) 指出 dy/dx = f'(g(x)) * g'(x)。你需要将链条中每个环节的导数 (Derivatives) 相乘。这正是反向传播 (Backpropagation) 的数学基础。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is a computational graph?",
+      "questionZh": "什么是计算图 (Computational Graph)？",
+      "options": [
+        "A plot of loss vs training steps",
+        "A directed graph where nodes are operations and edges carry values forward or gradients backward",
+        "A diagram showing the architecture of a neural network",
+        "A graph database used for storing training data"
+      ],
+      "optionsZh": [
+        "损失 (Loss) 与训练步数 (Training Steps) 关系图",
+        "一种有向图（Directed Graph），其中节点（Nodes）表示操作（Operations），边（Edges）用于前向传递数值或反向传递梯度（Gradients）。",
+        "展示神经网络（Neural Network）架构（Architecture）的示意图。",
+        "用于存储训练数据 (Training Data) 的图数据库 (Graph Database)"
+      ],
+      "explanation": "A computational graph represents the sequence of operations in a computation. Data flows forward through the graph, and gradients flow backward during backpropagation.",
+      "explanationZh": "计算图 (Computational Graph) 表示计算过程中的操作序列。数据在图中前向流动，而在反向传播 (Backpropagation) 过程中，梯度则反向流动。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does PyTorch use reverse-mode autodiff (backpropagation) instead of forward-mode?",
+      "questionZh": "为什么 PyTorch 使用反向模式自动微分（reverse-mode autodiff，即反向传播/backpropagation）而不是前向模式（forward-mode）？",
+      "options": [
+        "Reverse mode is more numerically accurate",
+        "Reverse mode computes all gradients in one backward pass, while forward mode needs one pass per input variable -- neural networks have millions of inputs but one loss output",
+        "Reverse mode uses less memory",
+        "Forward mode cannot handle non-linear functions"
+      ],
+      "optionsZh": [
+        "反向模式 (Reverse mode) 的数值精度更高。",
+        "反向模式（Reverse mode）只需一次反向传递（backward pass）即可计算所有梯度，而前向模式（Forward mode）则需要针对每个输入变量（input variable）进行一次传递——神经网络（neural networks）通常拥有数百万个输入，却仅有一个损失输出（loss output）。",
+        "反向模式 (Reverse mode) 占用更少的内存。",
+        "前向模式（Forward mode）无法处理非线性函数（non-linear functions）。"
+      ],
+      "explanation": "Neural networks have millions of weight inputs but produce a single scalar loss. Reverse mode needs one backward pass total. Forward mode would need one pass per weight -- millions of passes -- making it impractical.",
+      "explanationZh": "神经网络 (Neural Networks) 拥有数百万个权重输入 (weight inputs)，但仅产生一个标量损失 (scalar loss)。反向模式 (Reverse mode) 总共只需一次反向传递 (backward pass)。而前向模式 (Forward mode) 则需要对每个权重进行一次传递 (pass)——即数百万次传递——这使得它在实际中并不可行。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "In the Value class autograd engine, why does the backward function use '+=' instead of '=' for accumulating gradients?",
+      "questionZh": "在 Value 类的自动求导引擎（autograd engine）中，为什么 backward 函数在累加梯度（gradients）时使用 += 而不是 =？",
+      "options": [
+        "To average the gradients across multiple samples",
+        "Because a value used in multiple operations receives gradient contributions from each one, which must be summed",
+        "To prevent numerical overflow in the gradients",
+        "Because Python does not support the '=' operator in closures"
+      ],
+      "optionsZh": [
+        "对多个样本 (samples) 的梯度 (gradients) 求平均",
+        "由于一个值若参与多个操作 (operation)，则会从每个操作中接收到梯度 (gradient) 贡献，因此必须将这些贡献进行求和。",
+        "为防止梯度 (gradients) 中的数值溢出 (numerical overflow)",
+        "由于 Python 在闭包 (closure) 中不支持 `=` 运算符。"
+      ],
+      "explanation": "When a value feeds into multiple operations (e.g., x used in both x*y and x+z), its total gradient is the sum of all incoming gradient contributions. Using '=' would overwrite earlier contributions.",
+      "explanationZh": "当一个值参与多个运算时（例如，x 同时用于 x*y 和 x+z），其总梯度（total gradient）等于所有传入梯度贡献（incoming gradient contributions）的总和。使用 = 会覆盖先前的梯度贡献。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is gradient checking and when should you use it?",
+      "questionZh": "什么是梯度检查（Gradient Checking），以及何时应该使用它？",
+      "options": [
+        "Checking that gradients are below a threshold to prevent exploding gradients",
+        "Comparing autodiff gradients against numerical finite-difference gradients to verify correctness of the backward pass",
+        "Checking that all parameters received non-zero gradients during training",
+        "Monitoring gradient magnitudes during training to detect vanishing gradients"
+      ],
+      "optionsZh": [
+        "检查梯度（gradients）是否低于阈值（threshold），以防止梯度爆炸（exploding gradients）",
+        "通过对比自动微分梯度 (autodiff gradients) 与数值有限差分梯度 (numerical finite-difference gradients)，验证反向传播 (backward pass) 的正确性。",
+        "检查所有参数（parameters）在训练（training）过程中是否接收到非零梯度（non-zero gradients）",
+        "在训练过程中监控梯度幅值（gradient magnitudes）以检测梯度消失（vanishing gradients）"
+      ],
+      "explanation": "Gradient checking computes numerical derivatives via (f(x+h) - f(x-h)) / 2h and compares them to autodiff gradients. Use it when adding new operations to your autograd engine or debugging training failures.",
+      "explanationZh": "梯度检查 (Gradient Checking) 通过 (f(x+h) - f(x-h)) / 2h 计算数值导数 (Numerical Derivatives)，并将其与自动微分梯度 (Autodiff Gradients) 进行对比。在向自动求导引擎 (Autograd Engine) 添加新算子或排查训练失败问题时，请使用该方法。"
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is MASFT's central claim?",
+      "questionZh": "MASFT的核心主张是什么？",
+      "options": [
+        "Failures are random noise",
+        "Multi-agent failures are fundamental design flaws, not LLM limitations to be fixed with better base models",
+        "Failures vanish with bigger models",
+        "Failures are due to network outages"
+      ],
+      "optionsZh": [
+        "故障是随机噪声 (random noise)",
+        "多智能体（Multi-agent）系统的故障属于根本性的设计缺陷，而非大语言模型（LLM）的局限性，无法通过采用更强大的基座模型（base models）来修复。",
+        "随着模型规模增大，失败现象随之消失",
+        "故障是由网络中断 (Network Outage) 引起的。"
+      ],
+      "explanation": "Berkeley's MASFT categorizes failures as design flaws; they do not disappear by scaling the base model.",
+      "explanationZh": "伯克利的 MASFT 将故障（failures）归类为设计缺陷（design flaws）；仅靠扩大基础模型（base model）的规模无法消除它们。"
+    },
+    {
+      "stage": "pre",
+      "correct": 3,
+      "question": "Which is NOT one of the five recurring industry failure modes the lesson lists?",
+      "questionZh": "以下哪一项**不是**课程中列出的五种反复出现的行业故障模式 (failure modes) 之一？",
+      "options": [
+        "Hallucinated actions",
+        "Scope creep",
+        "Cascading errors",
+        "Embedding versioning"
+      ],
+      "optionsZh": [
+        "幻觉动作 (Hallucinated actions)",
+        "范围蔓延 (Scope creep)",
+        "级联错误 (Cascading errors)",
+        "嵌入版本管理 (Embedding Versioning)"
+      ],
+      "explanation": "The five are hallucinated actions, scope creep, cascading errors, context loss, tool misuse.",
+      "explanationZh": "这五类问题分别是：幻觉行为（Hallucinated Actions）、范围蔓延（Scope Creep）、级联错误（Cascading Errors）、上下文丢失（Context Loss）以及工具误用（Tool Misuse）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is a cascading error in this lesson?",
+      "questionZh": "在本节课中，什么是级联错误（cascading error）？",
+      "options": [
+        "An LLM rate-limit cascade",
+        "One wrong call triggers downstream effects across systems (a phantom SKU triggers four downstream API calls)",
+        "A cron failure",
+        "A YAML parser error"
+      ],
+      "optionsZh": [
+        "大语言模型 (LLM) 速率限制级联",
+        "一次错误的调用会引发跨系统的下游连锁反应（例如，一个幽灵SKU（Stock Keeping Unit）会触发四次下游API调用）。",
+        "定时任务 (cron) 失败",
+        "YAML 解析器错误"
+      ],
+      "explanation": "Cascades amplify a single bad call into a multi-system incident; especially severe when agents fake success.",
+      "explanationZh": "级联故障 (Cascading Failures) 会将单次错误调用放大为多系统事故；当智能体 (Agents) 谎报成功时，情况尤为严重。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Which two manifestations does the LLM Agent Hallucinations Survey list?",
+      "questionZh": "《大语言模型智能体幻觉调查》（LLM Agent Hallucinations Survey）列出了哪两种表现形式？",
+      "options": [
+        "Hot and cold tokens",
+        "Instruction-following Deviation and Long-range Contextual Misuse",
+        "Greedy and beam search",
+        "Soft and hard prompts"
+      ],
+      "optionsZh": [
+        "热词元与冷词元 (Hot and Cold Tokens)",
+        "指令遵循偏离与长程上下文误用",
+        "贪心搜索 (Greedy Search) 与 束搜索 (Beam Search)",
+        "软提示（Soft Prompt）与硬提示（Hard Prompt）"
+      ],
+      "explanation": "Hallucinations show up as either ignoring system prompt or forgetting/misapplying earlier-turn context.",
+      "explanationZh": "幻觉（Hallucinations）表现为忽略系统提示词（System Prompt），或遗忘/错误应用前序轮次上下文（Earlier-turn Context）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does success hallucination mean?",
+      "questionZh": "成功幻觉 (success hallucination) 是什么意思？",
+      "options": [
+        "The model is overconfident on benchmarks",
+        "The agent returns a success message even though the target state did not change (often on a 400 from a tool)",
+        "The user thinks success when none happened",
+        "A unit test passed"
+      ],
+      "optionsZh": [
+        "该模型（model）在基准测试（benchmarks）上表现出过度自信（overconfident）。",
+        "即使目标状态（Target State）未发生变化，智能体（Agent）仍会返回成功消息（通常发生在工具（Tool）返回 400 状态码时）。",
+        "用户误以为已成功，但实际并未发生。",
+        "单元测试 (Unit Test) 通过。"
+      ],
+      "explanation": "Re-probe environment state; agents commonly fake completion when they cannot distinguish 'I failed' from 'impossible'.",
+      "explanationZh": "重新探测环境状态（environment state）；当智能体（agent）无法区分“执行失败”与“任务不可行”时，常会虚假上报完成状态。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why is tagging only crashes insufficient?",
+      "questionZh": "为什么仅对崩溃进行标记是不够的？",
+      "options": [
+        "Crashes are slow",
+        "Most agent failures produce valid-looking output that does not crash; content-level checks are needed",
+        "Crashes leak PII",
+        "Logging is paid"
+      ],
+      "optionsZh": [
+        "崩溃会导致系统恢复缓慢",
+        "大多数智能体（Agent）故障会生成看似有效且不会导致崩溃的输出；因此需要进行内容级（content-level）检查。",
+        "崩溃导致个人身份信息 (PII) 泄露",
+        "日志记录（Logging）为付费功能。"
+      ],
+      "explanation": "Crash-based monitoring misses the bulk of agent failures, which are content-shaped.",
+      "explanationZh": "基于崩溃的监控（Crash-based monitoring）会漏掉绝大多数智能体（Agent）故障，因为这类故障通常表现为内容层面的异常。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What mitigation does the lesson recommend at every step of a reasoning chain?",
+      "questionZh": "本课建议在推理链（reasoning chain）的每一步采取什么缓解措施（mitigation）？",
+      "options": [
+        "Add a sleep()",
+        "Automated verification gates that check factual grounding against environment state",
+        "Disable retries",
+        "Lower temperature only"
+      ],
+      "optionsZh": [
+        "添加 `sleep()`",
+        "用于对照环境状态校验事实依据（Factual Grounding）的自动化验证门控（Automated Verification Gates）",
+        "禁用重试",
+        "仅限较低温度 (temperature)"
+      ],
+      "explanation": "Per-step gates (safety classifier, argument validation, CRITIC, state re-probe) catch failures before they cascade.",
+      "explanationZh": "逐步门控（Per-step gates）（包括安全分类器（safety classifier）、参数验证（argument validation）、CRITIC 与状态重探测（state re-probe））能够在故障级联（cascade）发生前将其拦截。"
+    }
+  ]
+}

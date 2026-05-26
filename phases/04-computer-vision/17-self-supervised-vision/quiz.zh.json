@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why does SimCLR need batch sizes of 512-8192 while supervised ImageNet training works with batch 256?",
+      "questionZh": "为什么 SimCLR 需要 512-8192 的批量大小（batch size），而监督式 ImageNet 训练（supervised ImageNet training）仅需 256 的批量大小即可？",
+      "options": [
+        "SimCLR is slower",
+        "Each sample needs many negative examples to produce a useful contrastive signal; the batch itself is the pool of negatives. Small batches starve the InfoNCE loss of negatives and training collapses or stalls",
+        "Batch norm requires it",
+        "Contrastive loss divides by batch size"
+      ],
+      "optionsZh": [
+        "SimCLR 速度较慢。",
+        "每个样本都需要大量负样本（negative examples）来产生有效的对比信号（contrastive signal）；批次（batch）本身即充当负样本池。较小的批次会导致 InfoNCE 损失（InfoNCE loss）缺乏负样本，从而使训练崩溃或停滞。",
+        "批归一化（Batch Normalization）需要它。",
+        "对比损失（Contrastive Loss）除以批次大小（Batch Size）"
+      ],
+      "explanation": "InfoNCE loss ranks the positive pair against all other samples in the batch. A batch of 32 gives 30 negatives per positive; 1024 gives 2046. More negatives = sharper contrastive signal. MoCo introduced a momentum queue of past features so effective negatives scale beyond the batch size; this is the standard trick when GPU memory limits batch size.",
+      "explanationZh": "InfoNCE 损失（InfoNCE loss）会在当前批次（batch）中将正样本对（positive pair）与所有其他样本进行对比排序。当批次大小为 32 时，每个正样本对应 30 个负样本（negative samples）；当批次大小为 1024 时，则对应 2046 个。负样本越多，对比信号（contrastive signal）就越清晰。MoCo 引入了用于缓存历史特征的动量队列（momentum queue），使得有效负样本的数量能够突破批次大小的限制；这是在 GPU 显存（GPU memory）限制批次大小时的标准技巧。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What prevents DINO from collapsing to a constant output?",
+      "questionZh": "是什么防止了 DINO 坍缩 (collapse) 为恒定输出 (constant output)？",
+      "options": [
+        "Strong augmentation alone",
+        "A combination of centring (subtract per-dimension EMA mean from the teacher output) and sharpening (low teacher temperature); centring stops one dimension from dominating, sharpening stops the output collapsing to uniform",
+        "Large batch size",
+        "The momentum schedule"
+      ],
+      "optionsZh": [
+        "仅使用强数据增强 (Strong Data Augmentation)",
+        "中心化 (Centering)（从教师网络输出中减去逐维度的指数移动平均 (EMA) 均值）与锐化 (Sharpening)（降低教师温度）相结合；中心化可防止单一维度占据主导，锐化可防止输出坍缩为均匀分布。",
+        "大批量大小 (Large batch size)",
+        "动量调度 (Momentum Schedule)"
+      ],
+      "explanation": "DINO does not use explicit negatives. Without centring, one output dimension can dominate and the student learns to always predict it. Without sharpening (low teacher temperature), the teacher's output becomes near-uniform and the student learns to match uniform, which is also collapse. The two together keep the output diverse across dimensions and peaked per sample.",
+      "explanationZh": "DINO 不使用显式负样本（explicit negatives）。若不进行中心化（centring），某一输出维度可能占据主导，导致学生网络（student）学会始终预测该维度。若不进行锐化（sharpening，即采用较低的教师温度 teacher temperature），教师网络的输出会趋近于均匀分布，学生网络也会学会匹配该均匀分布，这同样会导致表征崩溃（collapse）。这两种机制结合使用，能够确保输出在不同维度上保持多样性，并使每个样本的输出分布呈现尖锐的峰值。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "MAE masks 75% of patches. BERT masks 15% of tokens. Why the difference?",
+      "questionZh": "掩码自编码器 (MAE) 会遮盖 75% 的图像块 (patches)。BERT 会遮盖 15% 的词元 (tokens)。为什么会有这种差异？",
+      "options": [
+        "75% is arbitrary",
+        "Image patches have low entropy — neighbours are highly correlated — so masking only 15% would be trivially solvable by local extrapolation. Masking 75% forces the encoder to learn global semantic features to reconstruct the missing patches",
+        "BERT requires 15% by design",
+        "Text tokens are larger than image patches"
+      ],
+      "optionsZh": [
+        "75% 是任意设定的",
+        "图像块 (Image patches) 具有低熵 (low entropy) 特性——相邻块高度相关——因此仅进行 15% 的掩码 (masking) 可以通过局部外推 (local extrapolation) 轻易解决。将掩码比例提升至 75% 会迫使编码器 (encoder) 学习全局语义特征 (global semantic features)，从而重建缺失的图像块。",
+        "BERT 在设计上要求 15% 的掩码比例。",
+        "文本词元（Text tokens）的尺寸大于图像块（Image patches）。"
+      ],
+      "explanation": "The mask ratio should match the information density of the modality. Text: 15% is enough because each token has many plausible completions. Images: neighbouring pixels almost determine each other, so low mask ratios are solvable without real representation learning. MAE's 75% is calibrated to force semantic understanding.",
+      "explanationZh": "掩码比例（mask ratio）应与模态（modality）的信息密度相匹配。文本：15% 的比例已足够，因为每个词元（token）都有大量合理的补全可能。图像：相邻像素几乎能相互确定，因此较低的掩码比例无需真正的表征学习（representation learning）即可求解。MAE（Masked Autoencoder）的 75% 比例经过校准，旨在强制模型进行语义理解（semantic understanding）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "After self-supervised pretraining, the 'linear probe' evaluation trains only what?",
+      "questionZh": "在完成自监督预训练（Self-supervised pretraining）后，“线性探针”（Linear probe）评估仅训练什么？",
+      "options": [
+        "The entire encoder",
+        "A single linear classifier on top of the frozen encoder features; this isolates feature quality from fine-tuning dynamics",
+        "A full MLP classifier head",
+        "The positional embedding"
+      ],
+      "optionsZh": [
+        "整个编码器 (encoder)",
+        "在冻结的编码器特征（frozen encoder features）之上构建单个线性分类器（linear classifier）；此举可将特征质量与微调动态（fine-tuning dynamics）隔离开来。",
+        "完整的多层感知机（MLP）分类头（classifier head）",
+        "位置嵌入 (Positional Embedding)"
+      ],
+      "explanation": "Linear probe freezes the encoder and fits Linear(features -> num_classes) on a labelled downstream dataset. The accuracy is a direct measure of the feature space's linear separability — a proxy for feature quality. Fine-tuning the whole backbone adds nonlinear capacity and usually lifts accuracy a few points, but mixes in optimisation effects. Both numbers are reported in SSL papers.",
+      "explanationZh": "线性探针（Linear Probe）会冻结编码器（Encoder），并在标注的下游数据集上拟合 Linear(features -> num_classes)。其准确率（Accuracy）直接衡量了特征空间（Feature Space）的线性可分性（Linear Separability），可作为特征质量（Feature Quality）的代理指标。对整个骨干网络（Backbone）进行微调（Fine-tuning）会增加非线性拟合能力，通常能将准确率提升几个百分点，但同时也混入了优化效应（Optimisation Effects）。自监督学习（Self-Supervised Learning, SSL）论文中通常会同时报告这两项数值。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does MAE use an asymmetric encoder-decoder design (big encoder on 25% visible patches, small decoder on all tokens)?",
+      "questionZh": "为什么掩码自编码器（Masked Autoencoder）采用非对称的编码器-解码器（encoder-decoder）设计（即在 25% 的可见图像块（patches）上使用大型编码器，而在所有词元（tokens）上使用小型解码器）？",
+      "options": [
+        "Memory constraints",
+        "The encoder never processes mask tokens; a small decoder only handles reconstruction. This makes encoder FLOPs proportional to visible patches (1/4 of full input) and lets pretraining run 3x faster than naive designs that process all tokens through the full encoder",
+        "Masked tokens confuse self-attention",
+        "The decoder needs its own backbone"
+      ],
+      "optionsZh": [
+        "内存限制 (Memory Constraints)",
+        "编码器 (Encoder) 从不处理掩码标记 (Mask Tokens)；仅由一个小型解码器 (Decoder) 负责重建 (Reconstruction)。这使得编码器的浮点运算次数 (FLOPs) 与可见图像块 (Visible Patches) 的数量成正比（仅占完整输入的 1/4），从而让预训练 (Pretraining) 的运行速度比将所有标记 (Tokens) 均输入完整编码器的朴素设计 (Naive Designs) 快 3 倍。",
+        "掩码标记（Masked tokens）会干扰自注意力（Self-attention）机制",
+        "解码器 (Decoder) 需要其独立的主干网络 (Backbone)。"
+      ],
+      "explanation": "The key efficiency win in MAE: the expensive encoder only ever sees visible patches, which is 25% of the input. Mask tokens appear only in the shallow decoder. This makes pretraining roughly 3x faster than BEiT (which processes all tokens through the encoder) with equal or better downstream accuracy.",
+      "explanationZh": "MAE（Masked Autoencoder）在效率上的关键优势在于：计算开销较大的编码器（encoder）仅处理可见图像块（visible patches），这仅占输入的 25%。掩码标记（mask tokens）仅出现在浅层解码器（shallow decoder）中。这使得预训练（pretraining）速度比 BEiT（需通过编码器处理所有标记）快约 3 倍，同时下游任务准确率（downstream accuracy）持平或更优。"
+    }
+  ]
+}

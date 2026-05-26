@@ -1,0 +1,109 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "timeseries-pre-1",
+      "question": "Why is a random train/test split invalid for time series data?",
+      "questionZh": "为什么对时间序列数据 (time series data) 进行随机训练集/测试集划分 (train/test split) 是无效的？",
+      "options": [
+        "Random splits make the dataset too small",
+        "Random splits leak future information into the training set, allowing the model to cheat",
+        "Time series data cannot be split at all",
+        "Random splits only work for classification problems"
+      ],
+      "optionsZh": [
+        "随机划分 (Random Splits) 会导致数据集 (Dataset) 过小。",
+        "随机划分（random splits）会将未来信息泄露至训练集（training set）中，使模型得以“作弊”。",
+        "时间序列数据（Time Series Data）完全无法进行划分。",
+        "随机划分（Random splits）仅适用于分类问题（Classification problems）。"
+      ],
+      "explanation": "In a random split, future data points can end up in the training set while past points are in the test set. The model then uses future information to predict the past, giving falsely optimistic results.",
+      "explanationZh": "在随机划分（Random Split）中，未来的数据点可能会被分配到训练集（Training Set），而过去的数据点却留在测试集（Test Set）中。这会导致模型利用未来信息来预测过去，从而得出虚假乐观的结果。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "timeseries-pre-2",
+      "question": "What does it mean for a time series to be stationary?",
+      "questionZh": "时间序列（time series）具有平稳性（stationary）意味着什么？",
+      "options": [
+        "The values never change over time",
+        "Its statistical properties (mean, variance, autocorrelation) do not change over time",
+        "It has no seasonal patterns",
+        "It always trends upward"
+      ],
+      "optionsZh": [
+        "这些值不会随时间发生变化。",
+        "其统计特性 (statistical properties)（均值 (mean)、方差 (variance)、自相关 (autocorrelation)）不随时间变化。",
+        "它没有季节性模式（seasonal patterns）。",
+        "其趋势始终呈上升态势。"
+      ],
+      "explanation": "A stationary series has constant mean, variance, and autocorrelation structure over time. Most forecasting methods assume stationarity. Non-stationary series need differencing or detrending first.",
+      "explanationZh": "平稳序列（stationary series）随时间保持恒定的均值（mean）、方差（variance）和自相关结构（autocorrelation structure）。大多数预测方法（forecasting methods）均以平稳性（stationarity）为基本假设。非平稳序列（non-stationary series）需先进行差分（differencing）或去趋势（detrending）处理。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "timeseries-post-1",
+      "question": "What is the purpose of differencing a time series?",
+      "questionZh": "对时间序列进行差分（differencing）的目的是什么？",
+      "options": [
+        "To increase the number of data points",
+        "To remove trend and make the series stationary by modeling changes between consecutive values",
+        "To convert regression into classification",
+        "To normalize the values between 0 and 1"
+      ],
+      "optionsZh": [
+        "为了增加数据点（data points）的数量",
+        "通过对相邻值之间的变化进行建模，以消除趋势 (trend) 并使序列 (series) 保持平稳 (stationary)。",
+        "将回归 (Regression) 转换为分类 (Classification)",
+        "将数值归一化（Normalization）至 0 到 1 之间"
+      ],
+      "explanation": "Differencing replaces each value with the change from the previous value: diff[t] = value[t] - value[t-1]. This removes trend, making the series closer to stationary.",
+      "explanationZh": "差分（Differencing）将每个值替换为与前一个值的差值：diff[t] = value[t] - value[t-1]。该方法能够消除趋势（Trend），使序列更接近平稳（Stationary）状态。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "timeseries-post-2",
+      "question": "Lag features convert a time series into a supervised learning problem. What is a lag-3 feature for predicting y[t]?",
+      "questionZh": "滞后特征（Lag features）可将时间序列（Time series）转化为监督学习问题（Supervised learning problem）。用于预测 y[t] 的滞后3期特征（lag-3 feature）具体指什么？",
+      "options": [
+        "The average of the next 3 values: (y[t+1] + y[t+2] + y[t+3]) / 3",
+        "The value 3 time steps ago: y[t-3]",
+        "The 3rd derivative of the series",
+        "The difference between the current value and 3 steps ahead"
+      ],
+      "optionsZh": [
+        "接下来 3 个值的平均值：(y[t+1] + y[t+2] + y[t+3]) / 3",
+        "3个时间步（time step）前的值：y[t-3]",
+        "级数 (series) 的三阶导数 (third derivative)",
+        "当前值与3步后值之间的差值"
+      ],
+      "explanation": "A lag-3 feature is y[t-3]: the value 3 time steps in the past. Using past values as input features lets standard ML models (regression, trees) make time series predictions without specialized algorithms.",
+      "explanationZh": "滞后3期特征 (lag-3 feature) 即 y[t-3]：表示过去 3 个时间步 (time steps) 的数值。将历史值作为输入特征 (input features)，可使标准机器学习模型 (machine learning models)（如回归 (regression) 与树模型 (trees)）无需依赖专用算法 (specialized algorithms) 即可进行时间序列预测 (time series predictions)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "timeseries-post-3",
+      "question": "Walk-forward validation splits time data into expanding or sliding windows. Why is this better than K-fold CV for time series?",
+      "questionZh": "前向验证 (Walk-forward validation) 将时间数据划分为扩展窗口 (expanding window) 或滑动窗口 (sliding window)。为什么在时间序列 (time series) 任务中，该方法优于 K 折交叉验证 (K-fold CV)？",
+      "options": [
+        "Walk-forward is faster to compute",
+        "Walk-forward respects temporal order, training only on past data and testing on future data, preventing lookahead bias",
+        "K-fold CV cannot be used on numeric data",
+        "Walk-forward uses more data for training"
+      ],
+      "optionsZh": [
+        "前向验证 (Walk-forward) 的计算速度更快。",
+        "向前推进法 (Walk-forward) 遵循时间顺序，仅使用历史数据进行训练，并使用未来数据进行测试，从而避免前视偏差 (lookahead bias)。",
+        "K折交叉验证（K-fold Cross-Validation）不适用于数值型数据（numeric data）。",
+        "前向验证 (Walk-forward) 在训练中使用更多数据"
+      ],
+      "explanation": "Walk-forward validation always trains on past data and tests on future data, mimicking real-world deployment. K-fold CV shuffles data, potentially training on future to predict past (temporal leakage).",
+      "explanationZh": "向前验证（Walk-forward validation）始终基于历史数据进行训练，并在未来数据上进行测试，以模拟真实场景中的模型部署。相比之下，K折交叉验证（K-fold CV）会打乱数据顺序，可能导致模型利用未来数据训练来预测过去，从而引发时间泄露（temporal leakage）。"
+    }
+  ]
+}

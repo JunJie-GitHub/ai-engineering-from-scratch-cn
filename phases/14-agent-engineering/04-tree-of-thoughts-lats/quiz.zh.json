@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why does chain-of-thought struggle on Game of 24?",
+      "questionZh": "为什么思维链（Chain-of-Thought）在24点游戏（Game of 24）上表现不佳？",
+      "options": [
+        "The model cannot multiply integers",
+        "A linear walk cannot backtrack when an early step is wrong, so later steps compound the error",
+        "The prompt is too short",
+        "CoT requires a calculator tool that GPT-4 lacks"
+      ],
+      "optionsZh": [
+        "该模型无法执行整数乘法运算。",
+        "线性遍历（linear walk）在早期步骤出错时无法回溯（backtrack），因此后续步骤会导致错误不断累积。",
+        "提示词 (Prompt) 过短。",
+        "思维链 (Chain of Thought, CoT) 需要 GPT-4 所不具备的计算器工具 (calculator tool)。"
+      ],
+      "explanation": "Without branching, a wrong early subexpression poisons the rest of the chain; the paper measures only 4 percent for CoT.",
+      "explanationZh": "若无分支 (branching) 机制，早期错误的子表达式 (subexpression) 将污染推理链的其余部分；论文测得思维链 (CoT) 的成功率仅为 4%。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is a node in a Tree of Thoughts search?",
+      "questionZh": "在思维树（Tree of Thoughts）搜索中，节点（node）是什么？",
+      "options": [
+        "A token produced by the model",
+        "A coherent intermediate step or thought, with K possible child expansions",
+        "A weight update during fine-tuning",
+        "A tool registered with the runtime"
+      ],
+      "optionsZh": [
+        "由模型生成的词元 (token)",
+        "一个连贯的中间步骤或思考，具有 K 个可能的子节点扩展。",
+        "微调（fine-tuning）过程中的权重更新（weight update）",
+        "已注册到运行时 (Runtime) 的工具"
+      ],
+      "explanation": "ToT treats reasoning as a tree where each node is an intermediate thought that can expand into K children.",
+      "explanationZh": "思维树 (Tree of Thoughts, ToT) 将推理过程视为一棵树，其中每个节点代表一个中间思维 (intermediate thought)，并可扩展出 K 个子节点。"
+    },
+    {
+      "stage": "check",
+      "correct": 3,
+      "question": "Which of these three is NOT one of LATS's roles for the LLM?",
+      "questionZh": "以下哪一项不属于 LATS 为大语言模型（LLM）设定的角色？",
+      "options": [
+        "Policy that proposes next actions",
+        "Value function that scores partial trajectories",
+        "Self-reflector that writes reflections on failure",
+        "Optimizer that updates model weights between rollouts"
+      ],
+      "optionsZh": [
+        "用于建议下一步动作的策略 (Policy)",
+        "对部分轨迹（Partial Trajectories）进行评分的价值函数（Value Function）",
+        "用于在失败时生成反思记录的自反思器 (Self-reflector)",
+        "在 rollout (轨迹采样) 之间更新模型权重 (Model Weights) 的优化器 (Optimizer)"
+      ],
+      "explanation": "LATS is gradient-free; the three LLM roles are policy, value, and self-reflector. There are no weight updates.",
+      "explanationZh": "LATS 采用无梯度 (gradient-free) 机制；三个大语言模型 (LLM) 角色分别为策略 (policy)、价值 (value) 和自反思器 (self-reflector)。该过程不涉及权重更新 (weight updates)。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Name the four MCTS phases the lesson lists.",
+      "questionZh": "请列出本节课程中提到的蒙特卡洛树搜索（MCTS）的四个阶段。",
+      "options": [
+        "Sample, Score, Sort, Submit",
+        "Select, Expand, Simulate, Backpropagate",
+        "Plan, Execute, Reflect, Stop",
+        "Search, Synthesize, Synthesize-Again, Stop"
+      ],
+      "optionsZh": [
+        "采样 (Sample)、评分 (Score)、排序 (Sort)、提交 (Submit)",
+        "选择 (Select)、扩展 (Expand)、模拟 (Simulate)、反向传播 (Backpropagate)",
+        "规划、执行、反思、停止",
+        "搜索 (Search)、综合 (Synthesize)、再次综合 (Synthesize-Again)、停止 (Stop)"
+      ],
+      "explanation": "MCTS proceeds in select, expand, simulate, backpropagate per iteration.",
+      "explanationZh": "蒙特卡洛树搜索 (MCTS) 在每次迭代中依次执行选择 (Select)、扩展 (Expand)、模拟 (Simulate) 和回溯 (Backpropagate) 四个步骤。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "In UCT, what is the role of the exploration constant c?",
+      "questionZh": "在 UCT（Upper Confidence Bound applied to Trees）算法中，探索常数（exploration constant）c 的作用是什么？",
+      "options": [
+        "It scales the value estimate Q",
+        "It weights the exploration term sqrt(ln N / n) against the exploitation term Q",
+        "It sets the maximum tree depth",
+        "It controls the number of rollouts"
+      ],
+      "optionsZh": [
+        "它对价值估计 (Value Estimate) Q 进行缩放。",
+        "它在探索项 (exploration term) sqrt(ln N / n) 与利用项 (exploitation term) Q 之间进行权衡。",
+        "它用于设置最大树深度（Maximum Tree Depth）。",
+        "它控制采样（rollout）的数量。"
+      ],
+      "explanation": "c balances exploitation (Q) against the exploration term; tune per task.",
+      "explanationZh": "`c` 用于权衡利用（Exploitation，即 Q）与探索项（Exploration term）；请根据具体任务进行调优。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "When is search actively harmful compared to a single trajectory?",
+      "questionZh": "与单条轨迹（Single Trajectory）相比，搜索（Search）在什么情况下反而有害？",
+      "options": [
+        "When the evaluator is noisy and there is a single right answer, so the search converges on a good-scoring wrong answer",
+        "When the task involves multiple correct answers",
+        "Whenever tokens are cheap",
+        "When the task is code generation"
+      ],
+      "optionsZh": [
+        "当评估器（evaluator）存在噪声且仅有一个正确答案时，搜索（search）过程便会收敛于一个得分较高但错误的答案。",
+        "当任务涉及多个正确答案时",
+        "当词元 (tokens) 成本较低时",
+        "当任务为代码生成 (Code Generation) 时"
+      ],
+      "explanation": "A noisy value function plus a single correct answer is exactly when search overfits to the noise.",
+      "explanationZh": "当价值函数（value function）存在噪声且仅有一个正确答案时，正是搜索（search）对噪声产生过拟合（overfit）的典型情况。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "Roughly how much more token usage should you budget for ToT on Game of 24 compared with CoT?",
+      "questionZh": "与思维链（Chain of Thought）相比，在24点游戏（Game of 24）上使用思维树（Tree of Thoughts）时，大约需要多预留多少 Token 使用量？",
+      "options": [
+        "About 2x",
+        "About 10x",
+        "100x to 1000x",
+        "Less than CoT because of pruning"
+      ],
+      "optionsZh": [
+        "About 2x",
+        "About 10x",
+        "100倍至1000倍",
+        "因剪枝（Pruning）而低于思维链（Chain of Thought）"
+      ],
+      "explanation": "The lesson cites 100-1000x token cost for ToT on Game of 24 versus CoT.",
+      "explanationZh": "该课程指出，在24点游戏（Game of 24）中，思维树（Tree of Thoughts, ToT）的 token 成本是思维链（Chain of Thought, CoT）的 100 至 1000 倍。"
+    }
+  ]
+}

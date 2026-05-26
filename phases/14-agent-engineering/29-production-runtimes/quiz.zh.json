@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What are the six runtime shapes the lesson lists?",
+      "questionZh": "课程中列出的六个运行时形状 (runtime shapes) 是什么？",
+      "options": [
+        "Request-response, streaming, durable execution, queue-based, event-driven, scheduled",
+        "Read, write, exec, fork, exit, wait",
+        "REST, gRPC, GraphQL, WebSocket, SSE, MQTT",
+        "Map, filter, reduce, fold, scan, group"
+      ],
+      "optionsZh": [
+        "请求-响应（Request-Response）、流式（Streaming）、持久化执行（Durable Execution）、基于队列（Queue-based）、事件驱动（Event-driven）、定时调度（Scheduled）",
+        "读取 (Read)、写入 (Write)、执行 (Exec)、派生 (Fork)、退出 (Exit)、等待 (Wait)",
+        "表述性状态转移 (REST)、gRPC (gRPC)、GraphQL (GraphQL)、WebSocket (WebSocket)、服务器发送事件 (SSE)、消息队列遥测传输 (MQTT)",
+        "映射 (Map)、过滤 (Filter)、归约 (Reduce)、折叠 (Fold)、扫描 (Scan)、分组 (Group)"
+      ],
+      "explanation": "These are the six runtime shapes; pick a shape before picking a framework.",
+      "explanationZh": "以上即为六种运行时形态 (Runtime Shapes)；在选定框架 (Framework) 之前，请先明确所需的形态。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "When is request-response a poor fit?",
+      "questionZh": "在什么情况下，请求-响应（Request-Response）模式并不适用？",
+      "options": [
+        "On a 1-second classification",
+        "When the task takes longer than about 30 seconds and users hang up while workers pile up",
+        "On REST APIs",
+        "On internal services"
+      ],
+      "optionsZh": [
+        "关于1秒分类 (Classification)",
+        "当任务耗时超过约30秒，且用户挂断，同时工作进程（workers）不断堆积时",
+        "关于 REST API",
+        "关于内部服务"
+      ],
+      "explanation": "Synchronous HTTP is only viable for short tasks; long tasks need queue/durable/event shapes.",
+      "explanationZh": "同步 HTTP (Synchronous HTTP) 仅适用于短时任务；长时任务则需要采用队列/持久化/事件驱动模式 (queue/durable/event shapes)。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is durable execution's core property?",
+      "questionZh": "持久化执行（Durable Execution）的核心特性是什么？",
+      "options": [
+        "Faster inference",
+        "State is checkpointed after every step so the runtime can resume from the last successful step on failure",
+        "Lower token cost",
+        "Native voice support"
+      ],
+      "optionsZh": [
+        "更快的推理 (Inference)",
+        "每个步骤完成后都会保存状态检查点（checkpoint），以便运行时（runtime）在发生故障时能够从最后一个成功的步骤恢复。",
+        "降低 Token 成本",
+        "原生语音支持 (Native voice support)"
+      ],
+      "explanation": "Checkpoint-and-resume is the differentiator; LangGraph is the lesson's reference.",
+      "explanationZh": "检查点与恢复（Checkpoint-and-resume）是其核心差异点；LangGraph 则是本课程的参考框架。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Which Anthropic observation justifies queue-based runtimes for long-horizon agents?",
+      "questionZh": "Anthropic 的哪一项观察结论为长程智能体（long-horizon agents）采用基于队列的运行时（queue-based runtimes）提供了依据？",
+      "options": [
+        "Tasks always complete in 5 seconds",
+        "Computer use announcement: dozens-to-hundreds of steps per task is normal",
+        "Tasks must run synchronously",
+        "Cron solves everything"
+      ],
+      "optionsZh": [
+        "任务 (Tasks) 始终在 5 秒内完成",
+        "计算机使用（Computer Use）公告：每项任务执行数十至数百个步骤属于正常现象",
+        "任务必须同步执行。",
+        "Cron 能解决一切问题"
+      ],
+      "explanation": "Anthropic flagged dozens-to-hundreds of steps per task as normal; that workload needs queues or durable runtimes.",
+      "explanationZh": "Anthropic 将每个任务包含几十到上百个步骤视为正常情况；此类工作负载（workload）需要队列（queues）或持久化运行时（durable runtimes）的支持。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does the lesson mean by 'observability is load-bearing'?",
+      "questionZh": "课程中提到的“可观测性（Observability）是关键支撑”具体是什么意思？",
+      "options": [
+        "Logs are pretty",
+        "Without OTel GenAI spans and a Langfuse/Phoenix/Opik backend you cannot debug a multi-step agent that failed at step 40",
+        "Disk gets full",
+        "Providers require it for billing"
+      ],
+      "optionsZh": [
+        "日志 (Logs) 格式美观",
+        "若缺少 OTel GenAI 跨度 (spans) 与 Langfuse/Phoenix/Opik 后端 (backend)，你将无法调试在第 40 步发生故障的多步智能体 (multi-step agent)。",
+        "磁盘已满",
+        "提供商需要此项信息用于计费。"
+      ],
+      "explanation": "Observability is not optional for multi-step agents; it is the difference between debugging and replaying from scratch.",
+      "explanationZh": "对于多步智能体（Multi-step Agents）而言，可观测性（Observability）并非可选项；它决定了你是在进行调试（Debugging），还是只能从头重放（Replaying from scratch）。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "Why must queue workers have a dead-letter queue (DLQ)?",
+      "questionZh": "为什么队列工作进程（Queue Workers）必须配备死信队列（Dead-Letter Queue, DLQ）？",
+      "options": [
+        "Without DLQ, failed jobs vanish silently",
+        "DLQ is required by AWS",
+        "DLQ makes jobs faster",
+        "DLQ is encrypted"
+      ],
+      "optionsZh": [
+        "若未配置死信队列（Dead Letter Queue），失败的任务将悄无声息地消失。",
+        "AWS 要求使用死信队列（Dead Letter Queue, DLQ）",
+        "死信队列 (Dead Letter Queue) 可加快任务执行速度",
+        "死信队列 (DLQ) 已加密"
+      ],
+      "explanation": "Failed jobs without DLQ disappear; DLQ is the parking lot for failed jobs.",
+      "explanationZh": "若未配置死信队列 (Dead Letter Queue, DLQ)，失败的任务将会直接消失；死信队列 (DLQ) 相当于失败任务的“停车场”。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the lesson recommend pairing cron-shaped agents with?",
+      "questionZh": "课程建议将定时型智能体（cron-shaped agents）与什么搭配使用？",
+      "options": [
+        "GPU autoscalers",
+        "Durable execution so a failing nightly run resumes next tick",
+        "Streaming SSE",
+        "WebRTC"
+      ],
+      "optionsZh": [
+        "GPU自动扩缩器 (GPU Autoscalers)",
+        "支持持久化执行（Durable Execution），使失败的夜间任务（Nightly Run）可在下一个调度周期（Tick）自动恢复。",
+        "流式 SSE (Server-Sent Events)",
+        "WebRTC"
+      ],
+      "explanation": "Cron + durable execution recovers cleanly from failed scheduled runs.",
+      "explanationZh": "Cron 调度与持久化执行 (Durable Execution) 相结合，可在定时任务执行失败时实现优雅恢复。"
+    }
+  ]
+}

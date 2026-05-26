@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why is getting structured JSON output from LLMs challenging?",
+      "questionZh": "为什么从大语言模型（Large Language Models, LLMs）获取结构化 JSON 输出（Structured JSON Output）颇具挑战？",
+      "options": [
+        "LLMs can't generate JSON",
+        "LLMs generate free-form text token by token and can produce invalid JSON (missing brackets, wrong types, extra text) at any point",
+        "JSON is too complex for LLMs",
+        "LLMs only output plain text"
+      ],
+      "optionsZh": [
+        "大语言模型（LLM）无法生成 JSON。",
+        "大语言模型（Large Language Model）会逐个词元（token）生成自由格式文本，并可能在生成过程中的任何阶段输出无效的 JSON（例如缺少括号、类型错误或包含多余文本）。",
+        "JSON（JSON）对大语言模型（LLM）而言过于复杂。",
+        "大语言模型（LLMs）仅输出纯文本。"
+      ],
+      "explanation": "LLMs generate tokens autoregressively. They might add a trailing comma, forget a closing bracket, include markdown formatting around JSON, or hallucinate extra fields. Each token is independent, so structural validity isn't guaranteed.",
+      "explanationZh": "大语言模型（LLMs）采用自回归（autoregressive）方式生成词元（tokens）。它们可能会在末尾添加逗号、遗漏闭合括号、在 JSON 数据外包裹 Markdown 格式，或产生幻觉（hallucinate）而输出额外字段。由于每个词元的生成相互独立，因此无法保证输出结果的结构有效性（structural validity）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is constrained decoding?",
+      "questionZh": "什么是约束解码 (Constrained Decoding)？",
+      "options": [
+        "Limiting the model's vocabulary size",
+        "Restricting which tokens the model can generate at each step to ensure the output conforms to a grammar or schema",
+        "Using a smaller model",
+        "Compressing the output"
+      ],
+      "optionsZh": [
+        "限制模型的词表大小 (vocabulary size)",
+        "限制模型在每个步骤中可生成的词元 (tokens)，以确保输出符合指定的语法 (grammar) 或模式 (schema)。",
+        "使用较小的模型",
+        "压缩输出"
+      ],
+      "explanation": "Constrained decoding masks out invalid tokens at each generation step. After an opening brace, only valid JSON keys are allowed. After a colon, only valid value tokens. This guarantees structural validity at the token level.",
+      "explanationZh": "约束解码（Constrained Decoding）会在每个生成步骤中屏蔽无效的词元（token）。在左大括号之后，仅允许出现有效的 JSON 键。在冒号之后，仅允许出现有效的值词元。这保证了词元级别的结构有效性。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the benefit of using Pydantic models for LLM output validation?",
+      "questionZh": "使用 Pydantic 模型（Pydantic models）进行大语言模型（Large Language Model, LLM）输出验证（output validation）有哪些优势？",
+      "options": [
+        "They make API calls faster",
+        "They define typed schemas that automatically validate, parse, and reject malformed LLM outputs with clear error messages",
+        "They reduce token usage",
+        "They improve model accuracy"
+      ],
+      "optionsZh": [
+        "它们能够加快 API 调用 (API calls) 的速度。",
+        "它们定义了类型化模式（Typed Schemas），能够自动验证、解析并拒绝格式错误的大语言模型（LLM）输出，同时提供清晰的错误信息。",
+        "它们可降低词元（Token）使用量。",
+        "它们提升了模型准确率 (Model Accuracy)。"
+      ],
+      "explanation": "Pydantic enforces types, required fields, value constraints, and nested structures. When the LLM produces invalid output, Pydantic gives specific error messages that can be fed back to the model for self-correction.",
+      "explanationZh": "Pydantic 强制校验类型 (types)、必填字段 (required fields)、值约束 (value constraints) 以及嵌套结构 (nested structures)。当大语言模型 (LLM) 生成无效输出时，Pydantic 会提供具体的错误信息，这些信息可反馈给模型以进行自我修正 (self-correction)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What should you do when the LLM returns invalid JSON despite instructions?",
+      "questionZh": "当大语言模型 (LLM) 尽管已有明确指令，仍返回无效的 JSON 时，你应该如何处理？",
+      "options": [
+        "Switch to a different model",
+        "Implement a retry loop that sends the validation error back to the model as context for a corrected attempt",
+        "Manually fix the JSON",
+        "Increase the temperature"
+      ],
+      "optionsZh": [
+        "切换至其他模型",
+        "实现一个重试循环（retry loop），将验证错误（validation error）作为上下文（context）反馈给模型（model），以便其进行修正尝试。",
+        "手动修复 JSON",
+        "提高温度 (temperature)"
+      ],
+      "explanation": "A retry loop with error feedback works well: parse the output, catch validation errors, send the error message back as context ('Your output had this error: ... Please fix it'). Most models self-correct on the second attempt.",
+      "explanationZh": "带有错误反馈（error feedback）的重试循环（retry loop）效果显著：解析输出结果，捕获验证错误（validation error），并将错误信息作为上下文（context）传回（例如：“您的输出存在此错误：……请修复它”）。大多数模型在第二次尝试时即可自我修正（self-correct）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "When should you use the API's native JSON mode vs prompt-based JSON extraction?",
+      "questionZh": "何时应该使用 API 的原生 JSON 模式（Native JSON Mode），还是基于提示词的 JSON 提取（Prompt-based JSON Extraction）？",
+      "options": [
+        "Always use native JSON mode",
+        "Use native mode for guaranteed structure; use prompt-based for complex extraction where you need the model to reason about what to extract",
+        "Always use prompt-based extraction",
+        "They produce identical results"
+      ],
+      "optionsZh": [
+        "始终使用原生 JSON 模式 (Native JSON Mode)",
+        "若需确保输出结构固定，请使用原生模式（Native Mode）；若需处理复杂的提取任务，且要求模型对提取内容进行推理判断，请使用基于提示词的模式（Prompt-based）。",
+        "始终使用基于提示的提取（prompt-based extraction）",
+        "它们产生的结果完全一致。"
+      ],
+      "explanation": "Native JSON mode (OpenAI's response_format, Anthropic's tool_use) guarantees valid JSON structure. Prompt-based extraction is more flexible for complex reasoning about which fields to populate. Use native mode when structure matters most.",
+      "explanationZh": "原生 JSON 模式（Native JSON mode）（OpenAI 的 response_format、Anthropic 的 tool_use）能够确保生成合法的 JSON 结构。基于提示词的提取（Prompt-based extraction）在针对需要填充哪些字段进行复杂推理时更具灵活性。当数据结构最为关键时，请使用原生模式。"
+    }
+  ]
+}

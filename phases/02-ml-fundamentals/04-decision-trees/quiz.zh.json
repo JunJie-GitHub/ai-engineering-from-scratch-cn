@@ -1,0 +1,109 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "id": "trees-pre-1",
+      "question": "What does Gini impurity measure at a decision tree node?",
+      "questionZh": "基尼不纯度（Gini impurity）在决策树节点处衡量的是什么？",
+      "options": [
+        "The depth of the node in the tree",
+        "The probability of misclassifying a randomly chosen sample given the class distribution at that node",
+        "The total number of samples at the node",
+        "The correlation between features"
+      ],
+      "optionsZh": [
+        "树中节点的深度",
+        "给定该节点 (node) 的类别分布 (class distribution) 时，随机选取的样本 (sample) 被误分类 (misclassification) 的概率。",
+        "节点 (node) 处的样本 (samples) 总数",
+        "特征 (Features) 之间的相关性 (Correlation)"
+      ],
+      "explanation": "Gini impurity = 1 - sum(p_k^2). It measures how often a randomly chosen sample would be misclassified if labeled according to the class distribution at that node. Pure node = 0.",
+      "explanationZh": "基尼不纯度（Gini impurity）= 1 - sum(p_k^2)。它衡量的是：若根据该节点的类别分布（class distribution）对随机选取的样本进行标记，样本被错误分类的概率。纯节点（pure node）的值为 0。"
+    },
+    {
+      "stage": "pre",
+      "correct": 2,
+      "id": "trees-pre-2",
+      "question": "What is the main advantage of tree-based models over neural networks for tabular data?",
+      "questionZh": "对于表格数据（tabular data），基于树的模型（tree-based models）相较于神经网络（neural networks）的主要优势是什么？",
+      "options": [
+        "Trees can process images and text natively",
+        "Trees always have lower bias than neural networks",
+        "Trees handle mixed feature types, require less preprocessing, and are more interpretable",
+        "Trees train faster on GPU hardware"
+      ],
+      "optionsZh": [
+        "树模型 (Tree models) 能够原生处理图像和文本。",
+        "决策树 (Decision Trees) 的偏差 (Bias) 始终低于神经网络 (Neural Networks)。",
+        "树模型（Tree models）能够处理混合特征类型，所需的预处理较少，且更具可解释性。",
+        "树模型 (Tree Models) 在 GPU 硬件上训练速度更快。"
+      ],
+      "explanation": "Trees natively handle numeric and categorical features without encoding, require minimal preprocessing, and produce interpretable rules. Neural networks excel at spatial/sequential data, not flat tables.",
+      "explanationZh": "树模型 (Tree Models) 原生支持处理数值型特征 (Numeric Features) 与类别型特征 (Categorical Features)，无需编码，预处理需求极低，且能生成可解释的规则。神经网络 (Neural Networks) 则更擅长处理空间/序列数据，而非扁平表格数据。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "id": "trees-post-1",
+      "question": "Why does a random forest use both bootstrap sampling AND random feature subsets at each split?",
+      "questionZh": "为什么随机森林（Random Forest）在每次分裂（Split）时，既要使用自助采样（Bootstrap Sampling），又要使用随机特征子集（Random Feature Subsets）？",
+      "options": [
+        "To speed up training by reducing the dataset size",
+        "To create diverse, decorrelated trees so that averaging reduces variance without increasing bias",
+        "To ensure each tree sees every data point at least once",
+        "To reduce the depth of individual trees"
+      ],
+      "optionsZh": [
+        "通过缩减数据集 (Dataset) 规模以加速训练 (Training)",
+        "为了构建多样化且去相关的树（decorrelated trees），从而通过平均（averaging）操作在不增加偏差（bias）的前提下降低方差（variance）。",
+        "为确保每棵树（tree）至少能接触到每个数据点（data point）一次。",
+        "为了降低单棵树（Individual Trees）的深度"
+      ],
+      "explanation": "Both sources of randomness make the trees diverse. Without feature randomization, all trees would split on the same dominant feature. Diversity is what makes averaging effective at reducing variance.",
+      "explanationZh": "这两种随机性来源 (sources of randomness) 使得树 (trees) 具有多样性。如果没有特征随机化 (feature randomization)，所有的树都会在同一个主导特征 (dominant feature) 上进行分裂 (split)。正是这种多样性使得平均 (averaging) 能够有效降低方差 (variance)。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "id": "trees-post-2",
+      "question": "A node contains 8 dogs and 2 cats. What is its Gini impurity?",
+      "questionZh": "一个节点包含 8 只狗和 2 只猫。它的基尼不纯度（Gini Impurity）是多少？",
+      "options": [
+        "0.0",
+        "0.20",
+        "0.32",
+        "0.50"
+      ],
+      "optionsZh": [
+        "0.0",
+        "0.20",
+        "0.32",
+        "0.50"
+      ],
+      "explanation": "Gini = 1 - (0.8^2 + 0.2^2) = 1 - (0.64 + 0.04) = 0.32. The node is mostly dogs but not pure, so Gini is between 0 (pure) and 0.5 (max for binary).",
+      "explanationZh": "基尼不纯度（Gini impurity）= 1 - (0.8^2 + 0.2^2) = 1 - (0.64 + 0.04) = 0.32。该节点中绝大多数样本为狗，但并非完全纯净（pure），因此基尼不纯度介于 0（完全纯净）与 0.5（二分类（binary）情况下的最大值）之间。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "id": "trees-post-3",
+      "question": "MDI (Mean Decrease in Impurity) feature importance is biased toward which type of feature?",
+      "questionZh": "平均不纯度减少（Mean Decrease in Impurity, MDI）特征重要性偏向于哪种类型的特征？",
+      "options": [
+        "Binary features with only two values",
+        "Features with low variance",
+        "High-cardinality features with many possible split points",
+        "Features that are highly correlated with the target"
+      ],
+      "optionsZh": [
+        "仅包含两个取值的二元特征（Binary features）",
+        "低方差特征 (Low Variance Features)",
+        "具有大量可能分裂点 (split points) 的高基数特征 (High-cardinality features)",
+        "与目标 (Target) 高度相关的特征 (Feature)"
+      ],
+      "explanation": "MDI is biased toward high-cardinality features because they offer more possible split points, giving them more chances to reduce impurity by luck. Permutation importance is more reliable.",
+      "explanationZh": "MDI（平均不纯度减少，Mean Decrease Impurity）对高基数特征（high-cardinality features）存在偏差，因为这类特征提供了更多可能的切分点（split points），从而有更多机会通过偶然性降低不纯度（impurity）。相比之下，排列重要性（Permutation importance）更为可靠。"
+    }
+  ]
+}

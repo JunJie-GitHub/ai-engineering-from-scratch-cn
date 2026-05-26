@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What three prompts make up a Self-Refine loop?",
+      "questionZh": "构成自我精炼循环（Self-Refine loop）的三个提示词是什么？",
+      "options": [
+        "Plan, execute, solve",
+        "Generate, feedback, refine",
+        "Actor, evaluator, reflector",
+        "Search, score, synthesize"
+      ],
+      "optionsZh": [
+        "规划、执行、解决",
+        "生成、反馈、优化",
+        "执行者 (Actor)、评估器 (Evaluator)、反思器 (Reflector)",
+        "检索、评分与综合"
+      ],
+      "explanation": "Self-Refine uses one model in three roles: generate, feedback, refine.",
+      "explanationZh": "自我优化（Self-Refine）让单一模型承担三种角色：生成（generate）、反馈（feedback）与优化（refine）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why does Self-Refine require history on the refine step?",
+      "questionZh": "为什么自优化（Self-Refine）在优化步骤中需要历史记录？",
+      "options": [
+        "Providers cache only on history",
+        "Without prior outputs and critiques the refine step repeats earlier mistakes; the ablation shows quality drops sharply",
+        "History is needed for billing",
+        "It speeds up token generation"
+      ],
+      "optionsZh": [
+        "提供商仅基于历史记录进行缓存",
+        "若缺乏先前的输出与评审反馈，优化步骤（refine step）将重复此前的错误；消融实验（ablation）表明，质量会急剧下降。",
+        "计费需要历史记录。",
+        "它可加速词元 (token) 生成。"
+      ],
+      "explanation": "The refine prompt conditions on the full history so the model does not repeat its earlier errors.",
+      "explanationZh": "优化提示词（Refine Prompt）会基于完整的历史记录进行生成，从而避免模型重复之前的错误。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does CRITIC change relative to Self-Refine?",
+      "questionZh": "与 Self-Refine 相比，CRITIC 做出了哪些改变？",
+      "options": [
+        "It removes the refine step",
+        "It replaces the self-feedback step with an external tool-grounded verifier",
+        "It uses a larger model for generation",
+        "It runs the feedback step in parallel"
+      ],
+      "optionsZh": [
+        "它移除了优化步骤 (refine step)",
+        "它用基于外部工具的验证器（external tool-grounded verifier）取代了自我反馈步骤（self-feedback step）。",
+        "它使用更大规模的模型进行生成。",
+        "它会并行 (parallel) 执行反馈步骤 (feedback step)。"
+      ],
+      "explanation": "CRITIC swaps self-critique for a verify step routed through search, code interpreter, calculator, or domain verifiers.",
+      "explanationZh": "CRITIC 将自我批判（self-critique）替换为验证步骤（verify step），该步骤路由至搜索（search）、代码解释器（code interpreter）、计算器（calculator）或领域验证器（domain verifiers）执行。"
+    },
+    {
+      "stage": "check",
+      "correct": 2,
+      "question": "Which Anthropic workflow pattern matches Self-Refine and CRITIC in Claude-friendly language?",
+      "questionZh": "哪一种 Anthropic 工作流模式 (Anthropic workflow pattern) 与自我优化 (Self-Refine) 和批判性评估 (CRITIC) 相对应，并采用符合 Claude 风格的表述？",
+      "options": [
+        "Router",
+        "Prompt chain",
+        "Evaluator-Optimizer",
+        "Parallel sampling"
+      ],
+      "optionsZh": [
+        "Router",
+        "提示词链 (Prompt Chain)",
+        "评估器-优化器 (Evaluator-Optimizer)",
+        "并行采样 (Parallel sampling)"
+      ],
+      "explanation": "Anthropic names this pattern Evaluator-Optimizer: an evaluator scores, an optimizer revises, loop until convergence.",
+      "explanationZh": "Anthropic 将此模式命名为“评估器-优化器”（Evaluator-Optimizer）：评估器负责评分，优化器负责修订，循环迭代直至收敛（convergence）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is a rubber-stamp loop and how does the lesson recommend avoiding it?",
+      "questionZh": "什么是橡皮图章循环（rubber-stamp loop）？课程建议如何避免它？",
+      "options": [
+        "A test that always passes; remove the test",
+        "Same model and same prompt critiquing its own output and approving it; use structurally different prompts or a separate smaller critic",
+        "A retry that always fails; raise the budget",
+        "A guardrail that times out; widen the timeout"
+      ],
+      "optionsZh": [
+        "始终通过的测试；请移除该测试",
+        "同一模型使用相同的提示词（prompt）对其自身输出进行自我批评并予以认可；建议改用结构不同的提示词，或引入一个独立的较小规模批评模型（critic）。",
+        "始终失败的重试 (retry)；提高预算 (budget)。",
+        "护栏 (Guardrail) 超时；请延长超时时间"
+      ],
+      "explanation": "Same-style self-critique converges on 'looks good to me'; differentiate the evaluator from the optimizer.",
+      "explanationZh": "采用相同风格的自我评估（Self-Critique）易收敛于“看起来没问题”的结论；应将评估器（Evaluator）与优化器（Optimizer）明确区分。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "Which SDK feature in OpenAI Agents SDK is CRITIC-shaped?",
+      "questionZh": "OpenAI 智能体 SDK（OpenAI Agents SDK）中的哪项功能具有 CRITIC 架构特征？",
+      "options": [
+        "Handoffs",
+        "Sessions",
+        "Output guardrails (which can call tools)",
+        "Tracing"
+      ],
+      "optionsZh": [
+        "Handoffs",
+        "Sessions",
+        "输出护栏（Output Guardrails）（可调用工具）",
+        "Tracing"
+      ],
+      "explanation": "Output guardrails validate the final agent output and can call tools, matching CRITIC's verifier role.",
+      "explanationZh": "输出护栏（Output Guardrails）用于验证智能体（Agent）的最终输出，并可调用工具，这与 CRITIC 中的验证者（Verifier）角色相匹配。"
+    },
+    {
+      "stage": "post",
+      "correct": 2,
+      "question": "What stop condition does the lesson recommend for 2026 evaluator-optimizer loops?",
+      "questionZh": "针对 2026 评估器-优化器循环（evaluator-optimizer loops），本课程推荐的停止条件（stop condition）是什么？",
+      "options": [
+        "Stop only when the verifier passes",
+        "Stop only when the model says 'fine'",
+        "Combine: verifier passes OR (model says fine AND iterations >= 2) OR iterations >= max_iterations",
+        "Never stop; let the agent self-improve indefinitely"
+      ],
+      "optionsZh": [
+        "仅当验证器 (Verifier) 通过时才停止",
+        "仅当模型 (Model) 输出“fine”时停止。",
+        "组合条件：验证器 (verifier) 通过，或（模型 (model) 判定为合格且迭代次数 (iterations) >= 2），或迭代次数 (iterations) >= 最大迭代次数 (max_iterations)。",
+        "永不停止；让智能体 (Agent) 持续不断地自我优化"
+      ],
+      "explanation": "A combined condition avoids single-condition failure modes.",
+      "explanationZh": "组合条件 (combined condition) 可避免单一条件故障模式 (single-condition failure modes)。"
+    }
+  ]
+}

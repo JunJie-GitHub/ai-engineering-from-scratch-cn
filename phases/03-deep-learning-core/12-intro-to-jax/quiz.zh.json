@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the fundamental design difference between PyTorch and JAX?",
+      "questionZh": "PyTorch 与 JAX 之间的根本设计差异是什么？",
+      "options": [
+        "PyTorch is faster",
+        "PyTorch mutates tensors eagerly while JAX compiles pure functions without side effects",
+        "JAX doesn't support GPUs",
+        "PyTorch doesn't support automatic differentiation"
+      ],
+      "optionsZh": [
+        "PyTorch 速度更快。",
+        "PyTorch 会立即（Eagerly）修改张量（Tensor），而 JAX 则编译无副作用（Side Effect）的纯函数（Pure Function）。",
+        "JAX 不支持图形处理器（GPU）。",
+        "PyTorch 不支持自动微分 (Automatic Differentiation)。"
+      ],
+      "explanation": "PyTorch uses eager execution with mutable state (e.g., tensor.grad is modified in place). JAX embraces functional programming: functions are pure, state is explicit, and jit compilation optimizes entire computation graphs.",
+      "explanationZh": "PyTorch 采用基于可变状态（mutable state）的即时执行（eager execution）模式（例如，tensor.grad 会被原地修改）。JAX 则拥抱函数式编程（functional programming）：函数为纯函数（pure functions），状态是显式的（explicit state），并且 JIT 编译（JIT compilation）会对整个计算图（computation graphs）进行优化。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does jax.jit do?",
+      "questionZh": "`jax.jit` 的作用是什么？",
+      "options": [
+        "It adds dropout regularization",
+        "It compiles a Python function into optimized XLA code that runs much faster than interpreted Python",
+        "It initializes model weights",
+        "It computes gradients"
+      ],
+      "optionsZh": [
+        "它引入了丢弃正则化 (Dropout Regularization)。",
+        "它将 Python 函数编译为优化后的 XLA（Accelerated Linear Algebra）代码，运行速度远快于解释执行的 Python。",
+        "它用于初始化模型权重 (model weights)。",
+        "它计算梯度 (gradients)。"
+      ],
+      "explanation": "jax.jit traces a function and compiles it to XLA (Accelerated Linear Algebra) machine code. The first call is slow (compilation), but subsequent calls run the optimized compiled version.",
+      "explanationZh": "`jax.jit` 会对函数进行追踪（trace）并将其编译为 XLA（加速线性代数，Accelerated Linear Algebra）机器码（machine code）。首次调用较慢（因为需要编译），但后续调用将直接运行优化后的编译版本。"
+    },
+    {
+      "stage": "post",
+      "correct": 0,
+      "question": "What does jax.vmap do?",
+      "questionZh": "`jax.vmap` 的作用是什么？",
+      "options": [
+        "Vectorizes a function to run over a batch dimension without writing explicit loops",
+        "Validates model architecture",
+        "Manages GPU memory",
+        "Computes second-order gradients"
+      ],
+      "optionsZh": [
+        "将函数向量化（Vectorize），使其能够沿批次维度（Batch dimension）运行，而无需编写显式循环（Explicit loops）。",
+        "验证模型架构 (model architecture)",
+        "管理 GPU 显存 (GPU Memory)",
+        "计算二阶梯度 (second-order gradients)"
+      ],
+      "explanation": "jax.vmap automatically vectorizes a function written for a single example to process an entire batch. You write code for one sample and vmap handles batching, often more efficiently than manual batch loops.",
+      "explanationZh": "`jax.vmap` 会自动将针对单个样本编写的函数进行向量化（vectorize），以处理整个批次（batch）。你只需为单个样本编写代码，`vmap` 便会负责批处理（batching），其效率通常优于手动编写的批次循环。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How does JAX handle model state (weights) differently than PyTorch?",
+      "questionZh": "JAX 与 PyTorch 在处理模型状态（model state，即权重（weights））方面有何不同？",
+      "options": [
+        "JAX stores weights on CPU only",
+        "JAX requires explicit state passing -- weights are function arguments, not mutable object attributes",
+        "JAX doesn't support trainable weights",
+        "JAX and PyTorch handle state identically"
+      ],
+      "optionsZh": [
+        "JAX 仅将权重 (weights) 存储在 CPU 上。",
+        "JAX 要求显式状态传递 (explicit state passing)——权重 (weights) 是函数参数 (function arguments)，而非可变对象属性 (mutable object attributes)。",
+        "JAX 不支持可训练权重（trainable weights）",
+        "JAX 与 PyTorch 对状态（state）的处理方式完全一致。"
+      ],
+      "explanation": "In PyTorch, weights live inside nn.Module objects and are mutated in place. In JAX, weights are passed explicitly as function arguments and returned as new values. No mutation, no hidden state.",
+      "explanationZh": "在 PyTorch 中，权重（weights）存储在 `nn.Module` 对象内部，并会进行原地修改（in-place mutation）。而在 JAX 中，权重会作为函数参数显式传入，并以新值的形式返回。不修改原值，也不维护隐藏状态（hidden state）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "When would you choose JAX over PyTorch?",
+      "questionZh": "在什么情况下你会选择 JAX 而非 PyTorch？",
+      "options": [
+        "For quick prototyping of small models",
+        "When training at massive scale on TPU pods, where compilation and functional transforms provide significant speedups",
+        "When you need the largest ecosystem of pretrained models",
+        "For deployment on mobile devices"
+      ],
+      "optionsZh": [
+        "用于小型模型（Small Models）的快速原型设计（Quick Prototyping）",
+        "在 TPU 集群 (TPU Pod) 上进行超大规模训练时，编译 (compilation) 与函数式变换 (functional transforms) 能够带来显著的加速效果。",
+        "当您需要规模最大的预训练模型（pretrained models）生态系统时",
+        "用于移动设备部署"
+      ],
+      "explanation": "JAX excels at scale: jit compilation eliminates Python overhead, pmap handles multi-device parallelism naturally, and XLA optimization across the full computation graph gives significant speedups on TPU clusters.",
+      "explanationZh": "JAX 在大规模场景下表现卓越：JIT 编译（Just-In-Time compilation）消除了 Python 开销，`pmap` 能够自然地处理多设备并行，而针对完整计算图的 XLA 优化（Accelerated Linear Algebra optimization）则在 TPU 集群上带来了显著的性能提升。"
+    }
+  ]
+}

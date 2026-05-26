@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What advantage does SVD have over eigendecomposition?",
+      "questionZh": "与特征分解 (Eigendecomposition) 相比，奇异值分解 (SVD) 有哪些优势？",
+      "options": [
+        "SVD is always faster to compute",
+        "SVD works on any matrix of any shape, while eigendecomposition requires square matrices with full eigenvector sets",
+        "SVD produces smaller output matrices",
+        "SVD does not require numerical computation"
+      ],
+      "optionsZh": [
+        "奇异值分解 (SVD) 的计算速度始终更快。",
+        "奇异值分解（SVD）适用于任意形状的矩阵，而特征分解（Eigendecomposition）则要求矩阵为方阵，且需具备完整的特征向量集。",
+        "奇异值分解 (SVD) 会生成更小的输出矩阵。",
+        "奇异值分解 (SVD) 无需数值计算。"
+      ],
+      "explanation": "Eigendecomposition only works on square matrices that have n linearly independent eigenvectors. SVD decomposes ANY m x n matrix into U * Sigma * V^T with no restrictions on shape or rank.",
+      "explanationZh": "特征分解（Eigendecomposition）仅适用于具有 n 个线性无关特征向量（linearly independent eigenvectors）的方阵（square matrices）。奇异值分解（Singular Value Decomposition, SVD）可将任意 m x n 矩阵分解为 U * Sigma * V^T，且对矩阵的形状（shape）或秩（rank）没有任何限制。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does 'low-rank approximation' mean?",
+      "questionZh": "“低秩近似（low-rank approximation）”是什么意思？",
+      "options": [
+        "Removing rows with low values from a matrix",
+        "Approximating a matrix by keeping only its most important components, producing a simpler matrix with fewer independent directions",
+        "Converting a matrix to a lower precision data type",
+        "Sorting the rows of a matrix by their magnitude"
+      ],
+      "optionsZh": [
+        "从矩阵（Matrix）中移除低值行",
+        "通过仅保留矩阵中最关键的分量来进行近似，从而生成一个独立方向更少的简化矩阵。",
+        "将矩阵转换为低精度数据类型 (Lower Precision Data Type)",
+        "按矩阵（matrix）各行的模长（magnitude）排序"
+      ],
+      "explanation": "A rank-k approximation keeps only the top k singular values and their vectors, discarding the rest. The Eckart-Young theorem proves this is the BEST possible approximation of that rank.",
+      "explanationZh": "秩-k近似（rank-k approximation）仅保留前 k 个最大的奇异值（singular values）及其对应的向量，舍弃其余部分。Eckart-Young定理（Eckart-Young theorem）证明了这是该秩下可能的最优近似。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "In SVD A = U * Sigma * V^T, what geometric operation does each factor represent?",
+      "questionZh": "在奇异值分解（Singular Value Decomposition, SVD）公式 A = U * Sigma * V^T 中，每个因子分别对应何种几何变换？",
+      "options": [
+        "U scales, Sigma rotates, V^T translates",
+        "V^T rotates in input space, Sigma scales along principal axes, U rotates into output space",
+        "U compresses, Sigma expands, V^T normalizes",
+        "All three factors perform the same operation: rotation"
+      ],
+      "optionsZh": [
+        "U 负责缩放，Sigma 负责旋转，V^T 负责平移",
+        "V^T 在输入空间（input space）中进行旋转，Sigma 沿主轴（principal axes）进行缩放，U 旋转至输出空间（output space）。",
+        "U 负责压缩，Sigma 负责扩展，V^T 负责归一化。",
+        "这三个因子执行相同的操作：旋转 (rotation)。"
+      ],
+      "explanation": "SVD reveals that every matrix performs: (1) V^T rotates inputs to align with principal directions, (2) Sigma stretches/compresses along each axis, (3) U rotates the result into the output space. Rotate, scale, rotate.",
+      "explanationZh": "奇异值分解（Singular Value Decomposition, SVD）揭示了每个矩阵的变换过程：(1) V^T 将输入旋转以对齐主方向（principal directions）；(2) Sigma 沿每个轴进行拉伸或压缩；(3) U 将结果旋转至输出空间（output space）。即：旋转、缩放、旋转。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does sklearn implement PCA using SVD instead of eigendecomposition of the covariance matrix?",
+      "questionZh": "为什么 sklearn 使用奇异值分解 (SVD) 而非协方差矩阵 (Covariance Matrix) 的特征分解 (Eigendecomposition) 来实现主成分分析 (PCA)？",
+      "options": [
+        "SVD produces different results that are more accurate for ML",
+        "SVD works directly on the data matrix without forming the covariance matrix, avoiding squaring the condition number and improving numerical stability",
+        "SVD is easier to parallelize on GPUs",
+        "SVD does not require centering the data"
+      ],
+      "optionsZh": [
+        "奇异值分解 (SVD) 会生成不同的结果，这些结果在机器学习 (ML) 中更为准确。",
+        "奇异值分解（SVD）直接作用于数据矩阵，无需构建协方差矩阵，从而避免了条件数平方，并提高了数值稳定性。",
+        "奇异值分解 (SVD) 更易于在图形处理器 (GPU) 上实现并行化。",
+        "奇异值分解（SVD）无需对数据进行中心化。"
+      ],
+      "explanation": "Forming A^T*A squares the singular values (and condition number). If A has singular values [1000, 0.001], A^T*A has eigenvalues [10^6, 10^-6] -- 6 digits of precision lost. SVD avoids this by working directly on A.",
+      "explanationZh": "构造 A^T*A 会使奇异值（singular values）和条件数（condition number）平方。如果 A 的奇异值为 [1000, 0.001]，则 A^T*A 的特征值（eigenvalues）为 [10^6, 10^-6]——这意味着损失了 6 位精度。奇异值分解（Singular Value Decomposition, SVD）通过直接对 A 进行操作避免了这一问题。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How does truncated SVD enable recommendation systems to predict missing ratings?",
+      "questionZh": "截断奇异值分解（Truncated SVD）如何使推荐系统（Recommendation Systems）能够预测缺失评分？",
+      "options": [
+        "It fills missing entries with the average rating",
+        "It decomposes the ratings matrix into latent user and movie profiles; the dot product of a user profile with a movie profile predicts the missing rating",
+        "It clusters similar users together and copies their ratings",
+        "It trains a neural network on the observed ratings"
+      ],
+      "optionsZh": [
+        "它使用平均评分（average rating）填充缺失条目（missing entries）。",
+        "它将评分矩阵（ratings matrix）分解为潜在的用户与电影特征向量（latent user and movie profiles）；用户特征向量与电影特征向量的点积（dot product）用于预测缺失的评分。",
+        "它将相似用户聚类在一起，并复制其评分。",
+        "它利用观测到的评分 (observed ratings) 来训练神经网络 (neural network)。"
+      ],
+      "explanation": "SVD decomposes the ratings matrix into user profiles (U), latent factor importance (Sigma), and movie profiles (V^T). The low-rank reconstruction fills in missing entries based on the latent factors (genre, era, style) that explain user preferences.",
+      "explanationZh": "奇异值分解 (SVD) 将评分矩阵 (ratings matrix) 分解为用户特征 (user profiles, U)、隐因子重要性 (latent factor importance, Sigma) 和电影特征 (movie profiles, V^T)。低秩重建 (low-rank reconstruction) 会根据解释用户偏好的隐因子 (latent factors)（如类型、时代、风格）来填充缺失项。"
+    }
+  ]
+}

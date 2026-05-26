@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 0,
+      "question": "What are the three evaluation layers the lesson names?",
+      "questionZh": "本课程提到了哪三个评估层 (evaluation layers)？",
+      "options": [
+        "Static benchmarks, custom offline evals, online production evals",
+        "Unit, integration, end-to-end",
+        "Smoke, regression, acceptance",
+        "Pre, check, post"
+      ],
+      "optionsZh": [
+        "静态基准测试 (Static Benchmarks)、自定义离线评估 (Custom Offline Evaluations)、在线生产环境评估 (Online Production Evaluations)",
+        "单元测试 (Unit)、集成测试 (Integration)、端到端测试 (End-to-End)",
+        "冒烟测试 (Smoke)、回归测试 (Regression)、验收测试 (Acceptance)",
+        "预处理、检查与后处理"
+      ],
+      "explanation": "Static (SWE-bench, GAIA), custom offline (LLM-judge, exec, trajectory), online (replays, alerts, cost/latency).",
+      "explanationZh": "静态 (Static)（SWE-bench、GAIA）、自定义离线 (Custom Offline)（LLM-judge、执行 (exec)、轨迹 (trajectory)）、在线 (Online)（回放 (replays)、告警 (alerts)、成本/延迟 (cost/latency)）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is Anthropic's recommended starting point?",
+      "questionZh": "Anthropic 推荐的入门起点是什么？",
+      "options": [
+        "Start with multi-agent debate",
+        "Start with simple prompts, optimize them with comprehensive evaluation, and add multi-step agentic systems only when needed",
+        "Start with hierarchical orchestration",
+        "Start with a frontier model only"
+      ],
+      "optionsZh": [
+        "从多智能体辩论（Multi-Agent Debate）开始",
+        "从简单的提示词（prompts）入手，通过全面评估（comprehensive evaluation）进行优化，仅在必要时才引入多步智能体系统（multi-step agentic systems）。",
+        "从分层编排（Hierarchical Orchestration）开始",
+        "仅从前沿模型 (frontier model) 开始"
+      ],
+      "explanation": "Anthropic explicitly says evaluation is the outer loop that drives every other choice.",
+      "explanationZh": "Anthropic 明确指出，评估（Evaluation）是驱动所有其他决策的外层循环（Outer Loop）。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is the evaluator-optimizer tight loop?",
+      "questionZh": "什么是评估器-优化器紧密循环（Evaluator-Optimizer Tight Loop）？",
+      "options": [
+        "Train, evaluate, deploy",
+        "Proposer generates output, evaluator judges, refine until evaluator passes (Self-Refine generalized)",
+        "Sample, sort, deduplicate",
+        "Cache, retry, fail"
+      ],
+      "optionsZh": [
+        "训练、评估、部署",
+        "提议者 (Proposer) 生成输出，评估者 (Evaluator) 进行评判，持续迭代优化直至评估通过（Self-Refine 的泛化）",
+        "采样 (Sample)、排序 (Sort)、去重 (Deduplicate)",
+        "缓存 (Cache)、重试 (Retry) 与失败 (Fail)"
+      ],
+      "explanation": "It is Self-Refine generalized: any flow can wrap in propose-judge-refine.",
+      "explanationZh": "这是自我优化 (Self-Refine) 的泛化：任何工作流均可封装为提议-评判-优化 (propose-judge-refine) 模式。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is the 2026 best practice for where evals live?",
+      "questionZh": "2026年关于评估（evaluations）存放位置的最佳实践是什么？",
+      "options": [
+        "In a separate vendor dashboard only",
+        "Next to code, run in CI on every PR, gate merges on eval scores",
+        "Only run quarterly",
+        "Owned exclusively by the QA team"
+      ],
+      "optionsZh": [
+        "仅限在独立的供应商仪表板 (Vendor Dashboard) 中",
+        "与代码配套，在每次拉取请求（Pull Request）时于持续集成（Continuous Integration）中运行，并将评估分数（Evaluation Scores）作为合并门禁。",
+        "仅每季度运行一次",
+        "由 QA（质量保证）团队独家负责"
+      ],
+      "explanation": "Co-located with code, CI-gated, regression-tracked is the standard.",
+      "explanationZh": "与代码同仓存放、受持续集成（Continuous Integration, CI）门禁控制、并进行回归追踪（Regression Tracking），已成为标准做法。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Why does the lesson warn against an LLM-judge without grounding?",
+      "questionZh": "为什么课程警告不要使用缺乏事实依据（Grounding）的 LLM 裁判（LLM-judge）？",
+      "options": [
+        "It is too slow",
+        "Judges hallucinate too; pair with the CRITIC pattern so judgment grounds on external tools",
+        "It violates Apache 2.0",
+        "It only works on GPUs"
+      ],
+      "optionsZh": [
+        "速度太慢",
+        "评估模型 (Judge) 同样会产生幻觉 (hallucinate)；建议搭配 CRITIC 模式 (CRITIC pattern) 使用，以确保评判依据建立在外部工具 (external tools) 之上。",
+        "这违反了 Apache 2.0 许可证 (Apache 2.0 License)。",
+        "仅支持在图形处理器 (GPU) 上运行。"
+      ],
+      "explanation": "CRITIC (Lesson 5) applies: tool-grounded verification keeps the judge honest.",
+      "explanationZh": "CRITIC（第 5 课）适用原则：基于工具的验证 (tool-grounded verification) 能确保评估模型 (judge) 保持客观公正。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the danger of over-fitting to evals?",
+      "questionZh": "对评估集（evals）过拟合（overfitting）会带来哪些风险？",
+      "options": [
+        "Compute cost rises",
+        "Optimizing for the eval set diverges from production usefulness; rotate cases",
+        "Vector indices fragment",
+        "Latency drops too far"
+      ],
+      "optionsZh": [
+        "算力成本上升 (Compute Cost Rises)",
+        "针对评估集（evaluation set）进行优化会偏离生产环境的实际效用；应定期轮换测试用例。",
+        "向量索引片段 (Vector Index Fragment)",
+        "延迟 (Latency) 下降过多"
+      ],
+      "explanation": "Eval set rotation keeps the optimization aligned with production reality.",
+      "explanationZh": "评估集（Evaluation Set）轮换可确保优化过程与生产环境的实际情况保持一致。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why do flaky evals cause problems?",
+      "questionZh": "为什么不稳定的评估 (flaky evals) 会导致问题？",
+      "options": [
+        "They double inference cost",
+        "Non-deterministic cases produce false alarms; pin seeds and snapshot state",
+        "They cannot reach the database",
+        "They exceed the context window"
+      ],
+      "optionsZh": [
+        "它们会使推理成本 (Inference Cost) 翻倍。",
+        "非确定性情况 (Non-deterministic cases) 会引发误报 (false alarms)；固定随机种子 (pin seeds) 并保存状态快照 (snapshot state)",
+        "它们无法连接到数据库 (Database)。",
+        "它们超出了上下文窗口 (context window) 的限制。"
+      ],
+      "explanation": "Flake makes regressions unreadable; determinism (seeds, state snapshots) is required.",
+      "explanationZh": "测试不稳定性（Flake）会导致回归测试（Regression）结果难以解读；必须确保确定性（Determinism）（如使用随机种子（Seeds）和状态快照（State Snapshots））。"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why does a basic BPE tokenizer break on multilingual or code input?",
+      "questionZh": "为什么基础的BPE分词器（Byte Pair Encoding Tokenizer）在处理多语言或代码输入时会失效？",
+      "options": [
+        "BPE is inherently monolingual",
+        "Without proper Unicode handling, byte fallback, and pre-tokenization regex, it produces incorrect or inefficient token sequences",
+        "Multilingual text can't be tokenized",
+        "BPE only works on ASCII"
+      ],
+      "optionsZh": [
+        "字节对编码（Byte Pair Encoding, BPE）本质上是单语的。",
+        "若缺乏正确的 Unicode 处理 (Unicode handling)、字节回退 (byte fallback) 以及预分词正则表达式 (pre-tokenization regex)，它将生成不正确或低效的词元序列 (token sequences)。",
+        "多语言文本无法进行分词 (tokenize)",
+        "字节对编码 (Byte Pair Encoding) 仅适用于 ASCII。"
+      ],
+      "explanation": "A naive BPE implementation may not handle multi-byte Unicode characters, may merge across word boundaries incorrectly, and may not have byte-level fallback for characters outside the trained vocabulary.",
+      "explanationZh": "一个基础的字节对编码（Byte Pair Encoding）实现可能无法正确处理多字节 Unicode 字符，可能会错误地跨越词边界进行合并，并且对于训练词表之外的字符可能缺乏字节级回退机制。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the role of pre-tokenization regex in a production tokenizer?",
+      "questionZh": "在生产环境分词器（production tokenizer）中，预分词正则表达式（pre-tokenization regex）的作用是什么？",
+      "options": [
+        "It removes punctuation",
+        "It splits text at word boundaries before BPE merges, preventing merges across spaces and word boundaries",
+        "It compresses whitespace",
+        "It converts text to lowercase"
+      ],
+      "optionsZh": [
+        "它会移除标点符号。",
+        "该操作会在字节对编码（BPE）合并前于词边界处分割文本，从而防止跨越空格与词边界的合并。",
+        "它会压缩空白字符（whitespace）。",
+        "它将文本转换为小写（lowercase）。"
+      ],
+      "explanation": "Pre-tokenization regex splits text into chunks (typically at word boundaries, numbers, and punctuation) so BPE merges only happen within chunks. Without this, BPE could merge 'end' with the space before the next word.",
+      "explanationZh": "预分词正则表达式 (Pre-tokenization regex) 将文本切分为多个文本块 (chunks)（通常在词边界、数字和标点符号处进行切分），从而确保字节对编码 (BPE) 的合并操作仅在文本块内部发生。若不进行此处理，BPE 可能会将 'end' 与下一个单词前的空格合并在一起。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is a special token and why are tokenizers designed to handle them?",
+      "questionZh": "什么是特殊标记（Special Token），以及为什么分词器（Tokenizer）需要专门设计来处理它们？",
+      "options": [
+        "Tokens that appear frequently",
+        "Reserved tokens like <|endoftext|> or [PAD] that control model behavior and must be encoded as single, specific IDs",
+        "Tokens with the highest embedding values",
+        "Tokens used only during evaluation"
+      ],
+      "optionsZh": [
+        "频繁出现的词元 (Tokens)",
+        "诸如 `<|endoftext|>` 或 `[PAD]` 之类的保留词元（reserved tokens）用于控制模型行为，且必须编码为单一、特定的 ID。",
+        "嵌入值 (Embedding values) 最高的词元 (Tokens)",
+        "仅用于评估 (Evaluation) 的词元 (Token)"
+      ],
+      "explanation": "Special tokens serve structural purposes: marking document boundaries, padding sequences, indicating start/end of generation. They must be recognized and encoded as their exact IDs, not broken into subwords.",
+      "explanationZh": "特殊令牌（Special Tokens）具有结构性作用：用于标记文档边界、填充序列（Padding Sequences）以及指示生成的起始与结束。它们必须被识别并编码为其确切的 ID，而不能被拆分为子词（Subwords）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "How do you evaluate whether a custom tokenizer is good?",
+      "questionZh": "如何评估自定义分词器（custom tokenizer）的效果？",
+      "options": [
+        "By checking if it can tokenize your name",
+        "By measuring compression ratio (tokens per character) across diverse text and comparing to established tokenizers like tiktoken",
+        "By counting the vocabulary size",
+        "By measuring encoding speed only"
+      ],
+      "optionsZh": [
+        "通过检查它是否能对你的名字进行分词（tokenize）",
+        "通过在多样化文本上测量压缩比 (Compression Ratio，即每字符词元数)，并与 tiktoken 等成熟的分词器 (Tokenizer) 进行对比",
+        "通过统计词表大小 (vocabulary size)",
+        "仅通过测量编码速度 (encoding speed)"
+      ],
+      "explanation": "Compression ratio (bytes per token or tokens per word) measures efficiency. A good tokenizer produces fewer tokens for the same text, which means more content fits in the context window. Compare across languages and domains.",
+      "explanationZh": "压缩率（Compression ratio，通常以每词元字节数或每词词元数表示）用于衡量效率。优秀的分词器（Tokenizer）在处理相同文本时会生成更少的词元（Token），这意味着上下文窗口（Context window）中可以容纳更多内容。建议在不同语言和领域之间进行对比。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why is byte-level BPE preferred over word-level tokenization for modern LLMs?",
+      "questionZh": "为什么现代大语言模型（Large Language Models, LLMs）更倾向于使用字节级 BPE（Byte-level BPE），而非词级分词（Word-level Tokenization）？",
+      "options": [
+        "It's faster",
+        "It can represent any input without unknown tokens while still learning efficient subword merges for common patterns",
+        "It produces smaller vocabularies",
+        "Word-level tokenization is more accurate"
+      ],
+      "optionsZh": [
+        "速度更快",
+        "它能够在无需使用未知词元（unknown tokens）的情况下表示任意输入，同时仍能为常见模式学习高效的子词合并（subword merges）。",
+        "它会生成规模更小的词表 (vocabulary)。",
+        "词级分词（Word-level tokenization）更为准确。"
+      ],
+      "explanation": "Word-level tokenizers can't handle unseen words (producing [UNK] tokens). Byte-level BPE starts from raw bytes (guaranteeing coverage of any input) and learns merges for common sequences, balancing coverage with efficiency.",
+      "explanationZh": "词级分词器（Word-level tokenizers）无法处理未登录词（unseen words），通常会生成 [UNK] 标记（[UNK] tokens）。字节级 BPE（Byte-level BPE）直接从原始字节（raw bytes）开始处理，确保能够覆盖任意输入，并通过学习常见序列（common sequences）的合并操作（merges），在覆盖率（coverage）与效率（efficiency）之间取得平衡。"
+    }
+  ]
+}

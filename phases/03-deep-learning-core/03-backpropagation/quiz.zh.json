@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the chain rule in the context of neural networks?",
+      "questionZh": "在神经网络（Neural Networks）的背景下，什么是链式法则（Chain Rule）？",
+      "options": [
+        "A rule for chaining layers together",
+        "If y = f(g(x)), then dy/dx = f'(g(x)) * g'(x) -- multiply derivatives along the path",
+        "A method for initializing weights",
+        "A technique for batching data"
+      ],
+      "optionsZh": [
+        "将层（Layer）连接在一起的规则",
+        "若 y = f(g(x))，则 dy/dx = f'(g(x)) * g'(x) —— 沿路径将导数 (derivative) 相乘。",
+        "一种权重初始化 (Weight Initialization) 方法",
+        "数据批处理 (Data Batching) 技术"
+      ],
+      "explanation": "The chain rule lets you compute the derivative of a composite function by multiplying the local derivatives at each step. Backpropagation applies this systematically through the computational graph.",
+      "explanationZh": "链式法则（Chain Rule）允许通过将每一步的局部导数（Local Derivatives）相乘，来计算复合函数（Composite Function）的导数（Derivative）。反向传播（Backpropagation）在计算图（Computational Graph）中系统地应用了这一原理。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why is backpropagation more efficient than computing each gradient independently?",
+      "questionZh": "为什么反向传播（Backpropagation）比独立计算每个梯度（Gradient）更高效？",
+      "options": [
+        "It uses less memory",
+        "It computes all gradients in a single backward pass instead of one forward pass per parameter",
+        "It only works on small networks",
+        "It avoids using the chain rule"
+      ],
+      "optionsZh": [
+        "它占用的内存 (Memory) 更少。",
+        "它在单次反向传播（backward pass）中计算所有梯度（gradients），而不是为每个参数（parameters）分别执行一次前向传播（forward pass）。",
+        "它仅适用于小型网络 (Small Networks)。",
+        "它避免了使用链式法则（Chain Rule）"
+      ],
+      "explanation": "Computing gradients independently requires one forward pass per parameter (millions of passes for a large network). Backpropagation computes all gradients in one backward pass by reusing intermediate values stored during the forward pass.",
+      "explanationZh": "独立计算梯度（gradients）需要对每个参数执行一次前向传播（forward pass）（对于大型网络而言，这将需要数百万次）。反向传播（backpropagation）通过复用前向传播过程中存储的中间值，仅需一次反向传递（backward pass）即可计算出所有梯度。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "In the backward pass, why do we use '+=' instead of '=' when accumulating gradients?",
+      "questionZh": "在反向传播（Backward Pass）过程中，为什么在累加梯度（Gradient Accumulation）时使用 `'+='` 而不是 `'='`？",
+      "options": [
+        "It's a Python convention",
+        "A value might be used in multiple operations, so its gradient is the sum of gradients from all paths",
+        "It prevents overflow",
+        "It makes the code run faster"
+      ],
+      "optionsZh": [
+        "这是 Python 的一种惯例。",
+        "一个值可能会在多个运算 (operation) 中被使用，因此其梯度 (gradient) 为所有路径 (path) 传来的梯度之和。",
+        "它可防止溢出 (overflow)",
+        "这能让代码运行得更快。"
+      ],
+      "explanation": "When a Value is used as input to multiple operations (e.g., x used in both x*w1 and x*w2), its total gradient is the sum of the gradients flowing back from each operation. Using += accumulates these correctly.",
+      "explanationZh": "当一个 Value 作为多个操作的输入时（例如，x 同时用于 x*w1 和 x*w2），其总梯度（gradient）等于从各个操作反向传播回来的梯度之和。使用 += 可以正确地累加这些梯度。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What causes the vanishing gradient problem in deep sigmoid networks?",
+      "questionZh": "是什么导致了深度 Sigmoid 网络（deep sigmoid networks）中的梯度消失问题（vanishing gradient problem）？",
+      "options": [
+        "The learning rate is too small",
+        "Sigmoid's derivative has a maximum of 0.25, so gradients shrink exponentially through layers",
+        "The network has too many parameters",
+        "The loss function is poorly chosen"
+      ],
+      "optionsZh": [
+        "学习率 (Learning Rate) 过小。",
+        "Sigmoid 函数 (Sigmoid) 的导数最大值为 0.25，因此梯度 (gradient) 在层间传播时呈指数级衰减。",
+        "该网络 (Network) 的参数 (Parameters) 过多。",
+        "损失函数（Loss Function）选择不当"
+      ],
+      "explanation": "The sigmoid derivative peaks at 0.25 (when z=0). Each layer multiplies the gradient by at most 0.25, so after 10 layers the gradient is at most 0.25^10 = ~0.000001 of the original signal.",
+      "explanationZh": "Sigmoid 导数 (Sigmoid derivative) 在 z=0 时达到峰值 0.25。每一层最多将梯度 (gradient) 乘以 0.25，因此经过 10 层后，梯度最多仅为原始信号的 0.25^10 ≈ 0.000001 倍。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why does topological sort matter in the backward pass?",
+      "questionZh": "为什么拓扑排序（Topological Sort）在反向传播（Backward Pass）中至关重要？",
+      "options": [
+        "It makes the code cleaner",
+        "It ensures each node's gradient is fully accumulated before propagating to its children",
+        "It speeds up the forward pass",
+        "It reduces memory usage"
+      ],
+      "optionsZh": [
+        "这能让代码更加整洁。",
+        "它确保每个节点的梯度（gradient）在向子节点传播（propagation）之前已完全累积。",
+        "它加速了前向传播（forward pass）。",
+        "它可降低内存使用量 (memory usage)"
+      ],
+      "explanation": "Topological sort ensures we process nodes in the correct order: a node's gradient must be fully accumulated from all downstream paths before we propagate through it. Without this ordering, gradients would be incomplete.",
+      "explanationZh": "拓扑排序（Topological sort）确保我们按正确的顺序处理节点：在通过该节点进行传播之前，必须先从所有下游路径（downstream paths）将该节点的梯度（gradient）完全累积。若缺乏此种排序，梯度将不完整。"
+    }
+  ]
+}

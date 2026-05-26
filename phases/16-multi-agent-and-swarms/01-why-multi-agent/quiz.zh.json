@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the 'single-agent ceiling'?",
+      "questionZh": "什么是“单智能体天花板（Single-Agent Ceiling）”？",
+      "options": [
+        "The maximum number of tools an agent can use",
+        "The point where a single agent fails because the task exceeds one context window, requires different expertise, or needs parallel work",
+        "The limit on how many API calls an agent can make per minute",
+        "The maximum model size that can run on a single GPU"
+      ],
+      "optionsZh": [
+        "智能体（Agent）可使用的工具最大数量",
+        "单智能体（Agent）因任务超出单个上下文窗口（Context Window）、需要不同领域的专业知识或需并行处理而无法胜任的临界点。",
+        "智能体 (Agent) 每分钟可发起的 API 调用 (API calls) 次数限制",
+        "可在单张图形处理器 (GPU) 上运行的最大模型规模 (Model Size)"
+      ],
+      "explanation": "A single agent has one context window, one system prompt, and processes sequentially. When tasks require reading 50 files (context overflow), switching between research and coding (mixed expertise), or doing independent work simultaneously (parallelism), a single agent breaks down.",
+      "explanationZh": "单个智能体（Agent）仅具备一个上下文窗口（Context Window）和一个系统提示词（System Prompt），且只能顺序处理任务。当任务需要读取 50 个文件（引发上下文溢出 Context Overflow）、在研究与编码之间切换（涉及混合专长 Mixed Expertise），或需同时开展独立工作（依赖并行处理 Parallelism）时，单个智能体将无法胜任。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "Why might you use multiple specialized agents instead of one powerful general agent?",
+      "questionZh": "为什么可能会使用多个专用智能体（Specialized Agents），而不是一个强大的通用智能体（General Agent）？",
+      "options": [
+        "Multiple agents are always cheaper than a single large model",
+        "Each agent can have a focused system prompt, smaller context, and specialized tools, leading to better performance on its specific subtask",
+        "Multiple agents can share the same context window",
+        "General agents cannot use tools"
+      ],
+      "optionsZh": [
+        "多个智能体（Agent）的成本始终低于单个大模型（Large Model）。",
+        "每个智能体（Agent）均可配备专注的系统提示词（System Prompt）、更精简的上下文（Context）以及专用工具（Specialized Tools），从而在其特定的子任务（Subtask）上实现更优的性能。",
+        "多个智能体（Agent）可以共享同一个上下文窗口（Context Window）。",
+        "通用智能体（General Agents）无法使用工具。"
+      ],
+      "explanation": "A researcher agent optimized for search, a coder agent optimized for implementation, and a reviewer agent optimized for code quality each do their job better than a single agent trying to be all three simultaneously.",
+      "explanationZh": "专为搜索优化的研究智能体（Researcher Agent）、专为实现优化的编码智能体（Coder Agent）以及专为代码质量优化的审查智能体（Reviewer Agent），各自在其专业领域的表现，均优于试图同时兼任这三者的单一智能体。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "When is a pipeline (sequential) multi-agent pattern better than a parallel fan-out pattern?",
+      "questionZh": "在什么情况下，流水线（顺序）多智能体模式 (pipeline (sequential) multi-agent pattern) 会比并行扇出模式 (parallel fan-out pattern) 更优？",
+      "options": [
+        "When you want to minimize total latency",
+        "When each stage depends on the output of the previous stage, such as research then code then review",
+        "When all subtasks are independent of each other",
+        "When you have more GPUs than tasks"
+      ],
+      "optionsZh": [
+        "当您希望最小化总延迟 (Total Latency) 时",
+        "当每个阶段 (stage) 都依赖于前一阶段的输出 (output) 时，例如依次进行研究 (research)、编码 (code) 与评审 (review)。",
+        "当所有子任务相互独立时",
+        "当图形处理器（GPU）数量多于任务时"
+      ],
+      "explanation": "Pipeline patterns are right when work is inherently sequential: the coder needs the researcher's output, and the reviewer needs the coder's output. Parallel fan-out is better when subtasks are independent.",
+      "explanationZh": "流水线模式（Pipeline patterns）适用于工作本身具有固有顺序性的场景：编码人员需要研究人员的输出，而审核人员需要编码人员的输出。并行扇出（Parallel fan-out）则在子任务相互独立时更为适用。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the supervisor pattern in multi-agent systems?",
+      "questionZh": "什么是多智能体系统（Multi-Agent Systems）中的监督者模式（Supervisor Pattern）？",
+      "options": [
+        "A human manually assigns tasks to each agent",
+        "A central orchestrator agent that decomposes the task, delegates to worker agents, collects results, and decides next steps",
+        "A monitoring system that logs agent actions for debugging",
+        "A pattern where agents vote on the best response"
+      ],
+      "optionsZh": [
+        "人工手动为每个智能体（Agent）分配任务。",
+        "一个负责分解任务、将其委派给工作智能体（Worker Agents）、收集结果并决定后续步骤的中央编排智能体（Central Orchestrator Agent）。",
+        "用于记录智能体（Agent）行为以进行调试的监控系统（Monitoring System）",
+        "一种智能体（Agent）通过投票选出最佳响应（Best Response）的模式（Pattern）"
+      ],
+      "explanation": "The supervisor agent acts as a project manager: it breaks the task into subtasks, assigns them to specialized workers, reviews their output, and decides whether to iterate or finalize. This provides centralized control over the workflow.",
+      "explanationZh": "监督智能体（Supervisor Agent）充当项目经理的角色：它将任务拆分为子任务，分配给专项工作智能体（Worker Agent），审查其输出结果，并决定是进行迭代还是最终定稿。这为工作流（Workflow）提供了集中控制。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the primary tradeoff of multi-agent systems compared to single agents?",
+      "questionZh": "与单智能体（Single Agent）相比，多智能体系统（Multi-Agent Systems）的主要权衡（Tradeoff）是什么？",
+      "options": [
+        "Multi-agent systems always produce lower quality results",
+        "Increased complexity, latency, and cost from multiple LLM calls and inter-agent communication, traded for better handling of complex tasks",
+        "Multi-agent systems require more training data",
+        "Multi-agent systems cannot use external tools"
+      ],
+      "optionsZh": [
+        "多智能体系统（Multi-agent systems）始终会生成质量较低的结果。",
+        "多次大语言模型（LLM）调用与智能体间通信（inter-agent communication）增加了复杂度、延迟与成本，但换取了对复杂任务更优的处理能力。",
+        "多智能体系统（Multi-agent systems）需要更多的训练数据（training data）。",
+        "多智能体系统（Multi-agent systems）无法使用外部工具（external tools）"
+      ],
+      "explanation": "Every additional agent means more LLM calls (cost), more round trips (latency), and more failure modes (debugging complexity). Multi-agent is only worth it when the task genuinely exceeds what a single agent can handle.",
+      "explanationZh": "每增加一个智能体 (Agent)，就意味着更多的大语言模型调用 (LLM calls)（成本）、更多的往返交互 (round trips)（延迟）以及更多的故障模式 (failure modes)（调试复杂度）。只有当任务真正超出单智能体 (single agent) 的处理能力时，采用多智能体 (Multi-agent) 架构才具有实际价值。"
+    }
+  ]
+}

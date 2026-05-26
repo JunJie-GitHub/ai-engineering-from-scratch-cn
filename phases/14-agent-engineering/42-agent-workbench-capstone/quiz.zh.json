@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does the capstone produce?",
+      "questionZh": "顶点项目（Capstone Project）的产出是什么？",
+      "options": [
+        "A research paper",
+        "A versioned drop-in directory (agent-workbench-pack/) with the seven surfaces plus a bin/install.sh that lays them down idempotently",
+        "A new LLM",
+        "A monitoring dashboard"
+      ],
+      "optionsZh": [
+        "研究论文",
+        "一个版本化即插即用目录 (drop-in directory) (agent-workbench-pack/)，包含七个界面 (surfaces)，以及一个 bin/install.sh 脚本，用于以幂等 (idempotent) 方式部署这些组件。",
+        "A new LLM",
+        "监控仪表盘 (Monitoring Dashboard)"
+      ],
+      "explanation": "The pack is the recipe; each install is a serving.",
+      "explanationZh": "软件包（Pack）如同配方（Recipe）；每次安装（Install）即是一次服务实例（Serving）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 3,
+      "question": "Which is NOT part of the pack layout?",
+      "questionZh": "以下哪项不属于打包布局 (pack layout) 的组成部分？",
+      "options": [
+        "AGENTS.md + docs/",
+        "schemas/",
+        "scripts/",
+        "vendor_proprietary_weights/"
+      ],
+      "optionsZh": [
+        "AGENTS.md + docs/",
+        "schemas/",
+        "scripts/",
+        "vendor_proprietary_weights/"
+      ],
+      "explanation": "Pack layout is AGENTS.md, docs/, schemas/, scripts/, bin/, README.md. The pack is framework- and vendor-agnostic.",
+      "explanationZh": "包结构 (Pack Layout) 包含 AGENTS.md、docs/、schemas/、scripts/、bin/ 和 README.md。该包独立于框架与供应商 (framework- and vendor-agnostic)。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Why does the pack carry a VERSION file?",
+      "questionZh": "为什么软件包中会包含 VERSION 文件？",
+      "options": [
+        "For SEO",
+        "Major bumps for schema/script changes that require migrations; minor for additions; patch for doc-only; the target repo records which version it was installed against",
+        "To track agent IQ",
+        "To advertise on Hacker News"
+      ],
+      "optionsZh": [
+        "For SEO",
+        "主版本更新（Major bump）适用于需要执行迁移（migration）的模式/脚本（schema/script）变更；次版本更新（Minor bump）适用于新增功能；补丁版本更新（Patch bump）仅适用于文档修改；目标仓库（target repo）会记录其安装时所对应的版本。",
+        "追踪智能体智商 (Agent IQ)",
+        "在 Hacker News 上投放广告"
+      ],
+      "explanation": "Same shape as npm, Cargo, pyproject.toml; VERSION is the contract, not the marketing.",
+      "explanationZh": "与 npm、Cargo 和 pyproject.toml 的结构保持一致；VERSION 是技术契约，而非营销手段。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What does cross-tool distribution look like in this pack?",
+      "questionZh": "在该工具包（pack）中，跨工具分发（cross-tool distribution）具体是怎样的？",
+      "options": [
+        "Hard-code each tool's path",
+        "One source file with symlinks (ln -s AGENTS.md CLAUDE.md, .cursor/rules/, .github/copilot-instructions.md) so the same source fans out to every coding agent",
+        "Manual copy per tool",
+        "A vendor lock per tool"
+      ],
+      "optionsZh": [
+        "硬编码每个工具的路径",
+        "使用单一源文件配合符号链接 (symlinks)（ln -s AGENTS.md CLAUDE.md, .cursor/rules/, .github/copilot-instructions.md），以便将同一份源文件统一分发至所有代码智能体 (coding agents)。",
+        "按工具手动复制",
+        "每个工具的供应商锁定 (Vendor Lock-in)"
+      ],
+      "explanation": "Nx's nx ai-setup is the reference; the pack's installer does the same with symlinks.",
+      "explanationZh": "Nx 的 nx ai-setup 是参考实现；该软件包的安装程序同样通过符号链接 (symbolic links) 实现相同功能。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "How does the lesson recommend the uninstaller behave?",
+      "questionZh": "课程建议卸载程序（uninstaller）应如何运行？",
+      "options": [
+        "Delete everything including state",
+        "Refuse on non-trivial state; never delete user agent_state.json, task_board.json, or outputs/; only remove schemas, scripts, docs, and AGENTS.md (with opt-out)",
+        "Delete only docs",
+        "Disable git"
+      ],
+      "optionsZh": [
+        "删除所有内容，包括状态 (state)",
+        "若存在非平凡状态（non-trivial state），则拒绝执行；切勿删除用户的 agent_state.json、task_board.json 或 outputs/；仅允许移除模式（schemas）、脚本（scripts）、文档（docs）以及 AGENTS.md（支持选择退出/opt-out）。",
+        "仅删除文档",
+        "禁用 Git"
+      ],
+      "explanation": "State belongs to the user; the pack does not own it.",
+      "explanationZh": "状态（State）归用户所有；包（Pack）并不拥有它。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What stays OUT of the pack?",
+      "questionZh": "哪些内容**不会**被包含在软件包 (package) 中？",
+      "options": [
+        "Schemas",
+        "Project-specific tasks, vendor SDK calls, team onboarding prose — the pack is framework-agnostic and lives next to onboarding, not inside it",
+        "Scripts",
+        "The installer"
+      ],
+      "optionsZh": [
+        "Schemas",
+        "项目特定任务、供应商软件开发工具包 (SDK) 调用以及团队入职说明文档——该工具包采用框架无关 (framework-agnostic) 设计，与入职流程 (onboarding) 并列存放，而非嵌入其中。",
+        "Scripts",
+        "安装程序 (Installer)"
+      ],
+      "explanation": "Tasks belong on the target repo's board, not the pack; vendor SDK calls would lock the pack to one framework.",
+      "explanationZh": "任务应归属于目标仓库（Repository）的看板（Board），而非包（Pack）；调用供应商 SDK（Software Development Kit）会将该包锁定至单一框架（Framework）。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Through what channel does the pack ship to many coding agents at once?",
+      "questionZh": "该软件包 (package) 通过何种通道 (channel) 同时向多个编程智能体 (coding agents) 进行分发 (ship)？",
+      "options": [
+        "Hand-copy",
+        "SkillKit-style distribution (skillkit install agent-workbench-pack) lays it down across 32 AI agents from a single source",
+        "Email attachment",
+        "GitHub release notes only"
+      ],
+      "optionsZh": [
+        "Hand-copy",
+        "采用 SkillKit 风格的分发机制（SkillKit-style distribution），可从单一来源将其统一部署至 32 个 AI 智能体（AI agents）上（skillkit install agent-workbench-pack）。",
+        "电子邮件附件 (Email attachment)",
+        "仅限 GitHub 发布说明"
+      ],
+      "explanation": "Pack repo is the source of truth; SkillKit is the distribution channel; vendor lock-in collapses.",
+      "explanationZh": "Pack 仓库 (Pack Repository) 是单一事实来源 (Single Source of Truth)；SkillKit 是分发渠道；供应商锁定 (Vendor Lock-in) 随之瓦解。"
+    }
+  ]
+}

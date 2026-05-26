@@ -1,0 +1,144 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What does an init script eliminate?",
+      "questionZh": "初始化脚本（init script）能省去哪些步骤？",
+      "options": [
+        "Latency from inference",
+        "The per-session setup tax: probing runtime, listing the repo, retrying the same checks each new session",
+        "Provider rate limits",
+        "Authn tokens"
+      ],
+      "optionsZh": [
+        "推理延迟 (Inference Latency)",
+        "每次会话（session）的初始化开销：探测运行时（runtime）、列出仓库（repo），以及在每个新会话中重复执行相同的检查。",
+        "提供商速率限制 (Provider Rate Limits)",
+        "认证令牌 (Authentication Tokens)"
+      ],
+      "explanation": "The script pays the tax once and writes the answers into init_report.json the agent reads.",
+      "explanationZh": "该脚本仅缴纳一次税款，并将答案写入 init_report.json，供智能体（Agent）读取。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is the init script's failure-mode contract?",
+      "questionZh": "初始化脚本（init script）的故障模式契约（failure-mode contract）是什么？",
+      "options": [
+        "Fail soft and continue",
+        "Fail loud, fail fast, fail in one place; refuse to start when the workbench is broken",
+        "Always succeed",
+        "Retry forever"
+      ],
+      "optionsZh": [
+        "软失败 (Fail soft) 并继续",
+        "失败需显式暴露，快速失败，集中处理；工作台异常时拒绝启动",
+        "始终成功",
+        "无限重试"
+      ],
+      "explanation": "The whole point is to refuse to start when the workbench is broken; silent fallback defeats the purpose.",
+      "explanationZh": "核心目的在于：当工作台（workbench）出现故障时，系统应拒绝启动；静默回退（silent fallback）机制将违背这一设计初衷。"
+    },
+    {
+      "stage": "check",
+      "correct": 3,
+      "question": "Which is NOT one of the probes the lesson lists?",
+      "questionZh": "以下哪一项不属于本课程列出的探针（probes）？",
+      "options": [
+        "Runtime versions",
+        "Dependency availability",
+        "Test command resolvability",
+        "Token-by-token sampling temperature"
+      ],
+      "optionsZh": [
+        "运行时版本 (Runtime versions)",
+        "依赖项可用性 (Dependency Availability)",
+        "测试命令可解析性 (Command Resolvability)",
+        "逐词元采样温度 (Token-by-token sampling temperature)"
+      ],
+      "explanation": "Probes include runtime versions, deps, test command, paths, env vars, state freshness, last-known-good commit.",
+      "explanationZh": "探针 (Probes) 包括运行时版本 (runtime versions)、依赖项 (deps)、测试命令 (test command)、路径 (paths)、环境变量 (env vars)、状态新鲜度 (state freshness) 以及最近已知良好提交 (last-known-good commit)。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "Why does the lesson say init must be idempotent?",
+      "questionZh": "为什么课程中指出 init 必须是幂等（idempotent）的？",
+      "options": [
+        "It satisfies SOC 2",
+        "Running it twice should be a no-op except for a fresh timestamp, so it can be wired into CI, hooks, or a pre-task slash command",
+        "Idempotence saves money",
+        "It is required by JSON Schema"
+      ],
+      "optionsZh": [
+        "符合 SOC 2（Service Organization Control 2）标准。",
+        "运行两次除了更新时间戳 (timestamp) 外应为空操作 (no-op)，因此可将其集成到持续集成 (CI)、钩子 (hooks) 或任务前置斜杠命令 (pre-task slash command) 中。",
+        "幂等性（Idempotence）节省成本",
+        "这是 JSON 模式（JSON Schema）所要求的。"
+      ],
+      "explanation": "Idempotence makes init safe to call from many entry points (hooks, CI, slash command).",
+      "explanationZh": "幂等性（Idempotence）使得 init 可以从多个入口点（entry points）（如钩子（hooks）、持续集成（CI）、斜杠命令（slash command））安全调用。"
+    },
+    {
+      "stage": "check",
+      "correct": 1,
+      "question": "What is last-known-good commit anchoring?",
+      "questionZh": "什么是最后已知良好提交锚定（last-known-good commit anchoring）？",
+      "options": [
+        "The most recent commit by the team lead",
+        "Probe the current commit against an LKG file; refuse to start if the diff exceeds a budget without human ratification",
+        "The earliest commit in the repo",
+        "The merge base of HEAD and main"
+      ],
+      "optionsZh": [
+        "团队负责人的最新提交 (commit)",
+        "将当前提交 (commit) 与 LKG 文件进行比对；若差异 (diff) 超出预设阈值 (budget) 且未经人工审批 (human ratification)，则拒绝启动。",
+        "仓库 (repository) 中的最早提交 (commit)",
+        "HEAD 与 main 的合并基点（Merge Base）"
+      ],
+      "explanation": "Cloudflare's AI Code Review scopes reviewers against the LKG to prevent drift compounding across sessions.",
+      "explanationZh": "Cloudflare 的 AI 代码审查 (AI Code Review) 以 LKG (Last Known Good) 为基准划定审查范围，以防止跨会话的漂移 (drift) 累积。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What does the lock file with TTL pattern do?",
+      "questionZh": "带 TTL（Time To Live）的锁文件（Lock File）模式有什么作用？",
+      "options": [
+        "Locks the repo from edits",
+        "Writes prereqs.lock after a successful probe pass; subsequent runs trust the lock for 24h and skip expensive probes if the manifest hash matches",
+        "Blocks all writes for 24 hours",
+        "Disables CI"
+      ],
+      "optionsZh": [
+        "锁定仓库 (repository) 以防止编辑。",
+        "成功通过探测 (probe pass) 后写入 prereqs.lock；后续运行将在 24 小时内信任该锁文件，若清单哈希值 (manifest hash) 匹配，则跳过高开销的探测。",
+        "在24小时内阻止所有写入操作",
+        "禁用持续集成（CI）"
+      ],
+      "explanation": "Same shape as Docker layer caches: idempotent probe + content hash = skip.",
+      "explanationZh": "与 Docker 层缓存 (Docker layer caches) 模式一致：幂等探测 (idempotent probe) + 内容哈希 (content hash) = 跳过 (skip)。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What should NEVER appear in the init hot path?",
+      "questionZh": "初始化热路径（init hot path）中绝不应出现什么？",
+      "options": [
+        "Local filesystem reads",
+        "Network calls, LLM calls, external license checks; probes are deterministic plumbing under three seconds",
+        "Reading env vars",
+        "Reading the lockfile"
+      ],
+      "optionsZh": [
+        "本地文件系统读取 (Local filesystem reads)",
+        "网络调用 (Network calls)、LLM 调用 (LLM calls)、外部许可证检查 (external license checks)；探针 (probes) 是耗时低于三秒的确定性底层管道 (deterministic plumbing)。",
+        "读取环境变量 (environment variables)",
+        "读取锁定文件 (lockfile)"
+      ],
+      "explanation": "A probe that calls an LLM is a workflow, not a probe; keep init deterministic.",
+      "explanationZh": "调用大语言模型（Large Language Model）的探针（Probe）实际上是一个工作流（Workflow），而非探针；请保持初始化（Initialization）具有确定性（Deterministic）。"
+    }
+  ]
+}

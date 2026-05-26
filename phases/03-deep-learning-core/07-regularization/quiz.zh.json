@@ -1,0 +1,104 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "What is overfitting in neural networks?",
+      "questionZh": "什么是神经网络（Neural Networks）中的过拟合（Overfitting）？",
+      "options": [
+        "The model is too small to learn the data",
+        "The model memorizes training data instead of learning generalizable patterns, showing a large gap between train and test accuracy",
+        "The model trains too slowly",
+        "The loss function is wrong"
+      ],
+      "optionsZh": [
+        "模型 (model) 规模过小，无法有效学习数据。",
+        "模型仅记忆了训练数据，而非学习可泛化模式 (Generalizable Patterns)，导致训练准确率 (Training Accuracy) 与测试准确率 (Test Accuracy) 之间存在显著差距。",
+        "模型训练过慢",
+        "损失函数 (Loss Function) 有误。"
+      ],
+      "explanation": "Overfitting occurs when a model achieves high training accuracy but poor test accuracy. It has memorized the training data's noise rather than learning the underlying patterns.",
+      "explanationZh": "当模型在训练集上取得很高的训练准确率（training accuracy），但在测试集上的测试准确率（test accuracy）却较差时，就会发生过拟合（Overfitting）。这表明模型记住了训练数据中的噪声（noise），而非学习到了数据背后的潜在规律（underlying patterns）。"
+    },
+    {
+      "stage": "pre",
+      "correct": 1,
+      "question": "How does dropout regularize a neural network?",
+      "questionZh": "丢弃法（Dropout）如何对神经网络（Neural Network）进行正则化（Regularization）？",
+      "options": [
+        "It removes the worst-performing neurons permanently",
+        "It randomly zeroes neurons during training, forcing the network to learn redundant representations",
+        "It reduces the learning rate",
+        "It removes outliers from the training data"
+      ],
+      "optionsZh": [
+        "它会永久移除性能最差的神经元 (neurons)。",
+        "它在训练期间随机将神经元置零，迫使网络学习冗余表示（redundant representations）。",
+        "它会降低学习率 (Learning Rate)。",
+        "它会从训练数据（training data）中剔除异常值（outliers）。"
+      ],
+      "explanation": "During each forward pass, dropout randomly sets neuron outputs to zero with probability p. This prevents co-adaptation (neurons relying on specific others) and is equivalent to training an ensemble of 2^N subnetworks.",
+      "explanationZh": "在每次前向传播（forward pass）过程中，随机失活（Dropout）会以概率 p 随机将神经元的输出置为零。这有效防止了协同适应（co-adaptation，即神经元依赖特定其他神经元），其效果等同于训练一个包含 2^N 个子网络（subnetworks）的集成（ensemble）模型。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why do transformers use LayerNorm instead of BatchNorm?",
+      "questionZh": "为什么 Transformer 架构 (Transformer) 使用层归一化 (LayerNorm) 而不是批归一化 (BatchNorm)？",
+      "options": [
+        "LayerNorm is faster to compute",
+        "LayerNorm normalizes across features per sample (batch-independent), which works with variable sequence lengths and small batch sizes",
+        "BatchNorm causes gradient explosion",
+        "LayerNorm was invented more recently"
+      ],
+      "optionsZh": [
+        "层归一化 (Layer Normalization) 的计算速度更快。",
+        "层归一化（Layer Normalization）对每个样本的特征进行归一化（独立于批次），因此适用于可变序列长度和小批量大小（batch size）。",
+        "批归一化（Batch Normalization）导致梯度爆炸（Gradient Explosion）",
+        "层归一化（LayerNorm）是较晚才被提出的。"
+      ],
+      "explanation": "BatchNorm depends on batch statistics, which are noisy with small batches and meaningless with batch size 1 (common during generation). LayerNorm normalizes across features within each sample, independent of batch size.",
+      "explanationZh": "批归一化（Batch Normalization）依赖于批次统计量（batch statistics），在小批次（small batches）下这些统计量噪声较大，而在批次大小为 1（batch size 1）时则失去意义（这在生成阶段十分常见）。层归一化（Layer Normalization）则在每个样本内部跨特征进行归一化，其计算独立于批次大小。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "What is the key difference between RMSNorm and LayerNorm?",
+      "questionZh": "均方根归一化（RMSNorm）与层归一化（LayerNorm）之间的关键区别是什么？",
+      "options": [
+        "RMSNorm uses batch statistics",
+        "RMSNorm skips the mean subtraction, only dividing by the root mean square, giving ~10% speedup with equal accuracy",
+        "RMSNorm adds learnable parameters",
+        "RMSNorm only works on CNNs"
+      ],
+      "optionsZh": [
+        "均方根归一化 (RMSNorm) 使用批次统计量 (batch statistics)",
+        "均方根归一化（RMSNorm）跳过了减去均值的步骤，仅除以均方根，在保持同等精度的前提下，实现了约10%的加速。",
+        "均方根归一化（RMSNorm）引入了可学习参数（learnable parameters）。",
+        "均方根归一化（RMSNorm）仅适用于卷积神经网络（CNN）。"
+      ],
+      "explanation": "RMSNorm removes the mean subtraction step from LayerNorm, which contributes little to accuracy but adds computation. LLaMA, Mistral, and most modern LLMs use RMSNorm for this efficiency gain.",
+      "explanationZh": "均方根归一化 (RMSNorm) 移除了层归一化 (LayerNorm) 中的去均值步骤，该步骤对精度提升贡献有限，却增加了计算开销。LLaMA、Mistral 以及大多数现代大语言模型 (LLMs) 均采用 RMSNorm 以获取这一效率提升。"
+    },
+    {
+      "stage": "post",
+      "correct": 1,
+      "question": "Why is it critical to call model.eval() before running inference in PyTorch?",
+      "questionZh": "为什么在 PyTorch 中运行推理（inference）之前，调用 model.eval() 至关重要？",
+      "options": [
+        "It speeds up computation",
+        "It disables dropout and switches BatchNorm to use running statistics instead of batch statistics, giving deterministic outputs",
+        "It frees GPU memory",
+        "It enables gradient computation"
+      ],
+      "optionsZh": [
+        "它加速了计算（computation）过程。",
+        "它会禁用随机失活（Dropout），并将批归一化（Batch Normalization）切换为使用运行统计量（running statistics）而非批次统计量（batch statistics），从而生成确定性输出（deterministic outputs）。",
+        "它会释放 GPU 显存 (GPU Memory)。",
+        "它支持梯度计算 (gradient computation)。"
+      ],
+      "explanation": "Without model.eval(), dropout randomly zeroes neurons during inference (causing random output variation) and BatchNorm uses current-batch statistics instead of the stable running averages accumulated during training.",
+      "explanationZh": "若未使用 `model.eval()`，在推理 (Inference) 阶段，随机失活 (Dropout) 会随机将神经元置零（导致输出结果随机波动），而批归一化 (Batch Normalization) 则会使用当前批次的统计量，而非训练 (Training) 期间累积的稳定运行平均值 (Running Averages)。"
+    }
+  ]
+}
