@@ -13,11 +13,14 @@ const path = require('path');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const README_PATH = path.join(REPO_ROOT, 'README.md');
+const README_CN_PATH = path.join(REPO_ROOT, 'README.zh.md');
 const ROADMAP_PATH = path.join(REPO_ROOT, 'ROADMAP.md');
+const ROADMAP_CN_PATH = path.join(REPO_ROOT, 'ROADMAP.zh.md');
 const GLOSSARY_PATH = path.join(REPO_ROOT, 'glossary', 'terms.md');
 const OUTPUT_PATH = path.join(__dirname, 'data.js');
 
-const GITHUB_BASE = 'https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/';
+const GITHUB_BASE = 'https://github.com/JunJie-GitHub/ai-engineering-from-scratch-cn/tree/main/';
+const GITHUB_BASE_CN = GITHUB_BASE; // Chinese content is on main branch
 
 // ─── Parse ROADMAP.md for lesson statuses ────────────────────────────
 function parseRoadmap(content) {
@@ -236,8 +239,8 @@ function parseReadme(content, roadmapStatuses) {
  * Both fields are empty strings when the file is absent or has no
  * matching content — expected for planned lessons with no docs yet.
  */
-function extractLessonMeta(relPath) {
-  const docPath = path.join(REPO_ROOT, relPath, 'docs', 'en.md');
+function extractLessonMeta(relPath, lang = 'en') {
+  const docPath = path.join(REPO_ROOT, relPath, 'docs', lang === 'zh' ? 'zh.md' : 'en.md');
   const result = { summary: '', keywords: '' };
   try {
     const lines = fs.readFileSync(docPath, 'utf8').split('\n');
@@ -258,6 +261,91 @@ function extractLessonMeta(relPath) {
     // File absent or unreadable — expected for planned lessons.
   }
   return result;
+}
+
+// ─── Parse Chinese README for nameZh/descZh ──────────────────────────
+function parseChineseReadme(content) {
+  const phases = [];
+  let currentPhase = null;
+  let inTable = false;
+
+  for (const line of content.split('\n')) {
+    // Format A: ### 第 0 阶段：环境设置与工具链 `12 节课`
+    const phaseMatchA = line.match(/###\s+第\s*(\d+)\s*阶段[：:]\s*(.+?)\s*`/);
+    if (phaseMatchA) {
+      const id = parseInt(phaseMatchA[1]);
+      const name = phaseMatchA[2].trim();
+      // Find description in next few lines
+      let desc = '';
+      const allLines = content.split('\n');
+      const idx = allLines.indexOf(line);
+      for (let j = idx + 1; j < Math.min(idx + 5, allLines.length); j++) {
+        if (allLines[j].startsWith('> ')) {
+          desc = allLines[j].replace(/^>\s*/, '').trim();
+          break;
+        }
+      }
+      currentPhase = { id, nameZh: name, descZh: desc, lessons: [] };
+      phases.push(currentPhase);
+      inTable = false;
+      continue;
+    }
+
+    // Format B: <summary><b>... — ...</b> ... <em>desc</em></summary>
+    const summaryMatch = line.match(/<summary>\s*<b>(.+?)<\/b>/);
+    if (summaryMatch) {
+      // Extract phase ID from <details id="phase-N"> on previous line
+      let id = -1;
+      const allLines = content.split('\n');
+      const idx = allLines.indexOf(line);
+      for (let j = idx - 1; j >= Math.max(0, idx - 2); j--) {
+        const dlMatch = allLines[j].match(/<details\s+id="phase-(\d+)"/);
+        if (dlMatch) { id = parseInt(dlMatch[1]); break; }
+      }
+      if (id === -1) continue;
+
+      // Extract Chinese name (everything before the " — " dash)
+      const fullText = summaryMatch[1];
+      const dashIdx = fullText.search(/[-—―–‒]+/);
+      const name = dashIdx > 0 ? fullText.slice(0, dashIdx).trim() : fullText.trim();
+
+      // Extract description from <em>
+      const descMatch = line.match(/<em>(.*?)<\/em>/);
+      const desc = descMatch ? descMatch[1].trim() : '';
+
+      currentPhase = { id, nameZh: name, descZh: desc, lessons: [] };
+      phases.push(currentPhase);
+      inTable = false;
+      continue;
+    }
+
+    // Start of lesson table
+    if (currentPhase && line.match(/^\|\s*(?:#|序号)\s*\|/)) {
+      inTable = true;
+      continue;
+    }
+
+    // Skip separator
+    if (inTable && line.match(/^\|[\s:|-]+\|$/)) continue;
+
+    // Parse lesson row
+    if (inTable && currentPhase && line.startsWith('|')) {
+      const cols = line.split('|').map(c => c.trim()).filter(c => c.length > 0);
+      if (cols.length >= 2) {
+        const lessonCol = cols[1];
+        const linkMatch = lessonCol.match(/\[(.+?)\]/);
+        const lessonName = linkMatch ? linkMatch[1] : lessonCol;
+        currentPhase.lessons.push(lessonName.trim());
+      }
+    }
+
+    // End of table
+    if (inTable && (line.trim() === '' || line.match(/<\/details>/))) {
+      inTable = false;
+    }
+  }
+
+  return phases;
 }
 
 // ─── Parse glossary/terms.md ──────────────────────────────────────────
@@ -320,13 +408,42 @@ function build() {
 
   console.log('📚 Extracting lesson summaries + keywords from docs/en.md...');
   let summarized = 0, withKeywords = 0;
+  let summarizedZh = 0, withKeywordsZh = 0;
+
+  // Parse Chinese README for phase/lesson names
+  let readmeZh = '';
+  try { readmeZh = fs.readFileSync(README_CN_PATH, 'utf8'); } catch (_) {}
+  const chinesePhases = readmeZh ? parseChineseReadme(readmeZh) : [];
+  console.log(`  🇨🇳 Parsed ${chinesePhases.length} Chinese phase names from README.zh.md`);
+
   for (const phase of phases) {
-    for (const lesson of phase.lessons) {
+    // Merge Chinese phase name
+    const cnPhase = chinesePhases.find(cp => cp.id === phase.id);
+    if (cnPhase) {
+      phase.nameZh = cnPhase.nameZh;
+      phase.descZh = cnPhase.descZh;
+    }
+
+    for (let i = 0; i < phase.lessons.length; i++) {
+      const lesson = phase.lessons[i];
       if (lesson.url) {
         const relPath = lesson.url.replace(GITHUB_BASE, '').replace(/\/+$/, '');
         const meta = extractLessonMeta(relPath);
         if (meta.summary)  { lesson.summary  = meta.summary;  summarized++;   }
         if (meta.keywords) { lesson.keywords = meta.keywords; withKeywords++; }
+
+        // Chinese metadata
+        const metaZh = extractLessonMeta(relPath, 'zh');
+        if (metaZh.summary)  { lesson.summaryZh  = metaZh.summary;  summarizedZh++;   }
+        if (metaZh.keywords) { lesson.keywordsZh = metaZh.keywords; withKeywordsZh++; }
+
+        // URL for Chinese version
+        lesson.urlZh = GITHUB_BASE_CN + relPath;
+
+        // Merge Chinese lesson name from README.zh.md (match by index within phase)
+        if (cnPhase && cnPhase.lessons[i]) {
+          lesson.nameZh = cnPhase.lessons[i];
+        }
       }
     }
   }

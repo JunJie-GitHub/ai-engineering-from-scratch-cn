@@ -1,4 +1,14 @@
 (function () {
+  var LANG = localStorage.getItem('lang') || 'en';
+
+  function t(obj) {
+    return LANG === 'zh' && obj.nameZh ? obj.nameZh : obj.name;
+  }
+
+  function tDesc(obj) {
+    return LANG === 'zh' && obj.descZh ? obj.descZh : obj.desc;
+  }
+
   var root = document.documentElement;
   var stored = localStorage.getItem('theme');
   if (stored) {
@@ -12,6 +22,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     initThemeToggle();
+    initLanguage();
     populateStats();
     renderPhases();
     initStaggerIndex();
@@ -21,6 +32,34 @@
     initFadeObserver();
     initScrollExplode();
   });
+
+  function initLanguage() {
+    var toggle = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        LANG = LANG === 'en' ? 'zh' : 'en';
+        localStorage.setItem('lang', LANG);
+        updateLangUI();
+        renderPhases();
+        // Re-render modal if open
+        if (currentPhaseIdx >= 0) {
+          renderModalLessons(PHASES[currentPhaseIdx]);
+          document.getElementById('modalTitle').textContent = t(PHASES[currentPhaseIdx]);
+          document.getElementById('modalDesc').textContent = tDesc(PHASES[currentPhaseIdx]);
+        }
+      });
+    }
+    updateLangUI();
+  }
+
+  function updateLangUI() {
+    var label = document.getElementById('langLabel');
+    if (label) label.textContent = LANG === 'en' ? '中文' : 'EN';
+    var toggle = document.getElementById('langToggle');
+    if (toggle) toggle.classList.toggle('active', LANG === 'zh');
+    document.documentElement.lang = LANG === 'zh' ? 'zh-CN' : 'en';
+  }
 
   function updateThemeIcon() {
     var icon = document.getElementById('themeIcon');
@@ -126,7 +165,7 @@
       var num = String(p.id).padStart(2, '0');
       html += '<div class="toc-row" data-phase="' + i + '">';
       html += '<span class="toc-num">' + roman + '.</span>';
-      html += '<div><span class="toc-status ' + statusClass + '"></span><span class="toc-name">' + escapeHtml(p.name) + '</span></div>';
+      html += '<div><span class="toc-status ' + statusClass + '"></span><span class="toc-name">' + escapeHtml(t(p)) + '</span></div>';
       html += '<span class="toc-meta">' + done + ' / ' + total + '</span>';
       html += '<span class="toc-meta">' + num + '</span>';
       html += '</div>';
@@ -192,8 +231,8 @@
     currentPhaseIdx = idx;
 
     document.getElementById('modalPhaseNum').textContent = 'PHASE ' + String(p.id).padStart(2, '0');
-    document.getElementById('modalTitle').textContent = p.name;
-    document.getElementById('modalDesc').textContent = p.desc;
+    document.getElementById('modalTitle').textContent = t(p);
+    document.getElementById('modalDesc').textContent = tDesc(p);
 
     renderModalLessons(p);
 
@@ -222,9 +261,9 @@
       html += '<div class="modal-lesson' + (userComplete ? ' user-done' : '') + '">';
       html += '<span class="modal-lesson-status ' + statusClass + '"' + (userComplete ? ' title="You completed this lesson"' : '') + '></span>';
       if (l.url) {
-        html += '<a href="' + l.url + '" target="_blank" rel="noopener">' + escapeHtml(l.name) + '</a>';
+        html += '<a href="' + (LANG === 'zh' && l.urlZh ? l.urlZh : l.url) + '" target="_blank" rel="noopener">' + escapeHtml(LANG === 'zh' && l.nameZh ? l.nameZh : l.name) + '</a>';
       } else {
-        html += '<a>' + escapeHtml(l.name) + '</a>';
+        html += '<a>' + escapeHtml(LANG === 'zh' && l.nameZh ? l.nameZh : l.name) + '</a>';
       }
       html += '<span class="modal-lesson-type" data-type="' + escapeHtml(l.type) + '"' + (l.combines ? ' title="Combines: ' + escapeHtml(l.combines) + '"' : '') + '>' + escapeHtml(l.type) + '</span>';
       html += '<span class="modal-lesson-lang">' + escapeHtml(l.lang) + '</span>';
